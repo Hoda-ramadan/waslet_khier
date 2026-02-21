@@ -18,24 +18,26 @@ class LoginviewBody extends StatelessWidget {
 
 class Textfild extends StatelessWidget {
   const Textfild({super.key});
-
+  //final String hint;
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        height: 151,
+        height: 56,
         width: 404,
         child: TextField(
           style: TextStyle(),
 
-          textAlign: TextAlign.end,
+          textAlign: TextAlign.start,
           decoration: InputDecoration(
-            hintTextDirection: TextDirection.rtl,
-            hint: hint,
+            prefixIcon: Icon(),
+            //hintTextDirection: TextDirection.rtl,
+            label: hint,
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
             hintMaxLines: 1,
 
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
           ),
         ),
       ),
