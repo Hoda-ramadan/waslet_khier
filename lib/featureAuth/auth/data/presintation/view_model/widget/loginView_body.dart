@@ -1,45 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:waslet_khier/const.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:waslet_khier/core/class/assets.dart';
+import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/textfield.dart';
 
 class LoginviewBody extends StatelessWidget {
   const LoginviewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(child: Image.asset(Assets.logoimage, width: 151, height: 151)),
-        Textfild(),
-      ],
-    );
-  }
-}
-
-class Textfild extends StatelessWidget {
-  const Textfild({super.key});
-  //final String hint;
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Container(
-        height: 56,
-        width: 404,
-        child: TextField(
-          style: TextStyle(),
-
-          textAlign: TextAlign.start,
-          decoration: InputDecoration(
-            prefixIcon: Icon(),
-            //hintTextDirection: TextDirection.rtl,
-            label: hint,
-            floatingLabelBehavior: FloatingLabelBehavior.auto,
-            hintMaxLines: 1,
-
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(Assets.logoimage, width: 151, height: 151),
+          Textfild(
+            hint: 'البريد الالكتروني',
+            perfixicon: FontAwesomeIcons.envelope,
           ),
-        ),
+          SizedBox(height: 20),
+          Textfild(
+            hint: 'كلمة المرور',
+            perfixicon: Icons.lock_outline,
+            suffixicon: Icons.visibility_off_outlined,
+          ),
+        ],
       ),
     );
   }
