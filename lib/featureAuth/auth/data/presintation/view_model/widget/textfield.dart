@@ -18,7 +18,7 @@ class Textfild extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Container(
         height: 56,
-        width: 404,
+        width: 343,
         child: TextField(
           style: TextStyle(),
 
