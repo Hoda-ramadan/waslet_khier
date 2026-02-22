@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:waslet_khier/feature/Forgetpassword/data/presentation/views_model/forget_password_view.dart';
 import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/login_view.dart';
 
 void main() {
@@ -10,6 +11,10 @@ class Waslet_Khier extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: LoginView(), debugShowCheckedModeBanner: false);
+    return MaterialApp(
+      routes: {"ForgetPassword()": (context) => ForgetPassword()},
+      home: LoginView(),
+      debugShowCheckedModeBanner: false,
+    );
   }
 }
