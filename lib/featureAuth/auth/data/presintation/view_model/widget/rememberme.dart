@@ -16,7 +16,7 @@ class Remeberme extends StatelessWidget {
             Checkbox(value: value, onChanged: onChanged),
             Text("تذكرني"),
             Spacer(),
-            Text("نسيت كلمة المرور"),
+            GestureDetector(child: Text("نسيت كلمة المرور")),
           ],
         ),
       ),

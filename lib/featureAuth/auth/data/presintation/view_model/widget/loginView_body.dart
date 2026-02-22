@@ -34,6 +34,8 @@ class LoginviewBody extends StatelessWidget {
             SizedBox(height: 50),
             Custombuttom(text: "تسجيل الدخول", color: Color(0xFF3A0065)),
             checkhavingAcc(),
+            SizedBox(height: 40),
+            Custombuttom(text: "الدخول كزائر", color: Colors.white),
           ],
         ),
       ),

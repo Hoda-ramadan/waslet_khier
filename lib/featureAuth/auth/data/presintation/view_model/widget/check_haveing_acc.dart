@@ -18,15 +18,17 @@ class checkhavingAcc extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.black,
-                fontWeight: FontWeight(500),
+                fontWeight: FontWeight.w500,
               ),
             ),
-            Text(
-              "تسجيل حساب",
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xFFFF8A3D),
-                fontWeight: FontWeight(500),
+            GestureDetector(
+              child: Text(
+                "تسجيل حساب",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFFFF8A3D),
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ],
