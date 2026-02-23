@@ -42,6 +42,9 @@ class ForgetPasswordView_body extends StatelessWidget {
             text: "التالي",
             color: appcolor,
             textcolor: Colors.white,
+            onPressed: () {
+              Navigator.of(context).pushNamed("VerifycodeView()");
+            },
           ),
           SizedBox(height: 100),
         ],
