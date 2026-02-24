@@ -24,6 +24,9 @@ class checkhavingAcc extends StatelessWidget {
             ),
 
             GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed("CreateAccView()");
+              },
               child: Text(
                 "تسجيل حساب",
                 style: TextStyle(
