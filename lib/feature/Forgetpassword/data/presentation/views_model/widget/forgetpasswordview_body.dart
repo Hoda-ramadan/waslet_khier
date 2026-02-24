@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/core/class/assets.dart';
 import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/custombuttom.dart';
 import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/textfield.dart';
 
@@ -20,7 +21,7 @@ class ForgetPasswordView_body extends StatelessWidget {
             height: 277,
             width: 302,
             child: SvgPicture.asset(
-              'assets/images/forgot-password/bro.svg',
+              Assets.forgetpasswordimage,
               fit: BoxFit.fill,
             ),
           ),

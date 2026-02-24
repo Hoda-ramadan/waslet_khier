@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:waslet_khier/core/class/assets.dart';
 
 class VerifycodeviewBody extends StatelessWidget {
   const VerifycodeviewBody({super.key});
@@ -11,10 +12,7 @@ class VerifycodeviewBody extends StatelessWidget {
         Container(
           height: 277,
           width: 302,
-          child: SvgPicture.asset(
-            'assets/images/two-factor-authentication/rafiki.svg',
-            fit: BoxFit.fill,
-          ),
+          child: SvgPicture.asset(Assets.verifycodeimage, fit: BoxFit.fill),
         ),
         Text(
           "ادخل رمز التحقق",
@@ -32,7 +30,6 @@ class VerifycodeviewBody extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        pincodetextfield(),
       ],
     );
   }

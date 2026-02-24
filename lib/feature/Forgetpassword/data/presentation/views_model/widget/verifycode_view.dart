@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:waslet_khier/feature/Forgetpassword/data/presentation/verifycodeView_body.dart';
-import 'package:waslet_khier/feature/Forgetpassword/data/presentation/views_model/CustomAppbar.dart';
+import 'package:waslet_khier/feature/Forgetpassword/data/presentation/views_model/widget/verifycodeView_body.dart';
+import 'package:waslet_khier/feature/Forgetpassword/data/presentation/views_model/widget/CustomAppbar.dart';
 
 class VerifycodeView extends StatelessWidget {
   const VerifycodeView({super.key});
