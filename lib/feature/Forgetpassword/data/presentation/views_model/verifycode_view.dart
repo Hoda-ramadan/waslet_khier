@@ -4,7 +4,7 @@ import 'package:waslet_khier/feature/Forgetpassword/data/presentation/views_mode
 
 class VerifycodeView extends StatelessWidget {
   const VerifycodeView({super.key});
-
+  //final String codeitem;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

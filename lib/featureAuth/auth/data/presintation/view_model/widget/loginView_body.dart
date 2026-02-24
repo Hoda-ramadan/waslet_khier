@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/class/assets.dart';
-import 'package:waslet_khier/feature/forget_password_view.dart';
+import 'package:waslet_khier/feature/Forgetpassword/data/presentation/views_model/forget_password_view.dart';
 import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/check_haveing_acc.dart';
 import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/custombuttom.dart';
 import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/rememberme.dart';
