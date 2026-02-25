@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/core/class/assets.dart';
 import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/custombuttom.dart';
 import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/textfield.dart';
 
@@ -11,6 +12,14 @@ class CreateAccBody extends StatelessWidget {
     return Center(
       child: Column(
         children: [
+          Image.asset(
+            Assets.personimage,
+            width: 100,
+            height: 100,
+            fit: BoxFit.fill,
+          ),
+          Text("انشاء حساب", style: TextStyle(fontSize: 18)),
+          SizedBox(height: 20),
           Textfild(hint: "الاسم الاول", perfixicon: Icons.person),
           SizedBox(height: 20),
           Textfild(hint: "الاسم الثاني", perfixicon: Icons.person),

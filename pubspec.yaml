@@ -57,6 +57,7 @@ flutter:
     - assets/images/two-factor-authentication/rafiki.svg
     - assets/images/forgot-password/bro.svg
     - assets/images/login/amico.svg
+    - assets/images/radix-icons_avatar (1).png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see
