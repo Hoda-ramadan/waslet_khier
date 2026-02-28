@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:waslet_khier/feature/Forgetpassword/data/presentation/views_model/forget_password_view.dart';
 
 class Remeberme extends StatelessWidget {
   const Remeberme({super.key, this.value = false, this.onChanged});
@@ -16,7 +17,12 @@ class Remeberme extends StatelessWidget {
             Checkbox(value: value, onChanged: onChanged),
             Text("تذكرني"),
             Spacer(),
-            Text("نسيت كلمة المرور"),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed("ForgetPassword()");
+              },
+              child: Text("نسيت كلمة المرور"),
+            ),
           ],
         ),
       ),

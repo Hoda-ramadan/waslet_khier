@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:waslet_khier/feature/Forgetpassword/data/presentation/views_model/forget_password_view.dart';
 
 class checkhavingAcc extends StatelessWidget {
   const checkhavingAcc({super.key});
@@ -21,12 +22,14 @@ class checkhavingAcc extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Text(
-              "تسجيل حساب",
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xFFFF8A3D),
-                fontWeight: FontWeight.w500,
+            GestureDetector(
+              child: Text(
+                "تسجيل حساب",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFFFF8A3D),
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ],
