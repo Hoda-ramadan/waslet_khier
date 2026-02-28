@@ -3,15 +3,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:waslet_khier/const.dart';
 
 class Textfild extends StatelessWidget {
-  const Textfild({
+  Textfild({
     super.key,
     required this.hint,
     required this.perfixicon,
     this.suffixicon,
+    this.onChanged,
   });
   final String hint;
   final IconData perfixicon;
   final IconData? suffixicon;
+  Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -19,7 +21,13 @@ class Textfild extends StatelessWidget {
       child: Container(
         height: 56,
         width: 343,
-        child: TextField(
+        child: TextFormField(
+          validator: (value) {
+            if (value!.isEmpty) {
+              return "القيمة مطلوبة";
+            }
+          },
+          onChanged: onChanged,
           style: TextStyle(),
 
           textAlign: TextAlign.start,
