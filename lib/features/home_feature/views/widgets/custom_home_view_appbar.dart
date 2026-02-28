@@ -30,12 +30,16 @@ class CustomHomeViewAppbar extends StatelessWidget implements PreferredSizeWidge
         ),
         Row(
           children: [
-            Column(
-              children: [
-                 Text('مرجبا', style: TextStyle(color: Colors.white),),
-                 Text('norhan', style: TextStyle(color: Colors.white),)
-              ],
-            ),
+            Text(
+  ' مرحبا\nNourhan',
+  textAlign: TextAlign.center,
+  style: TextStyle(
+    color: const Color(0xFFFCFCFC),
+    fontSize: 12,
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+  ),
+),
             SizedBox(width: 8,),
             CircleAvatar(
             
