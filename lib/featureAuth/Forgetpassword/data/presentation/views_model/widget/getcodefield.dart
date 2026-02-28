@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:waslet_khier/feature/Forgetpassword/data/presentation/views_model/widget/getcode_item.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/getcode_item.dart';
 
 class Getcodefield extends StatelessWidget {
   const Getcodefield({super.key, required this.codeitem});

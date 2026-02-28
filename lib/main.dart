@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:waslet_khier/feature/Forgetpassword/data/presentation/views_model/changepassword_view.dart';
-import 'package:waslet_khier/feature/Forgetpassword/data/presentation/views_model/forget_password_view.dart';
-import 'package:waslet_khier/feature/Forgetpassword/data/presentation/views_model/verifycode_view.dart';
-import 'package:waslet_khier/feature/create_acc/create_acc_view.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/changepassword_view.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/forget_password_view.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/verifycode_view.dart';
+import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
 import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/login_view.dart';
 import 'package:waslet_khier/firebase_options.dart';
 

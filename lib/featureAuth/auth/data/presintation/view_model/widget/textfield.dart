@@ -21,7 +21,12 @@ class Textfild extends StatelessWidget {
       child: Container(
         height: 56,
         width: 343,
-        child: TextField(
+        child: TextFormField(
+          validator: (value) {
+            if (value!.isEmpty) {
+              return "القيمة مطلوبة";
+            }
+          },
           onChanged: onChanged,
           style: TextStyle(),
 
