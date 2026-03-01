@@ -51,7 +51,7 @@ class _CreateAccBodyState extends State<CreateAccBody> {
                 firstname = value;
               },
               hint: "الاسم الاول",
-              perfixicon: Icons.person,
+              prefixicon: Icons.person,
             ),
             SizedBox(height: 20),
             Textfild(
@@ -59,7 +59,7 @@ class _CreateAccBodyState extends State<CreateAccBody> {
                 secondname = value;
               },
               hint: "الاسم الثاني",
-              perfixicon: Icons.person,
+              prefixicon: Icons.person,
             ),
             SizedBox(height: 20),
             Textfild(
@@ -67,7 +67,7 @@ class _CreateAccBodyState extends State<CreateAccBody> {
                 phonnumber = value;
               },
               hint: "رقم الهاتف ",
-              perfixicon: Icons.phone,
+              prefixicon: Icons.phone,
             ),
             SizedBox(height: 20),
             Textfild(
@@ -75,7 +75,7 @@ class _CreateAccBodyState extends State<CreateAccBody> {
                 email = value;
               },
               hint: 'البريد الالكتروني',
-              perfixicon: FontAwesomeIcons.envelope,
+              prefixicon: FontAwesomeIcons.envelope,
             ),
 
             SizedBox(height: 20),
@@ -84,7 +84,7 @@ class _CreateAccBodyState extends State<CreateAccBody> {
                 password1 = value;
               },
               hint: "كلمة المرور",
-              perfixicon: Icons.lock_outline,
+              prefixicon: Icons.lock_outline,
               suffixicon: Icons.visibility_off_outlined,
             ),
             SizedBox(height: 20),
@@ -93,7 +93,7 @@ class _CreateAccBodyState extends State<CreateAccBody> {
                 password2 = value;
               },
               hint: "تاكيد كلمة المرور ",
-              perfixicon: Icons.lock_outline,
+              prefixicon: Icons.lock_outline,
               suffixicon: Icons.visibility_off_outlined,
             ),
             SizedBox(height: 20),

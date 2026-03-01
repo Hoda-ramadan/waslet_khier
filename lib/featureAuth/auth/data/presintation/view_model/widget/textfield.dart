@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:waslet_khier/const.dart';
 
 class Textfild extends StatelessWidget {
   Textfild({
     super.key,
     required this.hint,
-    required this.perfixicon,
+    required this.prefixicon,
     this.suffixicon,
     this.onChanged,
   });
   final String hint;
-  final IconData perfixicon;
+  final IconData prefixicon;
   final IconData? suffixicon;
   Function(String)? onChanged;
   @override
@@ -32,9 +30,9 @@ class Textfild extends StatelessWidget {
 
           textAlign: TextAlign.start,
           decoration: InputDecoration(
-            prefixIcon: Icon(perfixicon),
+            prefixIcon: Icon(prefixicon),
             suffixIcon: IconButton(onPressed: () {}, icon: Icon(suffixicon)),
-            //hintTextDirection: TextDirection.rtl,
+
             label: Text(hint),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             hintMaxLines: 1,

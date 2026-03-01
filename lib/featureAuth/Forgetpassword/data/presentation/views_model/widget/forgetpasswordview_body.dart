@@ -36,7 +36,7 @@ class ForgetPasswordView_body extends StatelessWidget {
           SizedBox(height: 20),
           Textfild(
             hint: "البريد الالكتروني",
-            perfixicon: FontAwesomeIcons.envelope,
+            prefixicon: FontAwesomeIcons.envelope,
           ),
           SizedBox(height: 20),
           Custombuttom(

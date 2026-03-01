@@ -36,7 +36,7 @@ class _LoginviewBodyState extends State<LoginviewBody> {
                 email = value;
               },
               hint: 'البريد الالكتروني',
-              perfixicon: FontAwesomeIcons.envelope,
+              prefixicon: FontAwesomeIcons.envelope,
             ),
             SizedBox(height: 10),
             Textfild(
@@ -44,7 +44,7 @@ class _LoginviewBodyState extends State<LoginviewBody> {
                 password = value;
               },
               hint: 'كلمة المرور',
-              perfixicon: Icons.lock_outline,
+              prefixicon: Icons.lock_outline,
               suffixicon: Icons.visibility_off_outlined,
             ),
             Remeberme(),
