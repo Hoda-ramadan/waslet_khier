@@ -22,7 +22,6 @@ class checkhavingAcc extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-
             GestureDetector(
               onTap: () {
                 Navigator.of(context).pushNamed("CreateAccView()");
