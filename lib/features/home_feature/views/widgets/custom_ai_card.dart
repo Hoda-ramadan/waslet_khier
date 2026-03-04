@@ -83,7 +83,7 @@ class CustomAiCard extends StatelessWidget {
               children: [
                 AiCardDonationImage(width: 118, height: 118), // fixed size
                 SizedBox(height: 8),
-                DonateNowButtom(width: 118, height: 36), // fixed size
+                DonateNowButtom(width: 118, height: 36 ,fontSize: 16,), // fixed size
               ],
             ),
           ],
