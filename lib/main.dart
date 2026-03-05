@@ -4,8 +4,9 @@ import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/forget_password_view.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/verifycode_view.dart';
 import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
-import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/login_view.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/login_view.dart';
 import 'package:waslet_khier/features/home_feature/views/home_page.dart';
+import 'package:waslet_khier/features_charities/charitie_features/data/views/charity_view.dart';
 import 'package:waslet_khier/firebase_options.dart';
 
 void main() async {
@@ -26,7 +27,7 @@ class Waslet_Khier extends StatelessWidget {
         "ChangepasswordView()": (context) => ChangepasswordView(),
         "CreateAccView()": (context) => CreateAccView(),
       },
-      home: HomePage() ,//LoginView(),
+      home: CharityView(), //HomePage(), //LoginView(),
       debugShowCheckedModeBanner: false,
     );
   }
