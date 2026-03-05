@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class DonateNowButtom extends StatelessWidget {
   final double width;
   final double height;
-
-  const DonateNowButtom({super.key, this.width = 118, this.height = 36});
+ final  double fontSize;
+  const DonateNowButtom({super.key, this.width = 118, this.height = 36, required this.fontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class DonateNowButtom extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
-            fontSize: 16,
+            fontSize: fontSize,
             fontWeight: FontWeight.w700,
           ),
         ),
