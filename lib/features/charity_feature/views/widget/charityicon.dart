@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:waslet_khier/const.dart';
 
 class charityicon extends StatelessWidget {
   const charityicon({super.key});
@@ -8,8 +9,11 @@ class charityicon extends StatelessWidget {
     return Container(
       width: 84,
       height: 88,
-      padding: const EdgeInsets.all(6),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: tintAppColor, width: .5),
+      ),
       child: Image.asset(
         "assets/images/57357.png",
         width: 67,
