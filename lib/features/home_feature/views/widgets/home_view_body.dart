@@ -13,22 +13,15 @@ class HomeViewBody extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Center(
-        child: const Column(
-          children: [
-         HomeViewFirstPart(),
-         SizedBox(
-          height: 8,
-         ),
-         CustomAiCard(),
-          SizedBox(
-          height: 10,
-         ),
-          Charities(),
-          SizedBox(
-          height: 10,
-         ),
-       States(),
-        
+        child: const CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(child: HomeViewFirstPart()),
+            SliverToBoxAdapter(child: SizedBox(height: 8)),
+            SliverToBoxAdapter(child: CustomAiCard()),
+            SliverToBoxAdapter(child: SizedBox(height: 10)),
+            SliverToBoxAdapter(child: Charities()),
+            SliverToBoxAdapter(child: SizedBox(height: 10)),
+            SliverToBoxAdapter(child: States()),
           ],
         ),
       ),

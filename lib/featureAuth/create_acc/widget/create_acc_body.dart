@@ -6,8 +6,8 @@ import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/class/assets.dart';
 import 'package:waslet_khier/core/class/showsnackbar.dart';
 import 'package:waslet_khier/core/class/showsuccessdialog.dart';
-import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/custombuttom.dart';
-import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/textfield.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/textfield.dart';
 
 class CreateAccBody extends StatefulWidget {
   CreateAccBody({super.key});

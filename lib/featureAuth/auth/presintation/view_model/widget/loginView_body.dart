@@ -6,10 +6,10 @@ import 'package:waslet_khier/core/class/assets.dart';
 import 'package:waslet_khier/core/class/showsnackbar.dart';
 import 'package:waslet_khier/core/class/showsuccessdialog.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/forget_password_view.dart';
-import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/check_haveing_acc.dart';
-import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/custombuttom.dart';
-import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/rememberme.dart';
-import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/textfield.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/check_haveing_acc.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/rememberme.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/textfield.dart';
 
 class LoginviewBody extends StatefulWidget {
   LoginviewBody({super.key});

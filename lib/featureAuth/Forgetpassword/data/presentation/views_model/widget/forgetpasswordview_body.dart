@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/class/assets.dart';
-import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/custombuttom.dart';
-import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/textfield.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/textfield.dart';
 
 class ForgetPasswordView_body extends StatelessWidget {
   const ForgetPasswordView_body({super.key});

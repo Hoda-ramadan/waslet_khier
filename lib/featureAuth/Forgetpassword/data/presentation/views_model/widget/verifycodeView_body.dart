@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/class/assets.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/getcodefield.dart';
-import 'package:waslet_khier/featureAuth/auth/data/presintation/view_model/widget/custombuttom.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
 
 class VerifycodeviewBody extends StatelessWidget {
   const VerifycodeviewBody({super.key});
