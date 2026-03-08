@@ -5,7 +5,6 @@ import 'package:waslet_khier/const.dart';
 class CustomHomeViewAppbar extends StatelessWidget implements PreferredSizeWidget  {
   const CustomHomeViewAppbar({super.key});
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(70);
   @override
   Widget build(BuildContext context) {
