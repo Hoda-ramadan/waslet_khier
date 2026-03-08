@@ -11,7 +11,10 @@ class CharityDetelsView extends StatelessWidget {
     return Scaffold(
       backgroundColor: backGroundColor,
       appBar: AppBar(title: Customappbar(), automaticallyImplyLeading: false),
-      body: Center(child: CharityDetailsView_body()),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: Center(child: CharityDetailsView_body()),
+      ),
     );
   }
 }
