@@ -6,6 +6,8 @@ import 'package:waslet_khier/features/home_feature/views/home_detals_view.dart';
 import 'package:waslet_khier/features/home_feature/views/home_page.dart';
 import 'package:waslet_khier/features/main_feature/views/main_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/profile_view.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/personinfo_view.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/profile_view_body.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -27,8 +29,7 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'details',
-                  builder: (context, state) =>
-                      const HomeDetalsView(),
+                  builder: (context, state) => const HomeDetalsView(),
                 ),
               ],
             ),
@@ -61,6 +62,10 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: '/profile',
               builder: (context, state) => const ProfileView(),
+            ),
+            GoRoute(
+              path: '/personInfo',
+              builder: (context, state) => const PersonInfo_view(),
             ),
           ],
         ),
