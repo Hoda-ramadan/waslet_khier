@@ -21,7 +21,10 @@ class PersoninfoView_body extends StatelessWidget {
               height: 105,
             ),
             SizedBox(height: 20),
-            SizedBox(height: 20, child: Text("الاسم الاول")),
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: Container(height: 20, child: Text("الاسم الاول")),
+            ),
             customtextformfeild(initalvalue: 'Nourhan', icon: Icons.person),
             SizedBox(height: 20, child: Text("الاسم التانى")),
             customtextformfeild(initalvalue: "Faisal", icon: Icons.person),
@@ -35,7 +38,7 @@ class PersoninfoView_body extends StatelessWidget {
               initalvalue: "011234556",
               icon: Icons.smartphone,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 30),
             GestureDetector(
               child: Directionality(
                 textDirection: TextDirection.rtl,
@@ -50,12 +53,14 @@ class PersoninfoView_body extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 30),
             Custombuttom(
               onPressed: () {},
               text: "حفظ التعديلات",
               color: appcolor,
               textcolor: Colors.white,
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),
