@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/login_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/personinfo_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/profile_item.dart';
 
@@ -21,7 +21,7 @@ class ProfileViewBody extends StatelessWidget {
           ),
           Text("Nourhan"),
           SizedBox(height: 20),
-          GestureDetector(
+          profileItem(
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -31,10 +31,8 @@ class ProfileViewBody extends StatelessWidget {
                 ),
               );
             },
-            child: profileItem(
-              icon: Icons.person_outlined,
-              text: 'المعلومات الشخصية',
-            ),
+            icon: Icons.person_outlined,
+            text: 'المعلومات الشخصية',
           ),
           SizedBox(height: 20),
           profileItem(
@@ -51,6 +49,15 @@ class ProfileViewBody extends StatelessWidget {
           profileItem(icon: Icons.error_outline, text: "حول التطبيق"),
           SizedBox(height: 20),
           profileItem(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return LoginView();
+                  },
+                ),
+              );
+            },
             icon: Icons.logout,
             text: "تسجيل الخروج",
             color: Colors.red,

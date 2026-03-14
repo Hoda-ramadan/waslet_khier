@@ -6,7 +6,7 @@ class Textfild extends StatelessWidget {
     super.key,
     required this.hint,
     required this.prefixicon,
-    this.suffixicon,
+    this.suffixicon = null,
     this.onChanged,
   });
   final String hint;
@@ -19,7 +19,8 @@ class Textfild extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Container(
         height: 56,
-        width: 343,
+        width: double.infinity,
+        color: Colors.white,
         child: TextFormField(
           validator: (value) {
             if (value!.isEmpty) {

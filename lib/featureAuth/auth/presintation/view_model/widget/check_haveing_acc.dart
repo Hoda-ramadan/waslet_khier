@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/forget_password_view.dart';
+import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
 
 class checkhavingAcc extends StatelessWidget {
   const checkhavingAcc({super.key});
@@ -24,7 +25,13 @@ class checkhavingAcc extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed("CreateAccView()");
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return CreateAccView();
+                    },
+                  ),
+                );
               },
               child: Text(
                 "تسجيل حساب",

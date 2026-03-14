@@ -17,7 +17,7 @@ class Custombuttom extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 56,
-      width: 343,
+      width: double.infinity,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -28,7 +28,15 @@ class Custombuttom extends StatelessWidget {
             borderRadius: BorderRadiusGeometry.circular(8),
           ),
         ),
-        child: Text(text, style: TextStyle(fontSize: 18, color: textcolor)),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 18,
+            color: textcolor,
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
