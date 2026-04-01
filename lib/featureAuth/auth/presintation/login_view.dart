@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/loginView_body.dart';
 
 class LoginView extends StatelessWidget {
@@ -6,6 +7,6 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: LoginviewBody());
+    return Scaffold(backgroundColor: backGroundColor, body: LoginviewBody());
   }
 }

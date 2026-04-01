@@ -19,7 +19,13 @@ class Remeberme extends StatelessWidget {
             Spacer(),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed("ForgetPassword()");
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ForgetPassword();
+                    },
+                  ),
+                );
               },
               child: Text("نسيت كلمة المرور"),
             ),
