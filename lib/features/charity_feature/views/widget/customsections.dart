@@ -9,9 +9,14 @@ class CustomSections extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      // mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Text("الاقسام", style: TextStyle(fontSize: 24)),
+        Text(
+          "الاقسام",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+        ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SectionsOfCharity(
               icon: FontAwesomeIcons.handHoldingHeart,

@@ -13,7 +13,7 @@ class ProfileViewBody extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
             "assets/images/radix-icons_avatar (1).png",

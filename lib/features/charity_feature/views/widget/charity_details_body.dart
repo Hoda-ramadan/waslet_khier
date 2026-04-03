@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:waslet_khier/const.dart';
-import 'package:waslet_khier/features/charity_feature/views/widget/card_of_charity.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charityimage.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/collectionOfcards.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/customsections.dart';
-import 'package:waslet_khier/features/charity_feature/views/widget/sections_of_charity.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/personinfo_view.dart';
 
 class CharityDetailsView_body extends StatelessWidget {
@@ -14,12 +10,21 @@ class CharityDetailsView_body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.max,
       children: [
         SizedBox(height: 10),
         Customappbar(),
 
         Charity_image(),
-        Text("جمعية رسالة", style: TextStyle(fontSize: 24)),
+        Text(
+          "جمعية رسالة",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            fontFamily: "Roboto",
+            color: Colors.black,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
@@ -28,6 +33,7 @@ class CharityDetailsView_body extends StatelessWidget {
               fontSize: 14,
               fontFamily: "Roboto",
               color: Color(0xFF696B6A),
+              fontWeight: FontWeight.w600,
             ),
             textAlign: TextAlign.center,
           ),

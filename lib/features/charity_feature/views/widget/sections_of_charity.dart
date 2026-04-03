@@ -17,14 +17,14 @@ class SectionsOfCharity extends StatelessWidget {
       height: 58,
       width: 104,
       decoration: BoxDecoration(
-        border: Border.all(color: tintAppColor, width: .5),
+        border: Border.all(color: tintAppColor),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(icon, color: iconcolor),
-          Text(name),
+          Text(name, style: TextStyle(fontWeight: FontWeight.w600)),
         ],
       ),
     );

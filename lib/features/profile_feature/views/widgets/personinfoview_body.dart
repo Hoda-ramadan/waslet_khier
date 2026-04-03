@@ -2,37 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/customtextformfeild.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
 class PersoninfoView_body extends StatelessWidget {
   const PersoninfoView_body({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Image.asset(
-              "assets/images/radix-icons_avatar (1).png",
-              width: 70,
-              height: 105,
+            SizedBox(height: 10),
+            customappbar(text: "المعلومات الشخصية"),
+            Center(
+              child: Image.asset(
+                "assets/images/radix-icons_avatar (1).png",
+                width: 70,
+                height: 105,
+              ),
             ),
             SizedBox(height: 20),
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: Container(height: 20, child: Text("الاسم الاول")),
+            Text(
+              "الاسم الاول",
+              style: TextStyle(fontSize: 16, fontFamily: "Roboto"),
             ),
             customtextformfeild(initalvalue: 'Nourhan', icon: Icons.person),
-            SizedBox(height: 20, child: Text("الاسم التانى")),
+            SizedBox(height: 10),
+            Text(
+              "الاسم التانى",
+              style: TextStyle(fontSize: 16, fontFamily: "Roboto"),
+            ),
             customtextformfeild(initalvalue: "Faisal", icon: Icons.person),
-            SizedBox(height: 20, child: Text("البريد الالكتروني")),
+            SizedBox(height: 10),
+            Text(
+              "البريد الالكتروني",
+              style: TextStyle(fontSize: 16, fontFamily: "Roboto"),
+            ),
             customtextformfeild(
               initalvalue: "nour@gmail.com",
               icon: Icons.email,
             ),
-            SizedBox(height: 20, child: Text("رقم الهاتف")),
+            SizedBox(height: 10),
+            Text(
+              "رقم الهاتف",
+              style: TextStyle(fontSize: 16, fontFamily: "Roboto"),
+            ),
             customtextformfeild(
               initalvalue: "011234556",
               icon: Icons.smartphone,
@@ -56,7 +73,7 @@ class PersoninfoView_body extends StatelessWidget {
             Custombuttom(
               onPressed: () {},
               text: "حفظ التعديلات",
-              color: appcolor,
+              color: tintAppColor,
               textcolor: Colors.white,
             ),
             SizedBox(height: 20),

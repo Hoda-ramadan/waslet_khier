@@ -15,7 +15,7 @@ class CardOfCharity extends StatelessWidget {
       width: 104,
       height: 91,
       decoration: BoxDecoration(
-        border: Border.all(color: tintAppColor, width: .5),
+        border: Border.all(color: tintAppColor),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Center(
@@ -23,7 +23,7 @@ class CardOfCharity extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, color: tintAppColor),
-            Text(charitydata),
+            Text(charitydata, style: TextStyle(fontWeight: FontWeight.w600)),
           ],
         ),
       ),

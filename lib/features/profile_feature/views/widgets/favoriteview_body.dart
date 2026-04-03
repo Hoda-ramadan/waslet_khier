@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
 import 'package:waslet_khier/features/home_feature/data/models/state_model.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/state_view.dart';
 
 class FavoriteView_body extends StatelessWidget {
@@ -14,6 +15,9 @@ class FavoriteView_body extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
+            SizedBox(height: 10),
+            customappbar(text: "المفضلة"),
+            SizedBox(height: 20),
             Image.asset(
               "assets/images/no-data/pana.png",
               width: double.infinity,
@@ -22,7 +26,11 @@ class FavoriteView_body extends StatelessWidget {
             SizedBox(height: 20),
             Text(
               "قاىْمة المفضلة فارغة",
-              style: TextStyle(fontSize: 24, fontFamily: "Roboto"),
+              style: TextStyle(
+                fontSize: 24,
+                fontFamily: "Roboto",
+                fontWeight: FontWeight.w600,
+              ),
             ),
             SizedBox(height: 20),
             Padding(
@@ -33,6 +41,7 @@ class FavoriteView_body extends StatelessWidget {
                   fontSize: 14,
                   fontFamily: "Roboto",
                   color: Color(0xFF696B6A),
+                  fontWeight: FontWeight.w600,
                 ),
                 textAlign: TextAlign.center,
               ),

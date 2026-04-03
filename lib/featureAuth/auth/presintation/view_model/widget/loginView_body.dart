@@ -34,9 +34,7 @@ class _LoginviewBodyState extends State<LoginviewBody> {
               Image.asset(Assets.logoimage, width: 151, height: 151),
               SizedBox(height: 30),
               Textfild(
-                onChanged: (value) {
-                  email = value;
-                },
+                onChanged: (value) {},
                 hint: 'البريد الالكتروني',
                 prefixicon: FontAwesomeIcons.envelope,
               ),

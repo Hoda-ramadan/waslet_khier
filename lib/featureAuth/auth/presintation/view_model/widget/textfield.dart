@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
 
-class Textfild extends StatelessWidget {
+class Textfild extends StatefulWidget {
   Textfild({
     super.key,
     required this.hint,
@@ -15,6 +15,12 @@ class Textfild extends StatelessWidget {
   final IconData? suffixicon;
   Function(String)? onChanged;
   final String? focsNode;
+
+  @override
+  State<Textfild> createState() => _TextfildState();
+}
+
+class _TextfildState extends State<Textfild> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -29,15 +35,18 @@ class Textfild extends StatelessWidget {
               return "القيمة مطلوبة";
             }
           },
-          onChanged: onChanged,
+          onChanged: widget.onChanged,
           style: TextStyle(),
 
           textAlign: TextAlign.start,
           decoration: InputDecoration(
-            prefixIcon: Icon(prefixicon),
-            suffixIcon: IconButton(onPressed: () {}, icon: Icon(suffixicon)),
+            prefixIcon: Icon(widget.prefixicon),
+            suffixIcon: IconButton(
+              onPressed: () {},
+              icon: Icon(widget.suffixicon),
+            ),
 
-            label: Text(hint),
+            label: Text(widget.hint),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             hintMaxLines: 1,
 

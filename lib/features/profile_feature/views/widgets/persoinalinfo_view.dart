@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_arrow.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/personinfoview_body.dart';
 
@@ -9,7 +10,7 @@ class PersonInfo_view extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: customappbar(), automaticallyImplyLeading: false),
+      appBar: CustomAppBar(),
       backgroundColor: backGroundColor,
       body: PersoninfoView_body(),
     );
@@ -17,8 +18,8 @@ class PersonInfo_view extends StatelessWidget {
 }
 
 class customappbar extends StatelessWidget {
-  const customappbar({super.key});
-
+  const customappbar({super.key, required this.text});
+  final String text;
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -26,7 +27,19 @@ class customappbar extends StatelessWidget {
       child: AppBar(
         backgroundColor: backGroundColor,
         leading: Center(child: Custom_arrow()),
-        title: Center(child: Text("المعلومات الشخصية")),
+        title: Row(
+          children: [
+            SizedBox(width: 35),
+            Text(
+              text,
+              style: TextStyle(
+                fontSize: 19,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Roboto",
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
