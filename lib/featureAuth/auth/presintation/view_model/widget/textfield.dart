@@ -21,6 +21,24 @@ class Textfild extends StatefulWidget {
 }
 
 class _TextfildState extends State<Textfild> {
+  final TextEditingController controller = TextEditingController();
+  final FocusNode focusNode = FocusNode();
+
+  bool isObscure = true;
+  void initState() {
+    super.initState();
+    focusNode.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    focusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(

@@ -10,20 +10,17 @@ class CasesViewBody extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(12),
       child: GridView.builder(
-            itemCount: 6,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // 🔥 2 cards in row
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 0.67,
-            ),
-            itemBuilder: (context, index) {
-              return  StatesCard(stateModel: StateModel());
-            },
-          ),
+        itemCount: 6,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          childAspectRatio: 0.67,
+        ),
+        itemBuilder: (context, index) {
+          return StatesCard(stateModel: StateModel());
+        },
+      ),
     );
-    
-    
   }
 }
-
