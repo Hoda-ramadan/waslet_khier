@@ -7,7 +7,7 @@ class Listofcharitys extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 10,
+      itemCount: 15,
       itemBuilder: (context, item) {
         return CharityItem();
       },

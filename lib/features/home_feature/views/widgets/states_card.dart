@@ -12,146 +12,136 @@ final StateModel stateModel ;
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        width:  175,
-      
-        
-        decoration: ShapeDecoration(
-      color:  Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+      decoration: ShapeDecoration(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        shadows: const [
+          BoxShadow(
+            color: Color(0x19000000),
+            blurRadius: 4,
+            offset: Offset(2, 2),
+          )
+        ],
       ),
-      shadows: [
-        BoxShadow(
-          color: Color(0x19000000),
-          blurRadius: 4,
-          offset: Offset(4, 4),
-          spreadRadius: 0,
-        )
-      ],
-        ),
-        child: Column(
-      children: [
-        Container(
-          width: 175,
-          height: 109,
-          decoration: ShapeDecoration(
-            image: DecorationImage(
-        image: AssetImage(stateModel!.statesImage),
-        fit: BoxFit.cover,
-            ),
-            shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 🔹 Image
+          ClipRRect(
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(16)),
+            child: Image.asset(
+              stateModel.statesImage,
+              height: 110,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
           ),
-        ),
-      
-         Padding(
-       padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 16),
-       child: Column(
-         
-         children: [
-           SizedBox(
-             width: 154,
-             child: Text(
-            stateModel.stateName,
-            textAlign: TextAlign.right,
-            style: TextStyle(
-              color: const Color(0xFF040504),
-              fontSize: 10,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w500,
-            ),
-             ),
-           ), 
-           
-             Text(
-              stateModel.stateDecription,
-            textAlign: TextAlign.right,
-            style: TextStyle(
-              color: const Color(0xFF686B6A) /* gray-dark */,
-              fontSize: 6,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w400,
-            ),
-             ),  
-             Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-             
-              Text(
-              stateModel.stateOrganzatio,  textAlign: TextAlign.right,
-              style: TextStyle(
-                color: const Color(0xFF686B6A),
-                fontSize: 8,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w500,
-              ),
-              ),
-                Image.asset('assets/images/bx_buildings.png' ,width: 16,
-              height: 16,),
-            ],
-             ), 
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-            Text(
-              stateModel.persantage.toString()+'%',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: const Color(0xFF686B6A) /* gray-dark */,
-                fontSize: 12,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            Text(
-             'المبلغ المتبقي:\n',
-             textAlign: TextAlign.end,
-                  style: TextStyle(
-                    color: const Color(0xFF686B6A) /* gray-dark */,
-                    fontSize: 6,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w400,
+
+          // 🔥 ده اللي بيخلي المحتوى يتمدد
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // 🔹 Title
+                  Text(
+                    stateModel.stateName,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-            ),
-             ],
-           ), 
-           Text(stateModel.remandMony.toString(),
-           textAlign: TextAlign.end,
-                  style: TextStyle(
-                    color: appcolor,
-                    fontSize: 6,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w400,
-                  ),),
-                  SizedBox(
-                    height: 2,
-                    child: ProgressBarWithLabel(progress: 0.5)),
-                    SizedBox(
-                      height: 5
-                    ), 
-           
+
+                  const SizedBox(height: 4),
+
+                  // 🔹 Description
+                  Text(
+                    stateModel.stateDecription,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 10),
+                  ),
+
+                  const SizedBox(height: 6),
+
+                  // 🔹 Organization
                   Row(
                     children: [
-                      DetalsButtom(fontSize: 10,width: 75,
-                      height: 28,
+                      Image.asset(
+                        'assets/images/bx_buildings.png',
+                        width: 14,
+                        height: 14,
                       ),
-                      SizedBox(width: 5,),
-                      DonateNowButtom(width: 75,
-                      height: 28,
-                      fontSize: 10,
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          stateModel.stateOrganzatio,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(fontSize: 10),
+                        ),
                       ),
                     ],
                   ),
-         ],
-       ),
-         )
-      ],
-        ),
-        ),
+
+                  const SizedBox(height: 6),
+
+                  // 🔹 Percentage
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("${stateModel.persantage}%"),
+                      const Text("المبلغ المتبقي",
+                          style: TextStyle(fontSize: 8)),
+                    ],
+                  ),
+
+                  Text(
+                    stateModel.remandMony.toString(),
+                    style: TextStyle(color: appcolor, fontSize: 10),
+                  ),
+
+                  const SizedBox(height: 4),
+
+                  // 🔹 Progress
+                  SizedBox(
+                    height: 4,
+                    child: ProgressBarWithLabel(
+                      progress: stateModel.persantage / 100,
+                    ),
+                  ),
+
+                  // 🔥 ده بيدفع الأزرار لتحت
+                  const Spacer(),
+
+                  // 🔹 Buttons
+                  Row(
+                    children: [
+                      Expanded(
+                        child: DetalsButtom(
+                          height: 30,
+                          fontSize: 10,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: DonateNowButtom(
+                          height: 30,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    )
     );
   }
 }
