@@ -12,7 +12,7 @@ class CharityPageBody extends StatelessWidget {
       child: Center(
         child: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(child: SizedBox(height: 60)),
+            SliverToBoxAdapter(child: SizedBox(height: 40)),
             SliverToBoxAdapter(child: Customtextfeild()),
             SliverToBoxAdapter(child: SizedBox(height: 30)),
             SliverToBoxAdapter(

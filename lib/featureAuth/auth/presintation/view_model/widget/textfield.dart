@@ -8,11 +8,13 @@ class Textfild extends StatelessWidget {
     required this.prefixicon,
     this.suffixicon = null,
     this.onChanged,
+    this.focsNode,
   });
   final String hint;
   final IconData prefixicon;
   final IconData? suffixicon;
   Function(String)? onChanged;
+  final String? focsNode;
   @override
   Widget build(BuildContext context) {
     return Directionality(

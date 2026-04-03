@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/login_view.dart';
-import 'package:waslet_khier/features/profile_feature/views/widgets/personinfo_view.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/profile_item.dart';
 
 class ProfileViewBody extends StatelessWidget {
@@ -23,19 +24,16 @@ class ProfileViewBody extends StatelessWidget {
           SizedBox(height: 20),
           profileItem(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return PersonInfo_view();
-                  },
-                ),
-              );
+              context.push('/profile/personInfo');
             },
             icon: Icons.person_outlined,
             text: 'المعلومات الشخصية',
           ),
           SizedBox(height: 20),
           profileItem(
+            onTap: () {
+              context.push('/profile/faviorate');
+            },
             icon: Icons.favorite_border,
             text: "المفضلة",
             color: Colors.red,
@@ -50,13 +48,7 @@ class ProfileViewBody extends StatelessWidget {
           SizedBox(height: 20),
           profileItem(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return LoginView();
-                  },
-                ),
-              );
+              context.push('/profile/logout');
             },
             icon: Icons.logout,
             text: "تسجيل الخروج",

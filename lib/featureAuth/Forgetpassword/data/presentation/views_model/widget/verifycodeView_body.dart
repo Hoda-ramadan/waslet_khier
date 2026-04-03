@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/class/assets.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/getcodefield.dart';
@@ -43,7 +44,7 @@ class VerifycodeviewBody extends StatelessWidget {
             color: appcolor,
             textcolor: Colors.white,
             onPressed: () {
-              Navigator.of(context).pushNamed("ChangepasswordView()");
+              context.push('/profile/logout/forgetpassword');
             },
           ),
           SizedBox(height: 10),

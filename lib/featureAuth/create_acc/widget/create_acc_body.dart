@@ -35,99 +35,101 @@ class _CreateAccBodyState extends State<CreateAccBody> {
     return Center(
       child: Form(
         key: formkey,
-        child: Column(
-          // mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              Assets.personimage,
-              width: 100,
-              height: 100,
-              fit: BoxFit.fill,
-            ),
-            Text("انشاء حساب", style: TextStyle(fontSize: 18)),
-            SizedBox(height: 20),
-            Textfild(
-              onChanged: (value) {
-                firstname = value;
-              },
-              hint: "الاسم الاول",
-              prefixicon: Icons.person,
-            ),
-            SizedBox(height: 20),
-            Textfild(
-              onChanged: (value) {
-                secondname = value;
-              },
-              hint: "الاسم الثاني",
-              prefixicon: Icons.person,
-            ),
-            SizedBox(height: 20),
-            Textfild(
-              onChanged: (value) {
-                phonnumber = value;
-              },
-              hint: "رقم الهاتف ",
-              prefixicon: Icons.phone,
-            ),
-            SizedBox(height: 20),
-            Textfild(
-              onChanged: (value) {
-                email = value;
-              },
-              hint: 'البريد الالكتروني',
-              prefixicon: FontAwesomeIcons.envelope,
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            // mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                Assets.personimage,
+                width: 100,
+                height: 100,
+                fit: BoxFit.fill,
+              ),
+              Text("انشاء حساب", style: TextStyle(fontSize: 18)),
+              SizedBox(height: 20),
+              Textfild(
+                onChanged: (value) {
+                  firstname = value;
+                },
+                hint: "الاسم الاول",
+                prefixicon: Icons.person,
+              ),
+              SizedBox(height: 20),
+              Textfild(
+                onChanged: (value) {
+                  secondname = value;
+                },
+                hint: "الاسم الثاني",
+                prefixicon: Icons.person,
+              ),
+              SizedBox(height: 20),
+              Textfild(
+                onChanged: (value) {
+                  phonnumber = value;
+                },
+                hint: "رقم الهاتف ",
+                prefixicon: Icons.phone,
+              ),
+              SizedBox(height: 20),
+              Textfild(
+                onChanged: (value) {
+                  email = value;
+                },
+                hint: 'البريد الالكتروني',
+                prefixicon: FontAwesomeIcons.envelope,
+              ),
 
-            SizedBox(height: 20),
-            Textfild(
-              onChanged: (value) {
-                password1 = value;
-              },
-              hint: "كلمة المرور",
-              prefixicon: Icons.lock_outline,
-              suffixicon: Icons.visibility_off_outlined,
-            ),
-            SizedBox(height: 20),
-            Textfild(
-              onChanged: (value) {
-                password2 = value;
-              },
-              hint: "تاكيد كلمة المرور ",
-              prefixicon: Icons.lock_outline,
-              suffixicon: Icons.visibility_off_outlined,
-            ),
-            SizedBox(height: 20),
-            Custombuttom(
-              onPressed: () async {
-                if (password1 != password2) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("كلمتا المرور غير متطابقتين"),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                  return;
-                }
-                if (formkey.currentState!.validate()) {
-                  try {
-                    await regester_user(context);
-                  } on FirebaseAuthException catch (e) {
-                    showsnackbar(e, context);
-                  } catch (ex) {
+              SizedBox(height: 20),
+              Textfild(
+                onChanged: (value) {
+                  password1 = value;
+                },
+                hint: "كلمة المرور",
+                prefixicon: Icons.lock_outline,
+                suffixicon: Icons.visibility_off_outlined,
+              ),
+              SizedBox(height: 20),
+              Textfild(
+                onChanged: (value) {
+                  password2 = value;
+                },
+                hint: "تاكيد كلمة المرور ",
+                prefixicon: Icons.lock_outline,
+                suffixicon: Icons.visibility_off_outlined,
+              ),
+              SizedBox(height: 20),
+              Custombuttom(
+                onPressed: () async {
+                  if (password1 != password2) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(ex.toString()),
+                        content: Text("كلمتا المرور غير متطابقتين"),
                         backgroundColor: Colors.red,
                       ),
                     );
+                    return;
                   }
-                }
-              },
-              text: "انشاء",
-              color: appcolor,
-              textcolor: Colors.white,
-            ),
-          ],
+                  if (formkey.currentState!.validate()) {
+                    try {
+                      await regester_user(context);
+                    } on FirebaseAuthException catch (e) {
+                      showsnackbar(e, context);
+                    } catch (ex) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(ex.toString()),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  }
+                },
+                text: "انشاء",
+                color: appcolor,
+                textcolor: Colors.white,
+              ),
+            ],
+          ),
         ),
       ),
     );

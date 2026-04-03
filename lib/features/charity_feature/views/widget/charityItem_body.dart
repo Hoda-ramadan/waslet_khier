@@ -9,25 +9,29 @@ class charityitem_body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Row(
-        children: [
-          charityicon(),
-          SizedBox(width: 10),
-          Text("charity name", style: TextStyle(fontSize: 18)),
-          SizedBox(width: 90),
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return CharityDetelsView();
-                  },
-                ),
-              );
-            },
-            icon: Icon(Icons.arrow_forward_ios_outlined),
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: Row(
+          children: [
+            charityicon(),
+
+            SizedBox(width: 15),
+            Text("مركز علاج الأورام بسوهاج", style: TextStyle(fontSize: 18)),
+            SizedBox(width: 25),
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return CharityDetelsView();
+                    },
+                  ),
+                );
+              },
+              icon: Icon(Icons.arrow_forward_ios_outlined),
+            ),
+          ],
+        ),
       ),
     );
   }

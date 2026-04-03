@@ -5,6 +5,7 @@ import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/class/assets.dart';
 import 'package:waslet_khier/core/class/showsnackbar.dart';
 import 'package:waslet_khier/core/class/showsuccessdialog.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/check_haveing_acc.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/rememberme.dart';
@@ -40,14 +41,7 @@ class _LoginviewBodyState extends State<LoginviewBody> {
                 prefixicon: FontAwesomeIcons.envelope,
               ),
               SizedBox(height: 10),
-              Textfild(
-                onChanged: (value) {
-                  password = value;
-                },
-                hint: 'كلمة المرور',
-                prefixicon: Icons.lock_outline,
-                suffixicon: Icons.visibility_off_outlined,
-              ),
+              CustomTextField(),
               SizedBox(height: 10),
               Remeberme(),
               SizedBox(height: 30),

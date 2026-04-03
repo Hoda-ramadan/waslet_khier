@@ -12,10 +12,10 @@ class charityicon extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: tintAppColor, width: .5),
+        border: Border.all(color: tintAppColor),
       ),
       child: Image.asset(
-        "assets/images/57357.png",
+        "assets/images/مركز علاج الاورام.png",
         width: 67,
         height: 67,
         fit: BoxFit.contain,

@@ -8,11 +8,13 @@ class Custombuttom extends StatelessWidget {
     required this.color,
     required this.textcolor,
     this.onPressed,
+    this.icon,
   });
   final String text;
   final Color color;
   final Color textcolor;
   final void Function()? onPressed;
+  final IconData? icon;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -28,14 +30,20 @@ class Custombuttom extends StatelessWidget {
             borderRadius: BorderRadiusGeometry.circular(8),
           ),
         ),
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 18,
-            color: textcolor,
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.bold,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                fontSize: 18,
+                color: textcolor,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Icon(icon, color: Colors.white, size: 20),
+          ],
         ),
       ),
     );
