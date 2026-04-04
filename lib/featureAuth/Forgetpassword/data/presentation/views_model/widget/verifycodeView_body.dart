@@ -3,8 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/class/assets.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/CustomAppbar.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/getcodefield.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
 class VerifycodeviewBody extends StatelessWidget {
   const VerifycodeviewBody({super.key});
@@ -13,8 +15,8 @@ class VerifycodeviewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Custom_Appbar(),
           Container(
             height: 277,
             width: 302,
@@ -44,7 +46,9 @@ class VerifycodeviewBody extends StatelessWidget {
             color: appcolor,
             textcolor: Colors.white,
             onPressed: () {
-              context.push('/profile/logout/forgetpassword');
+              context.push(
+                '/profile/logout/forgetpassword/VerifycodeView/ChangepasswordView',
+              );
             },
           ),
           SizedBox(height: 10),

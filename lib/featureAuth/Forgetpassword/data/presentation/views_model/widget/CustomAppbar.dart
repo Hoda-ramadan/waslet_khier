@@ -7,7 +7,7 @@ class Custom_Appbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: backGroundColor,
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);

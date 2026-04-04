@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/class/assets.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/CustomAppbar.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/textfield.dart';
 
@@ -12,45 +14,50 @@ class ForgetPasswordView_body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Custom_Appbar(),
+            SizedBox(height: 20),
+            Container(
+              height: 277,
+              width: 302,
+              child: SvgPicture.asset(
+                Assets.forgetpasswordimage,
+                fit: BoxFit.fill,
+              ),
+            ),
+            SizedBox(height: 20),
+            ListTile(
+              title: Text("هل نسيت كلمة المرور؟", textAlign: TextAlign.end),
+              subtitle: Text(
+                "يرجى ادخال البريد الالكتروني لتغيير كلمة المرور",
+                textAlign: TextAlign.end,
+              ),
+            ),
+            SizedBox(height: 20),
 
-        children: [
-          Container(
-            height: 277,
-            width: 302,
-            child: SvgPicture.asset(
-              Assets.forgetpasswordimage,
-              fit: BoxFit.fill,
+            CustomTextField(
+              labelText: "البريد الالكتروني",
+              hintTtxt: "",
+              prefxIcon: FontAwesomeIcons.envelope,
+              isSuffixIcon: false,
             ),
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 100),
-            child: ListTile(
-              title: Text("هل نسيت كلمة المرور؟"),
-              subtitle: Text("يرجى ادخال البريد الالكتروني لتغيير كلمة المرور"),
+            SizedBox(height: 20),
+            Custombuttom(
+              text: "التالي",
+              color: appcolor,
+              textcolor: Colors.white,
+              onPressed: () {
+                context.push('/profile/logout/forgetpassword/VerifycodeView');
+              },
             ),
-          ),
-          SizedBox(height: 20),
-          Textfild(
-            hint: "البريد الالكتروني",
-            prefixicon: FontAwesomeIcons.envelope,
-          ),
-          SizedBox(height: 20),
-          Custombuttom(
-            text: "التالي",
-            color: appcolor,
-            textcolor: Colors.white,
-            onPressed: () {
-              context.push('/profile/logout/forgetpassword');
-              // Navigator.of(context).pushNamed("VerifycodeView()");
-            },
-          ),
-          SizedBox(height: 100),
-        ],
+            SizedBox(height: 100),
+          ],
+        ),
       ),
     );
   }

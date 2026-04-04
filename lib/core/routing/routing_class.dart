@@ -14,7 +14,6 @@ import 'package:waslet_khier/features/main_feature/views/main_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/profile_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
-import 'package:waslet_khier/features/profile_feature/views/widgets/personinfo_view.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 

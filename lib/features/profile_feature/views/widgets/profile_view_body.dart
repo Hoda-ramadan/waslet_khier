@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:waslet_khier/featureAuth/auth/presintation/login_view.dart';
-import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/profile_item.dart';
 
 class ProfileViewBody extends StatelessWidget {
@@ -13,7 +11,6 @@ class ProfileViewBody extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
             "assets/images/radix-icons_avatar (1).png",

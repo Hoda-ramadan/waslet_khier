@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/CustomAppbar.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/changepassword_body.dart';
+import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
 
 class ChangepasswordView extends StatelessWidget {
   const ChangepasswordView({super.key});
@@ -8,8 +10,9 @@ class ChangepasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false, title: Custom_Appbar()),
+      appBar: CustomAppBar(),
       body: ChangepasswordBody(),
+      backgroundColor: backGroundColor,
     );
   }
 }

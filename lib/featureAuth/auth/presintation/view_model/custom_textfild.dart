@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
 
 class CustomTextField extends StatefulWidget {
-  const CustomTextField({super.key});
-
+  const CustomTextField({
+    super.key,
+    required this.labelText,
+    required this.hintTtxt,
+    required this.prefxIcon,
+    required this.isSuffixIcon,
+  });
+  final String labelText;
+  final String hintTtxt;
+  final IconData prefxIcon;
+  final bool isSuffixIcon;
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -50,26 +59,27 @@ class _CustomTextFieldState extends State<CustomTextField> {
         },
 
         decoration: InputDecoration(
-          labelText: "كلمة المرور",
-          hintText: "Enter your password",
+          labelText: widget.labelText,
+          hintText: widget.hintTtxt,
 
           prefixIcon: Icon(
-            Icons.lock,
+            widget.prefxIcon,
             color: focusNode.hasFocus ? appcolor : Colors.grey,
           ),
 
-          suffixIcon: IconButton(
-            icon: Icon(
-              isObscure ? Icons.visibility : Icons.visibility_off,
-              color: focusNode.hasFocus ? Colors.deepPurple : Colors.grey,
-            ),
-            onPressed: () {
-              setState(() {
-                isObscure = !isObscure;
-              });
-            },
-          ),
-
+          suffixIcon: widget.isSuffixIcon
+              ? IconButton(
+                  icon: Icon(
+                    isObscure ? Icons.visibility : Icons.visibility_off,
+                    color: focusNode.hasFocus ? appcolor : Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isObscure = !isObscure;
+                    });
+                  },
+                )
+              : null, // If false, show nothing
           filled: true,
           fillColor: Colors.grey.shade100,
 

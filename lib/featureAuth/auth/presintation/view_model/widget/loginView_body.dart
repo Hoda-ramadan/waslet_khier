@@ -9,7 +9,8 @@ import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_tex
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/check_haveing_acc.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/rememberme.dart';
-import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/textfield.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/textfield.dart'
+    hide Textfild;
 
 class LoginviewBody extends StatefulWidget {
   LoginviewBody({super.key});
@@ -33,13 +34,20 @@ class _LoginviewBodyState extends State<LoginviewBody> {
               SizedBox(height: 30),
               Image.asset(Assets.logoimage, width: 151, height: 151),
               SizedBox(height: 30),
-              Textfild(
-                onChanged: (value) {},
-                hint: 'البريد الالكتروني',
-                prefixicon: FontAwesomeIcons.envelope,
+
+              CustomTextField(
+                labelText: 'البريد الالكتروني',
+                hintTtxt: '',
+                prefxIcon: FontAwesomeIcons.envelope,
+                isSuffixIcon: false,
               ),
               SizedBox(height: 10),
-              CustomTextField(),
+              CustomTextField(
+                labelText: 'كلمة المرور',
+                hintTtxt: '',
+                prefxIcon: Icons.lock_outline,
+                isSuffixIcon: true,
+              ),
               SizedBox(height: 10),
               Remeberme(),
               SizedBox(height: 30),
