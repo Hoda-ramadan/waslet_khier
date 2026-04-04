@@ -14,7 +14,7 @@ class CharityDetelsView extends StatelessWidget {
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
-        child: Center(child: CharityDetailsView_body()),
+        child: CharityDetailsView_body(),
       ),
     );
   }

@@ -8,6 +8,7 @@ class colletionOfcard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CardOfCharity(icon: FontAwesomeIcons.coins, charitydata: "1M ج.م"),
         SizedBox(width: 20),

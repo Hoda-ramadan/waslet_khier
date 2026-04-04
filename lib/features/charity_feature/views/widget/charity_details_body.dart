@@ -9,42 +9,44 @@ class CharityDetailsView_body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        SizedBox(height: 10),
-        Customappbar(),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 10),
+          Customappbar(),
 
-        Charity_image(),
-        Text(
-          "جمعية رسالة",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            fontFamily: "Roboto",
-            color: Colors.black,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Text(
-            "مؤسسة خيرية تسعى لتقديم الدعم الشامل للأسر المحتاجة في مجالات الصحة والتعليم والمساعدات الإنسانية.",
+          Charity_image(),
+          Text(
+            "جمعية رسالة",
             style: TextStyle(
-              fontSize: 14,
-              fontFamily: "Roboto",
-              color: Color(0xFF696B6A),
+              fontSize: 24,
               fontWeight: FontWeight.w600,
+              fontFamily: "Roboto",
+              color: Colors.black,
             ),
-            textAlign: TextAlign.center,
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              "مؤسسة خيرية تسعى لتقديم الدعم الشامل للأسر المحتاجة في مجالات الصحة والتعليم والمساعدات الإنسانية.",
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: "Roboto",
+                color: Color(0xFF696B6A),
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
 
-        SizedBox(height: 20),
-        colletionOfcard(),
-        SizedBox(height: 20),
+          SizedBox(height: 20),
+          colletionOfcard(),
+          SizedBox(height: 20),
 
-        CustomSections(),
-      ],
+          CustomSections(),
+        ],
+      ),
     );
   }
 }

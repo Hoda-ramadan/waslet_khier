@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/profile_item.dart';
+import 'package:waslet_khier/features/splash_feature/widgets/splash_view2.dart';
 
 class ProfileViewBody extends StatelessWidget {
   const ProfileViewBody({super.key});
@@ -37,6 +38,15 @@ class ProfileViewBody extends StatelessWidget {
           ),
           SizedBox(height: 20),
           profileItem(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SplashView2();
+                  },
+                ),
+              );
+            },
             icon: FontAwesomeIcons.handHoldingHeart,
             text: "طرق التبرع",
           ),
