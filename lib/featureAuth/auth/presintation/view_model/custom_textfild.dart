@@ -21,7 +21,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   final TextEditingController controller = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
-  bool isObscure = true;
+  bool isObscure = false;
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         controller: controller,
         focusNode: focusNode,
         obscureText: isObscure,
-        cursorColor: appcolor,
+        cursorColor: tintAppColor,
 
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -64,14 +64,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
           prefixIcon: Icon(
             widget.prefxIcon,
-            color: focusNode.hasFocus ? appcolor : Colors.grey,
+            color: focusNode.hasFocus ? tintAppColor : Colors.grey,
           ),
 
           suffixIcon: widget.isSuffixIcon
               ? IconButton(
                   icon: Icon(
                     isObscure ? Icons.visibility : Icons.visibility_off,
-                    color: focusNode.hasFocus ? appcolor : Colors.grey,
+                    color: focusNode.hasFocus ? tintAppColor : Colors.grey,
                   ),
                   onPressed: () {
                     setState(() {
@@ -90,7 +90,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14),
-            borderSide: const BorderSide(color: appcolor, width: 2),
+            borderSide: const BorderSide(color: tintAppColor, width: 2),
           ),
 
           errorBorder: OutlineInputBorder(

@@ -6,8 +6,11 @@ import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/class/assets.dart';
 import 'package:waslet_khier/core/class/showsnackbar.dart';
 import 'package:waslet_khier/core/class/showsuccessdialog.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/CustomAppbar.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/textfield.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
 class CreateAccBody extends StatefulWidget {
   CreateAccBody({super.key});
@@ -39,6 +42,8 @@ class _CreateAccBodyState extends State<CreateAccBody> {
           child: Column(
             // mainAxisSize: MainAxisSize.min,
             children: [
+              Custom_Appbar(),
+              SizedBox(height: 20),
               Image.asset(
                 Assets.personimage,
                 width: 100,
@@ -47,55 +52,52 @@ class _CreateAccBodyState extends State<CreateAccBody> {
               ),
               Text("انشاء حساب", style: TextStyle(fontSize: 18)),
               SizedBox(height: 20),
-              Textfild(
-                onChanged: (value) {
-                  firstname = value;
-                },
-                hint: "الاسم الاول",
-                prefixicon: Icons.person,
-              ),
-              SizedBox(height: 20),
-              Textfild(
-                onChanged: (value) {
-                  secondname = value;
-                },
-                hint: "الاسم الثاني",
-                prefixicon: Icons.person,
-              ),
-              SizedBox(height: 20),
-              Textfild(
-                onChanged: (value) {
-                  phonnumber = value;
-                },
-                hint: "رقم الهاتف ",
-                prefixicon: Icons.phone,
-              ),
-              SizedBox(height: 20),
-              Textfild(
-                onChanged: (value) {
-                  email = value;
-                },
-                hint: 'البريد الالكتروني',
-                prefixicon: FontAwesomeIcons.envelope,
-              ),
 
-              SizedBox(height: 20),
-              Textfild(
-                onChanged: (value) {
-                  password1 = value;
-                },
-                hint: "كلمة المرور",
-                prefixicon: Icons.lock_outline,
-                suffixicon: Icons.visibility_off_outlined,
+              CustomTextField(
+                labelText: "الاسم الاول",
+                hintTtxt: "",
+                prefxIcon: Icons.person,
+                isSuffixIcon: false,
               ),
               SizedBox(height: 20),
-              Textfild(
-                onChanged: (value) {
-                  password2 = value;
-                },
-                hint: "تاكيد كلمة المرور ",
-                prefixicon: Icons.lock_outline,
-                suffixicon: Icons.visibility_off_outlined,
+
+              CustomTextField(
+                labelText: "الاسم الثاني",
+                hintTtxt: "",
+                prefxIcon: Icons.person,
+                isSuffixIcon: false,
+              ),
+              SizedBox(height: 20),
+
+              CustomTextField(
+                labelText: "رقم الهاتف ",
+                hintTtxt: "",
+                prefxIcon: Icons.phone,
+                isSuffixIcon: false,
+              ),
+              SizedBox(height: 20),
+
+              CustomTextField(
+                labelText: 'البريد الالكتروني',
+                hintTtxt: "",
+                prefxIcon: FontAwesomeIcons.envelope,
+                isSuffixIcon: false,
+              ),
+              SizedBox(height: 20),
+
+              CustomTextField(
+                labelText: "كلمة المرور",
+                hintTtxt: "",
+                prefxIcon: Icons.lock_outline,
+                isSuffixIcon: true,
+              ),
+              SizedBox(height: 20),
+
+              CustomTextField(
+                labelText: "تاكيد كلمة المرور ",
+                hintTtxt: "",
+                prefxIcon: Icons.lock_outline,
+                isSuffixIcon: true,
               ),
               SizedBox(height: 20),
               Custombuttom(

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/CustomAppbar.dart';
 import 'package:waslet_khier/featureAuth/create_acc/widget/create_acc_body.dart';
+import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
 
 class CreateAccView extends StatelessWidget {
   const CreateAccView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false, title: Custom_Appbar()),
-      body: CreateAccBody(),
-    );
+    return Scaffold(appBar: CustomAppBar(), body: CreateAccBody());
   }
 }
