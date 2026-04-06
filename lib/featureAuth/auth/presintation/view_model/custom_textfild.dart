@@ -64,14 +64,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
           prefixIcon: Icon(
             widget.prefxIcon,
-            color: focusNode.hasFocus ? tintAppColor : Colors.grey,
+            color: focusNode.hasFocus ? appcolor : Colors.grey,
           ),
 
           suffixIcon: widget.isSuffixIcon
               ? IconButton(
                   icon: Icon(
                     isObscure ? Icons.visibility : Icons.visibility_off,
-                    color: focusNode.hasFocus ? tintAppColor : Colors.grey,
+                    color: focusNode.hasFocus ? appcolor : Colors.grey,
                   ),
                   onPressed: () {
                     setState(() {
@@ -90,7 +90,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14),
-            borderSide: const BorderSide(color: tintAppColor, width: 2),
+            borderSide: const BorderSide(color: appcolor, width: 2),
           ),
 
           errorBorder: OutlineInputBorder(
