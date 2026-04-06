@@ -4,6 +4,7 @@ import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/cus
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
 import 'package:waslet_khier/features/splash_feature/widgets/customindecator.dart';
 import 'package:waslet_khier/features/splash_feature/widgets/splashview3.dart';
+import 'package:waslet_khier/features/splash_feature/widgets/splashview_body2.dart';
 
 class SplashView2 extends StatelessWidget {
   const SplashView2({super.key});
@@ -14,66 +15,6 @@ class SplashView2 extends StatelessWidget {
       appBar: CustomAppBar(),
       body: Splash_View_body(),
       backgroundColor: backGroundColor,
-    );
-  }
-}
-
-class Splash_View_body extends StatelessWidget {
-  const Splash_View_body({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GestureDetector(
-              child: Text(
-                "تخطي",
-                style: TextStyle(
-                  color: tintAppColor,
-                  decoration: TextDecoration.underline,
-                  decorationColor: tintAppColor,
-                ),
-                textAlign: TextAlign.start,
-              ),
-            ),
-            Center(child: Image.asset("assets/images/Frame 12.png")),
-            ListTile(
-              title: Text(
-                "تبرع بسهولة في أي وقت",
-                style: TextStyle(fontSize: 24, fontFamily: "Roboto"),
-                textAlign: TextAlign.center,
-              ),
-              subtitle: Text(
-                "ساهم في تغيير حياة شخص محتاج بخطوات بسيطة وسريعة يسهّل تطبيقنا عليك الوصول للحالات وإتمام التبرع بشكل آمن وشفاف.",
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(height: 35),
-            CustomIndicator(currentIndex: 0),
-            SizedBox(height: 35),
-            Custombuttom(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return SplashView3();
-                    },
-                  ),
-                );
-              },
-              text: "التالي",
-              color: tintAppColor,
-              textcolor: Colors.white,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
