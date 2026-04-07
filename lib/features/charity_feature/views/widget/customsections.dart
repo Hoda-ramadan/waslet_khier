@@ -10,11 +10,6 @@ class CustomSections extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          "الاقسام",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-          textAlign: TextAlign.end,
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
