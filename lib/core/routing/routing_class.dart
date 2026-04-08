@@ -12,7 +12,9 @@ import 'package:waslet_khier/features/home_feature/views/home_detals_view.dart';
 import 'package:waslet_khier/features/home_feature/views/home_page.dart';
 import 'package:waslet_khier/features/main_feature/views/main_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/profile_view.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/aboutApp_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_view.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/paymentway_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -75,6 +77,15 @@ final GoRouter appRouter = GoRouter(
               path: '/profile',
               builder: (context, state) => const ProfileView(),
               routes: [
+                GoRoute(
+                  path: '/AboutappView',
+                  builder: (context, state) => const AboutappView(),
+                ),
+                GoRoute(
+                  path: '/PaymentwayView',
+                  builder: (context, state) => const PaymentwayView(),
+                ),
+
                 GoRoute(
                   path: '/personInfo',
                   builder: (context, state) => const PersonInfo_view(),

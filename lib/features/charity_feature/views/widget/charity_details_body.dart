@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charityimage.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/collectionOfcards.dart';
+import 'package:waslet_khier/features/charity_feature/views/widget/connecting_info.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/customsections.dart';
-import 'package:waslet_khier/features/home_feature/data/models/state_model.dart';
-import 'package:waslet_khier/features/home_feature/views/widgets/states_card.dart';
+import 'package:waslet_khier/features/charity_feature/views/widget/pymentoption_item.dart';
+import 'package:waslet_khier/features/charity_feature/views/widget/statescardofcharity.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/personinfo_view.dart';
 
 class CharityDetailsView_body extends StatelessWidget {
@@ -12,62 +15,166 @@ class CharityDetailsView_body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(height: 10),
-          Customappbar(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            customappbar(text: "تفاصيل الجمعية"),
 
-          Charity_image(),
-          Text(
-            "جمعية رسالة",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-              fontFamily: "Roboto",
-              color: Colors.black,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              "مؤسسة خيرية تسعى لتقديم الدعم الشامل للأسر المحتاجة في مجالات الصحة والتعليم والمساعدات الإنسانية.",
+            Charity_image(),
+            Text(
+              "جمعية رسالة",
               style: TextStyle(
-                fontSize: 14,
-                fontFamily: "Roboto",
-                color: Color(0xFF696B6A),
+                fontSize: 24,
                 fontWeight: FontWeight.w600,
+                fontFamily: "Roboto",
+                color: Colors.black,
               ),
-              textAlign: TextAlign.center,
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                "مؤسسة خيرية تسعى لتقديم الدعم الشامل للأسر المحتاجة في مجالات الصحة والتعليم والمساعدات الإنسانية.",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontFamily: "Roboto",
+                  color: Color(0xFF696B6A),
+                  fontWeight: FontWeight.w600,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
 
-          SizedBox(height: 20),
-          colletionOfcard(),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.only(right: 35, bottom: 10),
-            child: Align(
-              alignment: AlignmentGeometry.bottomEnd,
-              child: Text(
-                "الاقسام",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+            SizedBox(height: 20),
+            colletionOfcard(),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.only(right: 35, bottom: 10),
+              child: Align(
+                alignment: AlignmentGeometry.bottomEnd,
+                child: Text(
+                  "الاقسام",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                ),
               ),
             ),
-          ),
-          CustomSections(),
-          Padding(
-            padding: const EdgeInsets.only(right: 35, bottom: 10),
-            child: Align(
-              alignment: AlignmentGeometry.bottomEnd,
-              child: Text(
-                "الحالات",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+            CustomSections(),
+            Padding(
+              padding: const EdgeInsets.only(right: 35, bottom: 10),
+              child: Align(
+                alignment: AlignmentGeometry.bottomEnd,
+                child: Text(
+                  "الحالات",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                ),
               ),
             ),
-          ),
-          StatesCard(stateModel: StateModel()),
-        ],
+            StatesCardGridViewOfcharity(),
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: Row(
+                children: [
+                  Icon(Icons.location_pin, color: tintAppColor),
+                  SizedBox(height: 8),
+                  Text(
+                    "الموقع",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Container(
+                width: double.infinity,
+                child: Image.asset(
+                  "assets/images/Frame 393.png",
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: Row(
+                children: [
+                  Icon(Icons.settings_input_antenna, color: tintAppColor),
+                  SizedBox(height: 8),
+                  Text(
+                    "معلومات التواصل",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Row(
+              children: [
+                ConnectingInfo(
+                  icon: Icons.email,
+                  text: "البريد الالكتروني",
+                  subtext: "Resala@gmail",
+                  fontsize1: 10,
+                ),
+                Spacer(),
+                ConnectingInfo(
+                  icon: Icons.phone_android,
+                  text: 'رقم التواصل',
+                  subtext: '741-758-3195 x702',
+                  fontsize2: 15,
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: Row(
+                children: [
+                  Icon(Icons.credit_card, color: tintAppColor),
+                  SizedBox(height: 8),
+                  Text(
+                    "طرق الدفع",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                PymentoptionItem(image: "assets/Frame 390.png"),
+
+                PymentoptionItem(image: "assets/Frame 390.png"),
+
+                PymentoptionItem(image: "assets/Frame 390.png"),
+              ],
+            ),
+            SizedBox(height: 20),
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: Row(
+                children: [
+                  Icon(Icons.verified_user, color: tintAppColor),
+                  SizedBox(height: 8),
+                  Text(
+                    "الوثائق الرسمية",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
+            ConnectingInfo(
+              icon: Icons.folder_open,
+              text: 'ترخيص وزارة التضامن الأجتماعي',
+              subtext: 'تم التحقق منه في يناير2024',
+              fontsize1: 20,
+              fontsize2: 16,
+              iconcolor: Colors.grey,
+            ),
+          ],
+        ),
       ),
     );
   }

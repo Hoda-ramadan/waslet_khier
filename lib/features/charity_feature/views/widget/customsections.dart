@@ -8,54 +8,56 @@ class CustomSections extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SectionsOfCharity(
-              icon: FontAwesomeIcons.handHoldingHeart,
-              name: "الغرامات",
-              iconcolor: appcolor,
-            ),
-            SizedBox(width: 20),
-            SectionsOfCharity(
-              icon: Icons.water_drop_rounded,
-              name: "ابار",
-              iconcolor: Color(0xFF8FBFFA),
-            ),
-            SizedBox(width: 20),
-            SectionsOfCharity(
-              icon: Icons.favorite,
-              name: "الصحة",
-              iconcolor: Colors.red,
-            ),
-          ],
-        ),
-        SizedBox(height: 15),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SectionsOfCharity(
-              icon: FontAwesomeIcons.personDress,
-              name: "تجهيز عرايْس",
-              iconcolor: Colors.red,
-            ),
-            SizedBox(width: 20),
-            SectionsOfCharity(
-              icon: FontAwesomeIcons.tree,
-              name: "مناحي الحياة",
-              iconcolor: Colors.green,
-            ),
-            SizedBox(width: 20),
-            SectionsOfCharity(
-              icon: FontAwesomeIcons.graduationCap,
-              name: "التعليم",
-              iconcolor: appcolor,
-            ),
-          ],
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SectionsOfCharity(
+                icon: FontAwesomeIcons.handHoldingHeart,
+                name: "الغرامات",
+                iconcolor: appcolor,
+              ),
+              SizedBox(width: 20),
+              SectionsOfCharity(
+                icon: Icons.water_drop_rounded,
+                name: "ابار",
+                iconcolor: Color(0xFF8FBFFA),
+              ),
+              SizedBox(width: 20),
+              SectionsOfCharity(
+                icon: Icons.favorite,
+                name: "الصحة",
+                iconcolor: Colors.red,
+              ),
+            ],
+          ),
+          SizedBox(height: 15),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SectionsOfCharity(
+                icon: FontAwesomeIcons.personDress,
+                name: "تجهيز عرايْس",
+                iconcolor: Colors.red,
+              ),
+              SizedBox(width: 20),
+              SectionsOfCharity(
+                icon: FontAwesomeIcons.tree,
+                name: "مناحي الحياة",
+                iconcolor: Colors.green,
+              ),
+              SizedBox(width: 20),
+              SectionsOfCharity(
+                icon: FontAwesomeIcons.graduationCap,
+                name: "التعليم",
+                iconcolor: appcolor,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

@@ -39,19 +39,19 @@ class ProfileViewBody extends StatelessWidget {
           SizedBox(height: 20),
           profileItem(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return SplashView2();
-                  },
-                ),
-              );
+              context.push("/profile/PaymentwayView");
             },
             icon: FontAwesomeIcons.handHoldingHeart,
             text: "طرق التبرع",
           ),
           SizedBox(height: 20),
-          profileItem(icon: Icons.error_outline, text: "حول التطبيق"),
+          profileItem(
+            onTap: () {
+              context.push("/profile/AboutappView");
+            },
+            icon: Icons.error_outline,
+            text: "حول التطبيق",
+          ),
           SizedBox(height: 20),
           profileItem(
             onTap: () {

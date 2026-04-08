@@ -4,9 +4,34 @@ import 'package:waslet_khier/features/home_feature/data/models/state_model.dart'
 import 'package:waslet_khier/features/home_feature/views/widgets/detals_buttom.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/donate_now_buttom.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/progress_parth_with_label.dart';
+import 'package:waslet_khier/features/home_feature/views/widgets/states_card.dart';
 
-class StatesCard extends StatelessWidget {
-  const StatesCard({super.key, required this.stateModel});
+class StatesCardGridViewOfcharity extends StatelessWidget {
+  const StatesCardGridViewOfcharity({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 220,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 12),
+            child: SizedBox(
+              width: 140,
+              child: StatesCardofcharity(stateModel: StateModel()),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class StatesCardofcharity extends StatelessWidget {
+  const StatesCardofcharity({super.key, required this.stateModel});
   final StateModel stateModel;
   @override
   Widget build(BuildContext context) {
@@ -35,7 +60,7 @@ class StatesCard extends StatelessWidget {
               ),
               child: Image.asset(
                 stateModel.statesImage,
-                height: 110,
+                height: 60,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
@@ -72,24 +97,6 @@ class StatesCard extends StatelessWidget {
                     const SizedBox(height: 6),
 
                     //  Organization
-                    Row(
-                      children: [
-                        Image.asset(
-                          'assets/images/bx_buildings.png',
-                          width: 14,
-                          height: 14,
-                        ),
-                        const SizedBox(width: 4),
-                        Expanded(
-                          child: Text(
-                            stateModel.stateOrganzatio,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(fontSize: 10),
-                          ),
-                        ),
-                      ],
-                    ),
-
                     const SizedBox(height: 6),
 
                     //  Percentage
