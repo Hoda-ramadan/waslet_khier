@@ -9,22 +9,22 @@ class CustomAiCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
+      onTap: () {},
       child: Container(
         height: 180,
         width: 350,
         padding: const EdgeInsets.all(4),
         decoration: ShapeDecoration(
-      color: const Color(0xFFF9F7FA),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      shadows: [
-        BoxShadow(
-          color: Color(0x3F000000),
-          blurRadius: 4,
-          offset: Offset(4, 4),
-          spreadRadius: 0,
-        )
-      ],
+          color: const Color(0xFFF9F7FA),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          shadows: [
+            BoxShadow(
+              color: Color(0x3F000000),
+              blurRadius: 4,
+              offset: Offset(4, 4),
+              spreadRadius: 0,
+            ),
+          ],
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,19 +55,37 @@ class CustomAiCard extends StatelessWidget {
                   SizedBox(height: 8),
                   Row(
                     children: [
-                      Text('الجمعية: ', style: TextStyle(color: Color(0xFF686B6A), fontSize: 12)),
+                      Text(
+                        'الجمعية: ',
+                        style: TextStyle(
+                          color: Color(0xFF686B6A),
+                          fontSize: 12,
+                        ),
+                      ),
                       SizedBox(
                         width: 20,
                         height: 20,
                         child: Image.asset('assets/images/masr_elkar.png'),
                       ),
-                      Text('مصر الخير:', style: TextStyle(color: Color(0xFF686B6A), fontSize: 12)),
+                      Text(
+                        'مصر الخير:',
+                        style: TextStyle(
+                          color: Color(0xFF686B6A),
+                          fontSize: 12,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: 8),
-                  Text('المبلغ المطلوب: 10,000 ج.م', style: TextStyle(color: Color(0xFF686B6A), fontSize: 12)),
+                  Text(
+                    'المبلغ المطلوب: 10,000 ج.م',
+                    style: TextStyle(color: Color(0xFF686B6A), fontSize: 12),
+                  ),
                   SizedBox(height: 4),
-                  Text("50%", style: TextStyle(color: Color(0xFF686B6A), fontSize: 12)),
+                  Text(
+                    "50%",
+                    style: TextStyle(color: Color(0xFF686B6A), fontSize: 12),
+                  ),
                   SizedBox(
                     height: 4,
                     child: ProgressBarWithLabel(progress: 0.5),
@@ -75,15 +93,19 @@ class CustomAiCard extends StatelessWidget {
                 ],
               ),
             ),
-      
+
             SizedBox(width: 10),
-      
+
             // Right image + button
             Column(
               children: [
                 AiCardDonationImage(width: 118, height: 118), // fixed size
                 SizedBox(height: 8),
-                DonateNowButtom(width: 118, height: 36 ,fontSize: 16,), // fixed size
+                DonateNowButtom(
+                  width: 118,
+                  height: 36,
+                  fontSize: 16,
+                ), // fixed size
               ],
             ),
           ],

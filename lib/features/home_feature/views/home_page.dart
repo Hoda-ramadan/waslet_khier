@@ -8,11 +8,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     return const Scaffold(
-     backgroundColor: backGroundColor,
-     appBar:  CustomHomeViewAppbar(),
-     body: HomeViewBody(),
-
+    return const Scaffold(
+      backgroundColor: backGroundColor,
+      appBar: CustomHomeViewAppbar(),
+      body: HomeViewBody(),
     );
   }
 }

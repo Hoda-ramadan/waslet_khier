@@ -8,22 +8,20 @@ class StatesCardGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-  height: 280,
-  child: ListView.builder(
-    scrollDirection: Axis.horizontal,
-    itemCount: 4,
-    itemBuilder: (context, index) {
-      return Padding(
-        padding: const EdgeInsets.only(left: 12),
-        child: SizedBox(
-          width: 163,
-          child: StatesCard(
-            stateModel: StateModel(),
-          ),
-        ),
-      );
-    },
-  ),
-);
+      height: 280,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 12),
+            child: SizedBox(
+              width: 163,
+              child: StatesCard(stateModel: StateModel()),
+            ),
+          );
+        },
+      ),
+    );
   }
 }

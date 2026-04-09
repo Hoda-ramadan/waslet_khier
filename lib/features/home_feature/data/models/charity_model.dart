@@ -1,6 +1,6 @@
 class CharityModel {
-  final String image ; 
-  final String name ;
+  final String image;
+  final String name;
 
   CharityModel({required this.image, required this.name});
 }

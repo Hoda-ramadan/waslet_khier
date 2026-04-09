@@ -8,39 +8,38 @@ class States extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       children: [
         Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                 GestureDetector(
-                  onTap: (){},
-                   child: Text(
-                    'عرض الكل',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w500,
-                    ),
-                   ),
-                 ),
-                 Text(
-                     'الحالات ',
-                textAlign: TextAlign.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () {},
+              child: Text(
+                'عرض الكل',
+                textAlign: TextAlign.start,
                 style: TextStyle(
-                  color: const Color(0xFF05130C),
-                  fontSize: 20,
+                  color: Colors.black,
+                  fontSize: 12,
                   fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w700,
-                ),),
-                 
-              ],
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
+            Text(
+              'الحالات ',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: const Color(0xFF05130C),
+                fontSize: 20,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
 
-
-         StatesCardGridView(),
+        StatesCardGridView(),
       ],
     );
   }

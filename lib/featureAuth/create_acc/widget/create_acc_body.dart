@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/class/assets.dart';
@@ -9,137 +10,142 @@ import 'package:waslet_khier/core/class/showsuccessdialog.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/CustomAppbar.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
-import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/textfield.dart';
-import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
 class CreateAccBody extends StatefulWidget {
-  CreateAccBody({super.key});
+  const CreateAccBody({super.key});
 
   @override
   State<CreateAccBody> createState() => _CreateAccBodyState();
 }
 
 class _CreateAccBodyState extends State<CreateAccBody> {
-  String? firstname;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
-  String? secondname;
+  bool isLoading = false;
 
-  String? email;
-
-  String? phonnumber;
-
-  String? password1;
-
-  String? password2;
-
-  GlobalKey<FormState> formkey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Form(
-        key: formkey,
+    return ModalProgressHUD(
+      inAsyncCall: isLoading,
+      child: Center(
         child: SingleChildScrollView(
-          child: Column(
-            // mainAxisSize: MainAxisSize.min,
-            children: [
-              Custom_Appbar(),
-              SizedBox(height: 20),
-              Image.asset(
-                Assets.personimage,
-                width: 100,
-                height: 100,
-                fit: BoxFit.fill,
-              ),
-              Text("انشاء حساب", style: TextStyle(fontSize: 18)),
-              SizedBox(height: 20),
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                const Custom_Appbar(),
+                const SizedBox(height: 20),
+                Image.asset(
+                  Assets.personimage,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.fill,
+                ),
+                const Text("انشاء حساب", style: TextStyle(fontSize: 18)),
+                const SizedBox(height: 20),
 
-              CustomTextField(
-                labelText: "الاسم الاول",
-                hintTtxt: "",
-                prefxIcon: Icons.person,
-                isSuffixIcon: false,
-              ),
-              SizedBox(height: 20),
+                CustomTextField(
+                  controller: firstNameController,
+                  labelText: "الاسم الاول",
+                  prefxIcon: Icons.person,
+                  hintTtxt: '',
+                  isSuffixIcon: false,
+                ),
+                const SizedBox(height: 20),
 
-              CustomTextField(
-                labelText: "الاسم الثاني",
-                hintTtxt: "",
-                prefxIcon: Icons.person,
-                isSuffixIcon: false,
-              ),
-              SizedBox(height: 20),
+                CustomTextField(
+                  controller: lastNameController,
+                  labelText: "الاسم الثاني",
+                  prefxIcon: Icons.person,
+                  hintTtxt: '',
+                  isSuffixIcon: false,
+                ),
+                const SizedBox(height: 20),
 
-              CustomTextField(
-                labelText: "رقم الهاتف ",
-                hintTtxt: "",
-                prefxIcon: Icons.phone,
-                isSuffixIcon: false,
-              ),
-              SizedBox(height: 20),
+                CustomTextField(
+                  controller: phoneController,
+                  labelText: "رقم الهاتف",
+                  prefxIcon: Icons.phone,
+                  hintTtxt: '',
+                  isSuffixIcon: false,
+                ),
+                const SizedBox(height: 20),
 
-              CustomTextField(
-                labelText: 'البريد الالكتروني',
-                hintTtxt: "",
-                prefxIcon: FontAwesomeIcons.envelope,
-                isSuffixIcon: false,
-              ),
-              SizedBox(height: 20),
+                CustomTextField(
+                  controller: emailController,
+                  labelText: 'البريد الالكتروني',
+                  prefxIcon: FontAwesomeIcons.envelope,
+                  hintTtxt: '',
+                  isSuffixIcon: false,
+                ),
+                const SizedBox(height: 20),
 
-              CustomTextField(
-                labelText: "كلمة المرور",
-                hintTtxt: "",
-                prefxIcon: Icons.lock_outline,
-                isSuffixIcon: true,
-              ),
-              SizedBox(height: 20),
+                CustomTextField(
+                  controller: passwordController,
+                  labelText: "كلمة المرور",
+                  prefxIcon: Icons.lock_outline,
+                  isSuffixIcon: true,
+                  hintTtxt: '',
+                ),
+                const SizedBox(height: 20),
 
-              CustomTextField(
-                labelText: "تاكيد كلمة المرور ",
-                hintTtxt: "",
-                prefxIcon: Icons.lock_outline,
-                isSuffixIcon: true,
-              ),
-              SizedBox(height: 20),
-              Custombuttom(
-                onPressed: () async {
-                  if (password1 != password2) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("كلمتا المرور غير متطابقتين"),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                    return;
-                  }
-                  if (formkey.currentState!.validate()) {
-                    try {
-                      await regester_user(context);
-                    } on FirebaseAuthException catch (e) {
-                      showsnackbar(e, context);
-                    } catch (ex) {
+                CustomTextField(
+                  controller: confirmPasswordController,
+                  labelText: "تاكيد كلمة المرور",
+                  prefxIcon: Icons.lock_outline,
+                  isSuffixIcon: true,
+                  hintTtxt: '',
+                ),
+                const SizedBox(height: 20),
+
+                Custombuttom(
+                  text: "تسجيل",
+                  onPressed: () async {
+                    if (passwordController.text !=
+                        confirmPasswordController.text) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(ex.toString()),
+                        const SnackBar(
+                          content: Text("كلمتا المرور غير متطابقتين"),
                           backgroundColor: Colors.red,
                         ),
                       );
+                      return;
                     }
-                  }
-                },
-                text: "انشاء",
-                color: appcolor,
-                textcolor: Colors.white,
-              ),
-            ],
+
+                    if (formKey.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      try {
+                        showSuccessDialog(context);
+                      } on FirebaseAuthException catch (e) {
+                        showsnackbar(e.code as FirebaseAuthException, context);
+                      } catch (ex) {
+                        showsnackbar(
+                          "حدث خطأ ما، حاول لاحقاً" as FirebaseAuthException,
+                          context,
+                        );
+                      }
+                      setState(() {
+                        isLoading = false;
+                      });
+                    }
+                  },
+                  color: appcolor,
+                  textcolor: Colors.white,
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
-  }
-
-  Future<void> regester_user(BuildContext context) async {
-    UserCredential user = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(password: password1!, email: email!);
-    showSuccessDialog(context);
   }
 }

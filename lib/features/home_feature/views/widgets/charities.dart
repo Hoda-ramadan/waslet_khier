@@ -8,43 +8,39 @@ class Charities extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-             GestureDetector(
-              onTap: (){},
-               child: Text(
-                'عرض الكل',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {},
+                child: Text(
+                  'عرض الكل',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-               ),
-             ),
-             Text(
-            'الجمعيات الخيرية',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: const Color(0xFF05130C),
-              fontSize: 20,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w700,
-            ),),
-             
-          ],
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        CharitesCardGridVeiw()
-      
-      
-       ],
+              ),
+              Text(
+                'الجمعيات الخيرية',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: const Color(0xFF05130C),
+                  fontSize: 20,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          CharitesCardGridVeiw(),
+        ],
       ),
     );
-}
+  }
 }
