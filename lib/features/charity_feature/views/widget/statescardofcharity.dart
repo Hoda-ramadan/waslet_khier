@@ -132,7 +132,6 @@ class StatesCardofcharity extends StatelessWidget {
                     //  Buttons
                     Row(
                       children: [
-                        Expanded(child: DetalsButtom(height: 30, fontSize: 10)),
                         const SizedBox(width: 6),
                         Expanded(
                           child: DonateNowButtom(height: 30, fontSize: 10),

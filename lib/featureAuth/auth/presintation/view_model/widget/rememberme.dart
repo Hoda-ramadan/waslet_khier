@@ -1,36 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/forget_password_view.dart';
 
-class Remeberme extends StatelessWidget {
-  const Remeberme({super.key, this.value = false, this.onChanged});
-  final bool value;
-  final void Function(bool?)? onChanged;
+class RememberMe extends StatefulWidget {
+  const RememberMe({super.key});
+
+  @override
+  State<RememberMe> createState() => _RememberMeState();
+}
+
+class _RememberMeState extends State<RememberMe> {
+  bool isChecked = false;
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: SizedBox(
-        height: 20,
-        width: 343,
-        child: Row(
-          children: [
-            Checkbox(value: value, onChanged: onChanged),
-            Text("تذكرني"),
-            Spacer(),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return ForgetPassword();
-                    },
-                  ),
-                );
-              },
-              child: Text("نسيت كلمة المرور"),
-            ),
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Checkbox(
+            fillColor: MaterialStateProperty.resolveWith((states) {
+              if (states.contains(MaterialState.selected)) {
+                return appcolor;
+              }
+              return const Color(0xFFC3C7C5);
+            }),
+            side: BorderSide(color: Color(0xFFC3C7C5)),
+            value: isChecked,
+            onChanged: (value) {
+              setState(() {
+                isChecked = value!;
+              });
+            },
+          ),
+
+          const Text("تذكرني"),
+          const Spacer(),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (context) => ForgetPassword()));
+            },
+            child: const Text("نسيت كلمة المرور"),
+          ),
+        ],
       ),
     );
   }

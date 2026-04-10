@@ -9,6 +9,10 @@ class ForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: CustomAppBar(), body: ForgetPasswordView_body());
+    return Scaffold(
+      appBar: CustomAppBar(),
+      body: ForgetPasswordView_body(),
+      backgroundColor: backGroundColor,
+    );
   }
 }

@@ -9,6 +9,7 @@ import 'package:waslet_khier/core/class/showsnackbar.dart';
 import 'package:waslet_khier/core/class/showsuccessdialog.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/CustomAppbar.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/check_haveing_acc.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
 
 class CreateAccBody extends StatefulWidget {
@@ -38,110 +39,125 @@ class _CreateAccBodyState extends State<CreateAccBody> {
         child: SingleChildScrollView(
           child: Form(
             key: formKey,
-            child: Column(
-              children: [
-                const Custom_Appbar(),
-                const SizedBox(height: 20),
-                Image.asset(
-                  Assets.personimage,
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.fill,
-                ),
-                const Text("انشاء حساب", style: TextStyle(fontSize: 18)),
-                const SizedBox(height: 20),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  const Custom_Appbar(),
+                  const SizedBox(height: 20),
+                  Image.asset(
+                    Assets.personimage,
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.fill,
+                  ),
+                  const Text("انشاء حساب", style: TextStyle(fontSize: 18)),
+                  const SizedBox(height: 20),
 
-                CustomTextField(
-                  controller: firstNameController,
-                  labelText: "الاسم الاول",
-                  prefxIcon: Icons.person,
-                  hintTtxt: '',
-                  isSuffixIcon: false,
-                ),
-                const SizedBox(height: 20),
+                  CustomTextField(
+                    controller: firstNameController,
+                    labelText: "الاسم الاول",
+                    prefxIcon: Icons.person,
+                    hintTtxt: '',
+                    isSuffixIcon: false,
+                  ),
+                  const SizedBox(height: 20),
 
-                CustomTextField(
-                  controller: lastNameController,
-                  labelText: "الاسم الثاني",
-                  prefxIcon: Icons.person,
-                  hintTtxt: '',
-                  isSuffixIcon: false,
-                ),
-                const SizedBox(height: 20),
+                  CustomTextField(
+                    controller: lastNameController,
+                    labelText: "الاسم الثاني",
+                    prefxIcon: Icons.person,
+                    hintTtxt: '',
+                    isSuffixIcon: false,
+                  ),
+                  const SizedBox(height: 20),
 
-                CustomTextField(
-                  controller: phoneController,
-                  labelText: "رقم الهاتف",
-                  prefxIcon: Icons.phone,
-                  hintTtxt: '',
-                  isSuffixIcon: false,
-                ),
-                const SizedBox(height: 20),
+                  CustomTextField(
+                    controller: phoneController,
+                    labelText: "رقم الهاتف",
+                    prefxIcon: Icons.phone,
+                    hintTtxt: '',
+                    isSuffixIcon: false,
+                  ),
+                  const SizedBox(height: 20),
 
-                CustomTextField(
-                  controller: emailController,
-                  labelText: 'البريد الالكتروني',
-                  prefxIcon: FontAwesomeIcons.envelope,
-                  hintTtxt: '',
-                  isSuffixIcon: false,
-                ),
-                const SizedBox(height: 20),
+                  CustomTextField(
+                    controller: emailController,
+                    labelText: 'البريد الالكتروني',
+                    prefxIcon: FontAwesomeIcons.envelope,
+                    hintTtxt: '',
+                    isSuffixIcon: false,
+                  ),
+                  const SizedBox(height: 20),
 
-                CustomTextField(
-                  controller: passwordController,
-                  labelText: "كلمة المرور",
-                  prefxIcon: Icons.lock_outline,
-                  isSuffixIcon: true,
-                  hintTtxt: '',
-                ),
-                const SizedBox(height: 20),
+                  CustomTextField(
+                    controller: passwordController,
+                    labelText: "كلمة المرور",
+                    prefxIcon: Icons.lock_outline,
+                    isSuffixIcon: true,
+                    hintTtxt: '',
+                  ),
+                  const SizedBox(height: 20),
 
-                CustomTextField(
-                  controller: confirmPasswordController,
-                  labelText: "تاكيد كلمة المرور",
-                  prefxIcon: Icons.lock_outline,
-                  isSuffixIcon: true,
-                  hintTtxt: '',
-                ),
-                const SizedBox(height: 20),
+                  CustomTextField(
+                    controller: confirmPasswordController,
+                    labelText: "تاكيد كلمة المرور",
+                    prefxIcon: Icons.lock_outline,
+                    isSuffixIcon: true,
+                    hintTtxt: '',
+                  ),
+                  const SizedBox(height: 30),
 
-                Custombuttom(
-                  text: "تسجيل",
-                  onPressed: () async {
-                    if (passwordController.text !=
-                        confirmPasswordController.text) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("كلمتا المرور غير متطابقتين"),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                      return;
-                    }
-
-                    if (formKey.currentState!.validate()) {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      try {
-                        showSuccessDialog(context);
-                      } on FirebaseAuthException catch (e) {
-                        showsnackbar(e.code as FirebaseAuthException, context);
-                      } catch (ex) {
-                        showsnackbar(
-                          "حدث خطأ ما، حاول لاحقاً" as FirebaseAuthException,
-                          context,
+                  Custombuttom(
+                    text: "انشاء",
+                    onPressed: () async {
+                      if (passwordController.text !=
+                          confirmPasswordController.text) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("كلمتا المرور غير متطابقتين"),
+                            backgroundColor: Colors.red,
+                          ),
                         );
+                        return;
                       }
-                      setState(() {
-                        isLoading = false;
-                      });
-                    }
-                  },
-                  color: appcolor,
-                  textcolor: Colors.white,
-                ),
-              ],
+
+                      if (formKey.currentState!.validate()) {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        try {
+                          showSuccessDialog(context);
+                        } on FirebaseAuthException catch (e) {
+                          showsnackbar(
+                            e.code as FirebaseAuthException,
+                            context,
+                          );
+                        } catch (ex) {
+                          showsnackbar(
+                            "حدث خطأ ما، حاول لاحقاً" as FirebaseAuthException,
+                            context,
+                          );
+                        }
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
+                    },
+                    color: appcolor,
+                    textcolor: Colors.white,
+                  ),
+                  const SizedBox(height: 30),
+                  checkhavingAcc(
+                    text1: "لديك حساب بالفعل؟ ",
+                    text2: "سجل الدخول الان",
+                    textcolor1: Colors.deepOrange,
+                    textcolor2: Colors.black,
+                    path: '',
+                  ),
+                  const SizedBox(height: 30),
+                ],
+              ),
             ),
           ),
         ),
