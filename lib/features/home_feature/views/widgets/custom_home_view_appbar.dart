@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 
 class CustomHomeViewAppbar extends StatelessWidget
     implements PreferredSizeWidget {
-  const CustomHomeViewAppbar({super.key});
+  const CustomHomeViewAppbar({super.key, required this.onmenuTap});
+ final  VoidCallback? onmenuTap ;
   @override
   Size get preferredSize => const Size.fromHeight(70);
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false, 
       backgroundColor: appcolor,
       elevation: 0,
       title: Row(
@@ -17,7 +20,7 @@ class CustomHomeViewAppbar extends StatelessWidget
           Row(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: onmenuTap,
                 icon: const Icon(Icons.menu_outlined, color: Colors.white),
               ),
 

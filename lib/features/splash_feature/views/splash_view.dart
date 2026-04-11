@@ -21,7 +21,7 @@ void goToHome() {
     if (!mounted) return;
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
+      MaterialPageRoute(builder: (context) =>  HomePage()),
     );
   });
 }

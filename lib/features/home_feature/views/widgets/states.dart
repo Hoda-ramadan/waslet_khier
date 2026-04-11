@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:waslet_khier/features/home_feature/data/models/state_model.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/states_card.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/states_card_grid_view.dart';
+import 'package:go_router/go_router.dart';
 
 class States extends StatelessWidget {
   const States({super.key});
@@ -14,7 +15,10 @@ class States extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                  GestureDetector(
-                  onTap: (){},
+                  onTap: (){
+
+                    
+                  },
                    child: Text(
                     'عرض الكل',
                     textAlign: TextAlign.start,
