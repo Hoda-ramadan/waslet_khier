@@ -28,7 +28,11 @@ class StatesCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+<<<<<<< HEAD
             //  Image
+=======
+            // 🔹 Image
+>>>>>>> 3349deb558fe0c7bec95c97afc532f391854f15c
             ClipRRect(
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(16),
@@ -41,18 +45,28 @@ class StatesCard extends StatelessWidget {
               ),
             ),
 
+<<<<<<< HEAD
             //  ده اللي بيخلي المحتوى يتمدد
+=======
+            // 🔥 ده اللي بيخلي المحتوى يتمدد
+>>>>>>> 3349deb558fe0c7bec95c97afc532f391854f15c
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+<<<<<<< HEAD
                     //  Title
                     Text(
                       stateModel.stateName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
+=======
+                    // 🔹 Title
+                    Text(
+                      stateModel.stateName,
+>>>>>>> 3349deb558fe0c7bec95c97afc532f391854f15c
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -71,7 +85,11 @@ class StatesCard extends StatelessWidget {
 
                     const SizedBox(height: 6),
 
+<<<<<<< HEAD
                     //  Organization
+=======
+                    // 🔹 Organization
+>>>>>>> 3349deb558fe0c7bec95c97afc532f391854f15c
                     Row(
                       children: [
                         Image.asset(
@@ -92,7 +110,11 @@ class StatesCard extends StatelessWidget {
 
                     const SizedBox(height: 6),
 
+<<<<<<< HEAD
                     //  Percentage
+=======
+                    // 🔹 Percentage
+>>>>>>> 3349deb558fe0c7bec95c97afc532f391854f15c
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -119,10 +141,17 @@ class StatesCard extends StatelessWidget {
                       ),
                     ),
 
+<<<<<<< HEAD
                     //  ده بيدفع الأزرار لتحت
                     const Spacer(),
 
                     //  Buttons
+=======
+                    // 🔥 ده بيدفع الأزرار لتحت
+                    const Spacer(),
+
+                    // 🔹 Buttons
+>>>>>>> 3349deb558fe0c7bec95c97afc532f391854f15c
                     Row(
                       children: [
                         Expanded(child: DetalsButtom(height: 30, fontSize: 10)),

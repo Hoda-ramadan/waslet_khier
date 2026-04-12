@@ -5,10 +5,11 @@ import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/verifycode_view.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/login_view.dart';
 import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
+import 'package:waslet_khier/features/cases_feature/views/case_detatls_veiw.dart';
 import 'package:waslet_khier/features/cases_feature/views/cases_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_view.dart';
-import 'package:waslet_khier/features/home_feature/views/home_detals_view.dart';
+import 'package:waslet_khier/features/home_feature/views/Custom_drawer.dart';
 import 'package:waslet_khier/features/home_feature/views/home_page.dart';
 import 'package:waslet_khier/features/main_feature/views/main_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/profile_view.dart';
@@ -33,11 +34,11 @@ final GoRouter appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/home',
-              builder: (context, state) => const HomePage(),
+              builder: (context, state) => HomePage(),
               routes: [
                 GoRoute(
-                  path: 'details',
-                  builder: (context, state) => const HomeDetalsView(),
+                  path: 'case_detals_view',
+                  builder: (context, state) => CaseDetatlsVeiw(),
                 ),
               ],
             ),
@@ -66,6 +67,12 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: '/cases',
               builder: (context, state) => const CasesView(),
+              routes: [
+                GoRoute(
+                  path: '/cases/case_detals_view',
+                  builder: (context, state) => CaseDetatlsVeiw(),
+                ),
+              ],
             ),
           ],
         ),
