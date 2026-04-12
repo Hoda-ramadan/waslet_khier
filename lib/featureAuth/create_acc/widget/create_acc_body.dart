@@ -11,6 +11,7 @@ import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/check_haveing_acc.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
+import 'package:waslet_khier/featureAuth/create_acc/data/models/donor_register/donor_register.dart';
 
 class CreateAccBody extends StatefulWidget {
   const CreateAccBody({super.key});
@@ -29,6 +30,7 @@ class _CreateAccBodyState extends State<CreateAccBody> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
+  final repo = DonorRegister();
   bool isLoading = false;
 
   @override
