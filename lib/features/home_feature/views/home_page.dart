@@ -9,11 +9,6 @@ class HomePage extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    return const Scaffold(
-      backgroundColor: backGroundColor,
-      appBar: CustomHomeViewAppbar(),
-=======
     return Scaffold(
       key: scaffoldKey,
       drawer: CustomDrawer(),
@@ -23,7 +18,6 @@ class HomePage extends StatelessWidget {
           scaffoldKey.currentState!.openDrawer();
         },
       ),
->>>>>>> 3349deb558fe0c7bec95c97afc532f391854f15c
       body: HomeViewBody(),
     );
   }

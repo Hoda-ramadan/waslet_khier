@@ -22,11 +22,7 @@ class _SplashViewState extends State<SplashView> {
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
-<<<<<<< HEAD
-        MaterialPageRoute(builder: (context) => const HomePage()),
-=======
         MaterialPageRoute(builder: (context) => HomePage()),
->>>>>>> 3349deb558fe0c7bec95c97afc532f391854f15c
       );
     });
   }
