@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:waslet_khier/core/class/assets.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
 class AboutAppBody extends StatelessWidget {
@@ -15,11 +16,8 @@ class AboutAppBody extends StatelessWidget {
           SizedBox(height: 20),
           Container(
             width: 218,
-            height: 218,
-            child: Image.asset(
-              "assets/images/ce65df55a05118381cddbc501aae93646856f956.png",
-              fit: BoxFit.cover,
-            ),
+            //  height: 218,
+            child: Image.asset(Assets.logoimage, fit: BoxFit.fill),
           ),
           Text(
             "وصلة خير هو تطبيق يهدف إلى تسهيل عملية التبرع وربط المتبرعين بالحالات الإنسانية والجمعيات الخيرية الموثوقة. نساعدك في الوصول للحالات الأكثر احتياجًا والتبرع بسهولة وأمان، لتكون سببًا في إحداث فرق حقيقي في حياة الآخرين.",

@@ -30,7 +30,6 @@ class _CreateAccBodyState extends State<CreateAccBody> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
-  final repo = DonorRegister();
   bool isLoading = false;
 
   @override
