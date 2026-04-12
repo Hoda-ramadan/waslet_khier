@@ -52,7 +52,7 @@ class CharityDetailsView_body extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 35, bottom: 10),
               child: Align(
-                alignment: AlignmentGeometry.bottomEnd,
+                alignment: AlignmentGeometry.bottomRight,
                 child: Text(
                   "الاقسام",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
@@ -63,7 +63,7 @@ class CharityDetailsView_body extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 35, bottom: 10),
               child: Align(
-                alignment: AlignmentGeometry.bottomEnd,
+                alignment: AlignmentGeometry.bottomRight,
                 child: Text(
                   "الحالات",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
