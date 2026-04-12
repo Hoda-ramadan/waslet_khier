@@ -16,29 +16,34 @@ class HomeViewFirstPart extends StatelessWidget {
               SizedBox(
                 width: 24,
                 height: 24,
-                child: IconButton(onPressed :(){},icon :Icon(FontAwesomeIcons.calculator
-                ,color: tintAppColor ,)),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(FontAwesomeIcons.calculator, color: tintAppColor),
+                ),
               ),
-              SizedBox(height: 8,),
-              Text('حساب الذكاه',
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 12, 
-                fontWeight: FontWeight.w500,
-                color: Colors.black
-              ),
+              SizedBox(height: 8),
+              Text(
+                'حساب الذكاه',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
               ),
             ],
           ),
           Spacer(),
-           Text('مقترح بالذكاء الصناعي',
-           style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 16, 
-                fontWeight: FontWeight.w500,
-                color: Colors.black),),
-           Icon(Icons.error, 
-           color: tintAppColor,)
+          Text(
+            'مقترح بالذكاء الصناعي',
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            ),
+          ),
+          Icon(Icons.error, color: tintAppColor),
         ],
       ),
     );

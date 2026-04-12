@@ -67,7 +67,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             color: focusNode.hasFocus ? appcolor : Colors.grey,
           ),
 
-          suffixIcon: widget.isSuffixIcon 
+          suffixIcon: widget.isSuffixIcon
               ? IconButton(
                   icon: Icon(
                     isObscure ? Icons.visibility : Icons.visibility_off,

@@ -7,9 +7,6 @@ class CaseDetatlsVeiw extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-    appBar: Custom2AppBar(),
-    body: CaseDetalesViewBody(),
-    );
+    return Scaffold(appBar: Custom2AppBar(), body: CaseDetalesViewBody());
   }
 }

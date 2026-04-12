@@ -7,10 +7,7 @@ class TitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Text(
       "علاج طفل مصاب بالسرطان",
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
+      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
     );
   }
 }

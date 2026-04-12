@@ -14,7 +14,10 @@ class StauseRow extends StatelessWidget {
         SizedBox(width: 20),
         CardOfCharity(icon: Icons.timelapse_outlined, charitydata: "5k  متبرع"),
         SizedBox(width: 20),
-        CardOfCharity(icon: Icons.attach_money_outlined, charitydata: "20 مشروع"),
+        CardOfCharity(
+          icon: Icons.attach_money_outlined,
+          charitydata: "20 مشروع",
+        ),
       ],
     );
   }

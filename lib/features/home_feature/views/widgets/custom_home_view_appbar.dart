@@ -5,13 +5,13 @@ import 'package:waslet_khier/const.dart';
 class CustomHomeViewAppbar extends StatelessWidget
     implements PreferredSizeWidget {
   const CustomHomeViewAppbar({super.key, required this.onmenuTap});
- final  VoidCallback? onmenuTap ;
+  final VoidCallback? onmenuTap;
   @override
   Size get preferredSize => const Size.fromHeight(70);
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: false, 
+      automaticallyImplyLeading: false,
       backgroundColor: appcolor,
       elevation: 0,
       title: Row(

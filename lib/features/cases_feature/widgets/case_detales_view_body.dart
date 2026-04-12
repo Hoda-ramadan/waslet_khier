@@ -14,30 +14,31 @@ class CaseDetalesViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding( // ✅ fixed (added return)
+    return Padding(
+      // ✅ fixed (added return)
       padding: const EdgeInsets.all(22),
       child: Center(
         child: ListView(
-          children:  [
+          children: [
             DetalsViewCaseImage(),
             SizedBox(height: 12),
-           StatesTaps(),
+            StatesTaps(),
             SizedBox(height: 12),
-             Center(child: TitleText()),
+            Center(child: TitleText()),
             SizedBox(height: 16),
-         StauseRow(),
+            StauseRow(),
             SizedBox(height: 16),
-           CharityItem(),
+            CharityItem(),
             SizedBox(height: 20),
             Row(
               children: [
-                IconButton(onPressed: (){}, icon: Icon(Icons.favorite)),
+                IconButton(onPressed: () {}, icon: Icon(Icons.favorite)),
                 Spacer(),
                 SizedBox(
                   width: 280,
                   height: 50,
-                  child: DonateNowButtom(fontSize: 22,)),
-                 
+                  child: DonateNowButtom(fontSize: 22),
+                ),
               ],
             ),
             SizedBox(height: 12),
@@ -49,25 +50,11 @@ class CaseDetalesViewBody extends StatelessWidget {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 class _StatCard extends StatelessWidget {
   final String title;
   final String value;
 
-  const _StatCard({
-    required this.title,
-    required this.value,
-  });
+  const _StatCard({required this.title, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +75,7 @@ class _StatCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 12),
-          ),
+          Text(title, style: const TextStyle(fontSize: 12)),
         ],
       ),
     );
@@ -113,9 +97,7 @@ class _DonationCard extends StatelessWidget {
         children: [
           const Icon(Icons.verified, color: Colors.deepPurple),
           const SizedBox(width: 10),
-          const Expanded(
-            child: Text("مستشفى 57357 لعلاج سرطان الأطفال"),
-          ),
+          const Expanded(child: Text("مستشفى 57357 لعلاج سرطان الأطفال")),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: const [
@@ -145,14 +127,9 @@ class _DonateButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.orange,
         padding: const EdgeInsets.symmetric(vertical: 14),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      child: const Text(
-        "تبرع الآن",
-        style: TextStyle(fontSize: 16),
-      ),
+      child: const Text("تبرع الآن", style: TextStyle(fontSize: 16)),
     );
   }
 }

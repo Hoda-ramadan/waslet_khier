@@ -19,10 +19,7 @@ class StatusChip extends StatelessWidget {
         color: color,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Text(
-        title,
-        style: TextStyle(color: textColor, fontSize: 12),
-      ),
+      child: Text(title, style: TextStyle(color: textColor, fontSize: 12)),
     );
   }
 }

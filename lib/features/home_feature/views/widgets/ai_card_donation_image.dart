@@ -18,11 +18,7 @@ class AiCardDonationImage extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 4,
-            offset: Offset(0, 4),
-          )
+          BoxShadow(color: Colors.black26, blurRadius: 4, offset: Offset(0, 4)),
         ],
       ),
     );

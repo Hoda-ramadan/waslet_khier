@@ -11,14 +11,13 @@ class ProgressBarWithLabel extends StatelessWidget {
     return Container(
       height: 10,
       decoration: BoxDecoration(
-        color: Colors.grey.shade300, 
+        color: Colors.grey.shade300,
         borderRadius: BorderRadius.circular(5),
       ),
       child: Stack(
         children: [
-       
           FractionallySizedBox(
-            widthFactor: progress, 
+            widthFactor: progress,
             child: Container(
               decoration: BoxDecoration(
                 color: tintAppColor,

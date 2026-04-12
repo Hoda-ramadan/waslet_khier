@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/drawer_item.dart';
 
-
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
@@ -44,11 +43,11 @@ class CustomDrawer extends StatelessWidget {
             const SizedBox(height: 40),
 
             // العناصر
-            DrawerItem(icon:Icons.business,title:  "الجمعيات الخيرية"),
-            DrawerItem(icon:Icons.people, title: "الحالات"),
-            DrawerItem(icon:Icons.calculate, title: "حساب الزكاة"),
-            DrawerItem(icon:Icons.person_add,title:  "انضم إلينا"),
-            DrawerItem(icon :Icons.share,title:  "شارك التطبيق"),
+            DrawerItem(icon: Icons.business, title: "الجمعيات الخيرية"),
+            DrawerItem(icon: Icons.people, title: "الحالات"),
+            DrawerItem(icon: Icons.calculate, title: "حساب الزكاة"),
+            DrawerItem(icon: Icons.person_add, title: "انضم إلينا"),
+            DrawerItem(icon: Icons.share, title: "شارك التطبيق"),
 
             const Spacer(),
 
@@ -59,11 +58,10 @@ class CustomDrawer extends StatelessWidget {
                 "تطبق الشروط والأحكام وسياسة الخصوصية",
                 style: TextStyle(fontSize: 12, color: Colors.orange),
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 }
-  

@@ -5,10 +5,7 @@ import 'package:waslet_khier/const.dart';
 class MainScreen extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
-  const MainScreen({
-    super.key,
-    required this.navigationShell,
-  });
+  const MainScreen({super.key, required this.navigationShell});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +13,10 @@ class MainScreen extends StatelessWidget {
       body: navigationShell,
 
       bottomNavigationBar: Directionality(
-        textDirection: TextDirection.rtl, 
+        textDirection: TextDirection.rtl,
         child: BottomNavigationBar(
           currentIndex: navigationShell.currentIndex,
 
-          
           selectedItemColor: appcolor,
           unselectedItemColor: Colors.grey,
 
@@ -36,10 +32,7 @@ class MainScreen extends StatelessWidget {
           },
 
           items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "الرئيسية",
-            ),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "الرئيسية"),
             BottomNavigationBarItem(
               icon: Icon(Icons.apartment),
               label: "جمعيات",
@@ -48,10 +41,7 @@ class MainScreen extends StatelessWidget {
               icon: Icon(Icons.favorite),
               label: "الحالات",
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: "حسابي",
-            ),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "حسابي"),
           ],
         ),
       ),
