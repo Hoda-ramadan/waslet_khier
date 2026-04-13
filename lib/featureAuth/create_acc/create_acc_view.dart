@@ -17,7 +17,7 @@ class CreateAccView extends StatelessWidget {
       appBar: CustomAppBar(),
       body: BlocProvider(
         create: (context) => RegisterCubit(DonorRepo()),
-        child: CreateAccBody(),
+        child: RegisterView(),
       ),
       backgroundColor: backGroundColor,
     );

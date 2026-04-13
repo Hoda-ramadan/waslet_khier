@@ -11,17 +11,17 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String firstName,
     required String lastName,
     required String phone,
-    required String email,
+    required String Email,
     required String password,
   }) async {
-    emit(RegisterLoading(isLoading: true));
+    emit(RegisterLoading());
 
     final result = await repo.registerDonor(
-      firstName: firstName,
-      lastName: lastName,
-      phone: phone,
-      email: email,
-      password: password,
+      FirstName: firstName,
+      LastName: lastName,
+      Phone: phone,
+      Email: Email,
+      Password: password,
     );
 
     if (result != null && (result.status == 200 || result.status == 201)) {

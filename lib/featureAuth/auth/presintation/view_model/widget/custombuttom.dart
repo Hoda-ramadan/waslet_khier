@@ -34,7 +34,7 @@ class Custombuttom extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              text,
+              '$text',
               style: TextStyle(
                 fontSize: 18,
                 color: textcolor,

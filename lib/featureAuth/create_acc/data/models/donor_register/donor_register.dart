@@ -18,7 +18,7 @@ class DonorRegister extends Equatable {
   });
 
   factory DonorRegister.fromJson(Map<String, dynamic> json) => DonorRegister(
-    type: json['type'] as String?,
+    type: json['type']?.toString(),
     title: json['title'] as String?,
     status: json['status'] as int?,
     errors: json['errors'] == null
