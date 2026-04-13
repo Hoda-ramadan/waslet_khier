@@ -65,9 +65,7 @@ class _RegisterViewState extends State<RegisterView> {
               const SizedBox(height: 15),
 
               CustomTextField(
-                validator: (value) {
-                  value = error.lastName as String?;
-                },
+                validator: (value) {},
                 controller: lastNameController,
                 labelText: "الاسم الأخير",
                 prefxIcon: Icons.person,
@@ -77,9 +75,7 @@ class _RegisterViewState extends State<RegisterView> {
               const SizedBox(height: 15),
 
               CustomTextField(
-                validator: (value) {
-                  value = error.phone as String?;
-                },
+                validator: (value) {},
                 controller: phoneController,
                 labelText: "رقم الهاتف",
                 prefxIcon: Icons.phone,
@@ -89,9 +85,7 @@ class _RegisterViewState extends State<RegisterView> {
               const SizedBox(height: 15),
 
               CustomTextField(
-                validator: (value) {
-                  value = error.email as String?;
-                },
+                validator: (value) {},
                 controller: emailController,
                 labelText: "البريد الإلكتروني",
                 prefxIcon: Icons.email,
@@ -101,9 +95,7 @@ class _RegisterViewState extends State<RegisterView> {
               const SizedBox(height: 15),
 
               CustomTextField(
-                validator: (value) {
-                  value = error.password as String?;
-                },
+                validator: (value) {},
                 controller: passwordController,
                 labelText: "كلمة المرور",
                 prefxIcon: Icons.lock_outline,
@@ -113,9 +105,7 @@ class _RegisterViewState extends State<RegisterView> {
               const SizedBox(height: 20),
 
               CustomTextField(
-                validator: (value) {
-                  value = error.password as String?;
-                },
+                validator: (value) {},
                 controller: confirmPasswordController,
                 labelText: "تأكيد كلمة المرور",
                 prefxIcon: Icons.lock_outline,
