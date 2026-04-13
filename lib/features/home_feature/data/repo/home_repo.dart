@@ -7,8 +7,22 @@ class HomeRepo {
   HomeRepo(this.apiService);
 
  Future<List<CaseModel>> getCasess() async {
-  var data = await apiService.get(endPoint: '/Case');
+  var data = await apiService.getCasess(endPoint: '/Case');
   List casess = data as List; // API returns a List directly
   return casess.map((e) => CaseModel.fromJson(e)).toList();
 }
 } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
