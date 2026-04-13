@@ -7,8 +7,8 @@ class CaseModel {
   String? title;
   String? description;
   int? age;
-  int? targetAmount;
-  int? collectedAmount;
+  double? targetAmount;
+  double? collectedAmount;
   String? coverImageUrl;
   String? beneficiaryName;
   DateTime? endDate;
@@ -54,8 +54,8 @@ class CaseModel {
     title: json['title'] as String?,
     description: json['description'] as String?,
     age: json['age'] as int?,
-    targetAmount: json['targetAmount'] as int?,
-    collectedAmount: json['collectedAmount'] as int?,
+    targetAmount: json['targetAmount'] as double?,
+    collectedAmount: json['collectedAmount'] as double?,
     coverImageUrl: json['coverImageUrl'] as String?,
     beneficiaryName: json['beneficiaryName'] as String?,
     endDate: json['endDate'] == null
