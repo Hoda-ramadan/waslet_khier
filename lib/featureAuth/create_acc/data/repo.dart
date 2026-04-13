@@ -23,6 +23,12 @@ class DonorRepo {
           "Email": Email,
           "Password": Password,
         },
+        options: Options(
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+        ),
       );
 
       return DonorRegister.fromJson(response.data);

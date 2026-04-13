@@ -133,7 +133,11 @@ class _RegisterViewState extends State<RegisterView> {
                     text: isLoading ? "جاري الإنشاء..." : "انشاء",
 
                     onPressed: () {
-                      print(firstNameController);
+                      print(firstNameController.text);
+                      print(lastNameController.text);
+                      print(emailController.text);
+                      print(phoneController.text);
+                      print(passwordController.text);
                       if (passwordController.text !=
                           confirmPasswordController.text) {
                         ScaffoldMessenger.of(context).showSnackBar(
