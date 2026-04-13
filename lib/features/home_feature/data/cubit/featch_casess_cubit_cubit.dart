@@ -10,7 +10,6 @@ part 'featch_casess_cubit_state.dart';
 class FeatchCasessCubitCubit extends Cubit<FeatchCasessCubitState> {
   FeatchCasessCubitCubit() : super(FeatchCasessCubitInitial());
 
-
   List<CaseModel> states = [];
 
   Future<void> featchCasess() async {
@@ -26,4 +25,3 @@ class FeatchCasessCubitCubit extends Cubit<FeatchCasessCubitState> {
     }
   }
 }
-

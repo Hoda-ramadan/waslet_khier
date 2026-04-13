@@ -5,7 +5,6 @@ import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/routing/routing_class.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/featch_casess_cubit_cubit.dart';
 
-
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -23,7 +22,9 @@ class WasletKhier extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context)=>FeatchCasessCubitCubit()..featchCasess())
+        BlocProvider(
+          create: (context) => FeatchCasessCubitCubit()..featchCasess(),
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: appRouter,

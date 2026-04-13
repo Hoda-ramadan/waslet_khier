@@ -12,15 +12,13 @@ final class FeatchCasessCubitInitial extends FeatchCasessCubitState {}
 final class FeatchCassCubitLoading extends FeatchCasessCubitState {}
 
 final class FeatchCasesCubitSucesses extends FeatchCasessCubitState {
-  final List <CaseModel> casee ;
+  final List<CaseModel> casee;
 
-  const FeatchCasesCubitSucesses({required this.casee}); 
+  const FeatchCasesCubitSucesses({required this.casee});
 }
 
 final class FeatchCasesCubitFaild extends FeatchCasessCubitState {
-
-  final String errorMessage ;
+  final String errorMessage;
 
   const FeatchCasesCubitFaild({required this.errorMessage});
 }
-

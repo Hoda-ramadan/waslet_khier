@@ -16,47 +16,37 @@ class CasesViewBody extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       child: BlocBuilder<FeatchCasessCubitCubit, FeatchCasessCubitState>(
         builder: (context, state) {
-          if (state is FeatchCassCubitLoading){
-            return
-            Center(
-              child: CircularProgressIndicator(
-                value: 24,
-                color: tintAppColor,
+          if (state is FeatchCassCubitLoading) {
+            return Center(
+              child: CircularProgressIndicator(value: 24, color: tintAppColor),
+            );
+          }
+          if (state is FeatchCasesCubitSucesses) {
+            return GridView.builder(
+              itemCount: state.casee.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: 0.74,
+              ),
+              itemBuilder: (context, index) {
+                return StatesCard(casee: state.casee[index]);
+              },
+            );
+          }
+          if (state is FeatchCasesCubitFaild) {
+            return Center(
+              child: Text(
+                state.errorMessage.toString(),
+                style: TextStyle(fontSize: 24, color: Colors.grey),
               ),
             );
-          } 
-          if (state is FeatchCasesCubitSucesses){
-          return GridView.builder(
-            itemCount: state.casee.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 0.74,
-            ),
-            itemBuilder: (context, index) {
-              return StatesCard(casee:state.casee[index]);
-            },
-          
-          );
-          }
-          if (state is FeatchCasesCubitFaild)
-          {
-            return
-            Center(
-              child: Text(state.errorMessage.toString(),style: TextStyle(
-                fontSize: 24,
-                color: Colors.grey
-              ),),
-            );
-          }
-          else{
+          } else {
             return Center(child: Text('UnExpected error'));
           }
         },
-  
       ),
-  
     );
   }
 }

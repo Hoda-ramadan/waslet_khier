@@ -9,14 +9,14 @@ import 'package:waslet_khier/features/home_feature/views/widgets/progress_parth_
 class StatesCard extends StatelessWidget {
   const StatesCard({super.key, required this.casee});
   final CaseModel casee;
-  
+
   @override
   Widget build(BuildContext context) {
     final double target = casee.targetAmount ?? 1;
-final double collected = casee.collectedAmount ?? 0;
-final double safeProgress = (collected / target).clamp(0.0, 1.0);
-final double remaining = (target - collected).clamp(0, double.infinity);
-final int percentage = (safeProgress * 100).toInt();
+    final double collected = casee.collectedAmount ?? 0;
+    final double safeProgress = (collected / target).clamp(0.0, 1.0);
+    final double remaining = (target - collected).clamp(0, double.infinity);
+    final int percentage = (safeProgress * 100).toInt();
     return GestureDetector(
       child: Container(
         decoration: ShapeDecoration(
@@ -37,25 +37,25 @@ final int percentage = (safeProgress * 100).toInt();
           children: [
             // 🔹 Image
             ClipRRect(
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(16),
-        ),
-        child: casee.coverImageUrl != null
-          ? Image.network(
-              casee.coverImageUrl!,
-              height: 110,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => _buildPlaceholder(isLoading: false,),
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return _buildPlaceholder(isLoading: true);
-              },
-            )
-          : _buildPlaceholder(isLoading: true,),
-      ),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(16),
+              ),
+              child: casee.coverImageUrl != null
+                  ? Image.network(
+                      casee.coverImageUrl!,
+                      height: 110,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) =>
+                          _buildPlaceholder(isLoading: false),
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return _buildPlaceholder(isLoading: true);
+                      },
+                    )
+                  : _buildPlaceholder(isLoading: true),
+            ),
 
-           
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8),
@@ -108,28 +108,26 @@ final int percentage = (safeProgress * 100).toInt();
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                      Text("$percentage%"),
+                        Text("$percentage%"),
                         const Text(
                           "المبلغ المتبقي",
                           style: TextStyle(fontSize: 8),
                         ),
                       ],
                     ),
-                    
 
-                                      Text(
-                        "${remaining.toStringAsFixed(0)} ج.م",
-                        style: TextStyle(color: appcolor, fontSize: 10),
-                      ),
+                    Text(
+                      "${remaining.toStringAsFixed(0)} ج.م",
+                      style: TextStyle(color: appcolor, fontSize: 10),
+                    ),
                     const SizedBox(height: 4),
 
                     // 🔹 Progress
-                  SizedBox(
-  height: 4,
-  child: ProgressBarWithLabel(progress: safeProgress),
-),
+                    SizedBox(
+                      height: 4,
+                      child: ProgressBarWithLabel(progress: safeProgress),
+                    ),
 
-                  
                     const Spacer(),
 
                     // 🔹 Buttons
@@ -152,49 +150,41 @@ final int percentage = (safeProgress * 100).toInt();
     );
   }
 
- 
-Widget _buildPlaceholder({bool isLoading = false}) {
-  return Container(
-    height: 110,
-    width: double.infinity,
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [appcolor.withOpacity(0.15), appcolor.withOpacity(0.05)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-    ),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        isLoading
-            ? SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: appcolor,
-                ),
-              )
-            : Icon(
-                Icons.volunteer_activism, // charity-themed icon
-                size: 36,
-                color: appcolor.withOpacity(0.5),
-              ),
-        const SizedBox(height: 6),
-        Text(
-          isLoading ? 'جاري التحميل...' : 'لا توجد صورة',
-          style: TextStyle(
-            fontSize: 9,
-            color: appcolor.withOpacity(0.5),
-          ),
+  Widget _buildPlaceholder({bool isLoading = false}) {
+    return Container(
+      height: 110,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [appcolor.withOpacity(0.15), appcolor.withOpacity(0.05)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
-      ],
-    ),
-  );
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          isLoading
+              ? SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: appcolor,
+                  ),
+                )
+              : Icon(
+                  Icons.volunteer_activism, // charity-themed icon
+                  size: 36,
+                  color: appcolor.withOpacity(0.5),
+                ),
+          const SizedBox(height: 6),
+          Text(
+            isLoading ? 'جاري التحميل...' : 'لا توجد صورة',
+            style: TextStyle(fontSize: 9, color: appcolor.withOpacity(0.5)),
+          ),
+        ],
+      ),
+    );
+  }
 }
-
-}
-
-
-
