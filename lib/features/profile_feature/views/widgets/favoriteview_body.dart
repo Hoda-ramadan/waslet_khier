@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
-import 'package:waslet_khier/features/home_feature/data/models/state_model.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/state_view.dart';
 
 class FavoriteView_body extends StatelessWidget {
-  const FavoriteView_body({super.key, this.stateModel});
-  final StateModel? stateModel;
+  const FavoriteView_body({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Center(

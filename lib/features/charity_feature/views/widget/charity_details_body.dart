@@ -63,7 +63,11 @@ class CharityDetailsView_body extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 35, bottom: 10),
               child: Align(
+<<<<<<< Updated upstream
                 alignment: AlignmentGeometry.bottomRight,
+=======
+                alignment: Alignment.bottomRight,
+>>>>>>> Stashed changes
                 child: Text(
                   "الحالات",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
