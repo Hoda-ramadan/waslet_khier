@@ -14,24 +14,32 @@ class charityitem_body extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Padding(
         padding: const EdgeInsets.only(right: 10),
-        child: Row(
-          children: [
-            charityicon(),
+        child: Expanded(
+          child: Row(
+            children: [
+              charityicon(),
 
-            SizedBox(width: 15),
-            Text("مركز علاج الأورام بسوهاج", style: TextStyle(fontSize: 18)),
-            SizedBox(width: 25),
-            Spacer(),
-            Container(
-              child: IconButton(
-                onPressed: () {
-                  context.push("/charities/chaaritedetelies");
-                },
+              SizedBox(width: 15),
+              Text("مركز علاج الأورام بسوهاج", style: TextStyle(fontSize: 18)),
+              SizedBox(width: 25),
+              Spacer(),
+              Container(
+                padding: EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                  color: Color(0xFFD9D9D9),
+                  border: Border.all(color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    context.push("/charities/chaaritedetelies");
+                  },
 
-                icon: Icon(icon, color: color ?? tintAppColor),
+                  icon: Icon(icon, color: color ?? tintAppColor),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

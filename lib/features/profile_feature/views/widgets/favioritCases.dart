@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/features/charity_feature/views/widget/charityicon.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
@@ -85,24 +86,38 @@ class Faviortecaseitem extends StatelessWidget {
         padding: const EdgeInsets.only(right: 10),
         child: Row(
           children: [
-            // charityicon(),
+            charityicon(),
             SizedBox(width: 15),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.location_on, color: Colors.grey),
+                    Text(
+                      "مركز علاج الأورام بسوهاج",
+                      style: TextStyle(fontSize: 10, color: Colors.grey),
+                    ),
+                    Spacer(),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFD9D9D9),
+                        border: Border.all(color: Colors.transparent),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: IconButton(
+                        onPressed: () {},
+
+                        icon: Icon(Icons.favorite, color: Colors.red),
+                      ),
+                    ),
+                  ],
+                ),
+                Text("جلسة علاج كيماوي لمريض سرطان"),
+              ],
+            ),
             // Text("مركز علاج الأورام بسوهاج", style: TextStyle(fontSize: 18)),
             SizedBox(width: 25),
-            Spacer(),
-            Container(
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Color(0xFFD9D9D9),
-                border: Border.all(color: Colors.transparent),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: IconButton(
-                onPressed: () {},
-
-                icon: Icon(Icons.favorite, color: Colors.red),
-              ),
-            ),
           ],
         ),
       ),
