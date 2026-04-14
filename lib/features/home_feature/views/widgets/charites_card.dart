@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
-import 'package:waslet_khier/features/home_feature/data/models/charity_model.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
+import 'package:waslet_khier/features/home_feature/views/widgets/build_place_holder.dart';
+
 
 class CharitesCard extends StatelessWidget {
   const CharitesCard({super.key, required this.charityModel});
@@ -12,7 +14,7 @@ class CharitesCard extends StatelessWidget {
       decoration: ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(
-          side: BorderSide(width: 0.20, color: appcolor),
+          side: BorderSide(width: 0.30, color: appcolor),
           borderRadius: BorderRadius.circular(10),
         ),
       ),
@@ -22,12 +24,25 @@ class CharitesCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(charityModel.image),
+        charityModel.logoUrl != null && charityModel.logoUrl!.isNotEmpty
+                ? Image.network(
+                    charityModel.logoUrl!,
+                    height: 30,
+                    width: 30,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) =>
+                        _smallPlaceholder(),
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return _smallPlaceholder();
+                    },
+                  )
+                : _smallPlaceholder(),
 
             const SizedBox(height: 4),
             SizedBox(
               child: Text(
-                charityModel.name,
+                charityModel.name!,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: const Color(0xFF040504),
@@ -39,6 +54,22 @@ class CharitesCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+    Widget _smallPlaceholder() {
+    return Container(
+      height: 30,
+      width: 30,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: appcolor.withOpacity(0.1),
+      ),
+      child: Icon(
+        Icons.volunteer_activism,
+        size: 16,
+        color: appcolor.withOpacity(0.5),
       ),
     );
   }

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/features/home_feature/views/widgets/build_place_holder.dart';
 
-class charityicon extends StatelessWidget {
-  const charityicon({super.key});
+class CharityIcon extends StatelessWidget {
+  const CharityIcon({super.key, required this.charityimage, });
+
+  final String? charityimage; 
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +18,20 @@ class charityicon extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         border: Border.all(color: tintAppColor),
       ),
-      child: Image.asset(
-        "assets/images/مركز علاج الاورام.png",
-        width: 67,
-        height: 67,
-        fit: BoxFit.contain,
-      ),
+      child: charityimage != null && charityimage!.isNotEmpty
+          ? Image.network(
+              charityimage!,
+              height: 67,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) =>
+                  const buildPlaceholder(isLoading: false, hight: 67, border: 20,),
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return const buildPlaceholder(isLoading: true, hight: 67, border: 20,);
+              },
+            )
+          : const buildPlaceholder(isLoading: false, hight: 67,border: 20,),
     );
   }
 }
