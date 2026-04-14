@@ -14,7 +14,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       FirstName: 'Ali',
       LastName: 'Mortada',
       Phone: '01121003827',
-      Email: '011hodaramadan@gmail.com',
+      Email: 'elshipanyahmed@gmail.com',
       Password: 'Aa#100200',
     );
 
