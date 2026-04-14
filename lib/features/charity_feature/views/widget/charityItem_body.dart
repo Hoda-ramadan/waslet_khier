@@ -5,8 +5,9 @@ import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.
 import 'package:waslet_khier/features/charity_feature/views/widget/charityicon.dart';
 
 class charityitem_body extends StatelessWidget {
-  const charityitem_body({super.key});
-
+  const charityitem_body({super.key, required this.icon, this.color});
+  final IconData icon;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -21,12 +22,14 @@ class charityitem_body extends StatelessWidget {
             Text("مركز علاج الأورام بسوهاج", style: TextStyle(fontSize: 18)),
             SizedBox(width: 25),
             Spacer(),
-            IconButton(
-              onPressed: () {
-                context.push("/charities/chaaritedetelies");
-              },
+            Container(
+              child: IconButton(
+                onPressed: () {
+                  context.push("/charities/chaaritedetelies");
+                },
 
-              icon: Icon(Icons.arrow_forward_ios_outlined, color: tintAppColor),
+                icon: Icon(icon, color: color ?? tintAppColor),
+              ),
             ),
           ],
         ),

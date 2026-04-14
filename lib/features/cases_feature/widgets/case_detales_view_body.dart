@@ -28,7 +28,7 @@ class CaseDetalesViewBody extends StatelessWidget {
             SizedBox(height: 16),
             StauseRow(),
             SizedBox(height: 16),
-            CharityItem(),
+            CharityItem(icon: Icons.arrow_forward_ios_outlined),
             SizedBox(height: 20),
             Row(
               children: [
