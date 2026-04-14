@@ -3,7 +3,6 @@ import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/build_place_holder.dart';
 
-
 class CharitesCard extends StatelessWidget {
   const CharitesCard({super.key, required this.charityModel});
   final CharityModel charityModel;
@@ -24,7 +23,7 @@ class CharitesCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-        charityModel.logoUrl != null && charityModel.logoUrl!.isNotEmpty
+            charityModel.logoUrl != null && charityModel.logoUrl!.isNotEmpty
                 ? Image.network(
                     charityModel.logoUrl!,
                     height: 30,
@@ -58,7 +57,7 @@ class CharitesCard extends StatelessWidget {
     );
   }
 
-    Widget _smallPlaceholder() {
+  Widget _smallPlaceholder() {
     return Container(
       height: 30,
       width: 30,

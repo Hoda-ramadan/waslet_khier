@@ -8,16 +8,14 @@ part 'charity_state.dart';
 
 class CharityCubit extends Cubit<CharityState> {
   CharityCubit() : super(CharityInitial());
-  List <CharityModel> charites = [] ; 
-  Future <void> getCharites () async{
+  List<CharityModel> charites = [];
+  Future<void> getCharites() async {
     emit(CharityLodaing());
     try {
       var data = await CharityRepo(ApiService(Dio())).getCharites();
-      charites = data ; 
+      charites = data;
       emit(CharitySuccess(charites: charites));
-
-    }
-    catch(e) {
+    } catch (e) {
       emit(CharityFaild(errorMessage: e.toString()));
     }
   }

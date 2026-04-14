@@ -28,6 +28,7 @@ class CaseDetalesViewBody extends StatelessWidget {
             SizedBox(height: 16),
             StauseRow(),
             SizedBox(height: 16),
+
             ///CharityItem(),
             SizedBox(height: 20),
             Row(

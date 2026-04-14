@@ -1,7 +1,6 @@
 class CharityyHomePageModel {
-  final String image ; 
-  final String name ;
+  final String image;
+  final String name;
 
-  CharityyHomePageModel({required this.image, required this.name}); 
-  
+  CharityyHomePageModel({required this.image, required this.name});
 }

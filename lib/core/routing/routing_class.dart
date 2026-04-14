@@ -14,6 +14,8 @@ import 'package:waslet_khier/features/home_feature/views/home_page.dart';
 import 'package:waslet_khier/features/main_feature/views/main_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/profile_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/aboutApp_view.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/favioritCases.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/favoriteCharity.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/paymentway_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
@@ -92,7 +94,14 @@ final GoRouter appRouter = GoRouter(
                   path: '/PaymentwayView',
                   builder: (context, state) => const PaymentwayView(),
                 ),
-
+                GoRoute(
+                  path: '/Favoritecharity',
+                  builder: (context, state) => const Favoritecharity(),
+                ),
+                GoRoute(
+                  path: '/Favioritcases',
+                  builder: (context, state) => const Favioritcases(),
+                ),
                 GoRoute(
                   path: '/personInfo',
                   builder: (context, state) => const PersonInfo_view(),

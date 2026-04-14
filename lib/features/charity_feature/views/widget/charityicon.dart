@@ -3,10 +3,9 @@ import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/build_place_holder.dart';
 
 class CharityIcon extends StatelessWidget {
-  const CharityIcon({super.key, required this.charityimage, });
+  const CharityIcon({super.key, required this.charityimage});
 
-  final String? charityimage; 
- 
+  final String? charityimage;
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +24,21 @@ class CharityIcon extends StatelessWidget {
               width: double.infinity,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) =>
-                  const buildPlaceholder(isLoading: false, hight: 67, border: 20,),
+                  const buildPlaceholder(
+                    isLoading: false,
+                    hight: 67,
+                    border: 20,
+                  ),
               loadingBuilder: (context, child, loadingProgress) {
                 if (loadingProgress == null) return child;
-                return const buildPlaceholder(isLoading: true, hight: 67, border: 20,);
+                return const buildPlaceholder(
+                  isLoading: true,
+                  hight: 67,
+                  border: 20,
+                );
               },
             )
-          : const buildPlaceholder(isLoading: false, hight: 67,border: 20,),
+          : const buildPlaceholder(isLoading: false, hight: 67, border: 20),
     );
   }
 }
