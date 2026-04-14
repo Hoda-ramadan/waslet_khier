@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/home_feature/data/models/state_model.dart';
+import 'package:waslet_khier/features/home_feature/views/widgets/build_place_holder.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/detals_buttom.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/donate_now_buttom.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/progress_parth_with_label.dart';
+
 
 class StatesCard extends StatelessWidget {
   const StatesCard({super.key, required this.casee});
@@ -47,13 +49,13 @@ class StatesCard extends StatelessWidget {
                       width: double.infinity,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) =>
-                          _buildPlaceholder(isLoading: false),
+                          buildPlaceholder(isLoading: false, hight: 110,border: 0, ),
                       loadingBuilder: (context, child, loadingProgress) {
                         if (loadingProgress == null) return child;
-                        return _buildPlaceholder(isLoading: true);
+                        return buildPlaceholder(isLoading: true, hight: 110,border: 0,);
                       },
                     )
-                  : _buildPlaceholder(isLoading: true),
+                  : buildPlaceholder(isLoading: true, hight: 110,border: 0,),
             ),
 
             Expanded(
@@ -149,7 +151,8 @@ class StatesCard extends StatelessWidget {
       ),
     );
   }
-
+}
+ /*
   Widget _buildPlaceholder({bool isLoading = false}) {
     return Container(
       height: 110,
@@ -187,4 +190,5 @@ class StatesCard extends StatelessWidget {
       ),
     );
   }
-}
+  */
+

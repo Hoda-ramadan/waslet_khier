@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charityItem_body.dart';
 
 class CharityItem extends StatelessWidget {
-  const CharityItem({super.key});
-
+  const CharityItem({super.key, required this.charityModel});
+ final CharityModel charityModel ; 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,7 +28,7 @@ class CharityItem extends StatelessWidget {
             border: Border.all(color: tintAppColor),
             borderRadius: BorderRadius.circular(24),
           ),
-          child: charityitem_body(),
+          child: charityitem_body(charityModel: charityModel,),
         ),
       ),
     );
