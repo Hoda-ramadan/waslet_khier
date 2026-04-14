@@ -13,42 +13,35 @@ class Listofcharitys extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CharityCubit, CharityState>(
       builder: (context, state) {
-       if (state is CharityLodaing)
-          {
-           return  Center(
-              child: CircularProgressIndicator(
-                color: tintAppColor, 
-              ),
-            );
-          }
-          if (state is CharitySuccess) {
-        return ListView.builder(
-          itemCount: state.charites.length,
-          itemBuilder: (context, index) {
-            return CharityItem(charityModel: state.charites[index],);
-          },
-        );
-          }
-            if (state is CharityFaild)
-          {
-            return 
-            Center(
-              child :Text (state.errorMessage.toString() , style: TextStyle(
-                fontSize: 18, 
-                color:  Colors.grey
-              ),)
-            );
-          
-          }
-          else {
-            return Center(
-              child :Text ('There Was An Error ' , style: TextStyle(
-                fontSize: 18, 
-                color:  Colors.grey
-              ),)
-            ) ; 
-          }
-
+        if (state is CharityLodaing) {
+          return Center(child: CircularProgressIndicator(color: tintAppColor));
+        }
+        if (state is CharitySuccess) {
+          return ListView.builder(
+            itemCount: state.charites.length,
+            itemBuilder: (context, index) {
+              return CharityItem(
+                charityModel: state.charites[index],
+                icon: Icons.arrow_back_ios,
+              );
+            },
+          );
+        }
+        if (state is CharityFaild) {
+          return Center(
+            child: Text(
+              state.errorMessage.toString(),
+              style: TextStyle(fontSize: 18, color: Colors.grey),
+            ),
+          );
+        } else {
+          return Center(
+            child: Text(
+              'There Was An Error ',
+              style: TextStyle(fontSize: 18, color: Colors.grey),
+            ),
+          );
+        }
       },
     );
   }

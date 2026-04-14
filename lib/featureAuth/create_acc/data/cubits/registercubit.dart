@@ -7,30 +7,25 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   RegisterCubit(this.repo) : super(RegisterInitial());
 
-  Future<void> register({
-    required String firstName,
-    required String lastName,
-    required String phone,
-    required String Email,
-    required String password,
-  }) async {
+  Future<void> register() async {
     emit(RegisterLoading());
 
     final result = await repo.registerDonor(
-      FirstName: firstName,
-      LastName: lastName,
-      Phone: phone,
-      Email: Email,
-      Password: password,
+      FirstName: 'Ali',
+      LastName: 'Mortada',
+      Phone: '01121003827',
+      Email: '011hodaramadan@gmail.com',
+      Password: 'Aa#100200',
     );
 
-    if (result != null && (result.status == 200 || result.status == 201)) {
+    if (result != null && result.isAuthenticated == true) {
       emit(RegisterSuccess());
     } else {
       String errorMessage =
           result?.errors?.email?.first ??
           result?.errors?.password?.first ??
           result?.errors?.phone?.first ??
+          result?.message ??
           "حدث خطأ";
 
       emit(RegisterFailure(errorMessage));

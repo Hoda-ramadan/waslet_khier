@@ -133,11 +133,6 @@ class _RegisterViewState extends State<RegisterView> {
                     text: isLoading ? "جاري الإنشاء..." : "انشاء",
 
                     onPressed: () {
-                      print(firstNameController.text);
-                      print(lastNameController.text);
-                      print(emailController.text);
-                      print(phoneController.text);
-                      print(passwordController.text);
                       if (passwordController.text !=
                           confirmPasswordController.text) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -150,13 +145,7 @@ class _RegisterViewState extends State<RegisterView> {
                       }
 
                       if (formKey.currentState!.validate()) {
-                        context.read<RegisterCubit>().register(
-                          firstName: firstNameController.text,
-                          lastName: lastNameController.text,
-                          phone: phoneController.text,
-                          Email: emailController.text,
-                          password: passwordController.text,
-                        );
+                        context.read<RegisterCubit>().register();
                       }
                     },
                     color: appcolor,

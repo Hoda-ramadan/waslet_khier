@@ -5,7 +5,11 @@ import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.
 import 'package:waslet_khier/features/charity_feature/views/widget/charityItem_body.dart';
 
 class CharityItem extends StatelessWidget {
-  const CharityItem({super.key, required this.charityModel});
+  const CharityItem({
+    super.key,
+    required this.charityModel,
+    required IconData icon,
+  });
   final CharityModel charityModel;
   @override
   Widget build(BuildContext context) {
