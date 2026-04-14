@@ -12,6 +12,7 @@ class Listofcharitys extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     return ListView.builder(
       itemCount: 15,
       itemBuilder: (context, item) {
@@ -56,6 +57,36 @@ class Listofcharitys extends StatelessWidget {
           }
 
 >>>>>>> d1b92ec510280e76e32d52c3973ba365bcede513
+=======
+    return BlocBuilder<CharityCubit, CharityState>(
+      builder: (context, state) {
+        if (state is CharityLodaing) {
+          return Center(child: CircularProgressIndicator(color: tintAppColor));
+        }
+        if (state is CharitySuccess) {
+          return ListView.builder(
+            itemCount: state.charites.length,
+            itemBuilder: (context, index) {
+              return CharityItem(charityModel: state.charites[index]);
+            },
+          );
+        }
+        if (state is CharityFaild) {
+          return Center(
+            child: Text(
+              state.errorMessage.toString(),
+              style: TextStyle(fontSize: 18, color: Colors.grey),
+            ),
+          );
+        } else {
+          return Center(
+            child: Text(
+              'There Was An Error ',
+              style: TextStyle(fontSize: 18, color: Colors.grey),
+            ),
+          );
+        }
+>>>>>>> bef6ecd46f9596b2c4d31f925cd9d193d44ea4c5
       },
     );
   }

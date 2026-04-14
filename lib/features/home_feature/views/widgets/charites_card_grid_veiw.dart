@@ -31,49 +31,41 @@ class CharitesCardGridVeiw extends StatelessWidget {
       height: 160,
       child: BlocBuilder<CharityCubit, CharityState>(
         builder: (context, state) {
-          if (state is CharityLodaing)
-          {
-           return  Center(
-              child: CircularProgressIndicator(
-                color: tintAppColor, 
+          if (state is CharityLodaing) {
+            return Center(
+              child: CircularProgressIndicator(color: tintAppColor),
+            );
+          }
+          if (state is CharitySuccess) {
+            return GridView.builder(
+              itemCount: state.charites.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 16,
+                mainAxisExtent: 70,
+              ),
+              itemBuilder: (context, index) {
+                return CharitesCard(charityModel: state.charites[index]);
+              },
+            );
+          }
+          if (state is CharityFaild) {
+            return Center(
+              child: Text(
+                state.errorMessage.toString(),
+                style: TextStyle(fontSize: 18, color: Colors.grey),
               ),
             );
-          }
-          if (state is CharitySuccess)
-          {
-          return GridView.builder(
-            itemCount: state.charites.length,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 16,
-              mainAxisExtent: 70,
-            ),
-            itemBuilder: (context, index) {
-              return CharitesCard(charityModel: state.charites[index]);
-            },
-          );
-          }
-          if (state is CharityFaild)
-          {
-            return 
-            Center(
-              child :Text (state.errorMessage.toString() , style: TextStyle(
-                fontSize: 18, 
-                color:  Colors.grey
-              ),)
-            );
-          
-          }
-          else {
+          } else {
             return Center(
-              child :Text ('There Was An Error ' , style: TextStyle(
-                fontSize: 18, 
-                color:  Colors.grey
-              ),)
-            ) ; 
+              child: Text(
+                'There Was An Error ',
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+              ),
+            );
           }
         },
       ),

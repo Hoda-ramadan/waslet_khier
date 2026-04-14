@@ -4,15 +4,20 @@ import 'package:waslet_khier/const.dart';
 class buildPlaceholder extends StatelessWidget {
   final bool isLoading;
   final double hight;
-  final double border  ;
-  const buildPlaceholder({super.key, this.isLoading = false , required this. hight  , required this.border});
+  final double border;
+  const buildPlaceholder({
+    super.key,
+    this.isLoading = false,
+    required this.hight,
+    required this.border,
+  });
 
   @override
   Widget build(BuildContext context) {
-  ; // غيرها حسب مشروعك
+    ; // غيرها حسب مشروعك
 
     return Container(
-      height:  hight,  // 110,
+      height: hight, // 110,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(border),

@@ -8,16 +8,16 @@ sealed class CharityState extends Equatable {
 }
 
 final class CharityInitial extends CharityState {}
+
 final class CharityLodaing extends CharityState {}
+
 final class CharitySuccess extends CharityState {
- const  CharitySuccess({required this.charites});
-  final List <CharityModel> charites;
+  const CharitySuccess({required this.charites});
+  final List<CharityModel> charites;
 }
 
-
-
 final class CharityFaild extends CharityState {
-  final String errorMessage ;
+  final String errorMessage;
 
-  const CharityFaild({required this.errorMessage}); 
+  const CharityFaild({required this.errorMessage});
 }

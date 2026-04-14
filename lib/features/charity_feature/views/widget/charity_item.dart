@@ -6,6 +6,7 @@ import 'package:waslet_khier/features/charity_feature/views/widget/charityItem_b
 
 class CharityItem extends StatelessWidget {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const CharityItem({super.key, required this.icon, this.color});
   final IconData? icon;
   final Color? color;
@@ -13,6 +14,10 @@ class CharityItem extends StatelessWidget {
   const CharityItem({super.key, required this.charityModel});
  final CharityModel charityModel ; 
 >>>>>>> d1b92ec510280e76e32d52c3973ba365bcede513
+=======
+  const CharityItem({super.key, required this.charityModel});
+  final CharityModel charityModel;
+>>>>>>> bef6ecd46f9596b2c4d31f925cd9d193d44ea4c5
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,13 +40,19 @@ class CharityItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(24),
           ),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> bef6ecd46f9596b2c4d31f925cd9d193d44ea4c5
           child: charityitem_body(
-            icon: icon ?? Icons.arrow_forward_ios_outlined,
-            color: color,
+            charityModel: charityModel,
+            icon: Icons.arrow_back_ios_new,
           ),
+<<<<<<< HEAD
 =======
           child: charityitem_body(charityModel: charityModel,),
 >>>>>>> d1b92ec510280e76e32d52c3973ba365bcede513
+=======
+>>>>>>> bef6ecd46f9596b2c4d31f925cd9d193d44ea4c5
         ),
       ),
     );

@@ -7,6 +7,7 @@ import 'package:waslet_khier/features/charity_feature/views/widget/charityicon.d
 
 class charityitem_body extends StatelessWidget {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const charityitem_body({super.key, required this.icon, this.color});
   final IconData icon;
   final Color? color;
@@ -14,6 +15,18 @@ class charityitem_body extends StatelessWidget {
   const charityitem_body({super.key, required this.charityModel});
  final CharityModel charityModel;
 >>>>>>> d1b92ec510280e76e32d52c3973ba365bcede513
+=======
+  const charityitem_body({
+    super.key,
+    required this.charityModel,
+    required this.icon,
+    this.color,
+  });
+  final CharityModel charityModel;
+
+  final IconData icon;
+  final Color? color;
+>>>>>>> bef6ecd46f9596b2c4d31f925cd9d193d44ea4c5
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -44,7 +57,7 @@ class charityitem_body extends StatelessWidget {
 =======
         child: Row(
           children: [
-            CharityIcon( charityimage:  charityModel.logoUrl!,),
+            CharityIcon(charityimage: charityModel.logoUrl!),
 
             SizedBox(width: 15),
             Text(charityModel.name!, style: TextStyle(fontSize: 18)),
