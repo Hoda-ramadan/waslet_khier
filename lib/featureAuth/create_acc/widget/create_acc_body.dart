@@ -6,9 +6,6 @@ import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/check_haveing_acc.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
-import 'package:waslet_khier/featureAuth/create_acc/data/cubits/registerStatus.dart';
-import 'package:waslet_khier/featureAuth/create_acc/data/cubits/registercubit.dart';
-import 'package:waslet_khier/featureAuth/create_acc/data/models/donor_register/errors.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -27,8 +24,6 @@ class _RegisterViewState extends State<RegisterView> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-
-  final error = Errors();
 
   @override
   Widget build(BuildContext context) {
@@ -114,50 +109,11 @@ class _RegisterViewState extends State<RegisterView> {
               ),
               const SizedBox(height: 30),
 
-              BlocConsumer<RegisterCubit, RegisterState>(
-                listener: (context, state) {
-                  if (state is RegisterSuccess) {
-                    showSuccessDialog(context);
-                  } else if (state is RegisterFailure) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(state.message),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  bool isLoading = state is RegisterLoading;
-                  return Custombuttom(
-                    text: isLoading ? "جاري الإنشاء..." : "انشاء",
-
-                    onPressed: () {
-                      if (passwordController.text !=
-                          confirmPasswordController.text) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("كلمتا المرور غير متطابقتين"),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                        return;
-                      }
-
-                      if (formKey.currentState!.validate()) {
-                        context.read<RegisterCubit>().register(
-                          firstName: firstNameController.text,
-                          lastName: lastNameController.text,
-                          phone: phoneController.text,
-                          email: emailController.text,
-                          password: passwordController.text,
-                        );
-                      }
-                    },
-                    color: appcolor,
-                    textcolor: Colors.white,
-                  );
-                },
+              Custombuttom(
+                onPressed: () {},
+                text: "انشاء",
+                color: appcolor,
+                textcolor: Colors.white,
               ),
 
               const SizedBox(height: 30),

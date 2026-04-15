@@ -16,15 +16,11 @@ class Errors extends Equatable {
   });
 
   factory Errors.fromJson(Map<String, dynamic> json) => Errors(
-    email: (json['Email'] as List?)?.map((e) => e.toString()).toList(),
-
-    phone: (json['Phone'] as List?)?.map((e) => e.toString()).toList(),
-
-    lastName: (json['LastName'] as List?)?.map((e) => e.toString()).toList(),
-
-    password: (json['Password'] as List?)?.map((e) => e.toString()).toList(),
-
-    firstName: (json['FirstName'] as List?)?.map((e) => e.toString()).toList(),
+    email: json['Email'] as List<String>?,
+    phone: json['Phone'] as List<String>?,
+    lastName: json['LastName'] as List<String>?,
+    password: json['Password'] as List<String>?,
+    firstName: json['FirstName'] as List<String>?,
   );
 
   Map<String, dynamic> toJson() => {
@@ -36,5 +32,7 @@ class Errors extends Equatable {
   };
 
   @override
-  List<Object?> get props => [email, phone, lastName, password, firstName];
+  List<Object?> get props {
+    return [email, phone, lastName, password, firstName];
+  }
 }

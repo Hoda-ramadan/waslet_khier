@@ -12,7 +12,7 @@ class CharityRepo {
     return charites.map((e) => CharityModel.fromJson(e)).toList();
   }
 
-  Future<List<CharityModel>> users()async{
+  Future<List<CharityModel>> users() async {
     var data = await apiService.getCharites(endPount: '/Charity');
     List charites = data as List; // API returns a List directly
     return charites.map((e) => CharityModel.fromJson(e)).toList();

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:waslet_khier/featureAuth/create_acc/data/models/donor_register/errors.dart';
+import 'package:waslet_khier/featureAuth/create_acc/data/models/errors.dart';
 
 class DonorRegister extends Equatable {
   final String? token;

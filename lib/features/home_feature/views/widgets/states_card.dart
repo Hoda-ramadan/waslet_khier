@@ -159,6 +159,7 @@ class StatesCard extends StatelessWidget {
     );
   }
 }
+
 /*
   Widget _buildPlaceholder({bool isLoading = false}) {
     return Container(
