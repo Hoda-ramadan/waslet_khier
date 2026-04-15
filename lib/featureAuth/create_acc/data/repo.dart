@@ -24,10 +24,8 @@ class DonorRepo {
           "Password": Password,
         },
         options: Options(
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-          },
+          contentType: Headers.jsonContentType,
+          headers: {"Accept": "application/json"},
         ),
       );
 

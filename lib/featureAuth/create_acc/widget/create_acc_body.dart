@@ -145,7 +145,13 @@ class _RegisterViewState extends State<RegisterView> {
                       }
 
                       if (formKey.currentState!.validate()) {
-                        context.read<RegisterCubit>().register();
+                        context.read<RegisterCubit>().register(
+                          firstName: firstNameController.text,
+                          lastName: lastNameController.text,
+                          phone: phoneController.text,
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
                       }
                     },
                     color: appcolor,
