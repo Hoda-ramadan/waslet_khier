@@ -7,6 +7,7 @@ import 'package:waslet_khier/featureAuth/auth/presintation/login_view.dart';
 import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
 import 'package:waslet_khier/features/cases_feature/views/case_detatls_veiw.dart';
 import 'package:waslet_khier/features/cases_feature/views/cases_view.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_view.dart';
 import 'package:waslet_khier/features/home_feature/views/Custom_drawer.dart';
@@ -48,7 +49,11 @@ final GoRouter appRouter = GoRouter(
                  ),
                  GoRoute(
                   path: 'chaaritedetelies',
-                  builder: (context, state) => CharityDetelsView(),
+                  builder: (context, state) 
+                  {
+                    final charity = state.extra as CharityModel ; 
+                    return CharityDetelsView(charity: charity);
+                  },
                 ),
               ],
             ),
@@ -64,7 +69,10 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'chaaritedetelies',
-                  builder: (context, state) =>const  CharityDetelsView(),
+                  builder:  (context, state) {
+                    final charity = state.extra as CharityModel;
+                    return CharityDetelsView(charity: charity);
+  },
                 ),
               ],
             ),

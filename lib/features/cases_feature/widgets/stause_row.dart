@@ -10,13 +10,13 @@ class StauseRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CardOfCharity(icon: FontAwesomeIcons.person, charitydata: "1M ج.م"),
+        CardOfCharity(icon: FontAwesomeIcons.person, charitydata: "1M ج.م" ,charitydataType: "1M ج.م"),
         SizedBox(width: 20),
-        CardOfCharity(icon: Icons.timelapse_outlined, charitydata: "5k  متبرع"),
+        CardOfCharity(icon: Icons.timelapse_outlined,  charitydata: "1M ج.م" ,charitydataType: "1M ج.م"),
         SizedBox(width: 20),
         CardOfCharity(
           icon: Icons.attach_money_outlined,
-          charitydata: "20 مشروع",
+           charitydata: "1M ج.م" ,charitydataType: "1M ج.م"
         ),
       ],
     );

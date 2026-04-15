@@ -16,7 +16,9 @@ class CharityItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        (context).push('/charities/chaaritedetelies');
+        (context).push('/charities/chaaritedetelies', 
+        extra: charityModel ,
+        );
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20),

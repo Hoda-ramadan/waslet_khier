@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charityimage.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/collectionOfcards.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/connecting_info.dart';
@@ -10,8 +11,8 @@ import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinf
 import 'package:waslet_khier/features/profile_feature/views/widgets/personinfo_view.dart';
 
 class CharityDetailsView_body extends StatelessWidget {
-  const CharityDetailsView_body({super.key});
-
+  const CharityDetailsView_body({super.key, required this.charity});
+  final CharityModel charity ; 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -22,9 +23,9 @@ class CharityDetailsView_body extends StatelessWidget {
           children: [
             customappbar(text: "تفاصيل الجمعية"),
 
-            Charity_image(),
+            Charity_image(image:  charity.logoUrl!,),
             Text(
-              "جمعية رسالة",
+                 charity.name?? 'null',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
@@ -35,7 +36,7 @@ class CharityDetailsView_body extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
-                "مؤسسة خيرية تسعى لتقديم الدعم الشامل للأسر المحتاجة في مجالات الصحة والتعليم والمساعدات الإنسانية.",
+                charity.description?? 'null',
                 style: TextStyle(
                   fontSize: 14,
                   fontFamily: "Roboto",
@@ -47,7 +48,9 @@ class CharityDetailsView_body extends StatelessWidget {
             ),
 
             SizedBox(height: 20),
-            colletionOfcard(),
+            colletionOfcard(totalDonorsCount: charity.totalDonorsCount!, totalProjectsCount: charity.totalProjectsCount!, 
+            totalRaisedAmount: charity.totalRaisedAmount!,
+            ),
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(right: 35, bottom: 10),

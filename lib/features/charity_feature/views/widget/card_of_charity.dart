@@ -5,8 +5,10 @@ class CardOfCharity extends StatelessWidget {
   const CardOfCharity({
     super.key,
     required this.icon,
-    required this.charitydata,
+    required this.charitydata, required this.charitydataType,
+    
   });
+  final String charitydataType;
   final IconData icon;
   final String charitydata;
   @override
@@ -24,6 +26,7 @@ class CardOfCharity extends StatelessWidget {
           children: [
             Icon(icon, color: tintAppColor),
             Text(charitydata, style: TextStyle(fontWeight: FontWeight.w600)),
+            Text(charitydataType, style: TextStyle(fontWeight: FontWeight.w600))
           ],
         ),
       ),
