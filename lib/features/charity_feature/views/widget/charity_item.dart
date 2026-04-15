@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.dart';
@@ -15,13 +16,7 @@ class CharityItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return CharityDetelsView();
-            },
-          ),
-        );
+        (context).push('/charities/chaaritedetelies');
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20),

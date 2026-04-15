@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/charites_card_grid_veiw.dart';
 
 class Charities extends StatelessWidget {
@@ -13,7 +14,10 @@ class Charities extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+
+                  (context).push('/charities',);
+                },
                 child: Text(
                   'عرض الكل',
                   textAlign: TextAlign.start,

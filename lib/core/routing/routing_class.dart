@@ -42,6 +42,14 @@ final GoRouter appRouter = GoRouter(
                   path: 'case_detals_view',
                   builder: (context, state) => CaseDetatlsVeiw(),
                 ),
+                 GoRoute(
+              path: 'charities',
+              builder: (context, state) => const CharityView(),
+                 ),
+                 GoRoute(
+                  path: 'chaaritedetelies',
+                  builder: (context, state) => CharityDetelsView(),
+                ),
               ],
             ),
           ],
@@ -55,8 +63,8 @@ final GoRouter appRouter = GoRouter(
               builder: (context, state) => const CharityView(),
               routes: [
                 GoRoute(
-                  path: '/chaaritedetelies',
-                  builder: (context, state) => CharityDetelsView(),
+                  path: 'chaaritedetelies',
+                  builder: (context, state) =>const  CharityDetelsView(),
                 ),
               ],
             ),
