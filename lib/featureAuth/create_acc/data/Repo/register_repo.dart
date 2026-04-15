@@ -6,8 +6,8 @@ class RegisterRepo {
 
   RegisterRepo(this.apiService);
 
-  Future<DonorRegister> getregister() async {
-    var data = await apiService.getRegister(endPoint: '/User/Donor-Register');
+  Future<DonorRegister> postregister() async {
+    var data = await apiService.postRegister(endPoint: '/User/Donor-Register');
 
     return DonorRegister.fromJson(data);
   }

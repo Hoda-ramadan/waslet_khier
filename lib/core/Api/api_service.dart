@@ -5,8 +5,8 @@ class ApiService {
   final String baseurl = 'https://erfan333555-001-site1.stempurl.com/api';
   ApiService(this.dio);
 
-  Future<dynamic> getRegister({required String endPoint}) async {
-    var response = await dio.get(baseurl + endPoint);
+  Future<dynamic> postRegister({required String endPoint}) async {
+    var response = await dio.post(baseurl + endPoint);
     return response.data;
   }
 

@@ -1,11 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/core/class/showsnackbar.dart';
 import 'package:waslet_khier/core/class/showsuccessdialog.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/CustomAppbar.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/check_haveing_acc.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
+import 'package:waslet_khier/featureAuth/create_acc/data/cubits/registerCubit.dart';
+import 'package:waslet_khier/featureAuth/create_acc/data/cubits/registerStates.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -109,11 +113,61 @@ class _RegisterViewState extends State<RegisterView> {
               ),
               const SizedBox(height: 30),
 
-              Custombuttom(
-                onPressed: () {},
-                text: "انشاء",
-                color: appcolor,
-                textcolor: Colors.white,
+              BlocConsumer<RegisterCubit, RegisterState>(
+                listener: (context, state) {
+                  if (state is RegisterSuccess) {
+                    showSuccessDialog(context);
+                  } else if (state is RegisterFailure) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  bool isLoading = state is RegisterLoading;
+                  return Custombuttom(
+                    text: isLoading ? "جاري الإنشاء..." : "انشاء",
+
+                    onPressed: () {
+                      print(firstNameController);
+                      if (passwordController.text !=
+                          confirmPasswordController.text) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("كلمتا المرور غير متطابقتين"),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                        return;
+                      }
+
+                      if (formKey.currentState!.validate()) {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        try {
+                          showSuccessDialog(context);
+                        } on FirebaseAuthException catch (e) {
+                          showsnackbar(
+                            e.code as FirebaseAuthException,
+                            context,
+                          );
+                        } catch (ex) {
+                          showsnackbar(
+                            "حدث خطأ ما، حاول لاحقاً" as FirebaseAuthException,
+                            context,
+                          );
+                        }
+                      }
+                    },
+
+                    color: appcolor,
+                    textcolor: Colors.white,
+                  );
+                },
               ),
 
               const SizedBox(height: 30),
