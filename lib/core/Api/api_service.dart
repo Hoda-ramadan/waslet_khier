@@ -3,8 +3,20 @@ import 'package:dio/dio.dart';
 class ApiService {
   final Dio dio;
   final String baseurl = 'https://erfan333555-001-site1.stempurl.com/api';
+
   ApiService(this.dio);
 
+  // 🔥 GET (واحدة لكل حاجة)
+  Future<dynamic> get({required String endPoint}) async {
+    try {
+      var response = await dio.get(baseurl + endPoint);
+      return response.data;
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    }
+  }
+
+  // 🔥 POST
   Future<Response> postRegister({
     required String endPoint,
     dynamic data,
@@ -36,15 +48,5 @@ class ApiService {
       default:
         return Exception('Network error occurred');
     }
-  }
-
-  Future<dynamic> getCasess({required String endPoint}) async {
-    var response = await dio.get(baseurl + endPoint);
-    return response.data;
-  }
-
-  Future<dynamic> getCharites({required String endPount}) async {
-    var response = await dio.get(baseurl + endPount);
-    return response.data;
   }
 }

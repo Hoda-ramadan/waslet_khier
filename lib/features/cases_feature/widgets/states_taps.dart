@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:waslet_khier/features/cases_feature/widgets/status_chip.dart';
 
 class StatesTaps extends StatelessWidget {
-  const StatesTaps({super.key});
-
+  const StatesTaps({super.key, required this.casePority});
+ final String casePority;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         StatusChip(
-          title: "حالة عاجلة",
+          title: casePority , 
           color: Colors.blue.shade50,
           textColor: Colors.blue,
         ),

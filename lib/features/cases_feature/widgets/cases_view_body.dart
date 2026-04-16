@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/featch_casess_cubit_cubit.dart';
 
@@ -31,7 +32,11 @@ class CasesViewBody extends StatelessWidget {
                 childAspectRatio: 0.74,
               ),
               itemBuilder: (context, index) {
-                return StatesCard(casee: state.casee[index]);
+                return GestureDetector(
+                  onTap: (){
+                   context.push('/cases/case_detals_view',extra: state.casee[index]);
+                  },
+                  child: StatesCard(casee: state.casee[index]));
               },
             );
           }

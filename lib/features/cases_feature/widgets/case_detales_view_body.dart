@@ -1,35 +1,113 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/cases_feature/widgets/detals_view_case_image.dart';
 import 'package:waslet_khier/features/cases_feature/widgets/states_taps.dart';
 import 'package:waslet_khier/features/cases_feature/widgets/stause_row.dart';
 import 'package:waslet_khier/features/cases_feature/widgets/title_text.dart';
+import 'package:waslet_khier/features/charity_feature/data/cubit/charity_cubit.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/card_of_charity.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charity_item.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/collectionOfcards.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/donate_now_buttom.dart';
+import 'package:waslet_khier/features/home_feature/views/widgets/progress_parth_with_label.dart';
 
-class CaseDetalesViewBody extends StatelessWidget {
-  const CaseDetalesViewBody({super.key});
+class CaseDetalesViewBody extends StatefulWidget {
+  const CaseDetalesViewBody({super.key, required this.casee});
+  final CaseModel casee;
 
   @override
+  State<CaseDetalesViewBody> createState() => _CaseDetalesViewBodyState();
+}
+
+class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<CharityCubit>()
+        .getCharityById(widget.casee.charityId!); 
+  }
+  @override
   Widget build(BuildContext context) {
+    final double target = (widget.casee.targetAmount ?? 1).toDouble();
+    final double collected = (widget.casee.collectedAmount ?? 0).toDouble();
+
+    final double progress = target == 0
+        ? 0
+        : (collected / target).clamp(0.0, 1.0);
+
+    final double remaining = (target - collected).clamp(0, double.infinity);
+    final int percentage = (progress * 100).toInt();
+    final int remainingDays = widget.casee.endDate != null
+    ? widget.casee.endDate!.difference(DateTime.now()).inDays
+    : 0;
+    final int carityId = widget.casee.categoryId!;
+    
     return Padding(
       // ✅ fixed (added return)
       padding: const EdgeInsets.all(22),
       child: Center(
         child: ListView(
           children: [
-            DetalsViewCaseImage(),
+            DetalsViewCaseImage(image: widget.casee.coverImageUrl!),
             SizedBox(height: 12),
-            StatesTaps(),
+            StatesTaps(casePority: widget.casee.priority!),
             SizedBox(height: 12),
-            Center(child: TitleText()),
+            Center(child: TitleText(caseName: widget.casee.title!)),
             SizedBox(height: 16),
-            StauseRow(),
+            StauseRow(
+              remaindMoney: remaining,
+              personCount: widget.casee.donorsCount ?? 0!,
+              endDate: remainingDays,
+            ),
+            SizedBox(height: 4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "تم جمع $percentage",
+                  style: TextStyle(color: tintAppColor, fontSize: 12),
+                ),
+                Text(
+                  "المطلوب$target ج.م",
+                  style: TextStyle(color: tintAppColor, fontSize: 12),
+                ),
+              ],
+            ),
+             SizedBox(
+              height:5 ,
+             ),
+            ProgressBarWithLabel(progress: progress),
             SizedBox(height: 16),
 
-            ///CharityItem(),
+
+             /// charty ////
+             
+            BlocBuilder<CharityCubit, CharityState>(
+              builder: (context, state) {
+                if (state is CharityDetailsLoading)
+                {
+                  return CircularProgressIndicator() ; 
+                }
+                if (state is CharityDetailsSuccess) {
+                return CharityItem(charityModel: state.charity,
+                 icon:  Icons.arrow_forward_ios);
+                }
+                if (state is CharityDetailsFaild)
+                {
+                  return Text(state.error);
+                }
+                else{
+                  return
+                  Text('No Charity ' ) ; 
+                }
+              },
+            ),
+            
             SizedBox(height: 20),
             Row(
               children: [

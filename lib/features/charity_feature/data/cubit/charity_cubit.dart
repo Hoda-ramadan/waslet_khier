@@ -19,4 +19,14 @@ class CharityCubit extends Cubit<CharityState> {
       emit(CharityFaild(errorMessage: e.toString()));
     }
   }
+    Future<void> getCharityById(int id) async {
+    emit(CharityDetailsLoading());
+
+    try {
+      final charity = await CharityRepo(ApiService(Dio())).getCharityById(id);
+      emit(CharityDetailsSuccess(charity));
+    } catch (e) {
+      emit(CharityDetailsFaild(e.toString()));
+    }
+  }
 }

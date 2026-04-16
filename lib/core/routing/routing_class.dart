@@ -5,6 +5,7 @@ import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/verifycode_view.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/login_view.dart';
 import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
+import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/cases_feature/views/case_detatls_veiw.dart';
 import 'package:waslet_khier/features/cases_feature/views/cases_view.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
@@ -41,7 +42,22 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'case_detals_view',
-                  builder: (context, state) => CaseDetatlsVeiw(),
+                  builder: (context, state) 
+                  {
+                     final casee = state.extra as CaseModel ; 
+                     return CaseDetatlsVeiw(
+                      casee: casee,
+                     );
+                  },
+                  routes: [
+                     GoRoute(
+                  path: 'chaaritedetelies',
+                  builder: (context, state) 
+                  {
+                    final charity = state.extra as CharityModel ; 
+                    return CharityDetelsView(charity: charity);
+                  },)
+                  ]
                 ),
                  GoRoute(
               path: 'charities',
@@ -87,8 +103,15 @@ final GoRouter appRouter = GoRouter(
               builder: (context, state) => const CasesView(),
               routes: [
                 GoRoute(
-                  path: '/cases/case_detals_view',
-                  builder: (context, state) => CaseDetatlsVeiw(),
+                  path: 'case_detals_view',
+                  builder: (context, state) {
+                    
+                     final casee = state.extra as CaseModel ; 
+                     return CaseDetatlsVeiw(
+                      casee: casee,
+                     );
+                     
+                  }
                 ),
               ],
             ),

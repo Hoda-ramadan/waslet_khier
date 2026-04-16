@@ -9,7 +9,8 @@ class RegisterRepo {
   Future<DonorRegister> register({required Map<String, dynamic> data}) async {
     final response = await apiService.postRegister(
       endPoint: '/User/Donor-Register',
-      data: data,
+      data: data, 
+      header: {},//edit by ahmed to escape error 
     );
 
     return DonorRegister.fromJson(response.data);

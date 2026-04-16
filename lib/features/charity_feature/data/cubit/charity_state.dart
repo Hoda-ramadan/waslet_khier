@@ -21,3 +21,20 @@ final class CharityFaild extends CharityState {
 
   const CharityFaild({required this.errorMessage});
 }
+
+class CharityDetailsLoading extends CharityState {}
+
+class CharityDetailsSuccess extends CharityState {
+  final CharityModel charity;
+
+  CharityDetailsSuccess(this.charity);
+
+  
+}
+
+class CharityDetailsFaild extends CharityState {
+  final String error;
+
+  CharityDetailsFaild(this.error);
+
+}
