@@ -43,36 +43,32 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'case_detals_view',
-                  builder: (context, state) 
-                  {
-                     final casee = state.extra as CaseModel ; 
-                     return CaseDetatlsVeiw(
-                      casee: casee,
-                     );
+                  builder: (context, state) {
+                    final casee = state.extra as CaseModel;
+                    return CaseDetatlsVeiw(casee: casee);
                   },
                   routes: [
-                     GoRoute(
-                  path: 'chaaritedetelies',
-                  builder: (context, state) 
-                  {
-                    final charity = state.extra as CharityModel ; 
-                    return CharityDetelsView(charity: charity);
-                  },)
-                  ]
+                    GoRoute(
+                      path: 'chaaritedetelies',
+                      builder: (context, state) {
+                        final charity = state.extra as CharityModel;
+                        return CharityDetelsView(charity: charity);
+                      },
+                    ),
+                  ],
                 ),
-                 GoRoute(
-              path: 'charities',
-              builder: (context, state) => const CharityView(),
-                 ),
-                 GoRoute(
+                GoRoute(
+                  path: 'charities',
+                  builder: (context, state) => const CharityView(),
+                ),
+                GoRoute(
                   path: 'chaaritedetelies',
-                  builder: (context, state) 
-                  {
-                    final charity = state.extra as CharityModel ; 
+                  builder: (context, state) {
+                    final charity = state.extra as CharityModel;
                     return CharityDetelsView(charity: charity);
                   },
                 ),
-                 GoRoute(
+                GoRoute(
                   path: 'zakatView',
                   builder: (context, state) => const ZakatCalculatorScreen(),
                 ),
@@ -90,10 +86,10 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'chaaritedetelies',
-                  builder:  (context, state) {
+                  builder: (context, state) {
                     final charity = state.extra as CharityModel;
                     return CharityDetelsView(charity: charity);
-  },
+                  },
                 ),
               ],
             ),
@@ -110,13 +106,9 @@ final GoRouter appRouter = GoRouter(
                 GoRoute(
                   path: 'case_detals_view',
                   builder: (context, state) {
-                    
-                     final casee = state.extra as CaseModel ; 
-                     return CaseDetatlsVeiw(
-                      casee: casee,
-                     );
-                     
-                  }
+                    final casee = state.extra as CaseModel;
+                    return CaseDetatlsVeiw(casee: casee);
+                  },
                 ),
               ],
             ),

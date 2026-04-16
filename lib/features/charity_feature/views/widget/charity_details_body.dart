@@ -12,7 +12,7 @@ import 'package:waslet_khier/features/profile_feature/views/widgets/personinfo_v
 
 class CharityDetailsView_body extends StatelessWidget {
   const CharityDetailsView_body({super.key, required this.charity});
-  final CharityModel charity ; 
+  final CharityModel charity;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -23,9 +23,9 @@ class CharityDetailsView_body extends StatelessWidget {
           children: [
             customappbar(text: "تفاصيل الجمعية"),
 
-            Charity_image(image:  charity.logoUrl!,),
+            Charity_image(image: charity.logoUrl!),
             Text(
-                 charity.name?? 'null',
+              charity.name ?? 'null',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
@@ -36,7 +36,7 @@ class CharityDetailsView_body extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
-                charity.description?? 'null',
+                charity.description ?? 'null',
                 style: TextStyle(
                   fontSize: 14,
                   fontFamily: "Roboto",
@@ -48,8 +48,10 @@ class CharityDetailsView_body extends StatelessWidget {
             ),
 
             SizedBox(height: 20),
-            colletionOfcard(totalDonorsCount: charity.totalDonorsCount!, totalProjectsCount: charity.totalProjectsCount!, 
-            totalRaisedAmount: charity.totalRaisedAmount!,
+            colletionOfcard(
+              totalDonorsCount: charity.totalDonorsCount!,
+              totalProjectsCount: charity.totalProjectsCount!,
+              totalRaisedAmount: charity.totalRaisedAmount!,
             ),
             SizedBox(height: 20),
             Padding(

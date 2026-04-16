@@ -6,9 +6,12 @@ import 'package:waslet_khier/features/charity_feature/views/widget/custom2Appbar
 
 class CaseDetatlsVeiw extends StatelessWidget {
   const CaseDetatlsVeiw({super.key, required this.casee});
- final CaseModel casee ; 
+  final CaseModel casee;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: Custom2AppBar(), body: CaseDetalesViewBody(casee: casee,));
+    return Scaffold(
+      appBar: Custom2AppBar(),
+      body: CaseDetalesViewBody(casee: casee),
+    );
   }
 }

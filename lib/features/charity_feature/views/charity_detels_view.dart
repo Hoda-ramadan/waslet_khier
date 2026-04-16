@@ -6,14 +6,14 @@ import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Ba
 
 class CharityDetelsView extends StatelessWidget {
   const CharityDetelsView({super.key, required this.charity});
- final CharityModel charity;
+  final CharityModel charity;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backGroundColor,
       appBar: CustomAppBar(),
 
-      body: CharityDetailsView_body(charity: charity,),
+      body: CharityDetailsView_body(charity: charity),
     );
   }
 }

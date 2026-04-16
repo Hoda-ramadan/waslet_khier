@@ -5,4 +5,4 @@ const appcolor = Color(0xFF3A0065);
 
 const tintAppColor = Color(0xff4E4BAC);
 const orangcolor = Color(0xFFFF8A3D);
-const double kNisab = 85 * 85.0; 
+const double kNisab = 85 * 85.0;

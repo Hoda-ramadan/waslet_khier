@@ -16,8 +16,9 @@ class StatesCard extends StatelessWidget {
     final double target = (casee.targetAmount ?? 1).toDouble();
     final double collected = (casee.collectedAmount ?? 0).toDouble();
 
-    final double progress =
-        target == 0 ? 0 : (collected / target).clamp(0.0, 1.0);
+    final double progress = target == 0
+        ? 0
+        : (collected / target).clamp(0.0, 1.0);
 
     final double remaining = (target - collected).clamp(0, double.infinity);
     final int percentage = (progress * 100).toInt();
@@ -38,21 +39,25 @@ class StatesCard extends StatelessWidget {
         children: [
           // 🔹 Image
           ClipRRect(
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(16),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             child: casee.coverImageUrl != null
                 ? Image.network(
                     casee.coverImageUrl!,
                     height: 110,
                     width: double.infinity,
                     fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) =>
-                        buildPlaceholder(isLoading: false, hight: 110, border: 0),
+                    errorBuilder: (_, __, ___) => buildPlaceholder(
+                      isLoading: false,
+                      hight: 110,
+                      border: 0,
+                    ),
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
                       return buildPlaceholder(
-                          isLoading: true, hight: 110, border: 0);
+                        isLoading: true,
+                        hight: 110,
+                        border: 0,
+                      );
                     },
                   )
                 : buildPlaceholder(isLoading: true, hight: 110, border: 0),
@@ -131,22 +136,16 @@ class StatesCard extends StatelessWidget {
 
                       // 🔥 Progress
                       ProgressBarWithLabel(progress: progress),
-                      
                     ],
-                    
                   ),
 
                   // 🔹 Buttons
                   Row(
                     children: [
-                      Expanded(
-                        child:
-                            DetalsButtom(height: 30, fontSize: 10),
-                      ),
+                      Expanded(child: DetalsButtom(height: 30, fontSize: 10)),
                       const SizedBox(width: 6),
                       Expanded(
-                        child:
-                            DonateNowButtom(height: 30, fontSize: 10),
+                        child: DonateNowButtom(height: 30, fontSize: 10),
                       ),
                     ],
                   ),

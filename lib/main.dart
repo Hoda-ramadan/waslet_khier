@@ -27,7 +27,6 @@ class WasletKhier extends StatelessWidget {
           create: (context) => FeatchCasessCubitCubit()..featchCasess(),
         ),
         BlocProvider(create: (context) => CharityCubit()..getCharites()),
-        
       ],
       child: MaterialApp.router(
         routerConfig: appRouter,

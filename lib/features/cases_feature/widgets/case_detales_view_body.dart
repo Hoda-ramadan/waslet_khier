@@ -23,14 +23,13 @@ class CaseDetalesViewBody extends StatefulWidget {
 }
 
 class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
-
   @override
   void initState() {
     super.initState();
 
-    context.read<CharityCubit>()
-        .getCharityById(widget.casee.charityId!); 
+    context.read<CharityCubit>().getCharityById(widget.casee.charityId!);
   }
+
   @override
   Widget build(BuildContext context) {
     final double target = (widget.casee.targetAmount ?? 1).toDouble();
@@ -43,10 +42,9 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
     final double remaining = (target - collected).clamp(0, double.infinity);
     final int percentage = (progress * 100).toInt();
     final int remainingDays = widget.casee.endDate != null
-    ? widget.casee.endDate!.difference(DateTime.now()).inDays
-    : 0;
-    
-    
+        ? widget.casee.endDate!.difference(DateTime.now()).inDays
+        : 0;
+
     return Padding(
       // ✅ fixed (added return)
       padding: const EdgeInsets.all(22),
@@ -78,36 +76,30 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
                 ),
               ],
             ),
-             SizedBox(
-              height:5 ,
-             ),
+            SizedBox(height: 5),
             ProgressBarWithLabel(progress: progress),
             SizedBox(height: 16),
 
-
-             /// charty ////
-             
+            /// charty ////
             BlocBuilder<CharityCubit, CharityState>(
               builder: (context, state) {
-                if (state is CharityDetailsLoading)
-                {
-                  return CircularProgressIndicator() ; 
+                if (state is CharityDetailsLoading) {
+                  return CircularProgressIndicator();
                 }
                 if (state is CharityDetailsSuccess) {
-                return CharityItem(charityModel: state.charity,
-                 icon:  Icons.arrow_forward_ios);
+                  return CharityItem(
+                    charityModel: state.charity,
+                    icon: Icons.arrow_forward_ios,
+                  );
                 }
-                if (state is CharityDetailsFaild)
-                {
+                if (state is CharityDetailsFaild) {
                   return Text(state.error);
-                }
-                else{
-                  return
-                  Text('No Charity ' ) ; 
+                } else {
+                  return Text('No Charity ');
                 }
               },
             ),
-            
+
             SizedBox(height: 20),
             Row(
               children: [

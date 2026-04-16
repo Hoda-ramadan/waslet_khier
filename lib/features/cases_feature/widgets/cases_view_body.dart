@@ -33,10 +33,14 @@ class CasesViewBody extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: (){
-                   context.push('/cases/case_detals_view',extra: state.casee[index]);
+                  onTap: () {
+                    context.push(
+                      '/cases/case_detals_view',
+                      extra: state.casee[index],
+                    );
                   },
-                  child: StatesCard(casee: state.casee[index]));
+                  child: StatesCard(casee: state.casee[index]),
+                );
               },
             );
           }

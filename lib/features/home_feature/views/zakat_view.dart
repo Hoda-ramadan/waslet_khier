@@ -4,30 +4,30 @@ import 'package:waslet_khier/const.dart';
 
 class ZakatCalculatorScreen extends StatefulWidget {
   const ZakatCalculatorScreen({super.key});
- 
+
   @override
   State<ZakatCalculatorScreen> createState() => _ZakatCalculatorScreenState();
 }
- 
+
 class _ZakatCalculatorScreenState extends State<ZakatCalculatorScreen> {
   final _moneyCtrl = TextEditingController();
   final _stocksCtrl = TextEditingController();
   final _bondsCtrl = TextEditingController();
   final _profitsCtrl = TextEditingController();
- 
+
   double _parse(TextEditingController c) =>
       double.tryParse(c.text.replaceAll(',', '')) ?? 0;
- 
+
   void _calculate() {
     final money = _parse(_moneyCtrl);
     final stocks = _parse(_stocksCtrl);
     final bonds = _parse(_bondsCtrl);
     final profits = _parse(_profitsCtrl);
- 
+
     final zakatMoney = money * 0.025;
     final zakatAmlak = (stocks + bonds + profits) * 0.025;
     final total = zakatMoney + zakatAmlak;
- 
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -39,7 +39,7 @@ class _ZakatCalculatorScreenState extends State<ZakatCalculatorScreen> {
       ),
     );
   }
- 
+
   @override
   void dispose() {
     _moneyCtrl.dispose();
@@ -48,7 +48,7 @@ class _ZakatCalculatorScreenState extends State<ZakatCalculatorScreen> {
     _profitsCtrl.dispose();
     super.dispose();
   }
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,16 +67,22 @@ class _ZakatCalculatorScreenState extends State<ZakatCalculatorScreen> {
                     const SizedBox(height: 8),
                     const ZakatSectionLabel(label: 'زكاة المال'),
                     const SizedBox(height: 8),
+                    ZakatTextField(controller: _moneyCtrl, hint: '5000'),
+                    const SizedBox(height: 14),
                     ZakatTextField(
-                      controller: _moneyCtrl,
-                      hint: '5000',
+                      controller: _stocksCtrl,
+                      hint: 'ادخل قيمة الأسهم التي تمتلكها في السوق',
                     ),
                     const SizedBox(height: 14),
-                    ZakatTextField(controller: _stocksCtrl, hint: 'ادخل قيمة الأسهم التي تمتلكها في السوق'),
+                    ZakatTextField(
+                      controller: _bondsCtrl,
+                      hint: 'ادخل قيمة السندات التي تمتلكها في السوق',
+                    ),
                     const SizedBox(height: 14),
-                    ZakatTextField(controller: _bondsCtrl, hint: 'ادخل قيمة السندات التي تمتلكها في السوق'),
-                    const SizedBox(height: 14),
-                    ZakatTextField(controller: _profitsCtrl, hint: 'ادخل قيمة الارباح التي حصلت عليها'),
+                    ZakatTextField(
+                      controller: _profitsCtrl,
+                      hint: 'ادخل قيمة الارباح التي حصلت عليها',
+                    ),
                     const SizedBox(height: 30),
                   ],
                 ),
@@ -90,11 +96,11 @@ class _ZakatCalculatorScreenState extends State<ZakatCalculatorScreen> {
     );
   }
 }
- 
+
 // ─── App Bar ─────────────────────────────────────────────────────────────────
 class ZakatAppBar extends StatelessWidget {
   const ZakatAppBar({super.key});
- 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -111,57 +117,54 @@ class ZakatAppBar extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 6),
-          GestureDetector
-           
-          (
+          GestureDetector(
             onTap: () {
-              (context).pop() ;
+              (context).pop();
             },
-            child: Icon(Icons.chevron_right, color: orangcolor, size: 28)),
+            child: Icon(Icons.chevron_right, color: orangcolor, size: 28),
+          ),
         ],
       ),
     );
   }
 }
- 
+
 // ─── Illustration ─────────────────────────────────────────────────────────────
 class ZakatIllustration extends StatelessWidget {
   const ZakatIllustration({super.key});
- 
+
   @override
   Widget build(BuildContext context) {
-    return
-   
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 180, 
-                height:  180,
-                child: Image.asset('assets/images/pana.png')),
-              _CalculatorIllustration(),
-            ],
-          );
-     
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: 180,
+          height: 180,
+          child: Image.asset('assets/images/pana.png'),
+        ),
+        _CalculatorIllustration(),
+      ],
+    );
   }
 }
- 
+
 class _Circle extends StatelessWidget {
   final double size;
   final double opacity;
   const _Circle({required this.size, required this.opacity});
- 
+
   @override
   Widget build(BuildContext context) => Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: appcolor.withOpacity(opacity),
-        ),
-      );
+    width: size,
+    height: size,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: appcolor.withOpacity(opacity),
+    ),
+  );
 }
- 
+
 class _CalculatorIllustration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -224,11 +227,12 @@ class _CalculatorIllustration extends StatelessWidget {
     );
   }
 }
+
 // ─── Section Label ────────────────────────────────────────────────────────────
 class ZakatSectionLabel extends StatelessWidget {
   final String label;
   const ZakatSectionLabel({super.key, required this.label});
- 
+
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -242,18 +246,18 @@ class ZakatSectionLabel extends StatelessWidget {
     );
   }
 }
- 
+
 // ─── Text Field ───────────────────────────────────────────────────────────────
 class ZakatTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
- 
+
   const ZakatTextField({
     super.key,
     required this.controller,
     required this.hint,
   });
- 
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -271,8 +275,10 @@ class ZakatTextField extends StatelessWidget {
         ),
         filled: true,
         fillColor: Colors.white,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: const Color.fromARGB(197, 61, 60, 60)),
@@ -289,12 +295,12 @@ class ZakatTextField extends StatelessWidget {
     );
   }
 }
- 
+
 // ─── Calculate Button ─────────────────────────────────────────────────────────
 class ZakatCalculateButton extends StatelessWidget {
   final VoidCallback onPressed;
   const ZakatCalculateButton({super.key, required this.onPressed});
- 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -324,22 +330,22 @@ class ZakatCalculateButton extends StatelessWidget {
     );
   }
 }
- 
+
 // ─── Result Bottom Sheet ──────────────────────────────────────────────────────
 class ZakatResultSheet extends StatelessWidget {
   final double zakatMoney;
   final double zakatAmlak;
   final double total;
- 
+
   const ZakatResultSheet({
     super.key,
     required this.zakatMoney,
     required this.zakatAmlak,
     required this.total,
   });
- 
+
   String _fmt(double v) => '${v.toStringAsFixed(0)} ج.م';
- 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -378,30 +384,30 @@ class ZakatResultSheet extends StatelessWidget {
                 ),
               ],
             ),
- 
+
             const SizedBox(height: 20),
- 
+
             // Zakat Money Row
             ZakatResultRow(label: 'زكاة المال', value: _fmt(zakatMoney)),
             const SizedBox(height: 12),
- 
+
             // Zakat Amlak Row
             ZakatResultRow(label: 'زكاة الأملاك', value: _fmt(zakatAmlak)),
- 
+
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 14),
               child: Divider(color: Color(0xFFEEEEEE), thickness: 1.5),
             ),
- 
+
             // Total Row
             ZakatResultRow(
               label: 'اجمالي مبلغ الزكاة',
               value: _fmt(total),
               isTotal: true,
             ),
- 
+
             const SizedBox(height: 24),
- 
+
             // Donate Button
             SizedBox(
               width: double.infinity,
@@ -409,7 +415,7 @@ class ZakatResultSheet extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () => Navigator.pop(context),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:orangcolor,
+                  backgroundColor: orangcolor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
@@ -432,20 +438,20 @@ class ZakatResultSheet extends StatelessWidget {
     );
   }
 }
- 
+
 // ─── Result Row ───────────────────────────────────────────────────────────────
 class ZakatResultRow extends StatelessWidget {
   final String label;
   final String value;
   final bool isTotal;
- 
+
   const ZakatResultRow({
     super.key,
     required this.label,
     required this.value,
     this.isTotal = false,
   });
- 
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -471,4 +477,3 @@ class ZakatResultRow extends StatelessWidget {
     );
   }
 }
- 

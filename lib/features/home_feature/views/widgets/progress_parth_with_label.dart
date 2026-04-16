@@ -9,7 +9,7 @@ class ProgressBarWithLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8,right: 8, bottom: 8),
+      padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
       child: Container(
         height: 8,
         decoration: BoxDecoration(
@@ -29,7 +29,7 @@ class ProgressBarWithLabel extends StatelessWidget {
                 ),
               ),
             ),
-      
+
             // 🔹 Percentage text (اختياري)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),

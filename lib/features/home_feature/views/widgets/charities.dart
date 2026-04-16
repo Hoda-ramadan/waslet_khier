@@ -15,8 +15,7 @@ class Charities extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-
-                  (context).push('/charities',);
+                  (context).push('/charities');
                 },
                 child: Text(
                   'عرض الكل',

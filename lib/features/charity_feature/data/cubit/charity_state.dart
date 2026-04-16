@@ -28,13 +28,10 @@ class CharityDetailsSuccess extends CharityState {
   final CharityModel charity;
 
   CharityDetailsSuccess(this.charity);
-
-  
 }
 
 class CharityDetailsFaild extends CharityState {
   final String error;
 
   CharityDetailsFaild(this.error);
-
 }

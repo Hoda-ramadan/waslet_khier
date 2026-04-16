@@ -10,11 +10,8 @@ class CharitesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        (context).push('/home/chaaritedetelies',
-        extra: charityModel
-        );
-        
+      onTap: () {
+        (context).push('/home/chaaritedetelies', extra: charityModel);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 4),
@@ -25,7 +22,7 @@ class CharitesCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-      
+
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +42,7 @@ class CharitesCard extends StatelessWidget {
                       },
                     )
                   : _smallPlaceholder(),
-      
+
               const SizedBox(height: 4),
               SizedBox(
                 child: Text(

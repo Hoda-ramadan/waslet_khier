@@ -46,12 +46,13 @@ class CustomDrawer extends StatelessWidget {
             // العناصر
             DrawerItem(icon: Icons.business, title: "الجمعيات الخيرية"),
             DrawerItem(icon: Icons.people, title: "الحالات"),
-            GestureDetector
-            (
+            GestureDetector(
               onTap: () {
-               context.go('/home/zakatView');;
+                context.go('/home/zakatView');
+                ;
               },
-              child: DrawerItem(icon: Icons.calculate, title: "حساب الزكاة")),
+              child: DrawerItem(icon: Icons.calculate, title: "حساب الزكاة"),
+            ),
             DrawerItem(icon: Icons.person_add, title: "انضم إلينا"),
             DrawerItem(icon: Icons.share, title: "شارك التطبيق"),
 
