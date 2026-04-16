@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:waslet_khier/core/Api/api_service.dart';
+import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/data/repo/charity_repo.dart';
 part 'charity_state.dart';
@@ -19,7 +19,8 @@ class CharityCubit extends Cubit<CharityState> {
       emit(CharityFaild(errorMessage: e.toString()));
     }
   }
-    Future<void> getCharityById(int id) async {
+
+  Future<void> getCharityById(int id) async {
     emit(CharityDetailsLoading());
 
     try {

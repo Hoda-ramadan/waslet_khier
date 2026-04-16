@@ -1,10 +1,10 @@
-import 'package:waslet_khier/core/Api/auth_services/login_service.dart';
+import 'package:waslet_khier/core/api/auth_services/authService.dart';
 import 'package:waslet_khier/featureAuth/auth/data/models/login_model.dart';
 
 class AuthRepository {
   final AuthService authService;
 
-  AuthRepository(this.authService);
+  AuthRepository({required this.authService});
 
   Future<LoginModel> login({
     required String email,

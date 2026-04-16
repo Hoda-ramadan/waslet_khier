@@ -6,7 +6,6 @@ class ApiService {
 
   ApiService(this.dio);
 
-  // 🔥 GET (واحدة لكل حاجة)
   Future<dynamic> get({required String endPoint}) async {
     try {
       var response = await dio.get(baseurl + endPoint);
@@ -16,7 +15,6 @@ class ApiService {
     }
   }
 
-  // 🔥 POST
   Future<Response> postRegister({
     required String endPoint,
     dynamic data,

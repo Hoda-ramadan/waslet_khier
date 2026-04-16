@@ -1,8 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// featureAuth/create_acc/widget/create_acc_body.dart
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waslet_khier/const.dart';
-import 'package:waslet_khier/core/class/showsnackbar.dart';
 import 'package:waslet_khier/core/class/showsuccessdialog.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/widget/CustomAppbar.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
@@ -30,6 +31,41 @@ class _RegisterViewState extends State<RegisterView> {
       TextEditingController();
 
   @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    phoneController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  void _onRegister(BuildContext context) {
+    // التحقق من تطابق كلمتي المرور
+    if (passwordController.text != confirmPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('كلمتا المرور غير متطابقتين'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    // التحقق من الـ Form
+    if (formKey.currentState!.validate()) {
+      context.read<RegisterCubit>().register(
+        FirstName: firstNameController.text.trim(),
+        LastName: lastNameController.text.trim(),
+        Phone: phoneController.text.trim(),
+        Email: emailController.text.trim(),
+        Password: passwordController.text,
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -40,76 +76,100 @@ class _RegisterViewState extends State<RegisterView> {
             children: [
               Custom_Appbar(),
               Image.asset(
-                "assets/images/radix-icons_avatar (1).png",
+                'assets/images/radix-icons_avatar (1).png',
                 fit: BoxFit.cover,
               ),
-              Text(
-                "انشاء حساب",
+              const Text(
+                'انشاء حساب',
                 style: TextStyle(
                   fontSize: 22,
-                  fontFamily: "Roboto",
+                  fontFamily: 'Roboto',
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               CustomTextField(
-                validator: (value) {},
                 controller: firstNameController,
-                labelText: "الاسم الأول",
+                labelText: 'الاسم الأول',
                 prefxIcon: Icons.person,
                 hintTtxt: '',
                 isSuffixIcon: false,
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'الاسم الأول مطلوب';
+                  return null;
+                },
               ),
               const SizedBox(height: 15),
 
               CustomTextField(
-                validator: (value) {},
                 controller: lastNameController,
-                labelText: "الاسم الأخير",
+                labelText: 'الاسم الأخير',
                 prefxIcon: Icons.person,
                 hintTtxt: '',
                 isSuffixIcon: false,
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'الاسم الأخير مطلوب';
+                  return null;
+                },
               ),
               const SizedBox(height: 15),
 
               CustomTextField(
-                validator: (value) {},
                 controller: phoneController,
-                labelText: "رقم الهاتف",
+                labelText: 'رقم الهاتف',
                 prefxIcon: Icons.phone,
                 hintTtxt: '',
                 isSuffixIcon: false,
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'رقم الهاتف مطلوب';
+                  return null;
+                },
               ),
               const SizedBox(height: 15),
 
               CustomTextField(
-                validator: (value) {},
                 controller: emailController,
-                labelText: "البريد الإلكتروني",
+                labelText: 'البريد الإلكتروني',
                 prefxIcon: Icons.email,
                 hintTtxt: '',
                 isSuffixIcon: false,
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'البريد مطلوب';
+                  if (!value.contains('@')) return 'بريد إلكتروني غير صحيح';
+                  return null;
+                },
               ),
               const SizedBox(height: 15),
 
               CustomTextField(
-                validator: (value) {},
                 controller: passwordController,
-                labelText: "كلمة المرور",
+                labelText: 'كلمة المرور',
                 prefxIcon: Icons.lock_outline,
-                isSuffixIcon: true,
                 hintTtxt: '',
+                isSuffixIcon: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'كلمة المرور مطلوبة';
+                  if (value.length < 6) return 'كلمة المرور أقل من 6 أحرف';
+                  return null;
+                },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
 
               CustomTextField(
-                validator: (value) {},
                 controller: confirmPasswordController,
-                labelText: "تأكيد كلمة المرور",
+                labelText: 'تأكيد كلمة المرور',
                 prefxIcon: Icons.lock_outline,
-                isSuffixIcon: true,
                 hintTtxt: '',
+                isSuffixIcon: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'تأكيد كلمة المرور مطلوب';
+                  return null;
+                },
               ),
               const SizedBox(height: 30),
 
@@ -127,43 +187,10 @@ class _RegisterViewState extends State<RegisterView> {
                   }
                 },
                 builder: (context, state) {
-                  bool isLoading = state is RegisterLoading;
+                  final isLoading = state is RegisterLoading;
                   return Custombuttom(
-                    text: isLoading ? "جاري الإنشاء..." : "انشاء",
-
-                    onPressed: () {
-                      print(firstNameController);
-                      if (passwordController.text !=
-                          confirmPasswordController.text) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("كلمتا المرور غير متطابقتين"),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                        return;
-                      }
-
-                      if (formKey.currentState!.validate()) {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        try {
-                          showSuccessDialog(context);
-                        } on FirebaseAuthException catch (e) {
-                          showsnackbar(
-                            e.code as FirebaseAuthException,
-                            context,
-                          );
-                        } catch (ex) {
-                          showsnackbar(
-                            "حدث خطأ ما، حاول لاحقاً" as FirebaseAuthException,
-                            context,
-                          );
-                        }
-                      }
-                    },
-
+                    text: isLoading ? 'جاري الإنشاء...' : 'انشاء',
+                    onPressed: isLoading ? null : () => _onRegister(context),
                     color: appcolor,
                     textcolor: Colors.white,
                   );
@@ -173,8 +200,8 @@ class _RegisterViewState extends State<RegisterView> {
               const SizedBox(height: 30),
 
               checkhavingAcc(
-                text1: "لديك حساب بالفعل؟ ",
-                text2: "سجل الدخول الان",
+                text1: 'لديك حساب بالفعل؟ ',
+                text2: 'سجل الدخول الان',
                 textcolor1: Colors.deepOrange,
                 textcolor2: Colors.black,
                 path: '',
