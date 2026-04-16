@@ -6,23 +6,16 @@ import 'package:waslet_khier/features/charity_feature/views/widget/charity_detai
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
 
 class CharityDetelsView extends StatelessWidget {
-  const CharityDetelsView({
-    super.key,
-    required this.charity,
-    required this.categoryModel,
-  });
+  const CharityDetelsView({super.key, required this.charity});
   final CharityModel charity;
-  final CategoryModel categoryModel;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backGroundColor,
       appBar: CustomAppBar(),
 
-      body: CharityDetailsView_body(
-        charity: charity,
-        categoryModel: categoryModel,
-      ),
+      body: CharityDetailsView_body(charity: charity),
     );
   }
 }

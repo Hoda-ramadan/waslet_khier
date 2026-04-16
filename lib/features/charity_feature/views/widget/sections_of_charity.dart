@@ -22,7 +22,11 @@ class SectionsOfCharity extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(categoryModel.iconUrl as IconData?),
+            Container(
+              height: 30,
+              width: 40,
+              child: Image.network("${categoryModel.iconUrl}"),
+            ),
             Text(
               "${categoryModel.name}",
               style: TextStyle(fontWeight: FontWeight.w600),

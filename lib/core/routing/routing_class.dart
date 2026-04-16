@@ -53,11 +53,8 @@ final GoRouter appRouter = GoRouter(
                       path: 'chaaritedetelies',
                       builder: (context, state) {
                         final charity = state.extra as CharityModel;
-                        final Category = state.extra as CategoryModel;
-                        return CharityDetelsView(
-                          charity: charity,
-                          categoryModel: Category,
-                        );
+
+                        return CharityDetelsView(charity: charity);
                       },
                     ),
                   ],
@@ -70,11 +67,8 @@ final GoRouter appRouter = GoRouter(
                   path: 'chaaritedetelies',
                   builder: (context, state) {
                     final charity = state.extra as CharityModel;
-                    final Category = state.extra as CategoryModel;
-                    return CharityDetelsView(
-                      charity: charity,
-                      categoryModel: Category,
-                    );
+
+                    return CharityDetelsView(charity: charity);
                   },
                 ),
                 GoRoute(
@@ -97,11 +91,8 @@ final GoRouter appRouter = GoRouter(
                   path: 'chaaritedetelies',
                   builder: (context, state) {
                     final charity = state.extra as CharityModel;
-                    final Category = state.extra as CategoryModel;
-                    return CharityDetelsView(
-                      charity: charity,
-                      categoryModel: Category,
-                    );
+
+                    return CharityDetelsView(charity: charity);
                   },
                 ),
               ],

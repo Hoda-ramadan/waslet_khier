@@ -1,7 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/core/api/api_service.dart';
+import 'package:waslet_khier/features/charity_feature/data/cubit/CategoryCubit/categorycubit.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_model.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
+import 'package:waslet_khier/features/charity_feature/data/repo/categoryrepo.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charityimage.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/collectionOfcards.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/connecting_info.dart';
@@ -9,16 +14,11 @@ import 'package:waslet_khier/features/charity_feature/views/widget/customsection
 import 'package:waslet_khier/features/charity_feature/views/widget/pymentoption_item.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/statescardofcharity.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
-import 'package:waslet_khier/features/profile_feature/views/widgets/personinfo_view.dart';
 
 class CharityDetailsView_body extends StatelessWidget {
-  const CharityDetailsView_body({
-    super.key,
-    required this.charity,
-    required this.categoryModel,
-  });
+  const CharityDetailsView_body({super.key, required this.charity});
   final CharityModel charity;
-  final CategoryModel categoryModel;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -70,7 +70,11 @@ class CharityDetailsView_body extends StatelessWidget {
                 ),
               ),
             ),
-            CustomSections(categoryModel: categoryModel),
+            BlocProvider(
+              create: (context) =>
+                  Categorycubit(Categoryrepo(ApiService(Dio())))..getCategory(),
+              child: CustomSections(),
+            ),
             Padding(
               padding: const EdgeInsets.only(right: 35, bottom: 10),
               child: Align(
