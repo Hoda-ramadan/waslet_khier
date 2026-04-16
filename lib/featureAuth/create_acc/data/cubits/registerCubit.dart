@@ -1,5 +1,3 @@
-// featureAuth/create_acc/data/cubits/registerCubit.dart
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waslet_khier/featureAuth/create_acc/data/Repo/register_repo.dart';
 import 'package:waslet_khier/featureAuth/create_acc/data/cubits/registerStates.dart';

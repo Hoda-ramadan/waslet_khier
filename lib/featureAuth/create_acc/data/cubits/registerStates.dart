@@ -1,5 +1,3 @@
-// featureAuth/create_acc/data/cubits/registerStates.dart
-
 import 'package:equatable/equatable.dart';
 import 'package:waslet_khier/featureAuth/create_acc/data/Model/donor_register.dart';
 

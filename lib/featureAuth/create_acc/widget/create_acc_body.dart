@@ -1,5 +1,3 @@
-// featureAuth/create_acc/widget/create_acc_body.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +40,6 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   void _onRegister(BuildContext context) {
-    // التحقق من تطابق كلمتي المرور
     if (passwordController.text != confirmPasswordController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -53,7 +50,6 @@ class _RegisterViewState extends State<RegisterView> {
       return;
     }
 
-    // التحقق من الـ Form
     if (formKey.currentState!.validate()) {
       context.read<RegisterCubit>().register(
         FirstName: firstNameController.text.trim(),
@@ -96,8 +92,9 @@ class _RegisterViewState extends State<RegisterView> {
                 hintTtxt: '',
                 isSuffixIcon: false,
                 validator: (value) {
-                  if (value == null || value.isEmpty)
+                  if (value == null || value.isEmpty) {
                     return 'الاسم الأول مطلوب';
+                  }
                   return null;
                 },
               ),
@@ -110,8 +107,9 @@ class _RegisterViewState extends State<RegisterView> {
                 hintTtxt: '',
                 isSuffixIcon: false,
                 validator: (value) {
-                  if (value == null || value.isEmpty)
+                  if (value == null || value.isEmpty) {
                     return 'الاسم الأخير مطلوب';
+                  }
                   return null;
                 },
               ),
@@ -151,8 +149,9 @@ class _RegisterViewState extends State<RegisterView> {
                 hintTtxt: '',
                 isSuffixIcon: true,
                 validator: (value) {
-                  if (value == null || value.isEmpty)
+                  if (value == null || value.isEmpty) {
                     return 'كلمة المرور مطلوبة';
+                  }
                   if (value.length < 6) return 'كلمة المرور أقل من 6 أحرف';
                   return null;
                 },
@@ -166,8 +165,9 @@ class _RegisterViewState extends State<RegisterView> {
                 hintTtxt: '',
                 isSuffixIcon: true,
                 validator: (value) {
-                  if (value == null || value.isEmpty)
+                  if (value == null || value.isEmpty) {
                     return 'تأكيد كلمة المرور مطلوب';
+                  }
                   return null;
                 },
               ),
