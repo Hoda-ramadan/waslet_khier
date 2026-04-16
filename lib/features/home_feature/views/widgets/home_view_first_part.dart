@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 
 class HomeViewFirstPart extends StatelessWidget {
@@ -17,7 +18,9 @@ class HomeViewFirstPart extends StatelessWidget {
                 width: 24,
                 height: 24,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    (context).go('/home/zakatView');
+                  },
                   icon: Icon(FontAwesomeIcons.calculator, color: tintAppColor),
                 ),
               ),

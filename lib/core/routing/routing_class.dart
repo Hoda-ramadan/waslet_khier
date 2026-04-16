@@ -13,6 +13,7 @@ import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.
 import 'package:waslet_khier/features/charity_feature/views/charity_view.dart';
 import 'package:waslet_khier/features/home_feature/views/Custom_drawer.dart';
 import 'package:waslet_khier/features/home_feature/views/home_page.dart';
+import 'package:waslet_khier/features/home_feature/views/zakat_view.dart';
 import 'package:waslet_khier/features/main_feature/views/main_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/profile_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/aboutApp_view.dart';
@@ -70,6 +71,10 @@ final GoRouter appRouter = GoRouter(
                     final charity = state.extra as CharityModel ; 
                     return CharityDetelsView(charity: charity);
                   },
+                ),
+                 GoRoute(
+                  path: 'zakatView',
+                  builder: (context, state) => const ZakatCalculatorScreen(),
                 ),
               ],
             ),

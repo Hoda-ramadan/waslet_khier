@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/drawer_item.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -45,7 +46,12 @@ class CustomDrawer extends StatelessWidget {
             // العناصر
             DrawerItem(icon: Icons.business, title: "الجمعيات الخيرية"),
             DrawerItem(icon: Icons.people, title: "الحالات"),
-            DrawerItem(icon: Icons.calculate, title: "حساب الزكاة"),
+            GestureDetector
+            (
+              onTap: () {
+               context.go('/home/zakatView');;
+              },
+              child: DrawerItem(icon: Icons.calculate, title: "حساب الزكاة")),
             DrawerItem(icon: Icons.person_add, title: "انضم إلينا"),
             DrawerItem(icon: Icons.share, title: "شارك التطبيق"),
 
