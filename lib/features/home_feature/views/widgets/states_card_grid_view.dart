@@ -28,7 +28,9 @@ class StatesCardGridView extends StatelessWidget {
                     width: 160,
                     child: GestureDetector(
                       onTap: () {
-                        context.push('/home/case_detals_view');
+                        context.push('/cases/case_detals_view', 
+                        extra: state.casee[index]
+                        );
                       },
                       child: StatesCard(casee: item),
                     ),
