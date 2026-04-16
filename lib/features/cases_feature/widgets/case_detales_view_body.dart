@@ -45,7 +45,7 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
     final int remainingDays = widget.casee.endDate != null
     ? widget.casee.endDate!.difference(DateTime.now()).inDays
     : 0;
-    final int carityId = widget.casee.categoryId!;
+    
     
     return Padding(
       // ✅ fixed (added return)

@@ -2,46 +2,72 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/charity_feature/data/cubit/charity_cubit.dart';
-import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charity_item.dart';
 
-class Listofcharitys extends StatelessWidget {
-  const Listofcharitys({super.key, this.icon, this.color});
+class Listofcharitys extends StatefulWidget {
+  const Listofcharitys({
+    super.key,
+    this.icon,
+    this.color,
+  
+  });
+
   final IconData? icon;
   final Color? color;
+ 
+
+  @override
+  State<Listofcharitys> createState() => _ListofcharitysState();
+}
+
+class _ListofcharitysState extends State<Listofcharitys> {
+  @override
+  void initState() {
+    super.initState();
+
+    // safer after first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<CharityCubit>().getCharites();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CharityCubit, CharityState>(
       builder: (context, state) {
         if (state is CharityLodaing) {
-          return Center(child: CircularProgressIndicator(color: tintAppColor));
+          return const Center(
+            child: CircularProgressIndicator(color: tintAppColor),
+          );
         }
+
         if (state is CharitySuccess) {
           return ListView.builder(
             itemCount: state.charites.length,
             itemBuilder: (context, index) {
               return CharityItem(
                 charityModel: state.charites[index],
-                icon: icon ?? Icons.arrow_forward_ios,
+                icon: widget.icon ?? Icons.arrow_forward_ios,
               );
             },
           );
         }
+
         if (state is CharityFaild) {
           return Center(
             child: Text(
               state.errorMessage.toString(),
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
-          );
-        } else {
-          return Center(
-            child: Text(
-              'There Was An Error ',
-              style: TextStyle(fontSize: 18, color: Colors.grey),
+              style: const TextStyle(fontSize: 18, color: Colors.grey),
             ),
           );
         }
+
+        return const Center(
+          child: Text(
+            'There was an error',
+            style: TextStyle(fontSize: 18, color: Colors.grey),
+          ),
+        );
       },
     );
   }
