@@ -1,4 +1,4 @@
-import 'package:waslet_khier/core/Api/api_service.dart';
+import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/featureAuth/create_acc/data/Model/donor_register.dart';
 
 class RegisterRepo {
@@ -6,9 +6,12 @@ class RegisterRepo {
 
   RegisterRepo(this.apiService);
 
-  Future<DonorRegister> postregister() async {
-    var data = await apiService.postRegister(endPoint: '/User/Donor-Register');
+  Future<DonorRegister> register({required Map<String, dynamic> data}) async {
+    final response = await apiService.postRegister(
+      endPoint: '/User/Donor-Register',
+      data: data,
+    );
 
-    return DonorRegister.fromJson(data);
+    return DonorRegister.fromJson(response.data);
   }
 }

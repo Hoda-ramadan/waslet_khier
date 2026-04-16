@@ -22,7 +22,7 @@ class CharityIcon extends StatelessWidget {
               charityimage!,
               height: 67,
               width: double.infinity,
-              fit: BoxFit.cover,
+              fit: BoxFit.fitWidth,
               errorBuilder: (context, error, stackTrace) =>
                   const buildPlaceholder(
                     isLoading: false,

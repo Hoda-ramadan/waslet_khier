@@ -16,9 +16,7 @@ class CharityItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        (context).push('/charities/chaaritedetelies', 
-        extra: charityModel ,
-        );
+        (context).push('/charities/chaaritedetelies', extra: charityModel);
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20),
@@ -31,7 +29,7 @@ class CharityItem extends StatelessWidget {
           ),
           child: charityitem_body(
             charityModel: charityModel,
-            icon: Icons.arrow_back_ios_new,
+            icon: Icons.arrow_forward_ios,
           ),
         ),
       ),

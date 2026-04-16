@@ -22,7 +22,7 @@ class Listofcharitys extends StatelessWidget {
             itemBuilder: (context, index) {
               return CharityItem(
                 charityModel: state.charites[index],
-                icon: Icons.arrow_back_ios,
+                icon: icon ?? Icons.arrow_forward_ios,
               );
             },
           );
