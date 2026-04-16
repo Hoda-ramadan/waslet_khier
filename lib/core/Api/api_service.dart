@@ -33,6 +33,8 @@ class ApiService {
     }
   }
 
+  
+
  Exception _handleDioError(DioException e) {
   switch (e.type) {
     case DioExceptionType.connectionTimeout:
@@ -56,6 +58,23 @@ class ApiService {
       return Exception(errorMessage);
     default:
       return Exception('Network error occurred');
+  }
+}
+
+
+Future<Response> postLogin({
+  required String endPoint,
+  required Map<String, dynamic> data,
+}) async {
+  try {
+    var response = await dio.post(
+      baseurl + endPoint,
+      data: data,
+      options: Options(headers: {'Content-Type': 'application/json'}),
+    );
+    return response;
+  } on DioException catch (e) {
+    throw _handleDioError(e);
   }
 }
 }
