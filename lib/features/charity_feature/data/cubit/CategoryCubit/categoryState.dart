@@ -12,4 +12,8 @@ class SuccessCategory extends Categorystate {
   SuccessCategory({required this.categorymodel});
 }
 
-class FaildCategory extends Categorystate {}
+class FaildCategory extends Categorystate {
+  final String errormsg;
+
+  FaildCategory({required this.errormsg});
+}

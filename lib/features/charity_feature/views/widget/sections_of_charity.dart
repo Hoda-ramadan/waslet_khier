@@ -1,31 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_model.dart';
 
 class SectionsOfCharity extends StatelessWidget {
-  const SectionsOfCharity({
-    super.key,
-    required this.icon,
-    required this.name,
-    required this.iconcolor,
-  });
-  final IconData icon;
-  final String name;
-  final Color iconcolor;
+  const SectionsOfCharity({super.key, required this.categoryModel});
+  final CategoryModel categoryModel;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 58,
-      width: 104,
-      decoration: BoxDecoration(
-        border: Border.all(color: tintAppColor),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: iconcolor),
-          Text(name, style: TextStyle(fontWeight: FontWeight.w600)),
-        ],
+    return GestureDetector(
+      onTap: () {
+        context.push("");
+      },
+      child: Container(
+        height: 58,
+        width: 104,
+        decoration: BoxDecoration(
+          border: Border.all(color: tintAppColor),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(categoryModel.iconUrl as IconData?),
+            Text(
+              "${categoryModel.name}",
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
       ),
     );
   }

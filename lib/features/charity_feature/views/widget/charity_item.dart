@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
-import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charityItem_body.dart';
 
 class CharityItem extends StatelessWidget {

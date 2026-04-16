@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/sections_of_charity.dart';
 
 class CustomSections extends StatelessWidget {
-  const CustomSections({super.key});
+  CustomSections({super.key, required this.categoryModel});
 
   @override
+  final CategoryModel categoryModel;
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -14,46 +16,22 @@ class CustomSections extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SectionsOfCharity(
-                icon: FontAwesomeIcons.handHoldingHeart,
-                name: "الغرامات",
-                iconcolor: appcolor,
-              ),
+              SectionsOfCharity(categoryModel: categoryModel),
               SizedBox(width: 20),
-              SectionsOfCharity(
-                icon: Icons.water_drop_rounded,
-                name: "ابار",
-                iconcolor: Color(0xFF8FBFFA),
-              ),
+              SectionsOfCharity(categoryModel: categoryModel),
               SizedBox(width: 20),
-              SectionsOfCharity(
-                icon: Icons.favorite,
-                name: "الصحة",
-                iconcolor: Colors.red,
-              ),
+              SectionsOfCharity(categoryModel: categoryModel),
             ],
           ),
           SizedBox(height: 15),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SectionsOfCharity(
-                icon: FontAwesomeIcons.personDress,
-                name: "تجهيز عرايْس",
-                iconcolor: Colors.red,
-              ),
+              SectionsOfCharity(categoryModel: categoryModel),
               SizedBox(width: 20),
-              SectionsOfCharity(
-                icon: FontAwesomeIcons.tree,
-                name: "مناحي الحياة",
-                iconcolor: Colors.green,
-              ),
+              SectionsOfCharity(categoryModel: categoryModel),
               SizedBox(width: 20),
-              SectionsOfCharity(
-                icon: FontAwesomeIcons.graduationCap,
-                name: "التعليم",
-                iconcolor: appcolor,
-              ),
+              SectionsOfCharity(categoryModel: categoryModel),
             ],
           ),
         ],

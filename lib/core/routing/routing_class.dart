@@ -8,10 +8,11 @@ import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/cases_feature/views/case_detatls_veiw.dart';
 import 'package:waslet_khier/features/cases_feature/views/cases_view.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_model.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_view.dart';
-import 'package:waslet_khier/features/home_feature/views/Custom_drawer.dart';
+
 import 'package:waslet_khier/features/home_feature/views/home_page.dart';
 import 'package:waslet_khier/features/home_feature/views/zakat_view.dart';
 import 'package:waslet_khier/features/main_feature/views/main_view.dart';
@@ -52,7 +53,11 @@ final GoRouter appRouter = GoRouter(
                       path: 'chaaritedetelies',
                       builder: (context, state) {
                         final charity = state.extra as CharityModel;
-                        return CharityDetelsView(charity: charity);
+                        final Category = state.extra as CategoryModel;
+                        return CharityDetelsView(
+                          charity: charity,
+                          categoryModel: Category,
+                        );
                       },
                     ),
                   ],
@@ -65,7 +70,11 @@ final GoRouter appRouter = GoRouter(
                   path: 'chaaritedetelies',
                   builder: (context, state) {
                     final charity = state.extra as CharityModel;
-                    return CharityDetelsView(charity: charity);
+                    final Category = state.extra as CategoryModel;
+                    return CharityDetelsView(
+                      charity: charity,
+                      categoryModel: Category,
+                    );
                   },
                 ),
                 GoRoute(
@@ -88,7 +97,11 @@ final GoRouter appRouter = GoRouter(
                   path: 'chaaritedetelies',
                   builder: (context, state) {
                     final charity = state.extra as CharityModel;
-                    return CharityDetelsView(charity: charity);
+                    final Category = state.extra as CategoryModel;
+                    return CharityDetelsView(
+                      charity: charity,
+                      categoryModel: Category,
+                    );
                   },
                 ),
               ],

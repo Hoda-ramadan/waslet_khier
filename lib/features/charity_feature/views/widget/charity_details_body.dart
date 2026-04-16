@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_model.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charityimage.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/collectionOfcards.dart';
@@ -11,8 +12,13 @@ import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinf
 import 'package:waslet_khier/features/profile_feature/views/widgets/personinfo_view.dart';
 
 class CharityDetailsView_body extends StatelessWidget {
-  const CharityDetailsView_body({super.key, required this.charity});
+  const CharityDetailsView_body({
+    super.key,
+    required this.charity,
+    required this.categoryModel,
+  });
   final CharityModel charity;
+  final CategoryModel categoryModel;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -64,7 +70,7 @@ class CharityDetailsView_body extends StatelessWidget {
                 ),
               ),
             ),
-            CustomSections(),
+            CustomSections(categoryModel: categoryModel),
             Padding(
               padding: const EdgeInsets.only(right: 35, bottom: 10),
               child: Align(
