@@ -7,12 +7,7 @@ StatefulShellBranch(
         GoRoute(
           path: 'details',
           builder: (context, state) => const CharityDetelsView(),
-          routes:[
-             GoRoute(
-          path: 'categorybody',
-          builder: (context, state) => const Categoryview(),
-        ),
-          ]
+          
         ),
       ],
     ),
