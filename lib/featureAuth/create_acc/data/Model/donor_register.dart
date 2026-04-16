@@ -23,7 +23,7 @@ class DonorRegister extends Equatable {
 
   factory DonorRegister.fromJson(Map<String, dynamic> json) => DonorRegister(
     token: json['token'] as dynamic,
-    message: (json['message'] as String?),
+    message: json['message']?.toString(),
     isAuthenticated: json['isAuthenticated'] as bool?,
     roles: (json['roles'] as List<dynamic>?)?.map((e) => e.toString()).toList(),
     expireDate: json['expireDate'] as String?,
