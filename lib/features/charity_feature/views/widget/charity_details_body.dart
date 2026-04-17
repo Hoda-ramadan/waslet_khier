@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waslet_khier/const.dart';
-import 'package:waslet_khier/core/api/api_service.dart';
-import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
+import 'package:waslet_khier/core/Api/api_service.dart';
+
 import 'package:waslet_khier/features/charity_feature/data/cubit/CategoryCubit/categorycubit.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/data/repo/categoryrepo.dart';
