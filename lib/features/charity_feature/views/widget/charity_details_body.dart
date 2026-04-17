@@ -85,7 +85,7 @@ class CharityDetailsView_body extends StatelessWidget {
                 ),
               ),
             ),
-            StatesCardGridViewOfcharity(),
+            StatesCardGridViewOfcharity(charityModel: charity),
             Directionality(
               textDirection: TextDirection.rtl,
               child: Row(
