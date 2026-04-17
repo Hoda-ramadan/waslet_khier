@@ -33,48 +33,46 @@ class ApiService {
     }
   }
 
-  
+  Exception _handleDioError(DioException e) {
+    switch (e.type) {
+      case DioExceptionType.connectionTimeout:
+      case DioExceptionType.receiveTimeout:
+        return Exception('Connection timed out');
+      case DioExceptionType.badResponse:
+        final data = e.response?.data;
+        String errorMessage;
 
- Exception _handleDioError(DioException e) {
-  switch (e.type) {
-    case DioExceptionType.connectionTimeout:
-    case DioExceptionType.receiveTimeout:
-      return Exception('Connection timed out');
-    case DioExceptionType.badResponse:
-      final data = e.response?.data;
-      String errorMessage;
+        if (data is Map<String, dynamic>) {
+          // Server returned JSON like {"message": "..."}
+          errorMessage =
+              data['message']?.toString() ??
+              'Server error: ${e.response?.statusCode}';
+        } else if (data is String && data.isNotEmpty) {
+          // Server returned a plain string
+          errorMessage = data;
+        } else {
+          errorMessage = 'Server error: ${e.response?.statusCode}';
+        }
 
-      if (data is Map<String, dynamic>) {
-        // Server returned JSON like {"message": "..."}
-        errorMessage = data['message']?.toString() 
-            ?? 'Server error: ${e.response?.statusCode}';
-      } else if (data is String && data.isNotEmpty) {
-        // Server returned a plain string
-        errorMessage = data;
-      } else {
-        errorMessage = 'Server error: ${e.response?.statusCode}';
-      }
-
-      return Exception(errorMessage);
-    default:
-      return Exception('Network error occurred');
+        return Exception(errorMessage);
+      default:
+        return Exception('Network error occurred');
+    }
   }
-}
 
-
-Future<Response> postLogin({
-  required String endPoint,
-  required Map<String, dynamic> data,
-}) async {
-  try {
-    var response = await dio.post(
-      baseurl + endPoint,
-      data: data,
-      options: Options(headers: {'Content-Type': 'application/json'}),
-    );
-    return response;
-  } on DioException catch (e) {
-    throw _handleDioError(e);
+  Future<Response> postLogin({
+    required String endPoint,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      var response = await dio.post(
+        baseurl + endPoint,
+        data: data,
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
+      return response;
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    }
   }
-}
 }

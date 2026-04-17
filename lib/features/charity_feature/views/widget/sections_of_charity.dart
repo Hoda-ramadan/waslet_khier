@@ -6,7 +6,16 @@ import 'package:waslet_khier/features/charity_feature/data/models/category_model
 class SectionsOfCharity extends StatelessWidget {
   const SectionsOfCharity({super.key, required this.categoryModel});
   final CategoryModel categoryModel;
-  @override
+  static const Map<String, IconData> categoryIcons = {
+    'جراحات': Icons.medical_services_outlined,
+    'أدوية وعلاج': Icons.medication_outlined,
+    'أجهزة طبية': Icons.monitor_heart_outlined,
+    'رعاية كبار السن': Icons.elderly_outlined,
+    'تعليم': Icons.school_outlined,
+    'تجهيز عرايس': Icons.celebration_outlined,
+    'مسكن': Icons.spa_outlined,
+    'ملابس': Icons.checkroom_outlined,
+  };
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -25,7 +34,12 @@ class SectionsOfCharity extends StatelessWidget {
             Container(
               height: 30,
               width: 40,
-              child: Image.network("${categoryModel.iconUrl}"),
+              child: Icon(
+                categoryIcons[categoryModel.name?.toLowerCase()] ??
+                    Icons.category,
+                size: 28,
+                color: tintAppColor,
+              ),
             ),
             Text(
               "${categoryModel.name}",

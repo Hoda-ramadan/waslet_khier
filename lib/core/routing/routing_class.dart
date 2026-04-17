@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/changepassword_view.dart';
-import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/forget_password_view.dart';
-import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/verifycode_view.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/changepassword_view.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/forget_password_view.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/verifycode_view.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/login_view.dart';
 import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
@@ -12,7 +12,6 @@ import 'package:waslet_khier/features/charity_feature/data/models/charity_model.
 import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/categoryView.dart';
-
 import 'package:waslet_khier/features/home_feature/views/home_page.dart';
 import 'package:waslet_khier/features/home_feature/views/zakat_view.dart';
 import 'package:waslet_khier/features/main_feature/views/main_view.dart';
@@ -100,9 +99,16 @@ final GoRouter appRouter = GoRouter(
                   path: 'chaaritedetelies',
                   builder: (context, state) {
                     final charity = state.extra as CharityModel;
-
                     return CharityDetelsView(charity: charity);
                   },
+                  routes: [
+                    GoRoute(
+                      path: 'categoryview',
+                      builder: (context, state) {
+                        return Categoryview();
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),

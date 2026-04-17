@@ -25,7 +25,6 @@ class CharityDetailsView_body extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             customappbar(text: "تفاصيل الجمعية"),
 
@@ -102,11 +101,14 @@ class CharityDetailsView_body extends StatelessWidget {
             SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Container(
-                width: double.infinity,
-                child: Image.asset(
-                  "assets/images/Frame 393.png",
-                  fit: BoxFit.fill,
+              child: GestureDetector(
+                child: Container(
+                  height: 270,
+                  width: double.infinity,
+                  child: Image.asset(
+                    "assets/images/image.png",
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
@@ -129,15 +131,15 @@ class CharityDetailsView_body extends StatelessWidget {
                 ConnectingInfo(
                   icon: Icons.email,
                   text: "البريد الالكتروني",
-                  subtext: "Resala@gmail",
+                  subtext: "${charity.email}",
                   fontsize1: 10,
                 ),
                 Spacer(),
                 ConnectingInfo(
                   icon: Icons.phone_android,
                   text: 'رقم التواصل',
-                  subtext: '741-758-3195 x702',
-                  fontsize2: 15,
+                  subtext: '${charity.phoneNumber}',
+                  fontsize2: 14,
                 ),
               ],
             ),

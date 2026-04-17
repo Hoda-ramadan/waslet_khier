@@ -1,9 +1,3 @@
-
-
-
-
-
-
 import 'package:waslet_khier/core/Api/api_service.dart';
 import 'package:waslet_khier/featureAuth/auth/data/models/login_response_model.dart';
 
@@ -16,11 +10,8 @@ class LoginRepo {
     required String password,
   }) async {
     final response = await apiService.postLogin(
-      endPoint: '/User/Login', 
-      data: {
-        'email': email,
-        'password': password,
-      },
+      endPoint: '/User/Login',
+      data: {'email': email, 'password': password},
     );
 
     return LoginResponse.fromJson(response.data);

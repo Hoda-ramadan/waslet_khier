@@ -61,10 +61,7 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
           );
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: Colors.red,
-            ),
+            SnackBar(content: Text(state.message), backgroundColor: Colors.red),
           );
         }
       },
@@ -77,7 +74,11 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
               child: Column(
                 children: [
                   const SizedBox(height: 30),
-                  Image.asset('assets/images/Group 80.png', width: 151, height: 151),
+                  Image.asset(
+                    'assets/images/Group 80.png',
+                    width: 151,
+                    height: 151,
+                  ),
                   const SizedBox(height: 30),
 
                   // Email field
@@ -87,8 +88,9 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                     hintTtxt: '',
                     prefxIcon: FontAwesomeIcons.envelope,
                     isSuffixIcon: false,
-                    validator: (v) =>
-                        v == null || v.isEmpty ? 'أدخل البريد الإلكتروني' : null,
+                    validator: (v) => v == null || v.isEmpty
+                        ? 'أدخل البريد الإلكتروني'
+                        : null,
                   ),
                   const SizedBox(height: 10),
 
@@ -117,9 +119,9 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             context.read<LoginCubit>().login(
-                                  email: emailController.text.trim(),
-                                  password: passwordController.text.trim(),
-                                );
+                              email: emailController.text.trim(),
+                              password: passwordController.text.trim(),
+                            );
                           }
                         },
                         text: "تسجيل الدخول",

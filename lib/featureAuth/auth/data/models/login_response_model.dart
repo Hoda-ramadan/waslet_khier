@@ -1,5 +1,3 @@
-
-
 import 'package:equatable/equatable.dart';
 
 class LoginResponse extends Equatable {
@@ -36,6 +34,13 @@ class LoginResponse extends Equatable {
 
   @override
   List<Object?> get props => [
-    token, message, isAuthenticated, roles, expireDate, donor, admin, superAdmin,
+    token,
+    message,
+    isAuthenticated,
+    roles,
+    expireDate,
+    donor,
+    admin,
+    superAdmin,
   ];
 }

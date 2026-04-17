@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:waslet_khier/const.dart';
-import 'package:waslet_khier/featureAuth/Forgetpassword/data/presentation/views_model/forget_password_view.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/forget_password_view.dart';
 
 class RememberMe extends StatefulWidget {
   const RememberMe({super.key});

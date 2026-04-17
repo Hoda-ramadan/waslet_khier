@@ -1,8 +1,5 @@
-
-
 import 'package:equatable/equatable.dart';
 import 'package:waslet_khier/featureAuth/auth/data/models/login_response_model.dart';
-
 
 abstract class LoginState extends Equatable {
   @override
