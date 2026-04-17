@@ -11,7 +11,7 @@ class ChangepasswordView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: ChangepasswordBody(),
+      body: ChangePasswordBody(),
       backgroundColor: backGroundColor,
     );
   }

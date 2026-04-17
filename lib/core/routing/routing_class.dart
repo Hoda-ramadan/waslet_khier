@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/data/cubit/resetpasswordcubit.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/changepassword_view.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/forget_password_view.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/verifycode_view.dart';
@@ -142,47 +144,47 @@ final GoRouter appRouter = GoRouter(
               builder: (context, state) => const ProfileView(),
               routes: [
                 GoRoute(
-                  path: '/AboutappView',
+                  path: 'AboutappView',
                   builder: (context, state) => const AboutappView(),
                 ),
                 GoRoute(
-                  path: '/PaymentwayView',
+                  path: 'PaymentwayView',
                   builder: (context, state) => const PaymentwayView(),
                 ),
                 GoRoute(
-                  path: '/Favoritecharity',
+                  path: 'Favoritecharity',
                   builder: (context, state) => const Favoritecharity(),
                 ),
                 GoRoute(
-                  path: '/Favioritcases',
+                  path: 'Favioritcases',
                   builder: (context, state) => const Favioritcases(),
                 ),
                 GoRoute(
-                  path: '/personInfo',
+                  path: 'personInfo',
                   builder: (context, state) => const PersonInfo_view(),
                 ),
                 GoRoute(
-                  path: '/faviorate',
+                  path: 'faviorate',
                   builder: (context, state) => const FavoriteView(),
                 ),
                 GoRoute(
-                  path: '/logout',
+                  path: 'logout',
                   builder: (context, state) => LoginView(),
                   routes: [
                     GoRoute(
-                      path: '/createacc',
+                      path: 'createacc',
                       builder: (context, state) => const CreateAccView(),
                     ),
                     GoRoute(
-                      path: '/forgetpassword',
+                      path: 'forgetpassword',
                       builder: (context, state) => const ForgetPassword(),
                       routes: [
                         GoRoute(
-                          path: '/VerifycodeView',
+                          path: 'VerifycodeView',
                           builder: (context, state) => VerifycodeView(),
                           routes: [
                             GoRoute(
-                              path: '/ChangepasswordView',
+                              path: 'ChangepasswordView',
                               builder: (context, state) => ChangepasswordView(),
                             ),
                           ],

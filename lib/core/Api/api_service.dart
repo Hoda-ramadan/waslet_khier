@@ -75,4 +75,24 @@ class ApiService {
       throw _handleDioError(e);
     }
   }
+
+  Future<Response> post({
+    required String endPoint,
+    dynamic data,
+    Map<String, dynamic>? headers,
+    bool isFormData = false,
+  }) async {
+    try {
+      var response = await dio.post(
+        baseurl + endPoint,
+        data: isFormData ? FormData.fromMap(data) : data,
+        options: Options(
+          headers: headers ?? {'Content-Type': 'application/json'},
+        ),
+      );
+      return response;
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    }
+  }
 }

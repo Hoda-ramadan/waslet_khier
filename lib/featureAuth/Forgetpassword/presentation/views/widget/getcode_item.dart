@@ -10,7 +10,6 @@ class GetcodeItem extends StatelessWidget {
     required this.controller,
     required this.currentFocus,
     this.nextFocus,
-    required String codeitem,
   });
 
   @override
