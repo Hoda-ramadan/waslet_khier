@@ -8,10 +8,10 @@ import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/cases_feature/views/case_detatls_veiw.dart';
 import 'package:waslet_khier/features/cases_feature/views/cases_view.dart';
-import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_model.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_view.dart';
+import 'package:waslet_khier/features/charity_feature/views/widget/categoryView.dart';
 
 import 'package:waslet_khier/features/home_feature/views/home_page.dart';
 import 'package:waslet_khier/features/home_feature/views/zakat_view.dart';
@@ -70,7 +70,16 @@ final GoRouter appRouter = GoRouter(
 
                     return CharityDetelsView(charity: charity);
                   },
+                  routes: [
+                    GoRoute(
+                      path: 'category',
+                      builder: (context, state) {
+                        return Categoryview();
+                      },
+                    ),
+                  ],
                 ),
+
                 GoRoute(
                   path: 'zakatView',
                   builder: (context, state) => const ZakatCalculatorScreen(),
