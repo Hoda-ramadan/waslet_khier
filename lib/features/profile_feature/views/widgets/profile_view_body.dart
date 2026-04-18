@@ -1,14 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
+
 import 'package:waslet_khier/features/profile_feature/views/widgets/profile_item.dart';
-import 'package:waslet_khier/features/splash_feature/widgets/splash_view2.dart';
 
 class ProfileViewBody extends StatelessWidget {
   const ProfileViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final donor = context.watch<AuthProvider_info>().donor;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -18,7 +22,7 @@ class ProfileViewBody extends StatelessWidget {
             width: 70,
             height: 105,
           ),
-          Text("Nourhan"),
+          Text("${donor?.firstName ?? ""}"),
           SizedBox(height: 20),
           profileItem(
             onTap: () {
