@@ -4,17 +4,17 @@ import 'package:waslet_khier/const.dart';
 class customtextformfeild extends StatelessWidget {
   const customtextformfeild({
     super.key,
-    required this.initalvalue,
     required this.icon,
+    required this.controller,
   });
-  final String initalvalue;
+  final TextEditingController? controller;
   final IconData icon;
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
-        initialValue: initalvalue,
+        controller: controller,
         decoration: InputDecoration(
           prefixIcon: Icon(icon, color: tintAppColor),
           border: OutlineInputBorder(

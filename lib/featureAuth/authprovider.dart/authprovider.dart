@@ -44,11 +44,17 @@ class AuthProvider_info extends ChangeNotifier {
   // في AuthProvider — احفظي بعد اللوجين
   void setAuthData({String? token, dynamic donor}) async {
     _token = token;
-    if (donor != null) {
-      _donor = DonorModel.fromJson(donor as Map<String, dynamic>);
+
+    // ✅ لو donor جاي Map من الـ API
+    if (donor != null && donor is Map<String, dynamic>) {
+      _donor = DonorModel.fromJson(donor);
+    }
+    // ✅ لو donor جاي DonorModel جاهز
+    else if (donor is DonorModel) {
+      _donor = donor;
     }
 
-    // احفظي على الجهاز
+    // حفظ في SharedPreferences
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token ?? '');
     await prefs.setString('donorFirstName', _donor?.firstName ?? '');
