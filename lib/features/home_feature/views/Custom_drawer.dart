@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/class/assets.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/drawer_item.dart';
 
@@ -10,7 +11,7 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: const Color(0xffEDE7F6), // لون الخلفية
+        color: const Color.fromARGB(255, 241, 249, 247), // لون الخلفية
         child: Column(
           children: [
             const SizedBox(height: 40),
@@ -75,7 +76,7 @@ class CustomDrawer extends StatelessWidget {
               padding: EdgeInsets.all(12.0),
               child: Text(
                 "تطبق الشروط والأحكام وسياسة الخصوصية",
-                style: TextStyle(fontSize: 12, color: Colors.orange),
+                style: TextStyle(fontSize: 12, color: tintAppColor),
               ),
             ),
           ],

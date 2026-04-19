@@ -23,8 +23,24 @@ final List<CharityModel> charities = [
   CharityModel(image: 'assets/images/مستشفي500500.png', name: 'مستشفي 500500'),
 ];
 */
-class CharitesCardGridVeiw extends StatelessWidget {
+class CharitesCardGridVeiw extends StatefulWidget {
   const CharitesCardGridVeiw({super.key});
+
+  @override
+  State<CharitesCardGridVeiw> createState() => _CharitesCardGridVeiwState();
+}
+
+class _CharitesCardGridVeiwState extends State<CharitesCardGridVeiw>
+    with RouteAware {
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+
+  void _fetchData() {
+    context.read<CharityCubit>().getCharites();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +57,8 @@ class CharitesCardGridVeiw extends StatelessWidget {
             return GridView.builder(
               itemCount: state.charites.length,
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 16,
@@ -57,13 +73,13 @@ class CharitesCardGridVeiw extends StatelessWidget {
             return Center(
               child: Text(
                 state.errorMessage.toString(),
-                style: TextStyle(fontSize: 18, color: Colors.grey),
+                style: const TextStyle(fontSize: 18, color: Colors.grey),
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: Text(
-                'There Was An Error ',
+                'There Was An Error',
                 style: TextStyle(fontSize: 18, color: Colors.grey),
               ),
             );
