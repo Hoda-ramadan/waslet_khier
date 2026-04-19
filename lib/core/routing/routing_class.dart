@@ -45,9 +45,7 @@ CaseModel _toCase(Object? extra) {
 // ─── Helper to wrap CaseDetatlsVeiw with CharityDetealsCubit ─────────────────
 Widget _caseDetailsWithCubit(CaseModel casee) {
   return BlocProvider(
-    create: (ctx) => CharityDetealsCubit(
-      CharityRepo(ApiService(Dio())),
-    ),
+    create: (ctx) => CharityDetealsCubit(CharityRepo(ApiService(Dio()))),
     child: CaseDetatlsVeiw(casee: casee),
   );
 }
@@ -175,11 +173,14 @@ final GoRouter appRouter = GoRouter(
                 GoRoute(
                   path: 'Favoritecharity',
                   builder: (context, state) => const Favoritecharity(),
+                  routes: [
+                    GoRoute(
+                      path: 'Favioritcases',
+                      builder: (context, state) => const Favioritcases(),
+                    ),
+                  ],
                 ),
-                GoRoute(
-                  path: 'Favioritcases',
-                  builder: (context, state) => const Favioritcases(),
-                ),
+
                 GoRoute(
                   path: 'personInfo',
                   builder: (context, state) => const PersonInfo_view(),
@@ -206,8 +207,7 @@ final GoRouter appRouter = GoRouter(
                           routes: [
                             GoRoute(
                               path: 'ChangepasswordView',
-                              builder: (context, state) =>
-                                  ChangepasswordView(),
+                              builder: (context, state) => ChangepasswordView(),
                             ),
                           ],
                         ),

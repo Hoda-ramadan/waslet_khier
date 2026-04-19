@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charityicon.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
+import 'package:waslet_khier/features/charity_feature/views/widget/listofcharitys.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/cstomfavRow.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/favoriteCharity_body.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
 class Favioritcases extends StatelessWidget {
@@ -30,44 +33,10 @@ class Favioritcases_body extends StatelessWidget {
           children: [
             customappbar(text: "المفضلة"),
             SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    "الجمعيات",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: "Roboto",
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 10),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: tintAppColor,
-                    border: Border.all(color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Text(
-                    "الحالات",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: "Roboto",
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            cstomfavRow(location: "/profile/Favoritecharity"),
             SizedBox(height: 30),
-            Faviortecaseitem(),
+
+            // SizedBox(height: 100, width: , child: Favioritcases()),
           ],
         ),
       ),
@@ -86,7 +55,7 @@ class Faviortecaseitem extends StatelessWidget {
         padding: const EdgeInsets.only(right: 10),
         child: Row(
           children: [
-            //charityicon(),
+            CharityIcon(charityimage: "assets/images/food.png"),
             SizedBox(width: 15),
             Column(
               children: [
@@ -113,7 +82,10 @@ class Faviortecaseitem extends StatelessWidget {
                     ),
                   ],
                 ),
-                Text("جلسة علاج كيماوي لمريض سرطان"),
+                Text(
+                  "جلسة علاج كيماوي لمريض سرطان",
+                  style: TextStyle(fontSize: 18),
+                ),
               ],
             ),
             // Text("مركز علاج الأورام بسوهاج", style: TextStyle(fontSize: 18)),
