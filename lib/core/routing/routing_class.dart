@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -28,6 +29,18 @@ import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinf
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
+// ─── Safe casting helpers ─────────────────────────────────────────────────────
+CharityModel _toCharity(Object? extra) {
+  if (extra is CharityModel) return extra;
+  return CharityModel.fromJson(Map<String, dynamic>.from(extra as Map));
+}
+
+CaseModel _toCase(Object? extra) {
+  if (extra is CaseModel) return extra;
+  return CaseModel.fromJson(Map<String, dynamic>.from(extra as Map));
+}
+
+// ─── Router ───────────────────────────────────────────────────────────────────
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
@@ -37,7 +50,7 @@ final GoRouter appRouter = GoRouter(
         return MainScreen(navigationShell: navigationShell);
       },
       branches: [
-        // HOME
+        // ── HOME ──────────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -46,18 +59,13 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'case_detals_view',
-                  builder: (context, state) {
-                    final casee = state.extra as CaseModel;
-                    return CaseDetatlsVeiw(casee: casee);
-                  },
+                  builder: (context, state) =>
+                      CaseDetatlsVeiw(casee: _toCase(state.extra)),
                   routes: [
                     GoRoute(
                       path: 'chaaritedetelies',
-                      builder: (context, state) {
-                        final charity = state.extra as CharityModel;
-
-                        return CharityDetelsView(charity: charity);
-                      },
+                      builder: (context, state) =>
+                          CharityDetelsView(charity: _toCharity(state.extra)),
                     ),
                   ],
                 ),
@@ -67,13 +75,16 @@ final GoRouter appRouter = GoRouter(
                 ),
                 GoRoute(
                   path: 'chaaritedetelies',
-                  builder: (context, state) {
-                    final charity = state.extra as CharityModel;
-
-                    return CharityDetelsView(charity: charity);
-                  },
+                  builder: (context, state) =>
+                      CharityDetelsView(charity: _toCharity(state.extra)),
+                  routes: [
+                    GoRoute(
+                      path: 'case_detals_view',
+                      builder: (context, state) =>
+                          CaseDetatlsVeiw(casee: _toCase(state.extra)),
+                    ),
+                  ],
                 ),
-
                 GoRoute(
                   path: 'zakatView',
                   builder: (context, state) => const ZakatCalculatorScreen(),
@@ -83,7 +94,7 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
 
-        // CHARITIES
+        // ── CHARITIES ─────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -92,16 +103,17 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'chaaritedetelies',
-                  builder: (context, state) {
-                    final charity = state.extra as CharityModel;
-                    return CharityDetelsView(charity: charity);
-                  },
+                  builder: (context, state) =>
+                      CharityDetelsView(charity: _toCharity(state.extra)),
                   routes: [
                     GoRoute(
                       path: 'categoryview',
-                      builder: (context, state) {
-                        return Categoryview();
-                      },
+                      builder: (context, state) => Categoryview(),
+                    ),
+                    GoRoute(
+                      path: 'case_detals_view',
+                      builder: (context, state) =>
+                          CaseDetatlsVeiw(casee: _toCase(state.extra)),
                     ),
                   ],
                 ),
@@ -110,7 +122,7 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
 
-        // CASES
+        // ── CASES ─────────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -119,17 +131,15 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'case_detals_view',
-                  builder: (context, state) {
-                    final casee = state.extra as CaseModel;
-                    return CaseDetatlsVeiw(casee: casee);
-                  },
+                  builder: (context, state) =>
+                      CaseDetatlsVeiw(casee: _toCase(state.extra)),
                 ),
               ],
             ),
           ],
         ),
 
-        // PROFILE
+        // ── PROFILE ───────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -145,7 +155,7 @@ final GoRouter appRouter = GoRouter(
                   builder: (context, state) => const PaymentwayView(),
                   routes: [
                     GoRoute(
-                      path: "Payment_Bank",
+                      path: 'Payment_Bank',
                       builder: (context, state) => Payment_Bank(),
                     ),
                   ],
@@ -184,7 +194,8 @@ final GoRouter appRouter = GoRouter(
                           routes: [
                             GoRoute(
                               path: 'ChangepasswordView',
-                              builder: (context, state) => ChangepasswordView(),
+                              builder: (context, state) =>
+                                  ChangepasswordView(),
                             ),
                           ],
                         ),

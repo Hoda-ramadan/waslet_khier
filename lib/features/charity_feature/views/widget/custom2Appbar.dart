@@ -5,7 +5,8 @@ import 'package:waslet_khier/features/charity_feature/views/widget/custom_arrow.
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_favorite_border.dart';
 
 class Custom2AppBar extends StatelessWidget implements PreferredSizeWidget {
-  const Custom2AppBar({super.key});
+  const Custom2AppBar({super.key, required this.function});
+  final GestureTapCallback? function;
   @override
   // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(80);
@@ -28,7 +29,9 @@ class Custom2AppBar extends StatelessWidget implements PreferredSizeWidget {
               textDirection: TextDirection.rtl,
               child: AppBar(
                 automaticallyImplyLeading: false,
-                leading: Center(child: Custom_arrow()),
+                leading: Center(child: GestureDetector(
+                  onTap:  function,
+                  child: Custom_arrow())),
                 title: Center(child: Text("تفاصيل الجمعية")),
                 backgroundColor: backGroundColor,
                 actions: [Custom_favorite_border()],

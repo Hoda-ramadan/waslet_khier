@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/cases_feature/widgets/case_detales_view_body.dart';
@@ -10,7 +11,9 @@ class CaseDetatlsVeiw extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Custom2AppBar(),
+      appBar: Custom2AppBar(function: () {
+        (context).pop();
+      },),
       body: CaseDetalesViewBody(casee: casee),
     );
   }
