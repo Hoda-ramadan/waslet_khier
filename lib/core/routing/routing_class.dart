@@ -58,14 +58,25 @@ final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
 
+  // ✅ FIXED redirect — admin routes are no longer blocked
   redirect: (context, state) {
     final auth = Provider.of<AuthProvider_info>(context, listen: false);
     final isLoggedIn = auth.isLoggedIn;
     final loc = state.matchedLocation;
+
     final isOnAuth =
         loc == '/profile/logout' || loc.startsWith('/profile/logout/');
+    final isOnAdmin = loc == '/admin' || loc.startsWith('/admin/'); // ✅ NEW
+
+    // ✅ Let logged-in admin through immediately
+    if (isOnAdmin && isLoggedIn) return null;
+
+    // ✅ Block non-logged-in users from everything except auth screens
     if (!isLoggedIn && !isOnAuth) return '/profile/logout';
+
+    // ✅ Redirect logged-in users away from auth screens
     if (isLoggedIn && isOnAuth) return '/home';
+
     return null;
   },
 

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'admin_constants.dart';
 import 'views/admin_home_view.dart';
 import 'views/admin_cases_view.dart';
-
 import 'views/admin_settings_view.dart';
 
 class AdminMainScreen extends StatefulWidget {
@@ -16,13 +14,17 @@ class AdminMainScreen extends StatefulWidget {
 
 class _AdminMainScreenState extends State<AdminMainScreen> {
   int _currentIndex = 0;
+  late final List<Widget> _screens;
 
-  final List<Widget> _screens = const [
-    AdminHomeView(),
-    AdminCasesView(),
-  
-    AdminSettingsView(),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      const AdminHomeView(),
+      const AdminCasesView(),
+      const AdminSettingsView(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,6 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
               icon: Icon(Icons.favorite_rounded),
               label: 'الحالات',
             ),
-           
             BottomNavigationBarItem(
               icon: Icon(Icons.settings_rounded),
               label: 'الإعدادات',

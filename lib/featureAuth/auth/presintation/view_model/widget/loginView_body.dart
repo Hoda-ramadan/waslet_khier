@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:waslet_khier/const.dart';
@@ -12,7 +11,6 @@ import 'package:waslet_khier/featureAuth/auth/data/login_response_repo.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/check_haveing_acc.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
-import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/rememberme.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 
 class LoginviewBody extends StatelessWidget {
@@ -50,35 +48,35 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
-     listener: (context, state) async {
-  if (state is LoginSuccess) {
-    // ✅ save token and donor info
-    await Provider.of<AuthProvider_info>(context, listen: false)
-        .setAuthData(
-      token: state.loginResponse.token,
-      donor: state.loginResponse.donor,
-    );
+      listener: (context, state) async {
+        if (state is LoginSuccess) {
+          // ✅ save token, donor and admin info
+          await Provider.of<AuthProvider_info>(context, listen: false)
+              .setAuthData(
+            token: state.loginResponse.token?.toString(),
+            donor: state.loginResponse.donor,
+            admin: state.loginResponse.admin, // ✅ pass admin
+          );
 
-    if (!context.mounted) return;
+          if (!context.mounted) return;
 
-    // ✅ check roles from API response
-    final roles = state.loginResponse.roles ?? [];
+          // ✅ check roles from API response
+          final roles = state.loginResponse.roles ?? [];
 
-    if (roles.contains('Admin') || roles.contains('SuperAdmin')) {
-      context.go('/admin'); // → Admin Dashboard
-    } else {
-      context.go('/home');  // → Donor Home
-    }
-
-  } else if (state is LoginFailure) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(state.message),
-        backgroundColor: Colors.red,
-      ),
-    );
-  }
-},
+          if (roles.contains('Admin') || roles.contains('SuperAdmin')) {
+            context.go('/admin'); // → Admin Dashboard
+          } else {
+            context.go('/home'); // → Donor Home
+          }
+        } else if (state is LoginFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      },
       child: SingleChildScrollView(
         child: Center(
           child: Form(
@@ -136,7 +134,8 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                       // Remember me
                       Row(
                         children: [
-                          const Text('تذكرني', style: TextStyle(fontSize: 13)),
+                          const Text('تذكرني',
+                              style: TextStyle(fontSize: 13)),
                           Checkbox(
                             value: _rememberMe,
                             activeColor: appcolor,
@@ -161,9 +160,9 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             context.read<LoginCubit>().login(
-                              email: emailController.text.trim(),
-                              password: passwordController.text.trim(),
-                            );
+                                  email: emailController.text.trim(),
+                                  password: passwordController.text.trim(),
+                                );
                           }
                         },
                         text: 'تسجيل الدخول',
