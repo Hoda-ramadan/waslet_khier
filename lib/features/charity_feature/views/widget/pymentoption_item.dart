@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 
 class PymentoptionItem extends StatelessWidget {
@@ -7,20 +8,25 @@ class PymentoptionItem extends StatelessWidget {
   final String image;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 104,
-          width: 94,
-          decoration: BoxDecoration(
-            //color: Colors.white,
-            border: Border.all(color: tintAppColor, width: .5),
-            borderRadius: BorderRadius.circular(16),
+    return GestureDetector(
+      onTap: () {
+        //context.go("/profile/PaymentwayView/Payment_Bank");
+      },
+      child: Column(
+        children: [
+          Container(
+            height: 104,
+            width: 94,
+            decoration: BoxDecoration(
+              //color: Colors.white,
+              border: Border.all(color: tintAppColor, width: .5),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Image.asset(image, fit: BoxFit.fill),
           ),
-          child: Image.asset(image, fit: BoxFit.fill),
-        ),
-        Text("فودافون كاش"),
-      ],
+          Text("فودافون كاش"),
+        ],
+      ),
     );
   }
 }
