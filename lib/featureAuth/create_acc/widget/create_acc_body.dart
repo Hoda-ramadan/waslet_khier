@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
-import 'package:waslet_khier/core/class/showsuccessdialog.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/widget/CustomAppbar.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/check_haveing_acc.dart';
@@ -92,9 +91,7 @@ class _RegisterViewState extends State<RegisterView> {
                 hintTtxt: '',
                 isSuffixIcon: false,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'الاسم الأول مطلوب';
-                  }
+                  if (value == null || value.isEmpty) return 'الاسم الأول مطلوب';
                   return null;
                 },
               ),
@@ -107,9 +104,7 @@ class _RegisterViewState extends State<RegisterView> {
                 hintTtxt: '',
                 isSuffixIcon: false,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'الاسم الأخير مطلوب';
-                  }
+                  if (value == null || value.isEmpty) return 'الاسم الأخير مطلوب';
                   return null;
                 },
               ),
@@ -149,9 +144,7 @@ class _RegisterViewState extends State<RegisterView> {
                 hintTtxt: '',
                 isSuffixIcon: true,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'كلمة المرور مطلوبة';
-                  }
+                  if (value == null || value.isEmpty) return 'كلمة المرور مطلوبة';
                   if (value.length < 6) return 'كلمة المرور أقل من 6 أحرف';
                   return null;
                 },
@@ -165,9 +158,7 @@ class _RegisterViewState extends State<RegisterView> {
                 hintTtxt: '',
                 isSuffixIcon: true,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'تأكيد كلمة المرور مطلوب';
-                  }
+                  if (value == null || value.isEmpty) return 'تأكيد كلمة المرور مطلوب';
                   return null;
                 },
               ),
@@ -176,7 +167,18 @@ class _RegisterViewState extends State<RegisterView> {
               BlocConsumer<RegisterCubit, RegisterState>(
                 listener: (context, state) {
                   if (state is RegisterSuccess) {
-                    showSuccessDialog(context);
+                    // ✅ show success message and go to login
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'تم التسجيل بنجاح! تحقق من بريدك الإلكتروني لتفعيل الحساب',
+                        ),
+                        backgroundColor: Colors.green,
+                        duration: Duration(seconds: 4),
+                      ),
+                    );
+                    // ✅ navigate back to login
+                    context.go('/profile/logout');
                   } else if (state is RegisterFailure) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -199,12 +201,13 @@ class _RegisterViewState extends State<RegisterView> {
 
               const SizedBox(height: 30),
 
+              // ✅ fixed path to go back to login
               checkhavingAcc(
                 text1: 'لديك حساب بالفعل؟ ',
                 text2: 'سجل الدخول الان',
                 textcolor1: Colors.deepOrange,
                 textcolor2: Colors.black,
-                path: '',
+                path: '/profile/logout',
               ),
 
               const SizedBox(height: 30),

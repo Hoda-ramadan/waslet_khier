@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 
 import 'package:waslet_khier/features/profile_feature/views/widgets/profile_item.dart';
@@ -58,8 +59,9 @@ class ProfileViewBody extends StatelessWidget {
           ),
           SizedBox(height: 20),
           profileItem(
-            onTap: () {
-              context.push('/profile/logout');
+            onTap: () async{
+            await Provider.of<AuthProvider_info>(context, listen: false).logout();
+                 context.go('/profile/logout');
             },
             icon: Icons.logout,
             text: "تسجيل الخروج",

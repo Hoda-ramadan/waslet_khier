@@ -2,11 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/changepassword_view.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/forget_password_view.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/verifycode_view.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/login_view.dart';
+import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/cases_feature/views/case_detatls_veiw.dart';
@@ -29,9 +31,9 @@ import 'package:waslet_khier/features/profile_feature/views/widgets/paymentview.
 import 'package:waslet_khier/features/profile_feature/views/widgets/paymentway_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
+
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
-// ─── Safe casting helpers ─────────────────────────────────────────────────────
 CharityModel _toCharity(Object? extra) {
   if (extra is CharityModel) return extra;
   return CharityModel.fromJson(Map<String, dynamic>.from(extra as Map));
@@ -42,25 +44,32 @@ CaseModel _toCase(Object? extra) {
   return CaseModel.fromJson(Map<String, dynamic>.from(extra as Map));
 }
 
-// ─── Helper to wrap CaseDetatlsVeiw with CharityDetealsCubit ─────────────────
 Widget _caseDetailsWithCubit(CaseModel casee) {
   return BlocProvider(
-    create: (ctx) => CharityDetealsCubit(
-      CharityRepo(ApiService(Dio())),
-    ),
+    create: (ctx) => CharityDetealsCubit(CharityRepo(ApiService(Dio()))),
     child: CaseDetatlsVeiw(casee: casee),
   );
 }
 
-// ─── Router ───────────────────────────────────────────────────────────────────
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
+
+  redirect: (context, state) {
+    final auth = Provider.of<AuthProvider_info>(context, listen: false);
+    final isLoggedIn = auth.isLoggedIn;
+    final loc = state.matchedLocation;
+    final isOnAuth =
+        loc == '/profile/logout' || loc.startsWith('/profile/logout/');
+    if (!isLoggedIn && !isOnAuth) return '/profile/logout';
+    if (isLoggedIn && isOnAuth) return '/home';
+    return null;
+  },
+
   routes: [
     StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) {
-        return MainScreen(navigationShell: navigationShell);
-      },
+      builder: (context, state, navigationShell) =>
+          MainScreen(navigationShell: navigationShell),
       branches: [
         // ── HOME ──────────────────────────────────────────────────────────────
         StatefulShellBranch(
@@ -71,34 +80,24 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'case_detals_view',
+                  parentNavigatorKey: _rootNavigatorKey, 
                   builder: (context, state) =>
                       _caseDetailsWithCubit(_toCase(state.extra)),
-                  routes: [
-                    GoRoute(
-                      path: 'chaaritedetelies',
-                      builder: (context, state) =>
-                          CharityDetelsView(charity: _toCharity(state.extra)),
-                    ),
-                  ],
                 ),
                 GoRoute(
                   path: 'charities',
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const CharityView(),
                 ),
                 GoRoute(
                   path: 'chaaritedetelies',
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) =>
                       CharityDetelsView(charity: _toCharity(state.extra)),
-                  routes: [
-                    GoRoute(
-                      path: 'case_detals_view',
-                      builder: (context, state) =>
-                          _caseDetailsWithCubit(_toCase(state.extra)),
-                    ),
-                  ],
                 ),
                 GoRoute(
                   path: 'zakatView',
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const ZakatCalculatorScreen(),
                 ),
               ],
@@ -115,19 +114,9 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'chaaritedetelies',
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) =>
                       CharityDetelsView(charity: _toCharity(state.extra)),
-                  routes: [
-                    GoRoute(
-                      path: 'categoryview',
-                      builder: (context, state) => Categoryview(),
-                    ),
-                    GoRoute(
-                      path: 'case_detals_view',
-                      builder: (context, state) =>
-                          _caseDetailsWithCubit(_toCase(state.extra)),
-                    ),
-                  ],
                 ),
               ],
             ),
@@ -143,6 +132,7 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'case_detals_view',
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) =>
                       _caseDetailsWithCubit(_toCase(state.extra)),
                 ),
@@ -160,36 +150,42 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'AboutappView',
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const AboutappView(),
                 ),
                 GoRoute(
                   path: 'PaymentwayView',
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const PaymentwayView(),
-                  routes: [
-                    GoRoute(
-                      path: 'Payment_Bank',
-                      builder: (context, state) => Payment_Bank(),
-                    ),
-                  ],
+                ),
+                GoRoute(
+                  path: 'Payment_Bank',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) => Payment_Bank(),
                 ),
                 GoRoute(
                   path: 'Favoritecharity',
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const Favoritecharity(),
                 ),
                 GoRoute(
                   path: 'Favioritcases',
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const Favioritcases(),
                 ),
                 GoRoute(
                   path: 'personInfo',
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const PersonInfo_view(),
                 ),
                 GoRoute(
                   path: 'faviorate',
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const FavoriteView(),
                 ),
                 GoRoute(
                   path: 'logout',
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => LoginView(),
                   routes: [
                     GoRoute(
@@ -206,8 +202,7 @@ final GoRouter appRouter = GoRouter(
                           routes: [
                             GoRoute(
                               path: 'ChangepasswordView',
-                              builder: (context, state) =>
-                                  ChangepasswordView(),
+                              builder: (context, state) => ChangepasswordView(),
                             ),
                           ],
                         ),

@@ -3,19 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/Api/api_service.dart';
-
-import 'package:waslet_khier/core/class/assets.dart';
 import 'package:waslet_khier/featureAuth/auth/data/cubit/loginCubit.dart';
 import 'package:waslet_khier/featureAuth/auth/data/cubit/states.dart';
 import 'package:waslet_khier/featureAuth/auth/data/login_response_repo.dart';
-
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/check_haveing_acc.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/rememberme.dart';
-
-import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 
 class LoginviewBody extends StatelessWidget {
@@ -41,6 +38,7 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool _rememberMe = false;
 
   @override
   void dispose() {
@@ -52,20 +50,25 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
-      listener: (context, state) {
-        // بعد ✅
+      listener: (context, state) async {
         if (state is LoginSuccess) {
-          // 1. احفظي بيانات اليوزر في الـ AuthProvider
-          context.read<AuthProvider_info>().setAuthData(
+          // ✅ save token and donor info
+          await Provider.of<AuthProvider_info>(context, listen: false)
+              .setAuthData(
             token: state.loginResponse.token,
             donor: state.loginResponse.donor,
           );
 
-          // 2. روحي للهوم
-          context.go("/home");
+          if (!context.mounted) return;
+
+          // ✅ navigate to home and clear stack
+          context.go('/home');
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message), backgroundColor: Colors.red),
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+            ),
           );
         }
       },
@@ -85,12 +88,12 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                   ),
                   const SizedBox(height: 30),
 
-                  // Email field
+                  // ✅ Email field
                   CustomTextField(
                     controller: emailController,
                     labelText: 'البريد الالكتروني',
                     hintTtxt: '',
-                    prefxIcon: FontAwesomeIcons.envelope,
+                    prefxIcon: Icons.email_outlined,
                     isSuffixIcon: false,
                     validator: (v) => v == null || v.isEmpty
                         ? 'أدخل البريد الإلكتروني'
@@ -98,26 +101,55 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                   ),
                   const SizedBox(height: 10),
 
-                  // Password field
+                  // ✅ Password field
                   CustomTextField(
                     controller: passwordController,
                     labelText: 'كلمة المرور',
                     hintTtxt: '',
                     prefxIcon: Icons.lock_outline,
                     isSuffixIcon: true,
-                    validator: (v) =>
-                        v == null || v.isEmpty ? 'أدخل كلمة المرور' : null,
+                    validator: (v) => v == null || v.isEmpty
+                        ? 'أدخل كلمة المرور'
+                        : null,
                   ),
                   const SizedBox(height: 10),
 
-                  const RememberMe(),
-                  const SizedBox(height: 30),
+                  // ✅ Remember me + Forgot password row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Forgot password
+                      TextButton(
+                        onPressed: () =>
+                            context.push('/profile/logout/forgetpassword'),
+                        child: Text(
+                          'نسيت كلمة المرور؟',
+                          style: TextStyle(color: appcolor, fontSize: 13),
+                        ),
+                      ),
+                      // Remember me
+                      Row(
+                        children: [
+                          const Text('تذكرني', style: TextStyle(fontSize: 13)),
+                          Checkbox(
+                            value: _rememberMe,
+                            activeColor: appcolor,
+                            onChanged: (val) {
+                              setState(() => _rememberMe = val ?? false);
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
 
-                  // Login button
+                  const SizedBox(height: 20),
+
+                  // ✅ Login button
                   BlocBuilder<LoginCubit, LoginState>(
                     builder: (context, state) {
                       if (state is LoginLoading) {
-                        return const CircularProgressIndicator();
+                        return CircularProgressIndicator(color: appcolor);
                       }
                       return Custombuttom(
                         onPressed: () {
@@ -128,7 +160,7 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                             );
                           }
                         },
-                        text: "تسجيل الدخول",
+                        text: 'تسجيل الدخول',
                         color: appcolor,
                         textcolor: Colors.white,
                       );
@@ -136,21 +168,24 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                   ),
                   const SizedBox(height: 24),
 
+                  // ✅ Register link
                   checkhavingAcc(
-                    text1: ' ليس لديك حساب ؟ ',
+                    text1: 'ليس لديك حساب؟ ',
                     text2: 'تسجيل حساب',
                     textcolor1: Colors.black,
                     textcolor2: Colors.deepOrange,
-                    path: '/createacc',
+                    path: '/profile/logout/createacc',
                   ),
-                  const SizedBox(height: 60),
+                  const SizedBox(height: 20),
 
+                  // ✅ Guest login
                   Custombuttom(
-                    onPressed: () {},
-                    text: "الدخول كزائر",
+                    onPressed: () => context.go('/home'),
+                    text: 'الدخول كزائر',
                     color: Colors.white,
                     textcolor: appcolor,
                   ),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
