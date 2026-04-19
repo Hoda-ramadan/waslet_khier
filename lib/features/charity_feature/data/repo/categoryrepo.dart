@@ -20,7 +20,7 @@ class Categoryrepo {
 
   Future<List<CategoryMadel>> getCategoriesByCharity(int charityId) async {
     try {
-      return await apiService.get(endPoint: "");
+      return await apiService.get(endPoint: "/Category");
     } catch (e) {
       throw Exception('فشل تحميل الأقسام: $e');
     }
