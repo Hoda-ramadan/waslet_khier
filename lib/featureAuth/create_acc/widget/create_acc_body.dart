@@ -91,7 +91,8 @@ class _RegisterViewState extends State<RegisterView> {
                 hintTtxt: '',
                 isSuffixIcon: false,
                 validator: (value) {
-                  if (value == null || value.isEmpty) return 'الاسم الأول مطلوب';
+                  if (value == null || value.isEmpty)
+                    return 'الاسم الأول مطلوب';
                   return null;
                 },
               ),
@@ -104,7 +105,8 @@ class _RegisterViewState extends State<RegisterView> {
                 hintTtxt: '',
                 isSuffixIcon: false,
                 validator: (value) {
-                  if (value == null || value.isEmpty) return 'الاسم الأخير مطلوب';
+                  if (value == null || value.isEmpty)
+                    return 'الاسم الأخير مطلوب';
                   return null;
                 },
               ),
@@ -144,7 +146,8 @@ class _RegisterViewState extends State<RegisterView> {
                 hintTtxt: '',
                 isSuffixIcon: true,
                 validator: (value) {
-                  if (value == null || value.isEmpty) return 'كلمة المرور مطلوبة';
+                  if (value == null || value.isEmpty)
+                    return 'كلمة المرور مطلوبة';
                   if (value.length < 6) return 'كلمة المرور أقل من 6 أحرف';
                   return null;
                 },
@@ -158,7 +161,8 @@ class _RegisterViewState extends State<RegisterView> {
                 hintTtxt: '',
                 isSuffixIcon: true,
                 validator: (value) {
-                  if (value == null || value.isEmpty) return 'تأكيد كلمة المرور مطلوب';
+                  if (value == null || value.isEmpty)
+                    return 'تأكيد كلمة المرور مطلوب';
                   return null;
                 },
               ),

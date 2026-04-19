@@ -4,7 +4,7 @@ class ChangePassModel extends Equatable {
   final String message;
   final String token;
 
-  const ChangePassModel({required this.message , required this.token});
+  const ChangePassModel({required this.message, required this.token});
 
   factory ChangePassModel.fromJson(Map<String, dynamic> json) {
     return ChangePassModel(

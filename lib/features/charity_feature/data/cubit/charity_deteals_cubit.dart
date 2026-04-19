@@ -12,8 +12,6 @@ class CharityDetealsCubit extends Cubit<CharityState> {
 
   CharityDetealsCubit(this.repo) : super(CharityInitial());
 
-
-
   Future<void> getCharityById(int id) async {
     emit(CharityDetailsLoading());
     try {

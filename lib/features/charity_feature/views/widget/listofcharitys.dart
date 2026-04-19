@@ -6,10 +6,9 @@ import 'package:waslet_khier/features/charity_feature/data/cubit/charity_deteals
 import 'package:waslet_khier/features/charity_feature/views/widget/charity_item.dart';
 
 class Listofcharitys extends StatefulWidget {
-  const Listofcharitys({super.key, this.icon, this.color});
+  const Listofcharitys({super.key, required this.icon});
 
-  final IconData? icon;
-  final Color? color;
+  final IconData icon;
 
   @override
   State<Listofcharitys> createState() => _ListofcharitysState();

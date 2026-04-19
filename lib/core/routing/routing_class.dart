@@ -134,6 +134,12 @@ final GoRouter appRouter = GoRouter(
                   parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) =>
                       CharityDetelsView(charity: _toCharity(state.extra)),
+                  routes: [
+                    GoRoute(
+                      path: "Category",
+                      builder: (context, state) => Categoryview(),
+                    ),
+                  ],
                 ),
               ],
             ),

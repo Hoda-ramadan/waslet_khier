@@ -6,7 +6,6 @@ import 'package:waslet_khier/features/charity_feature/data/cubit/charity_deteals
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/data/repo/charity_repo.dart';
 
-
 class CharityCubit extends Cubit<CharityState> {
   final CharityRepo repo;
   List<CharityModel> _cachedCharities = [];

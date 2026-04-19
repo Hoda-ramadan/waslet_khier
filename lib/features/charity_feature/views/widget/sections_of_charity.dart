@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
-import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_model.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_madel2/category_madel2.dart';
 
 class SectionsOfCharity extends StatelessWidget {
   const SectionsOfCharity({super.key, required this.categoryModel});
-  final CategoryModel categoryModel;
+  final CategoryMadel categoryModel;
   static const Map<String, IconData> categoryIcons = {
     'جراحات': Icons.medical_services_outlined,
     'أدوية وعلاج': Icons.medication_outlined,
@@ -15,11 +15,13 @@ class SectionsOfCharity extends StatelessWidget {
     'تجهيز عرايس': Icons.celebration_outlined,
     'مسكن': Icons.spa_outlined,
     'ملابس': Icons.checkroom_outlined,
+    'كفالة أيتام': Icons.volunteer_activism_outlined,
+    'صحة': Icons.health_and_safety_outlined,
   };
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go("/charities/chaaritedetelies/categoryview");
+        context.go("/charities/chaaritedetelies/Category/${categoryModel.id}");
       },
       child: Container(
         height: 58,

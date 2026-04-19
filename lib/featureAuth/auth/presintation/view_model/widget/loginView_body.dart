@@ -115,9 +115,8 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                     hintTtxt: '',
                     prefxIcon: Icons.lock_outline,
                     isSuffixIcon: true,
-                    validator: (v) => v == null || v.isEmpty
-                        ? 'أدخل كلمة المرور'
-                        : null,
+                    validator: (v) =>
+                        v == null || v.isEmpty ? 'أدخل كلمة المرور' : null,
                   ),
                   const SizedBox(height: 10),
 

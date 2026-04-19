@@ -8,9 +8,12 @@ class CharityItem extends StatelessWidget {
   const CharityItem({
     super.key,
     required this.charityModel,
-    required IconData icon,
+    required this.icon,
+    this.color,
   });
   final CharityModel charityModel;
+  final IconData icon;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -28,7 +31,8 @@ class CharityItem extends StatelessWidget {
           ),
           child: charityitem_body(
             charityModel: charityModel,
-            icon: Icons.arrow_forward_ios,
+            icon: icon,
+            color: color,
           ),
         ),
       ),
