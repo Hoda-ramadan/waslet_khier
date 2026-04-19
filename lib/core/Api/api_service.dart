@@ -7,21 +7,21 @@ class ApiService {
 
   ApiService(this.dio);
 
-  Future<dynamic> get({required String endPoint}) async {
-    try {
-      var response = await dio.get(baseurl + endPoint);
-      return response.data;
-    } on DioException catch (e) {
-      throw _handleDioError(e);
-    }
-  }
-
   Future<List<CategoryMadel>> getCategoriesByCharity(int charityId) async {
     try {
       final response = await dio.get('categories/charity/$charityId');
       return (response.data as List)
           .map((e) => CategoryMadel.fromJson(e))
           .toList();
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    }
+  }
+
+  Future<dynamic> get({required String endPoint}) async {
+    try {
+      var response = await dio.get(baseurl + endPoint);
+      return response.data;
     } on DioException catch (e) {
       throw _handleDioError(e);
     }

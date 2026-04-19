@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
-import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charityicon.dart';
 
 class charityitem_body extends StatelessWidget {
@@ -13,9 +12,9 @@ class charityitem_body extends StatelessWidget {
     this.color,
   });
   final CharityModel charityModel;
-
   final IconData icon;
   final Color? color;
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -24,20 +23,18 @@ class charityitem_body extends StatelessWidget {
         padding: const EdgeInsets.only(right: 10),
         child: Row(
           children: [
-            CharityIcon(charityimage: charityModel.logoUrl!),
-
-            SizedBox(width: 15),
-            Text(charityModel.name!, style: TextStyle(fontSize: 18)),
-            SizedBox(width: 25),
-            Spacer(),
-            Container(
-              child: IconButton(
-                onPressed: () {
-                  context.push("/charities/chaaritedetelies");
-                },
-
-                icon: Icon(icon, color: color ?? tintAppColor),
-              ),
+            // ✅ شيل الـ !
+            CharityIcon(charityimage: charityModel.logoUrl ?? ''),
+            const SizedBox(width: 15),
+            Text(charityModel.name ?? '', style: const TextStyle(fontSize: 18)),
+            const SizedBox(width: 25),
+            const Spacer(),
+            IconButton(
+              onPressed: () {
+                // ✅ ابعت الـ charity كـ extra
+                context.go("/charities/chaaritedetelies", extra: charityModel);
+              },
+              icon: Icon(icon, color: color ?? tintAppColor),
             ),
           ],
         ),

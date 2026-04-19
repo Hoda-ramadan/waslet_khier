@@ -14,18 +14,12 @@ class CustomSections extends StatelessWidget {
         if (state is CategoryLoading) {
           return const CircularProgressIndicator();
         } else if (state is CategorySuccess) {
-          return SizedBox(
-            height: 80,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: state.categories.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 10),
-              itemBuilder: (context, index) {
-                return SectionsOfCharity(
-                  categoryModel: state.categories[index],
-                );
-              },
-            ),
+          return Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: state.categories
+                .map((e) => SectionsOfCharity(categoryModel: e))
+                .toList(),
           );
         } else if (state is CategoryFailed) {
           return Text(state.errorMsg);

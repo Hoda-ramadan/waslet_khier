@@ -21,11 +21,14 @@ class SectionsOfCharity extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go("/charities/chaaritedetelies/Category/${categoryModel.id}");
+        context.go(
+          "/charities/chaaritedetelies/Category/${categoryModel.id}",
+          extra: categoryModel,
+        );
       },
       child: Container(
         height: 58,
-        width: 104,
+        width: (MediaQuery.of(context).size.width - 80) / 3,
         decoration: BoxDecoration(
           border: Border.all(color: tintAppColor),
           borderRadius: BorderRadius.circular(16),
@@ -37,8 +40,7 @@ class SectionsOfCharity extends StatelessWidget {
               height: 30,
               width: 40,
               child: Icon(
-                categoryIcons[categoryModel.name?.toLowerCase()] ??
-                    Icons.category,
+                categoryIcons[categoryModel.name] ?? Icons.category,
                 size: 28,
                 color: tintAppColor,
               ),

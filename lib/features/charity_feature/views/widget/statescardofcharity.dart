@@ -51,7 +51,7 @@ class CasesViewBody_Charity extends StatelessWidget {
                     width: 160,
                     child: GestureDetector(
                       onTap: () {
-                        context.push(
+                        context.go(
                           '/cases/case_detals_view',
                           extra: state.casee[index],
                         );

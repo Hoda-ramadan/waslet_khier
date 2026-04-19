@@ -1,4 +1,5 @@
 import 'package:waslet_khier/core/Api/api_service.dart';
+import 'package:waslet_khier/core/api/api_service.dart' hide ApiService;
 import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_madel2/category_madel2.dart';
 
 class Categoryrepo {
@@ -19,10 +20,10 @@ class Categoryrepo {
   }
 
   Future<List<CategoryMadel>> getCategoriesByCharity(int charityId) async {
-    try {
-      return await apiService.get(endPoint: "/Category");
-    } catch (e) {
-      throw Exception('فشل تحميل الأقسام: $e');
-    }
+    var data = await apiService.get(endPoint: "/Category");
+    print("data type: ${data.runtimeType}");
+    print("data: $data");
+    List category = data as List;
+    return category.map((e) => CategoryMadel.fromJson(e)).toList();
   }
 }
