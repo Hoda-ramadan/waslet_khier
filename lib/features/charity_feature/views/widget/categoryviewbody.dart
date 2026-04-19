@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_madel2/category_madel2.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_model.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/customItemCategory.dart';
 
@@ -9,30 +11,35 @@ import 'package:waslet_khier/features/home_feature/views/widgets/build_place_hol
 import 'package:waslet_khier/features/home_feature/views/widgets/donate_now_buttom.dart';
 
 class CategoryView_body extends StatelessWidget {
-  const CategoryView_body({super.key});
+  const CategoryView_body({
+    super.key,
+    required this.categoryId,
+
+    required this.categoryMadel,
+  });
+  final int categoryId;
+  final CategoryMadel categoryMadel;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                const Spacer(),
-                IconButton(
-                  onPressed: () => context.pop(),
-                  icon: Icon(Icons.arrow_forward_ios_outlined, color: appcolor),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            cstomItem(),
-            const SizedBox(height: 20),
-            SizedBox(height: 600, child: CustomGridView(cases: [])),
-          ],
-        ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              const Spacer(),
+              IconButton(
+                onPressed: () => context.pop(),
+                icon: Icon(Icons.arrow_forward_ios_outlined, color: appcolor),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          cstomItem(category: categoryMadel),
+          const SizedBox(height: 20),
+          Expanded(child: CustomGridView(cases: const [])),
+        ],
       ),
     );
   }

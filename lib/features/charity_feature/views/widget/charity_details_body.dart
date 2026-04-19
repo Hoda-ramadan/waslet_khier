@@ -68,12 +68,7 @@ class CharityDetailsView_body extends StatelessWidget {
                 ),
               ),
             ),
-            BlocProvider(
-              create: (context) =>
-                  Categorycubit(Categoryrepo(ApiService(Dio())))
-                    ..getCategoriesByCharity(charity.id as int),
-              child: CustomSections(),
-            ),
+            CustomSections(),
             Padding(
               padding: const EdgeInsets.only(right: 35, bottom: 10),
               child: Align(
