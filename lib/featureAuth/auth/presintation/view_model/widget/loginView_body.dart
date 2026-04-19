@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/Api/api_service.dart';
 
@@ -15,6 +16,7 @@ import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/cus
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/rememberme.dart';
 
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
+import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 
 class LoginviewBody extends StatelessWidget {
   const LoginviewBody({super.key});
@@ -51,14 +53,16 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
+        // بعد ✅
         if (state is LoginSuccess) {
-          // TODO: navigate to home screen
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('تم تسجيل الدخول بنجاح'),
-              backgroundColor: Colors.green,
-            ),
+          // 1. احفظي بيانات اليوزر في الـ AuthProvider
+          context.read<AuthProvider_info>().setAuthData(
+            token: state.loginResponse.token,
+            donor: state.loginResponse.donor,
           );
+
+          // 2. روحي للهوم
+          context.go("/home");
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message), backgroundColor: Colors.red),

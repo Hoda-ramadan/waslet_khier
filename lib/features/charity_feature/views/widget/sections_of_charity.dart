@@ -19,7 +19,11 @@ class SectionsOfCharity extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+<<<<<<< HEAD
         context.go("/charities/chaaritedetelies/categoryview");
+=======
+        context.go("charities/chaaritedetelies/categoryview");
+>>>>>>> 83c1e1e14e9e48f41639d772e162b274a1a0759c
       },
       child: Container(
         height: 58,

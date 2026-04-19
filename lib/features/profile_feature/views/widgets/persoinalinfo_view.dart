@@ -29,14 +29,20 @@ class customappbar extends StatelessWidget {
         leading: Center(child: Custom_arrow()),
         title: Row(
           children: [
-            SizedBox(width: 35),
+            const SizedBox(width: 35),
             Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 19,
                 fontWeight: FontWeight.bold,
                 fontFamily: "Roboto",
               ),
+            ),
+
+            if (text == "تفاصيل الجمعية") Spacer(),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.favorite, color: Colors.red, size: 30),
             ),
           ],
         ),
