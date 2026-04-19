@@ -10,6 +10,8 @@ import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/verif
 import 'package:waslet_khier/featureAuth/auth/presintation/login_view.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
+import 'package:waslet_khier/features/admin_feature/admin_main_screen.dart';
+import 'package:waslet_khier/features/admin_feature/views/admin_case_details_view.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/cases_feature/views/case_detatls_veiw.dart';
 import 'package:waslet_khier/features/cases_feature/views/cases_view.dart';
@@ -31,9 +33,9 @@ import 'package:waslet_khier/features/profile_feature/views/widgets/paymentview.
 import 'package:waslet_khier/features/profile_feature/views/widgets/paymentway_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
-
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
+// ─── Safe casting helpers ─────────────────────────────────────────────────────
 CharityModel _toCharity(Object? extra) {
   if (extra is CharityModel) return extra;
   return CharityModel.fromJson(Map<String, dynamic>.from(extra as Map));
@@ -51,6 +53,7 @@ Widget _caseDetailsWithCubit(CaseModel casee) {
   );
 }
 
+// ─── Router ───────────────────────────────────────────────────────────────────
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
@@ -67,11 +70,25 @@ final GoRouter appRouter = GoRouter(
   },
 
   routes: [
+    // ── ADMIN (outside shell — no bottom bar) ─────────────────────────────────
+    GoRoute(
+      path: '/admin',
+      builder: (context, state) => const AdminMainScreen(),
+      routes: [
+        GoRoute(
+          path: 'case_details',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) => const AdminCaseDetailsView(),
+        ),
+      ],
+    ),
+
+    // ── DONOR APP (with bottom bar shell) ─────────────────────────────────────
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
           MainScreen(navigationShell: navigationShell),
       branches: [
-        // ── HOME 
+        // ── HOME ────────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -80,7 +97,7 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'case_detals_view',
-                  parentNavigatorKey: _rootNavigatorKey, 
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) =>
                       _caseDetailsWithCubit(_toCase(state.extra)),
                 ),
@@ -105,7 +122,7 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
 
-        // ── CHARITIES 
+        // ── CHARITIES ────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -123,7 +140,7 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
 
-        // ── CASES 
+        // ── CASES ────────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -141,7 +158,7 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
 
-        // ── PROFILE 
+        // ── PROFILE ──────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -202,7 +219,8 @@ final GoRouter appRouter = GoRouter(
                           routes: [
                             GoRoute(
                               path: 'ChangepasswordView',
-                              builder: (context, state) => ChangepasswordView(),
+                              builder: (context, state) =>
+                                  ChangepasswordView(),
                             ),
                           ],
                         ),
