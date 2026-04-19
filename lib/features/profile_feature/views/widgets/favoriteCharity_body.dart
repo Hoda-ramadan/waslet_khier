@@ -17,12 +17,9 @@ class Favoritecharity_body extends StatelessWidget {
           children: [
             customappbar(text: "المفضلة"),
             SizedBox(height: 20),
-            cstomfavRow(location: '/profile/Favoritecharity/Favioritcases'),
+            cstomfavRow(location: '/profile/Favioritcases'),
             SizedBox(height: 30),
-            SizedBox(
-              height: 600,
-              child: Listofcharitys(icon: Icons.favorite, color: Colors.red),
-            ),
+            SizedBox(height: 600, child: Listofcharitys(icon: Icons.favorite)),
             SizedBox(height: 20),
           ],
         ),

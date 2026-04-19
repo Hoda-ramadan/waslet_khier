@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_madel2/category_madel2.dart';
 
 class ApiService {
   final Dio dio;
@@ -10,6 +11,17 @@ class ApiService {
     try {
       var response = await dio.get(baseurl + endPoint);
       return response.data;
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    }
+  }
+
+  Future<List<CategoryMadel>> getCategoriesByCharity(int charityId) async {
+    try {
+      final response = await dio.get('categories/charity/$charityId');
+      return (response.data as List)
+          .map((e) => CategoryMadel.fromJson(e))
+          .toList();
     } on DioException catch (e) {
       throw _handleDioError(e);
     }

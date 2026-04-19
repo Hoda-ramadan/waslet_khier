@@ -116,6 +116,12 @@ final GoRouter appRouter = GoRouter(
                   parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) =>
                       CharityDetelsView(charity: _toCharity(state.extra)),
+                  routes: [
+                    GoRoute(
+                      path: "Category",
+                      builder: (context, state) => Categoryview(),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -166,12 +172,6 @@ final GoRouter appRouter = GoRouter(
                   path: 'Favoritecharity',
                   parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const Favoritecharity(),
-                  routes: [
-                    GoRoute(
-                      path: 'Favioritcases',
-                      builder: (context, state) => const Favioritcases(),
-                    ),
-                  ],
                 ),
                 GoRoute(
                   path: 'Favioritcases',

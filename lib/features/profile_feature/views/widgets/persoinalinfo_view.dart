@@ -39,11 +39,13 @@ class customappbar extends StatelessWidget {
               ),
             ),
 
-            if (text == "تفاصيل الجمعية") Spacer(),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.favorite, color: Colors.red, size: 30),
-            ),
+            if (text == "تفاصيل الجمعية") ...[
+              Spacer(),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.favorite, color: Colors.red, size: 30),
+              ),
+            ],
           ],
         ),
       ),

@@ -4,7 +4,7 @@ import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/customItemCategory.dart';
-import 'package:waslet_khier/features/charity_feature/views/widget/statescardofcharity.dart';
+
 import 'package:waslet_khier/features/home_feature/views/widgets/build_place_holder.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/donate_now_buttom.dart';
 
@@ -20,20 +20,17 @@ class CategoryView_body extends StatelessWidget {
           children: [
             Row(
               children: [
-                Spacer(),
+                const Spacer(),
                 IconButton(
-                  onPressed: () {
-                    context.pop();
-                  },
+                  onPressed: () => context.pop(),
                   icon: Icon(Icons.arrow_forward_ios_outlined, color: appcolor),
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             cstomItem(),
-            SizedBox(height: 20),
-
-            SizedBox(height: 600, child: CustomGridView()),
+            const SizedBox(height: 20),
+            SizedBox(height: 600, child: CustomGridView(cases: [])),
           ],
         ),
       ),
@@ -42,19 +39,21 @@ class CategoryView_body extends StatelessWidget {
 }
 
 class CustomGridView extends StatelessWidget {
-  const CustomGridView({super.key});
+  const CustomGridView({super.key, required this.cases});
+  final List<CaseModel> cases;
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      itemCount: cases.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         childAspectRatio: 0.7,
       ),
       itemBuilder: (context, index) {
-        return StatesCard(casee: CaseModel());
+        return StatesCard(casee: cases[index]);
       },
     );
   }
@@ -123,8 +122,7 @@ class StatesCard extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween, // 🔥 حل overflow
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // 🔹 Title + Description
                   Column(
@@ -149,7 +147,41 @@ class StatesCard extends StatelessWidget {
                     ],
                   ),
 
-                  // 🔹 Buttons
+                  //  أضف هنا Progress Bar
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      LinearProgressIndicator(
+                        value: progress,
+                        backgroundColor: Colors.grey[200],
+                        color: tintAppColor,
+                        minHeight: 6,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      const SizedBox(height: 4),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "$percentage%",
+                            style: const TextStyle(
+                              fontSize: 9,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          Text(
+                            "المتبقي: ${remaining.toStringAsFixed(0)} ج",
+                            style: const TextStyle(
+                              fontSize: 9,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  // 🔹 Button
                   Row(
                     children: [
                       Expanded(

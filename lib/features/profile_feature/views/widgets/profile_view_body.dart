@@ -59,9 +59,12 @@ class ProfileViewBody extends StatelessWidget {
           ),
           SizedBox(height: 20),
           profileItem(
-            onTap: () async{
-            await Provider.of<AuthProvider_info>(context, listen: false).logout();
-                 context.go('/profile/logout');
+            onTap: () async {
+              await Provider.of<AuthProvider_info>(
+                context,
+                listen: false,
+              ).logout();
+              context.go('/profile/logout');
             },
             icon: Icons.logout,
             text: "تسجيل الخروج",

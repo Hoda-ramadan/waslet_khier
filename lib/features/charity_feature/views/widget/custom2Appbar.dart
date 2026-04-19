@@ -29,9 +29,12 @@ class Custom2AppBar extends StatelessWidget implements PreferredSizeWidget {
               textDirection: TextDirection.rtl,
               child: AppBar(
                 automaticallyImplyLeading: false,
-                leading: Center(child: GestureDetector(
-                  onTap:  function,
-                  child: Custom_arrow())),
+                leading: Center(
+                  child: GestureDetector(
+                    onTap: function,
+                    child: Custom_arrow(),
+                  ),
+                ),
                 title: Center(child: Text("تفاصيل الجمعية")),
                 backgroundColor: backGroundColor,
                 actions: [Custom_favorite_border()],

@@ -1,23 +1,22 @@
 import 'package:bloc/bloc.dart';
 import 'package:waslet_khier/features/charity_feature/data/cubit/CategoryCubit/categoryState.dart';
-import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_model.dart';
-
+import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_madel2/category_madel2.dart';
 import 'package:waslet_khier/features/charity_feature/data/repo/categoryrepo.dart';
 
-class Categorycubit extends Cubit<Categorystate> {
+class Categorycubit extends Cubit<CategoryState> {
   final Categoryrepo repo;
 
-  Categorycubit(this.repo) : super(InitialCategory());
+  Categorycubit(this.repo) : super(CategoryInitial());
 
-  List<CategoryModel> category = [];
+  List<CategoryMadel> category = [];
 
-  Future<void> getCategory() async {
-    emit(loadingCategory());
+  Future<void> getCategoriesByCharity(int charityId) async {
+    emit(CategoryLoading());
     try {
-      category = await repo.getCategory();
-      emit(SuccessCategory(categorymodel: category));
+      final categories = await repo.getCategoriesByCharity(charityId);
+      emit(CategorySuccess(categories: categories));
     } catch (e) {
-      emit(FaildCategory(errormsg: e.toString()));
+      emit(CategoryFailed(errorMsg: e.toString()));
     }
   }
 }

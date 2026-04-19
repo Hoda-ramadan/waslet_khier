@@ -15,9 +15,9 @@ class StatesCardGridView extends StatelessWidget {
       child: BlocBuilder<FeatchCasessCubitCubit, FeatchCasessCubitState>(
         builder: (context, state) {
           if (state is FeatchCassCubitLoading) {
-            return const Center(child: CircularProgressIndicator(
-              color: tintAppColor,
-            ));
+            return const Center(
+              child: CircularProgressIndicator(color: tintAppColor),
+            );
           } else if (state is FeatchCasesCubitSucesses) {
             return ListView.builder(
               scrollDirection: Axis.horizontal,

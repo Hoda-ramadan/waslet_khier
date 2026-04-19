@@ -4,6 +4,8 @@ import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charityicon.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/listofcharitys.dart';
+import 'package:waslet_khier/features/home_feature/views/widgets/progress_parth_with_label.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/caseitemofCategory.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/cstomfavRow.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favoriteCharity_body.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
@@ -33,10 +35,9 @@ class Favioritcases_body extends StatelessWidget {
           children: [
             customappbar(text: "المفضلة"),
             SizedBox(height: 20),
-            cstomfavRow(location: "/profile/Favoritecharity"),
+            cstomfavRow2(location: "/profile/Favoritecharity"),
             SizedBox(height: 30),
-
-            // SizedBox(height: 100, width: , child: Favioritcases()),
+            SizedBox(height: 600, width: double.infinity, child: CasesTab()),
           ],
         ),
       ),
@@ -44,55 +45,69 @@ class Favioritcases_body extends StatelessWidget {
   }
 }
 
-class Faviortecaseitem extends StatelessWidget {
-  const Faviortecaseitem({super.key});
+class CasesTab extends StatelessWidget {
+  const CasesTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Padding(
-        padding: const EdgeInsets.only(right: 10),
-        child: Row(
-          children: [
-            CharityIcon(charityimage: "assets/images/food.png"),
-            SizedBox(width: 15),
-            Column(
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.location_on, color: Colors.grey),
-                    Text(
-                      "مركز علاج الأورام بسوهاج",
-                      style: TextStyle(fontSize: 10, color: Colors.grey),
-                    ),
-                    Spacer(),
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFD9D9D9),
-                        border: Border.all(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: IconButton(
-                        onPressed: () {},
+    return ListView.builder(
+      itemCount: 10,
+      itemBuilder: (BuildContext context, int index) {
+        return Padding(
+          padding: const EdgeInsets.all(12),
+          child: CaseItemOfcategory(),
+        );
+      },
+    );
+  }
+}
 
-                        icon: Icon(Icons.favorite, color: Colors.red),
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  "جلسة علاج كيماوي لمريض سرطان",
-                  style: TextStyle(fontSize: 18),
-                ),
-              ],
+class cstomfavRow2 extends StatelessWidget {
+  const cstomfavRow2({super.key, required this.location});
+  final String location;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {},
+          child: Container(
+            child: Text(
+              "الجمعيات",
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: "Roboto",
+                fontWeight: FontWeight.w500,
+              ),
             ),
-            // Text("مركز علاج الأورام بسوهاج", style: TextStyle(fontSize: 18)),
-            SizedBox(width: 25),
-          ],
+          ),
         ),
-      ),
+        SizedBox(width: 10),
+        GestureDetector(
+          onTap: () {
+            context.push(location);
+          },
+
+          child: Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: tintAppColor,
+              border: Border.all(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Text(
+              "الحالات",
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: "Roboto",
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

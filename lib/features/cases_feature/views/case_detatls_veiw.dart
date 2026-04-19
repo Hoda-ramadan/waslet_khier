@@ -11,9 +11,11 @@ class CaseDetatlsVeiw extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Custom2AppBar(function: () {
-        (context).pop();
-      },),
+      appBar: Custom2AppBar(
+        function: () {
+          (context).pop();
+        },
+      ),
       body: CaseDetalesViewBody(casee: casee),
     );
   }

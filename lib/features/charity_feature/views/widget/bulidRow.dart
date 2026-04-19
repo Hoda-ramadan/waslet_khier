@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_model.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_madel2/category_madel2.dart';
+
 import 'package:waslet_khier/features/charity_feature/views/widget/sections_of_charity.dart';
 
 class CategoriesRow extends StatelessWidget {
-  final List<CategoryModel> categories;
+  final List<CategoryMadel> categories;
   final int startIndex;
 
   const CategoriesRow({

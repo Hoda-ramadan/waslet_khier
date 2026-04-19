@@ -53,8 +53,10 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
       listener: (context, state) async {
         if (state is LoginSuccess) {
           // ✅ save token and donor info
-          await Provider.of<AuthProvider_info>(context, listen: false)
-              .setAuthData(
+          await Provider.of<AuthProvider_info>(
+            context,
+            listen: false,
+          ).setAuthData(
             token: state.loginResponse.token,
             donor: state.loginResponse.donor,
           );
@@ -65,10 +67,7 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
           context.go('/home');
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: Colors.red,
-            ),
+            SnackBar(content: Text(state.message), backgroundColor: Colors.red),
           );
         }
       },
@@ -108,9 +107,8 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                     hintTtxt: '',
                     prefxIcon: Icons.lock_outline,
                     isSuffixIcon: true,
-                    validator: (v) => v == null || v.isEmpty
-                        ? 'أدخل كلمة المرور'
-                        : null,
+                    validator: (v) =>
+                        v == null || v.isEmpty ? 'أدخل كلمة المرور' : null,
                   ),
                   const SizedBox(height: 10),
 
