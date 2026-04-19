@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/featch_casess_cubit_cubit.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/states_card.dart';
 
@@ -14,7 +15,9 @@ class StatesCardGridView extends StatelessWidget {
       child: BlocBuilder<FeatchCasessCubitCubit, FeatchCasessCubitState>(
         builder: (context, state) {
           if (state is FeatchCassCubitLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(
+              color: tintAppColor,
+            ));
           } else if (state is FeatchCasesCubitSucesses) {
             return ListView.builder(
               scrollDirection: Axis.horizontal,

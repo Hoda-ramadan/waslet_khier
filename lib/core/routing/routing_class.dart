@@ -71,7 +71,7 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state, navigationShell) =>
           MainScreen(navigationShell: navigationShell),
       branches: [
-        // ── HOME ──────────────────────────────────────────────────────────────
+        // ── HOME 
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -105,7 +105,7 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
 
-        // ── CHARITIES ─────────────────────────────────────────────────────────
+        // ── CHARITIES 
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -123,7 +123,7 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
 
-        // ── CASES ─────────────────────────────────────────────────────────────
+        // ── CASES 
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -141,7 +141,7 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
 
-        // ── PROFILE ───────────────────────────────────────────────────────────
+        // ── PROFILE 
         StatefulShellBranch(
           routes: [
             GoRoute(
