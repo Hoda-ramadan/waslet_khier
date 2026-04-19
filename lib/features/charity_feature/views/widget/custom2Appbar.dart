@@ -6,10 +6,10 @@ import 'package:waslet_khier/features/charity_feature/views/widget/custom_favori
 
 class Custom2AppBar extends StatelessWidget implements PreferredSizeWidget {
   const Custom2AppBar({super.key, required this.function});
-  final GestureTapCallback? function;
+  final void Function()? function;
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => const Size.fromHeight(80);
+  Size get preferredSize => const Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {

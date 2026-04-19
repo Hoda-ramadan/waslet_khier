@@ -35,6 +35,7 @@ class cstomfavRow extends StatelessWidget {
           onTap: () {
             context.push(location);
           },
+
           child: Container(
             child: Text(
               "الحالات",
