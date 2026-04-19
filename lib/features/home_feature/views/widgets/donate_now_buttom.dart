@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:waslet_khier/const.dart';
 
 class DonateNowButtom extends StatelessWidget {
   final double width;
@@ -20,7 +21,7 @@ class DonateNowButtom extends StatelessWidget {
         height: height,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Color(0xFFFF8A3D),
+          color: orangcolor,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Text(

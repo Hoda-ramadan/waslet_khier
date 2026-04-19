@@ -71,14 +71,7 @@ final GoRouter appRouter = GoRouter(
 
                     return CharityDetelsView(charity: charity);
                   },
-                  routes: [
-                    GoRoute(
-                      path: 'category',
-                      builder: (context, state) {
-                        return Categoryview();
-                      },
-                    ),
-                  ],
+                
                 ),
 
                 GoRoute(
