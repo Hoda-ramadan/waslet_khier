@@ -100,8 +100,7 @@ final GoRouter appRouter = GoRouter(
                     GoRoute(
                       path: 'categoryview',
                       builder: (context, state) {
-                        final charity = state.extra as CharityModel;
-                        return Categoryview(charityModel: charity);
+                        return Categoryview();
                       },
                     ),
                   ],

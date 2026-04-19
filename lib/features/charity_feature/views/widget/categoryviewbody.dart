@@ -6,8 +6,8 @@ import 'package:waslet_khier/features/charity_feature/views/widget/customItemCat
 import 'package:waslet_khier/features/charity_feature/views/widget/statescardofcharity.dart';
 
 class CategoryView_body extends StatelessWidget {
-  const CategoryView_body({super.key, required this.charityModel});
-  final CharityModel charityModel;
+  const CategoryView_body({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,7 +31,6 @@ class CategoryView_body extends StatelessWidget {
           SizedBox(height: 10),
           cstomItem(),
           SizedBox(height: 20),
-          StatesCardGridViewOfcharity(charityModel: charityModel),
         ],
       ),
     );

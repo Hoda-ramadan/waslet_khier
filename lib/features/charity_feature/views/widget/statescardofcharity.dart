@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_model.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/customstatecard.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/featch_casess_cubit_cubit.dart';

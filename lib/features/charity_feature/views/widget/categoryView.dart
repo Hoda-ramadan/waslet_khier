@@ -5,14 +5,14 @@ import 'package:waslet_khier/features/charity_feature/views/widget/categoryviewb
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
 
 class Categoryview extends StatelessWidget {
-  const Categoryview({super.key, required this.charityModel});
-  final CharityModel charityModel;
+  const Categoryview({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
       backgroundColor: backGroundColor,
-      body: CategoryView_body(charityModel: charityModel),
+      body: CategoryView_body(),
     );
   }
 }
