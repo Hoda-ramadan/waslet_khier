@@ -22,6 +22,7 @@ import 'package:waslet_khier/features/profile_feature/views/widgets/aboutApp_vie
 import 'package:waslet_khier/features/profile_feature/views/widgets/favioritCases.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favoriteCharity.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_view.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/paymentview.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/paymentway_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
@@ -71,14 +72,6 @@ final GoRouter appRouter = GoRouter(
 
                     return CharityDetelsView(charity: charity);
                   },
-                  routes: [
-                    GoRoute(
-                      path: 'category',
-                      builder: (context, state) {
-                        return Categoryview();
-                      },
-                    ),
-                  ],
                 ),
 
                 GoRoute(
@@ -107,7 +100,8 @@ final GoRouter appRouter = GoRouter(
                     GoRoute(
                       path: 'categoryview',
                       builder: (context, state) {
-                        return Categoryview();
+                        final charity = state.extra as CharityModel;
+                        return Categoryview(charityModel: charity);
                       },
                     ),
                   ],
@@ -150,6 +144,12 @@ final GoRouter appRouter = GoRouter(
                 GoRoute(
                   path: 'PaymentwayView',
                   builder: (context, state) => const PaymentwayView(),
+                  routes: [
+                    GoRoute(
+                      path: "Payment_Bank",
+                      builder: (context, state) => Payment_Bank(),
+                    ),
+                  ],
                 ),
                 GoRoute(
                   path: 'Favoritecharity',

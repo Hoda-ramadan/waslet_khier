@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:waslet_khier/core/class/assets.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/drawer_item.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -26,34 +27,45 @@ class CustomDrawer extends StatelessWidget {
             ),
 
             // اللوجو
-            Column(
-              children: const [
-                Icon(Icons.favorite, color: Colors.orange, size: 40),
-                SizedBox(height: 10),
-                Text(
-                  "وصلة خير",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple,
-                  ),
-                ),
-              ],
-            ),
+            Column(children: [Image.asset(Assets.logoimage)]),
 
             const SizedBox(height: 40),
 
             // العناصر
-            DrawerItem(icon: Icons.business, title: "الجمعيات الخيرية"),
-            DrawerItem(icon: Icons.people, title: "الحالات"),
+            DrawerItem(
+              icon: Icons.business,
+              title: "الجمعيات الخيرية",
+              onTap: () {
+                context.go("/charities");
+              },
+            ),
+            DrawerItem(
+              icon: Icons.people,
+              title: "الحالات",
+              onTap: () {
+                context.go("/cases");
+              },
+            ),
             GestureDetector(
               onTap: () {
                 context.go('/home/zakatView');
                 ;
               },
-              child: DrawerItem(icon: Icons.calculate, title: "حساب الزكاة"),
+              child: DrawerItem(
+                icon: Icons.calculate,
+                title: "حساب الزكاة",
+                onTap: () {
+                  context.go("/home/zakatView");
+                },
+              ),
             ),
-            DrawerItem(icon: Icons.person_add, title: "انضم إلينا"),
+            DrawerItem(
+              icon: Icons.person_add,
+              title: "انضم إلينا",
+              onTap: () {
+                context.go("/profile/logout/createacc");
+              },
+            ),
             DrawerItem(icon: Icons.share, title: "شارك التطبيق"),
 
             const Spacer(),

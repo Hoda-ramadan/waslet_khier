@@ -22,7 +22,7 @@ class ProfileViewBody extends StatelessWidget {
             width: 70,
             height: 105,
           ),
-          Text("${donor?.firstName ?? ""}"),
+          Text("${donor?.firstName ?? "User"}"),
           SizedBox(height: 20),
           profileItem(
             onTap: () {

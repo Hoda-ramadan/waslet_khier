@@ -28,7 +28,9 @@ class CustomHomeViewAppbar extends StatelessWidget
               ),
 
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.go("/home/Notification");
+                },
                 icon: const Icon(
                   Icons.notifications_none_outlined,
                   color: Colors.white,
@@ -51,8 +53,8 @@ class CustomHomeViewAppbar extends StatelessWidget
               SizedBox(width: 8),
               CircleAvatar(
                 radius: 18,
-                child: Image.asset(
-                  'assets/images/Rectangle 2.png',
+                child: Image.network(
+                  '${donor?.imageUrl ?? "assets/images/radix-icons_avatar (1).png"}',
                   width: 38,
                   height: 38,
                   fit: BoxFit.cover,
