@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:waslet_khier/const.dart';
 
 class DrawerItem extends StatelessWidget {
   const DrawerItem({
@@ -13,7 +14,7 @@ class DrawerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icon, color: Colors.deepPurple),
+      leading: Icon(icon, color: appcolor),
       title: Text(title, style: const TextStyle(fontSize: 16)),
       onTap: onTap,
     );
