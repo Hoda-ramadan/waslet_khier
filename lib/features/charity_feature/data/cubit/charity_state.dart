@@ -1,4 +1,4 @@
-part of 'charity_cubit.dart';
+part of 'charity_deteals_cubit.dart';
 
 sealed class CharityState extends Equatable {
   const CharityState();

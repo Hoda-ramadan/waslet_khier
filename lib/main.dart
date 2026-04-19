@@ -10,6 +10,8 @@ import 'package:waslet_khier/featureAuth/Forgetpassword/data/cubit/resetpassword
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/repo/forgetpasswordRepo.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 import 'package:waslet_khier/features/charity_feature/data/cubit/charity_cubit.dart';
+import 'package:waslet_khier/features/charity_feature/data/cubit/charity_deteals_cubit.dart';
+import 'package:waslet_khier/features/charity_feature/data/repo/charity_repo.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/featch_casess_cubit_cubit.dart';
 
 void main() async {
@@ -39,7 +41,11 @@ class WasletKhier extends StatelessWidget {
         BlocProvider(
           create: (context) => FeatchCasessCubitCubit()..featchCasess(),
         ),
-        BlocProvider(create: (context) => CharityCubit()..getCharites()),
+        BlocProvider(
+  create: (context) => CharityCubit(
+    CharityRepo(ApiService(Dio())),
+  )..getCharites(),
+),
         BlocProvider(
           create: (context) =>
               ResetpasswordCubit(ResetpasswordRepo(ApiService(Dio()))),

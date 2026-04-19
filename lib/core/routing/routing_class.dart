@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:waslet_khier/featureAuth/Forgetpassword/data/cubit/resetpasswordcubit.dart';
+import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/changepassword_view.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/forget_password_view.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/verifycode_view.dart';
@@ -11,7 +11,9 @@ import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/cases_feature/views/case_detatls_veiw.dart';
 import 'package:waslet_khier/features/cases_feature/views/cases_view.dart';
+import 'package:waslet_khier/features/charity_feature/data/cubit/charity_deteals_cubit.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
+import 'package:waslet_khier/features/charity_feature/data/repo/charity_repo.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/categoryView.dart';
@@ -40,6 +42,16 @@ CaseModel _toCase(Object? extra) {
   return CaseModel.fromJson(Map<String, dynamic>.from(extra as Map));
 }
 
+// ─── Helper to wrap CaseDetatlsVeiw with CharityDetealsCubit ─────────────────
+Widget _caseDetailsWithCubit(CaseModel casee) {
+  return BlocProvider(
+    create: (ctx) => CharityDetealsCubit(
+      CharityRepo(ApiService(Dio())),
+    ),
+    child: CaseDetatlsVeiw(casee: casee),
+  );
+}
+
 // ─── Router ───────────────────────────────────────────────────────────────────
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
@@ -60,7 +72,7 @@ final GoRouter appRouter = GoRouter(
                 GoRoute(
                   path: 'case_detals_view',
                   builder: (context, state) =>
-                      CaseDetatlsVeiw(casee: _toCase(state.extra)),
+                      _caseDetailsWithCubit(_toCase(state.extra)),
                   routes: [
                     GoRoute(
                       path: 'chaaritedetelies',
@@ -81,7 +93,7 @@ final GoRouter appRouter = GoRouter(
                     GoRoute(
                       path: 'case_detals_view',
                       builder: (context, state) =>
-                          CaseDetatlsVeiw(casee: _toCase(state.extra)),
+                          _caseDetailsWithCubit(_toCase(state.extra)),
                     ),
                   ],
                 ),
@@ -113,7 +125,7 @@ final GoRouter appRouter = GoRouter(
                     GoRoute(
                       path: 'case_detals_view',
                       builder: (context, state) =>
-                          CaseDetatlsVeiw(casee: _toCase(state.extra)),
+                          _caseDetailsWithCubit(_toCase(state.extra)),
                     ),
                   ],
                 ),
@@ -132,7 +144,7 @@ final GoRouter appRouter = GoRouter(
                 GoRoute(
                   path: 'case_detals_view',
                   builder: (context, state) =>
-                      CaseDetatlsVeiw(casee: _toCase(state.extra)),
+                      _caseDetailsWithCubit(_toCase(state.extra)),
                 ),
               ],
             ),

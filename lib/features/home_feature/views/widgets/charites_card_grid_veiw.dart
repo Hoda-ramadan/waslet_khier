@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/charity_feature/data/cubit/charity_cubit.dart';
+import 'package:waslet_khier/features/charity_feature/data/cubit/charity_deteals_cubit.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 
 import 'package:waslet_khier/features/home_feature/views/widgets/charites_card.dart';
@@ -23,24 +24,8 @@ final List<CharityModel> charities = [
   CharityModel(image: 'assets/images/مستشفي500500.png', name: 'مستشفي 500500'),
 ];
 */
-class CharitesCardGridVeiw extends StatefulWidget {
+class CharitesCardGridVeiw extends StatelessWidget {
   const CharitesCardGridVeiw({super.key});
-
-  @override
-  State<CharitesCardGridVeiw> createState() => _CharitesCardGridVeiwState();
-}
-
-class _CharitesCardGridVeiwState extends State<CharitesCardGridVeiw>
-    with RouteAware {
-  @override
-  void initState() {
-    super.initState();
-    _fetchData();
-  }
-
-  void _fetchData() {
-    context.read<CharityCubit>().getCharites();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +42,8 @@ class _CharitesCardGridVeiwState extends State<CharitesCardGridVeiw>
             return GridView.builder(
               itemCount: state.charites.length,
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 16,
@@ -73,13 +58,13 @@ class _CharitesCardGridVeiwState extends State<CharitesCardGridVeiw>
             return Center(
               child: Text(
                 state.errorMessage.toString(),
-                style: const TextStyle(fontSize: 18, color: Colors.grey),
+                style: TextStyle(fontSize: 18, color: Colors.grey),
               ),
             );
           } else {
-            return const Center(
+            return Center(
               child: Text(
-                'There Was An Error',
+                'There Was An Error ',
                 style: TextStyle(fontSize: 18, color: Colors.grey),
               ),
             );

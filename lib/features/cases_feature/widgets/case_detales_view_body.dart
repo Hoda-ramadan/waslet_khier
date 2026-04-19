@@ -7,7 +7,7 @@ import 'package:waslet_khier/features/cases_feature/widgets/detals_view_case_ima
 import 'package:waslet_khier/features/cases_feature/widgets/states_taps.dart';
 import 'package:waslet_khier/features/cases_feature/widgets/stause_row.dart';
 import 'package:waslet_khier/features/cases_feature/widgets/title_text.dart';
-import 'package:waslet_khier/features/charity_feature/data/cubit/charity_cubit.dart';
+import 'package:waslet_khier/features/charity_feature/data/cubit/charity_deteals_cubit.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/card_of_charity.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charity_item.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/collectionOfcards.dart';
@@ -27,7 +27,7 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
   void initState() {
     super.initState();
 
-    context.read<CharityCubit>().getCharityById(widget.casee.charityId!);
+    context.read<CharityDetealsCubit>().getCharityById(widget.casee.charityId!);
   }
 
   @override
@@ -81,7 +81,7 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
             SizedBox(height: 16),
 
             /// charty ////
-            BlocBuilder<CharityCubit, CharityState>(
+            BlocBuilder<CharityDetealsCubit, CharityState>(
               builder: (context, state) {
                 if (state is CharityDetailsLoading) {
                   return CircularProgressIndicator();
