@@ -1,13 +1,15 @@
 import 'package:bloc/bloc.dart';
+import 'package:waslet_khier/features/admin_feature/data/create_case_model.dart';
+
 import '../repo/admin_repo.dart';
 import 'admin_states.dart';
-
+ 
 class AdminCubit extends Cubit<AdminState> {
   final AdminRepo repo;
   final int charityId;
-
+ 
   AdminCubit(this.repo, {required this.charityId}) : super(AdminInitial());
-
+ 
   Future<void> loadDashboard() async {
     emit(AdminLoading());
     try {
@@ -17,7 +19,7 @@ class AdminCubit extends Cubit<AdminState> {
       emit(AdminFailure(e.toString()));
     }
   }
-
+ 
   Future<void> loadCases(int charityId) async {
     emit(AdminCasesLoading());
     try {
@@ -25,6 +27,26 @@ class AdminCubit extends Cubit<AdminState> {
       emit(AdminCasesSuccess(cases));
     } catch (e) {
       emit(AdminCasesFailure(e.toString()));
+    }
+  }
+ 
+  Future<void> createCase({
+    required CreateCaseRequestModel request,
+    String? coverImagePath,
+    List<String> attachmentPaths = const [],
+  }) async {
+    emit(CreateCaseLoading());
+    try {
+     final message = await repo.createCase(
+  request: request,
+  coverImagePath: coverImagePath,
+  attachmentPaths: attachmentPaths,
+);
+      emit(CreateCaseSuccess(message));
+      // Reload dashboard after successful creation
+      await loadDashboard();
+    } catch (e) {
+      emit(CreateCaseFailure(e.toString()));
     }
   }
 }

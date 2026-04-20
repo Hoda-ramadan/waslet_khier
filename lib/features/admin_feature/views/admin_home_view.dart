@@ -6,6 +6,7 @@ import 'package:waslet_khier/core/Api/api_service.dart';
 import 'package:waslet_khier/features/admin_feature/data/cubit/admin_sates_cubit.dart';
 import 'package:waslet_khier/features/admin_feature/data/cubit/admin_states.dart';
 import 'package:waslet_khier/features/admin_feature/data/repo/admin_repo.dart';
+import 'package:waslet_khier/features/admin_feature/views/add_case_screnn.dart';
 import '../admin_constants.dart';
 import '../widgets/admin_header.dart';
 import '../widgets/admin_stat_card.dart';
@@ -139,28 +140,39 @@ class _AdminHomeContent extends StatelessWidget {
                     width: double.infinity,
                     height: 52,
                     child: ElevatedButton.icon(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: appcolor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        elevation: 0,
-                      ),
-                      icon: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 22,
-                      ),
-                      label: const Text(
-                        'إضافة حالة جديدة',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+  onPressed: () async {
+    // Navigate to AddCaseScreen and reload dashboard if case was created
+    final created = await Navigator.of(context).push<bool>(
+      MaterialPageRoute(
+        builder: (_) => BlocProvider.value(
+          value: context.read<AdminCubit>(), // reuse existing cubit
+          child: const AddCaseScreen(),
+        ),
+      ),
+    );
+
+    if (created == true && context.mounted) {
+      // Refresh the dashboard stats
+      context.read<AdminCubit>().loadDashboard();
+    }
+  },
+  icon: const Icon(Icons.add, color: Colors.white),
+  label: const Text(
+    'إضافة حالة جديدة',
+    style: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    ),
+  ),
+  style: ElevatedButton.styleFrom(
+    backgroundColor: const Color(0xFF1B5E20),
+    minimumSize: const Size(double.infinity, 52),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(14),
+    ),
+  ),
+),
                   ),
                   const SizedBox(height: 10),
 
