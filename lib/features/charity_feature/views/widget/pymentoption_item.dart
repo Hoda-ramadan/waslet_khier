@@ -10,7 +10,7 @@ class PymentoptionItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //context.go("/profile/PaymentwayView/Payment_Bank");
+        context.push("/profile/PaymentwayView/Payment_Bank");
       },
       child: Column(
         children: [

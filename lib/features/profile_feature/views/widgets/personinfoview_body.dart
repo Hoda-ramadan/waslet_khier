@@ -88,10 +88,7 @@ class _PersoninfoView_bodyState extends State<PersoninfoView_body> {
             const SizedBox(height: 10),
 
             const Text('البريد الالكتروني'),
-            customtextformfeild(
-              controller: emailController,
-              icon: Icons.email,
-            ),
+            customtextformfeild(controller: emailController, icon: Icons.email),
             const SizedBox(height: 10),
 
             const Text('رقم الهاتف'),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:waslet_khier/features/home_feature/data/cubit/Aicases_cubit/AicasesCubit.dart';
+import 'package:waslet_khier/features/home_feature/data/cubit/Aicases_cubit/Aicases_state.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/charities.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/custom_ai_card.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/home_view_first_part.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/states.dart';
-import 'package:waslet_khier/features/home_feature/views/widgets/states_card_grid_view.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
@@ -12,18 +14,43 @@ class HomeViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12),
-      child: Center(
-        child: const CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(child: HomeViewFirstPart()),
-            SliverToBoxAdapter(child: SizedBox(height: 8)),
-            SliverToBoxAdapter(child: CustomAiCard()),
-            SliverToBoxAdapter(child: SizedBox(height: 10)),
-            SliverToBoxAdapter(child: Charities()),
-            SliverToBoxAdapter(child: SizedBox(height: 10)),
-            SliverToBoxAdapter(child: States()),
-          ],
-        ),
+      child: CustomScrollView(
+        slivers: [
+          const SliverToBoxAdapter(child: HomeViewFirstPart()),
+          const SliverToBoxAdapter(child: SizedBox(height: 8)),
+
+          // ✅ AI Cases هنا
+          SliverToBoxAdapter(
+            child: BlocBuilder<AiCasesCubit, AiCasesState>(
+              builder: (context, state) {
+                if (state is AiCasesLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is AiCasesSuccess) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: state.cases.length,
+                    itemBuilder: (context, index) {
+                      final aiCase = state.cases[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: CustomAiCard(aiCasesModel: aiCase),
+                      ); // مرر الداتا
+                    },
+                  );
+                } else if (state is AiCasesFailure) {
+                  return Center(child: Text('Error: ${state.error}'));
+                }
+                return const SizedBox();
+              },
+            ),
+          ),
+
+          const SliverToBoxAdapter(child: SizedBox(height: 10)),
+          const SliverToBoxAdapter(child: Charities()),
+          const SliverToBoxAdapter(child: SizedBox(height: 10)),
+          const SliverToBoxAdapter(child: States()),
+        ],
       ),
     );
   }

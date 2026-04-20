@@ -76,25 +76,27 @@ final GoRouter appRouter = GoRouter(
   routes: [
     // ── ADMIN ─────────────────────────────────────────────────────────────────
     GoRoute(
-  path: '/admin/:charityId',
-  builder: (context, state) {
-    final charityId =
-        int.tryParse(state.pathParameters['charityId'] ?? '0') ?? 0;
-    print('>>> Router charityId from path: $charityId');
-    return AdminMainScreen(charityId: charityId);
-  },
-  routes: [
-    GoRoute(
-      path: 'case_details',
-      parentNavigatorKey: _rootNavigatorKey,
+      path: '/admin/:charityId',
       builder: (context, state) {
         final charityId =
             int.tryParse(state.pathParameters['charityId'] ?? '0') ?? 0;
-        return AdminCaseDetailsView(charityId: charityId); // ✅ pass charityId
+        print('>>> Router charityId from path: $charityId');
+        return AdminMainScreen(charityId: charityId);
       },
+      routes: [
+        GoRoute(
+          path: 'case_details',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) {
+            final charityId =
+                int.tryParse(state.pathParameters['charityId'] ?? '0') ?? 0;
+            return AdminCaseDetailsView(
+              charityId: charityId,
+            ); // ✅ pass charityId
+          },
+        ),
+      ],
     ),
-  ],
-),
 
     // ── DONOR APP ─────────────────────────────────────────────────────────────
     StatefulShellRoute.indexedStack(
@@ -204,12 +206,15 @@ final GoRouter appRouter = GoRouter(
                   path: 'PaymentwayView',
                   parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const PaymentwayView(),
+                  routes: [
+                    GoRoute(
+                      path: 'Payment_Bank',
+                      parentNavigatorKey: _rootNavigatorKey,
+                      builder: (context, state) => Payment_Bank(),
+                    ),
+                  ],
                 ),
-                GoRoute(
-                  path: 'Payment_Bank',
-                  parentNavigatorKey: _rootNavigatorKey,
-                  builder: (context, state) => Payment_Bank(),
-                ),
+
                 GoRoute(
                   path: 'Favoritecharity',
                   parentNavigatorKey: _rootNavigatorKey,
@@ -249,8 +254,7 @@ final GoRouter appRouter = GoRouter(
                           routes: [
                             GoRoute(
                               path: 'ChangepasswordView',
-                              builder: (context, state) =>
-                                  ChangepasswordView(),
+                              builder: (context, state) => ChangepasswordView(),
                             ),
                           ],
                         ),

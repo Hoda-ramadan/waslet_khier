@@ -5,17 +5,17 @@ class LoginRepo {
   final ApiService apiService;
   LoginRepo(this.apiService);
 
-Future<LoginResponse> login({
-  required String email,
-  required String password,
-}) async {
-  final response = await apiService.postLogin(
-    endPoint: '/User/Login',
-    data: {'email': email, 'password': password},
-  );
+  Future<LoginResponse> login({
+    required String email,
+    required String password,
+  }) async {
+    final response = await apiService.postLogin(
+      endPoint: '/User/Login',
+      data: {'email': email, 'password': password},
+    );
 
-  print('>>> RAW LOGIN RESPONSE: ${response.data}'); // 👈 ADD THIS
+    print('>>> RAW LOGIN RESPONSE: ${response.data}'); // 👈 ADD THIS
 
-  return LoginResponse.fromJson(response.data);
-}
+    return LoginResponse.fromJson(response.data);
+  }
 }

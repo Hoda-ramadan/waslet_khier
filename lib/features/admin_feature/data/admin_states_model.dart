@@ -5,9 +5,9 @@ class AdminStatsModel {
   final String? charityEmail;
   final String? charityPhone;
   final String? charityAddress;
-  final int totalDonations;   // totalRaisedAmount
-  final int totalDonors;      // totalDonorsCount
-  final int activeCases;      // totalProjectsCount
+  final int totalDonations; // totalRaisedAmount
+  final int totalDonors; // totalDonorsCount
+  final int activeCases; // totalProjectsCount
   final int completedCases;
   final bool isActive;
 

@@ -11,87 +11,96 @@ class PaymentView_Bankbody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: SingleChildScrollView(
-        child: Directionality(
-          textDirection: TextDirection.rtl,
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               customappbar(text: "تبرع آمن "),
-              SizedBox(height: 30),
-              Text(
-                "الدفع ب فيزا ",
-                style: TextStyle(
-                  fontFamily: "Roboto",
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
+              const SizedBox(height: 30),
+
+              Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "الدفع ب فيزا",
+                      style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      "تبرع آمن يدعم مشاريعنا الخيرية",
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
                 ),
-                textAlign: TextAlign.center,
               ),
-              Text(
-                "تبرع آمن يدعم مشاريعنا الخيرية  ",
-                style: TextStyle(
-                  fontFamily: "Roboto",
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12,
+
+              const SizedBox(height: 15),
+
+              Center(
+                child: Image.asset(
+                  "assets/images/no-data/mobile-payments/pana.png",
+                  height: 150,
                 ),
               ),
-              SizedBox(height: 15),
-              Image.asset("assets/images/no-data/mobile-payments/pana.png"),
+
+              const SizedBox(height: 20),
+
               Text(
                 "اختر مبلغ التبرع",
-                style: TextStyle(
-                  fontFamily: "Roboto",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                ),
-                textAlign: TextAlign.end,
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
               ),
+
+              const SizedBox(height: 10),
+
               Row(
-                children: [
-                  CustomPayCard(txt: "50"),
-                  SizedBox(width: 15),
-                  CustomPayCard(txt: "100"),
-                  SizedBox(width: 15),
-                  CustomPayCard(txt: "100"),
+                children: const [
+                  Expanded(child: CustomPayCard(txt: "50")),
+                  SizedBox(width: 10),
+                  Expanded(child: CustomPayCard(txt: "100")),
+                  SizedBox(width: 10),
+                  Expanded(child: CustomPayCard(txt: "500")),
                 ],
               ),
-              SizedBox(height: 25),
+
+              const SizedBox(height: 20),
+
               CustomTextfieldForPayment(),
-              SizedBox(height: 15),
+
+              const SizedBox(height: 20),
+
               Text(
-                "معلومات البطاقة ",
-                style: TextStyle(
-                  fontFamily: "Roboto",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                ),
-                textAlign: TextAlign.end,
+                "معلومات البطاقة",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
               ),
-              SizedBox(height: 10),
-              Expanded(
-                child: customField(
-                  label: "'اسم حامل البطاقة",
-                  hint: "مثال: نورهان فيصل",
-                ),
-              ),
-              SizedBox(height: 10),
-              Expanded(
-                child: customField(
-                  label: "رقم البطاقة ",
-                  hint: "0000 0000 0000 0000  ",
-                ),
-              ),
-              SizedBox(height: 10),
+
+              const SizedBox(height: 10),
+
+              customField(label: "اسم حامل البطاقة", hint: "مثال: نورهان فيصل"),
+
+              const SizedBox(height: 10),
+
+              customField(label: "رقم البطاقة", hint: "0000 0000 0000 0000"),
+
+              const SizedBox(height: 10),
+
               Row(
                 children: [
                   Expanded(
                     child: customField(label: "تاريخ الانتهاء", hint: "MM/YY"),
                   ),
+                  const SizedBox(width: 10),
                   Expanded(
-                    child: customField(label: "الرقم السري (CVV)", hint: "***"),
+                    child: customField(label: "CVV", hint: "***"),
                   ),
                 ],
               ),
+
+              const SizedBox(height: 30),
             ],
           ),
         ),

@@ -16,7 +16,9 @@ import 'package:waslet_khier/features/charity_feature/data/cubit/charity_cubit.d
 import 'package:waslet_khier/features/charity_feature/data/cubit/charity_deteals_cubit.dart';
 import 'package:waslet_khier/features/charity_feature/data/repo/categoryrepo.dart';
 import 'package:waslet_khier/features/charity_feature/data/repo/charity_repo.dart';
+import 'package:waslet_khier/features/home_feature/data/cubit/Aicases_cubit/AicasesCubit.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/featch_casess_cubit_cubit.dart';
+import 'package:waslet_khier/features/home_feature/data/repo/aicasesrepo.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(
@@ -51,6 +53,10 @@ class WasletKhier extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               ResetpasswordCubit(ResetpasswordRepo(ApiService(Dio()))),
+        ),
+        BlocProvider(
+          create: (context) =>
+              AiCasesCubit(AiCasesRepo(ApiService(Dio())))..getAiCases(),
         ),
       ],
       child: MaterialApp.router(

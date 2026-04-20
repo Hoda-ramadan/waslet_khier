@@ -3,7 +3,6 @@ import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/pymentoption_item.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/payment_body.dart';
-import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
 class PaymentwayView extends StatelessWidget {
   const PaymentwayView({super.key});

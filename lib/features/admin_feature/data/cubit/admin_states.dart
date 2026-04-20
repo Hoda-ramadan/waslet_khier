@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_states_model.dart';
 
-
 abstract class AdminState extends Equatable {
   const AdminState();
   @override
@@ -10,6 +9,7 @@ abstract class AdminState extends Equatable {
 }
 
 class AdminInitial extends AdminState {}
+
 class AdminLoading extends AdminState {}
 
 class AdminSuccess extends AdminState {

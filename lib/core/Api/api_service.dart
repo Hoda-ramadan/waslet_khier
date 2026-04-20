@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_madel2/category_madel2.dart';
+import 'package:waslet_khier/features/home_feature/data/models/ai_cases_model/ai_cases_model.dart';
 
 class ApiService {
   final Dio dio;
@@ -9,10 +10,27 @@ class ApiService {
 
   Future<List<CategoryMadel>> getCategoriesByCharity(int charityId) async {
     try {
-      final response = await dio.get('categories/charity/$charityId');
+      final response = await dio.get('$baseurl/categories/charity/$charityId');
       return (response.data as List)
           .map((e) => CategoryMadel.fromJson(e))
           .toList();
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    }
+  }
+
+  Future<List<AiCasesModel>> getAiCases() async {
+    try {
+      final response = await dio.get('$baseurl/Case/featured');
+
+      if (response.data is List) {
+        return (response.data as List)
+            .map((e) => AiCasesModel.fromJson(e))
+            .toList();
+      } else {
+        print('❌ Response is not a List: ${response.data}');
+        return [];
+      }
     } on DioException catch (e) {
       throw _handleDioError(e);
     }

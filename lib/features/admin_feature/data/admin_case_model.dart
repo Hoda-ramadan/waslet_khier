@@ -40,9 +40,7 @@ class AdminCaseModel {
 
   // progress ratio clamped to 0.0–1.0
   double get progress =>
-      targetAmount > 0
-          ? (collectedAmount / targetAmount).clamp(0.0, 1.0)
-          : 0.0;
+      targetAmount > 0 ? (collectedAmount / targetAmount).clamp(0.0, 1.0) : 0.0;
 
   bool get isActive => status == 'Active';
 }

@@ -22,25 +22,27 @@ class LoginResponse extends Equatable {
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
-        token: json['token'],
-        message: json['message']?.toString(),
-        isAuthenticated: json['isAuthenticated'] as bool?,
-        roles: (json['roles'] as List<dynamic>?)
-            ?.map((e) => e.toString())
-            .toList(),
-        expireDate: json['expireDate']?.toString(),
-        donor: json['donor'] != null
-            ? DonorModel.fromJson(json['donor'])
-            : null,
-        admin: json['admin'] != null
-            ? AdminModel.fromJson(json['admin'])
-            : null,
-        superAdmin: json['superAdmin'],
-      );
+    token: json['token'],
+    message: json['message']?.toString(),
+    isAuthenticated: json['isAuthenticated'] as bool?,
+    roles: (json['roles'] as List<dynamic>?)?.map((e) => e.toString()).toList(),
+    expireDate: json['expireDate']?.toString(),
+    donor: json['donor'] != null ? DonorModel.fromJson(json['donor']) : null,
+    admin: json['admin'] != null ? AdminModel.fromJson(json['admin']) : null,
+    superAdmin: json['superAdmin'],
+  );
 
   @override
-  List<Object?> get props =>
-      [token, message, isAuthenticated, roles, expireDate, donor, admin, superAdmin];
+  List<Object?> get props => [
+    token,
+    message,
+    isAuthenticated,
+    roles,
+    expireDate,
+    donor,
+    admin,
+    superAdmin,
+  ];
 }
 
 class DonorModel {
@@ -61,13 +63,13 @@ class DonorModel {
   });
 
   factory DonorModel.fromJson(Map<String, dynamic> json) => DonorModel(
-        id: json['id'] ?? 0,
-        firstName: json['firstName'] ?? '',
-        lastName: json['lastName'] ?? '',
-        email: json['email'] ?? '',
-        phoneNumber: json['phoneNumber'] ?? '',
-        imageUrl: json['imageUrl'],
-      );
+    id: json['id'] ?? 0,
+    firstName: json['firstName'] ?? '',
+    lastName: json['lastName'] ?? '',
+    email: json['email'] ?? '',
+    phoneNumber: json['phoneNumber'] ?? '',
+    imageUrl: json['imageUrl'],
+  );
 
   String get fullName => '$firstName $lastName';
 }
@@ -96,16 +98,16 @@ class AdminModel {
   });
 
   factory AdminModel.fromJson(Map<String, dynamic> json) => AdminModel(
-        id: json['id'] ?? 0,
-        imageUrl: json['imageUrl'],
-        userId: json['userId'] ?? '',
-        charityId: json['charityId'] ?? 0,
-        charityName: json['charityName'] ?? '',
-        firstName: json['firstName'] ?? '',
-        lastName: json['lastName'] ?? '',
-        email: json['email'] ?? '',
-        phoneNumber: json['phoneNumber'] ?? '',
-      );
+    id: json['id'] ?? 0,
+    imageUrl: json['imageUrl'],
+    userId: json['userId'] ?? '',
+    charityId: json['charityId'] ?? 0,
+    charityName: json['charityName'] ?? '',
+    firstName: json['firstName'] ?? '',
+    lastName: json['lastName'] ?? '',
+    email: json['email'] ?? '',
+    phoneNumber: json['phoneNumber'] ?? '',
+  );
 
   String get fullName => '$firstName $lastName';
 }

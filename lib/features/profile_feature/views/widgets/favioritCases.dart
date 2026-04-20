@@ -9,10 +9,12 @@ import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Ba
 import 'package:waslet_khier/features/charity_feature/views/widget/listofcharitys.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/progress_parth_with_label.dart';
 import 'package:waslet_khier/features/profile_feature/data/favCubit/favCubit.dart';
+import 'package:waslet_khier/features/profile_feature/data/favCubit/favstate.dart';
 import 'package:waslet_khier/features/profile_feature/data/favrepo/FavoriteRepo.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/caseitemofCategory.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/cstomfavRow.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favoriteCharity_body.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
 class Favioritcases extends StatelessWidget {
@@ -53,18 +55,72 @@ class Favioritcases_body extends StatelessWidget {
   }
 }
 
-class CasesTab extends StatelessWidget {
+class CasesTab extends StatefulWidget {
   const CasesTab({super.key});
 
   @override
+  State<CasesTab> createState() => _CasesTabState();
+}
+
+class _CasesTabState extends State<CasesTab> {
+  @override
+  void initState() {
+    super.initState();
+    // هنا بنطلب البيانات لما الويدجت يتبني
+    context.read<Favcubit>().getfav();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 10,
-      itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: const EdgeInsets.all(12),
-          child: CaseItemOfcategory(),
-        );
+    return BlocBuilder<Favcubit, FavorieState>(
+      builder: (context, state) {
+        // حالة اللودينج
+        if (state is favoritLodaing) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        // حالة النجاح
+        if (state is FavoritSuccess) {
+          if (state.favorit.isEmpty) {
+            return FavoriteView();
+          }
+
+          return ListView.builder(
+            itemCount: state.favorit.length,
+            itemBuilder: (context, index) {
+              final item = state.favorit[index];
+              return Padding(
+                padding: const EdgeInsets.all(12),
+                child: CaseItemOfcategory(
+                  // مررري بيانات الـ item للويدجت
+                  // caseTitle: item.caseTitle,
+                  // coverImageUrl: item.coverImageUrl,
+                ),
+              );
+            },
+          );
+        }
+
+        // حالة الفشل
+        if (state is FavoritFaild) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.error_outline, size: 50, color: Colors.red),
+                const SizedBox(height: 10),
+                Text(state.errorMessage),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () => context.read<Favcubit>().getfav(),
+                  child: const Text("إعادة المحاولة"),
+                ),
+              ],
+            ),
+          );
+        }
+
+        return const SizedBox();
       },
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:waslet_khier/features/home_feature/data/models/ai_cases_model/ai_cases_model.dart';
 
 class AiCardDonationImage extends StatelessWidget {
   final double width;
