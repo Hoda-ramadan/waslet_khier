@@ -4,16 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/api/api_service.dart';
-import 'package:waslet_khier/features/charity_feature/views/widget/charityicon.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
-import 'package:waslet_khier/features/charity_feature/views/widget/listofcharitys.dart';
-import 'package:waslet_khier/features/home_feature/views/widgets/progress_parth_with_label.dart';
 import 'package:waslet_khier/features/profile_feature/data/favCubit/favCubit.dart';
 import 'package:waslet_khier/features/profile_feature/data/favCubit/favstate.dart';
 import 'package:waslet_khier/features/profile_feature/data/favrepo/FavoriteRepo.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/caseitemofCategory.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/cstomfavRow.dart';
-import 'package:waslet_khier/features/profile_feature/views/widgets/favoriteCharity_body.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
@@ -122,56 +118,6 @@ class _CasesTabState extends State<CasesTab> {
 
         return const SizedBox();
       },
-    );
-  }
-}
-
-class cstomfavRow2 extends StatelessWidget {
-  const cstomfavRow2({super.key, required this.location});
-  final String location;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        GestureDetector(
-          onTap: () {},
-          child: Container(
-            child: Text(
-              "الجمعيات",
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: "Roboto",
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(width: 10),
-        GestureDetector(
-          onTap: () {
-            context.push(location);
-          },
-
-          child: Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: tintAppColor,
-              border: Border.all(color: Colors.transparent),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Text(
-              "الحالات",
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: "Roboto",
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

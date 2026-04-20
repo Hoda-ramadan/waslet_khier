@@ -26,17 +26,22 @@ class HomeViewBody extends StatelessWidget {
                 if (state is AiCasesLoading) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (state is AiCasesSuccess) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: state.cases.length,
-                    itemBuilder: (context, index) {
-                      final aiCase = state.cases[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: CustomAiCard(aiCasesModel: aiCase),
-                      ); // مرر الداتا
-                    },
+                  return SizedBox(
+                    height: 200,
+                    width: double.infinity,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      //shrinkWrap: true,
+                      // physics: const NeverScrollableScrollPhysics(),
+                      itemCount: state.cases.length,
+                      itemBuilder: (context, index) {
+                        final aiCase = state.cases[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: CustomAiCard(aiCasesModel: aiCase),
+                        ); // مرر الداتا
+                      },
+                    ),
                   );
                 } else if (state is AiCasesFailure) {
                   return Center(child: Text('Error: ${state.error}'));

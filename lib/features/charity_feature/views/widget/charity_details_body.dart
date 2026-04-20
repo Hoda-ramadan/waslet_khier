@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/Api/api_service.dart';
 import 'package:waslet_khier/features/charity_feature/data/cubit/CategoryCubit/categorycubit.dart';
@@ -100,9 +101,22 @@ class CharityDetailsView_body extends StatelessWidget {
                 child: Container(
                   height: 270,
                   width: double.infinity,
-                  child: Image.asset(
-                    "assets/images/image.png",
-                    fit: BoxFit.fill,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => InAppWebView(
+                            initialUrlRequest: URLRequest(
+                              url: WebUri(
+                                charity.mapUrl ?? 'https://maps.google.com',
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Image.asset('assets/images/image.png'),
                   ),
                 ),
               ),
