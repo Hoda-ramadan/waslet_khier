@@ -1,32 +1,40 @@
-import 'package:waslet_khier/core/api/api_service.dart';
+import 'package:waslet_khier/core/Api/api_service.dart';
+import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_states_model.dart';
-
 
 class AdminRepo {
   final ApiService apiService;
   AdminRepo(this.apiService);
 
   Future<AdminStatsModel> getDashboardStats(int charityId) async {
-      print('>>> charityId sent to API: $charityId'); // 👈
-    final results = await Future.wait([
-      apiService.get(endPoint: '/Charity/$charityId'),
-      apiService.get(endPoint: '/Case/get_All_case_By_CharityId/$charityId'),
-    ]);
-      print('>>> charity raw response: ${results[0]}');
-        print('>>> cases raw response: ${results[1]}');
-    final charity = results[0] as Map<String, dynamic>;
-    final List cases = results[1] as List;
+    print('>>> charityId sent to API: $charityId');
 
-    final activeCases = cases.where((c) => c['isActive'] == true).length;
-    final completedCases = cases.where((c) => c['isActive'] == false).length;
+    final charity = await apiService.get(endPoint: '/Charity/$charityId')
+        as Map<String, dynamic>;
+
+    print('>>> charity raw response: $charity');
 
     return AdminStatsModel(
+      id: charity['id'] ?? 0,                                          // ✅ new
       charityName: charity['name'] ?? '',
       charityLogo: charity['logoUrl'],
+      charityEmail: charity['email'],                                   // ✅ new
+      charityPhone: charity['phoneNumber'],                             // ✅ new
+      charityAddress: charity['address'],                               // ✅ new
       totalDonations: (charity['totalRaisedAmount'] as num?)?.toInt() ?? 0,
       totalDonors: (charity['totalDonorsCount'] as num?)?.toInt() ?? 0,
-      activeCases: activeCases,
-      completedCases: completedCases,
+      activeCases: (charity['totalProjectsCount'] as num?)?.toInt() ?? 0,
+      completedCases: 0,
+      isActive: charity['isActive'] ?? false,                          // ✅ new
     );
   }
+  Future<List<AdminCaseModel>> getCharityCases(int charityId) async {
+  final response = await apiService.get(
+    endPoint: '/Case/charity/$charityId',
+  ) as List<dynamic>;
+
+  return response
+      .map((e) => AdminCaseModel.fromJson(e as Map<String, dynamic>))
+      .toList();
+}
 }

@@ -17,4 +17,14 @@ class AdminCubit extends Cubit<AdminState> {
       emit(AdminFailure(e.toString()));
     }
   }
+
+  Future<void> loadCases(int charityId) async {
+  emit(AdminCasesLoading());
+  try {
+    final cases = await repo.getCharityCases(charityId);
+    emit(AdminCasesSuccess(cases));
+  } catch (e) {
+    emit(AdminCasesFailure(e.toString()));
+  }
+}
 }

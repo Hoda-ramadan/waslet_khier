@@ -3,7 +3,8 @@ import 'package:waslet_khier/const.dart';
 import '../admin_constants.dart';
 
 class AdminCaseDetailsView extends StatelessWidget {
-  const AdminCaseDetailsView({super.key});
+  final int charityId; // ✅ add this
+  const AdminCaseDetailsView({super.key, required this.charityId}); 
 
   @override
   Widget build(BuildContext context) {

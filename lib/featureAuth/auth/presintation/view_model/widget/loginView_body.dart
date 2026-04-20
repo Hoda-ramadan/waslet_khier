@@ -50,23 +50,23 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) async {
         if (state is LoginSuccess) {
-          // ✅ save token, donor and admin info
           await Provider.of<AuthProvider_info>(context, listen: false)
               .setAuthData(
             token: state.loginResponse.token?.toString(),
             donor: state.loginResponse.donor,
-            admin: state.loginResponse.admin, // ✅ pass admin
+            admin: state.loginResponse.admin,
           );
 
           if (!context.mounted) return;
 
-          // ✅ check roles from API response
           final roles = state.loginResponse.roles ?? [];
 
           if (roles.contains('Admin') || roles.contains('SuperAdmin')) {
-            context.go('/admin'); // → Admin Dashboard
-          } else {
-            context.go('/home'); // → Donor Home
+  final charityId = state.loginResponse.admin?.charityId ?? 0;
+  context.go('/admin/$charityId'); // ✅ charityId in URL
+}
+           else {
+            context.go('/home');
           }
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -93,7 +93,6 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                   ),
                   const SizedBox(height: 30),
 
-                  // ✅ Email field
                   CustomTextField(
                     controller: emailController,
                     labelText: 'البريد الالكتروني',
@@ -106,7 +105,6 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                   ),
                   const SizedBox(height: 10),
 
-                  // ✅ Password field
                   CustomTextField(
                     controller: passwordController,
                     labelText: 'كلمة المرور',
@@ -118,11 +116,9 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                   ),
                   const SizedBox(height: 10),
 
-                  // ✅ Remember me + Forgot password row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Forgot password
                       TextButton(
                         onPressed: () =>
                             context.push('/profile/logout/forgetpassword'),
@@ -131,7 +127,6 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                           style: TextStyle(color: appcolor, fontSize: 13),
                         ),
                       ),
-                      // Remember me
                       Row(
                         children: [
                           const Text('تذكرني',
@@ -147,10 +142,8 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 20),
 
-                  // ✅ Login button
                   BlocBuilder<LoginCubit, LoginState>(
                     builder: (context, state) {
                       if (state is LoginLoading) {
@@ -173,7 +166,6 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                   ),
                   const SizedBox(height: 24),
 
-                  // ✅ Register link
                   checkhavingAcc(
                     text1: 'ليس لديك حساب؟ ',
                     text2: 'تسجيل حساب',
@@ -183,7 +175,6 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                   ),
                   const SizedBox(height: 20),
 
-                  // ✅ Guest login
                   Custombuttom(
                     onPressed: () => context.go('/home'),
                     text: 'الدخول كزائر',

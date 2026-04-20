@@ -36,7 +36,6 @@ import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinf
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
-// ─── Safe casting helpers ─────────────────────────────────────────────────────
 CharityModel _toCharity(Object? extra) {
   if (extra is CharityModel) return extra;
   return CharityModel.fromJson(Map<String, dynamic>.from(extra as Map));
@@ -54,12 +53,10 @@ Widget _caseDetailsWithCubit(CaseModel casee) {
   );
 }
 
-// ─── Router ───────────────────────────────────────────────────────────────────
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
 
-  // ✅ FIXED redirect — admin routes are no longer blocked
   redirect: (context, state) {
     final auth = Provider.of<AuthProvider_info>(context, listen: false);
     final isLoggedIn = auth.isLoggedIn;
@@ -67,40 +64,44 @@ final GoRouter appRouter = GoRouter(
 
     final isOnAuth =
         loc == '/profile/logout' || loc.startsWith('/profile/logout/');
-    final isOnAdmin = loc == '/admin' || loc.startsWith('/admin/'); // ✅ NEW
+    final isOnAdmin = loc.startsWith('/admin'); // ✅ covers /admin/9
 
-    // ✅ Let logged-in admin through immediately
     if (isOnAdmin && isLoggedIn) return null;
-
-    // ✅ Block non-logged-in users from everything except auth screens
     if (!isLoggedIn && !isOnAuth) return '/profile/logout';
-
-    // ✅ Redirect logged-in users away from auth screens
     if (isLoggedIn && isOnAuth) return '/home';
 
     return null;
   },
 
   routes: [
-    // ── ADMIN (outside shell — no bottom bar) ─────────────────────────────────
+    // ── ADMIN ─────────────────────────────────────────────────────────────────
     GoRoute(
-      path: '/admin',
-      builder: (context, state) => const AdminMainScreen(),
-      routes: [
-        GoRoute(
-          path: 'case_details',
-          parentNavigatorKey: _rootNavigatorKey,
-          builder: (context, state) => const AdminCaseDetailsView(),
-        ),
-      ],
+  path: '/admin/:charityId',
+  builder: (context, state) {
+    final charityId =
+        int.tryParse(state.pathParameters['charityId'] ?? '0') ?? 0;
+    print('>>> Router charityId from path: $charityId');
+    return AdminMainScreen(charityId: charityId);
+  },
+  routes: [
+    GoRoute(
+      path: 'case_details',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final charityId =
+            int.tryParse(state.pathParameters['charityId'] ?? '0') ?? 0;
+        return AdminCaseDetailsView(charityId: charityId); // ✅ pass charityId
+      },
     ),
+  ],
+),
 
-    // ── DONOR APP (with bottom bar shell) ─────────────────────────────────────
+    // ── DONOR APP ─────────────────────────────────────────────────────────────
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
           MainScreen(navigationShell: navigationShell),
       branches: [
-        // ── HOME ────────────────────────────────────────────────────────────
+        // ── HOME ──────────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -135,7 +136,6 @@ final GoRouter appRouter = GoRouter(
         ),
 
         // ── CHARITIES ─────────────────────────────────────────────────────────
-        // ── CHARITIES ────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -154,7 +154,6 @@ final GoRouter appRouter = GoRouter(
                         final categoryId = int.parse(
                           state.pathParameters['categoryId']!,
                         );
-
                         final categoryMadel = state.extra != null
                             ? state.extra as CategoryMadel
                             : CategoryMadel();
@@ -171,7 +170,7 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
 
-        // ── CASES ────────────────────────────────────────────────────────────
+        // ── CASES ─────────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -189,7 +188,7 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
 
-        // ── PROFILE ──────────────────────────────────────────────────────────
+        // ── PROFILE ───────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -250,7 +249,8 @@ final GoRouter appRouter = GoRouter(
                           routes: [
                             GoRoute(
                               path: 'ChangepasswordView',
-                              builder: (context, state) => ChangepasswordView(),
+                              builder: (context, state) =>
+                                  ChangepasswordView(),
                             ),
                           ],
                         ),

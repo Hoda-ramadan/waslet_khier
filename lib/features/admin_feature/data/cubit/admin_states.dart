@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_states_model.dart';
 
 
@@ -23,4 +24,16 @@ class AdminFailure extends AdminState {
   const AdminFailure(this.error);
   @override
   List<Object?> get props => [error];
+}
+
+class AdminCasesLoading extends AdminState {}
+
+class AdminCasesSuccess extends AdminState {
+  final List<AdminCaseModel> cases;
+  AdminCasesSuccess(this.cases);
+}
+
+class AdminCasesFailure extends AdminState {
+  final String error;
+  AdminCasesFailure(this.error);
 }

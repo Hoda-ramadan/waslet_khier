@@ -6,7 +6,8 @@ import 'views/admin_cases_view.dart';
 import 'views/admin_settings_view.dart';
 
 class AdminMainScreen extends StatefulWidget {
-  const AdminMainScreen({super.key});
+  final int charityId;
+  const AdminMainScreen({super.key, required this.charityId});
 
   @override
   State<AdminMainScreen> createState() => _AdminMainScreenState();
@@ -19,9 +20,10 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
   @override
   void initState() {
     super.initState();
+    print('>>> AdminMainScreen charityId: ${widget.charityId}');
     _screens = [
-      const AdminHomeView(),
-      const AdminCasesView(),
+      AdminHomeView(charityId: widget.charityId),
+      AdminCasesView(charityId: widget.charityId), // ✅ pass charityId
       const AdminSettingsView(),
     ];
   }

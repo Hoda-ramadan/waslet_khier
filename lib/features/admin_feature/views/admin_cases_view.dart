@@ -1,64 +1,111 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/core/Api/api_service.dart';
+import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
+import 'package:waslet_khier/features/admin_feature/data/cubit/admin_sates_cubit.dart';
+import 'package:waslet_khier/features/admin_feature/data/cubit/admin_states.dart';
+
+import 'package:waslet_khier/features/admin_feature/data/repo/admin_repo.dart';
 import '../admin_constants.dart';
 import '../widgets/admin_header.dart';
 
 class AdminCasesView extends StatelessWidget {
-  const AdminCasesView({super.key});
-
-  static const List<_CaseData> _cases = [
-    _CaseData(
-      title: 'توفير وجبات غذائية',
-      description: 'دعم أسرة بسيطة بوجبات يومية تكفي احتياجاتهم',
-      progress: 0.5,
-      image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400',
-    ),
-    _CaseData(
-      title: 'كفالة تعليم طفل',
-      description: 'توفير مصاريف الدراسة والزي المدرسي لطفل غير قادر',
-      progress: 0.65,
-      image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400',
-    ),
-    _CaseData(
-      title: 'إجراء عملية جراحية عاجلة',
-      description: 'مساعدة مريض يحتاج عملية جراحية عاجلة لإنقاذ حياته',
-      progress: 0.2,
-      image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400',
-    ),
-  ];
+  final int charityId;
+  const AdminCasesView({super.key, required this.charityId});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kAdminBackground,
-      appBar: const AdminHeader(),
-      body: ListView.separated(
-        padding: const EdgeInsets.all(16),
-        itemCount: _cases.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 14),
-        itemBuilder: (context, index) =>
-            _CaseCard(data: _cases[index]),
+    return BlocProvider(
+      create: (_) => AdminCubit(
+        AdminRepo(ApiService(Dio())),
+        charityId: charityId,
+      )..loadCases(charityId),
+      child: Scaffold(
+        backgroundColor: kAdminBackground,
+        appBar: const AdminHeader(),
+        body: BlocBuilder<AdminCubit, AdminState>(
+          builder: (context, state) {
+            if (state is AdminCasesLoading) {
+              return const Center(
+                child: CircularProgressIndicator(color: appcolor),
+              );
+            }
+
+            if (state is AdminCasesFailure) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(state.error,
+                        style: const TextStyle(color: Colors.red)),
+                    const SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: () =>
+                          context.read<AdminCubit>().loadCases(charityId),
+                      child: const Text('إعادة المحاولة'),
+                    ),
+                  ],
+                ),
+              );
+            }
+
+            if (state is AdminCasesSuccess) {
+              final cases = state.cases;
+
+              if (cases.isEmpty) {
+                return const Center(
+                  child: Text(
+                    'لا توجد حالات مسجلة',
+                    style: TextStyle(color: kAdminTextGrey, fontSize: 15),
+                  ),
+                );
+              }
+
+              return ListView.separated(
+                padding: const EdgeInsets.all(16),
+                itemCount: cases.length,
+                separatorBuilder: (_, __) => const SizedBox(height: 14),
+                itemBuilder: (context, index) =>
+                    _CaseCard(data: cases[index]),
+              );
+            }
+
+            return const SizedBox();
+          },
+        ),
       ),
     );
   }
 }
 
-class _CaseData {
-  final String title;
-  final String description;
-  final double progress;
-  final String image;
-  const _CaseData({
-    required this.title,
-    required this.description,
-    required this.progress,
-    required this.image,
-  });
-}
-
 class _CaseCard extends StatelessWidget {
-  final _CaseData data;
+  final AdminCaseModel data;
   const _CaseCard({super.key, required this.data});
+
+  // Priority badge color
+  Color get _priorityColor {
+    switch (data.priority) {
+      case 'Urgent':
+        return Colors.orange;
+      case 'Critical':
+        return Colors.red;
+      default:
+        return kAdminGreen;
+    }
+  }
+
+  String get _priorityLabel {
+    switch (data.priority) {
+      case 'Urgent':
+        return 'عاجل';
+      case 'Critical':
+        return 'حرج';
+      default:
+        return data.priority;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,22 +124,19 @@ class _CaseCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Image
+          // ── Cover Image
           ClipRRect(
             borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(16)),
-            child: Image.network(
-              data.image,
-              height: 160,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => Container(
-                height: 160,
-                color: appcolor,
-                child: const Icon(Icons.image_not_supported,
-                    color: appcolor, size: 40),
-              ),
-            ),
+            child: data.coverImageUrl != null
+                ? Image.network(
+                    data.coverImageUrl!,
+                    height: 160,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => _imageFallback(),
+                  )
+                : _imageFallback(),
           ),
 
           Padding(
@@ -102,7 +146,29 @@ class _CaseCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Title
+                  // ── Category + Priority badges
+                  Row(
+                    children: [
+                      _Badge(
+                        label: data.categoryName,
+                        color: appcolor,
+                      ),
+                      const SizedBox(width: 6),
+                      _Badge(
+                        label: _priorityLabel,
+                        color: _priorityColor,
+                      ),
+                      const Spacer(),
+                      // Status
+                      _Badge(
+                        label: data.isActive ? 'نشط' : 'منتهي',
+                        color: data.isActive ? kAdminGreen : kAdminTextGrey,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+
+                  // ── Title
                   Text(
                     data.title,
                     style: const TextStyle(
@@ -112,6 +178,8 @@ class _CaseCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
+
+                  // ── Description
                   Text(
                     data.description,
                     style: const TextStyle(
@@ -123,7 +191,30 @@ class _CaseCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
 
-                  // Progress
+                  // ── Amounts
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'المبلغ المطلوب: ${data.targetAmount.toInt()} ج.م',
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: kAdminTextGrey,
+                        ),
+                      ),
+                      Text(
+                        'تم جمع: ${data.collectedAmount.toInt()} ج.م',
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: appcolor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+
+                  // ── Progress bar
                   Row(
                     children: [
                       Text(
@@ -140,9 +231,9 @@ class _CaseCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(4),
                           child: LinearProgressIndicator(
                             value: data.progress,
-                            backgroundColor: Colors.white,
-                            valueColor: const AlwaysStoppedAnimation(
-                                appcolor),
+                            backgroundColor: Colors.grey.shade200,
+                            valueColor:
+                                const AlwaysStoppedAnimation(appcolor),
                             minHeight: 6,
                           ),
                         ),
@@ -151,10 +242,9 @@ class _CaseCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
 
-                  // Buttons Row
+                  // ── Buttons
                   Row(
                     children: [
-                      // Edit Button
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {},
@@ -178,17 +268,13 @@ class _CaseCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      // Details
                       TextButton.icon(
                         onPressed: () {},
                         icon: const Icon(Icons.chevron_left,
                             color: appcolor, size: 18),
                         label: const Text(
                           'التفاصيل',
-                          style: TextStyle(
-                            color: appcolor,
-                            fontSize: 13,
-                          ),
+                          style: TextStyle(color: appcolor, fontSize: 13),
                         ),
                       ),
                     ],
@@ -198,6 +284,38 @@ class _CaseCard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _imageFallback() => Container(
+        height: 160,
+        color: Colors.grey.shade200,
+        child: const Icon(Icons.image_not_supported,
+            color: kAdminTextGrey, size: 40),
+      );
+}
+
+class _Badge extends StatelessWidget {
+  final String label;
+  final Color color;
+  const _Badge({required this.label, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.12),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          color: color,
+        ),
       ),
     );
   }
