@@ -111,8 +111,7 @@ class AdminHomeView extends StatelessWidget {
               // ── Export Button
               TextButton.icon(
                 onPressed: () {},
-                icon: const Icon(Icons.file_download_outlined,
-                    color: appcolor),
+                icon: const Icon(Icons.file_download_outlined, color: appcolor),
                 label: const Text(
                   'تصدير البيانات',
                   style: TextStyle(

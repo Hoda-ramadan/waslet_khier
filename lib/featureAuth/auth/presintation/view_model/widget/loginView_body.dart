@@ -50,35 +50,33 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
-     listener: (context, state) async {
-  if (state is LoginSuccess) {
-    // ✅ save token and donor info
-    await Provider.of<AuthProvider_info>(context, listen: false)
-        .setAuthData(
-      token: state.loginResponse.token,
-      donor: state.loginResponse.donor,
-    );
+      listener: (context, state) async {
+        if (state is LoginSuccess) {
+          // ✅ save token and donor info
+          await Provider.of<AuthProvider_info>(
+            context,
+            listen: false,
+          ).setAuthData(
+            token: state.loginResponse.token,
+            donor: state.loginResponse.donor,
+          );
 
-    if (!context.mounted) return;
+          if (!context.mounted) return;
 
-    // ✅ check roles from API response
-    final roles = state.loginResponse.roles ?? [];
+          // ✅ check roles from API response
+          final roles = state.loginResponse.roles ?? [];
 
-    if (roles.contains('Admin') || roles.contains('SuperAdmin')) {
-      context.go('/admin'); // → Admin Dashboard
-    } else {
-      context.go('/home');  // → Donor Home
-    }
-
-  } else if (state is LoginFailure) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(state.message),
-        backgroundColor: Colors.red,
-      ),
-    );
-  }
-},
+          if (roles.contains('Admin') || roles.contains('SuperAdmin')) {
+            context.go('/admin'); // → Admin Dashboard
+          } else {
+            context.go('/home'); // → Donor Home
+          }
+        } else if (state is LoginFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message), backgroundColor: Colors.red),
+          );
+        }
+      },
       child: SingleChildScrollView(
         child: Center(
           child: Form(

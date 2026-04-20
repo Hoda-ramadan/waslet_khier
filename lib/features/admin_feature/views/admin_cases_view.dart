@@ -11,19 +11,22 @@ class AdminCasesView extends StatelessWidget {
       title: 'توفير وجبات غذائية',
       description: 'دعم أسرة بسيطة بوجبات يومية تكفي احتياجاتهم',
       progress: 0.5,
-      image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400',
+      image:
+          'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400',
     ),
     _CaseData(
       title: 'كفالة تعليم طفل',
       description: 'توفير مصاريف الدراسة والزي المدرسي لطفل غير قادر',
       progress: 0.65,
-      image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400',
+      image:
+          'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400',
     ),
     _CaseData(
       title: 'إجراء عملية جراحية عاجلة',
       description: 'مساعدة مريض يحتاج عملية جراحية عاجلة لإنقاذ حياته',
       progress: 0.2,
-      image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400',
+      image:
+          'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400',
     ),
   ];
 
@@ -36,8 +39,7 @@ class AdminCasesView extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         itemCount: _cases.length,
         separatorBuilder: (_, __) => const SizedBox(height: 14),
-        itemBuilder: (context, index) =>
-            _CaseCard(data: _cases[index]),
+        itemBuilder: (context, index) => _CaseCard(data: _cases[index]),
       ),
     );
   }
@@ -79,8 +81,7 @@ class _CaseCard extends StatelessWidget {
         children: [
           // Image
           ClipRRect(
-            borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(16)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             child: Image.network(
               data.image,
               height: 160,
@@ -89,8 +90,11 @@ class _CaseCard extends StatelessWidget {
               errorBuilder: (_, __, ___) => Container(
                 height: 160,
                 color: appcolor,
-                child: const Icon(Icons.image_not_supported,
-                    color: appcolor, size: 40),
+                child: const Icon(
+                  Icons.image_not_supported,
+                  color: appcolor,
+                  size: 40,
+                ),
               ),
             ),
           ),
@@ -114,10 +118,7 @@ class _CaseCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     data.description,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: kAdminTextGrey,
-                    ),
+                    style: const TextStyle(fontSize: 12, color: kAdminTextGrey),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -141,8 +142,7 @@ class _CaseCard extends StatelessWidget {
                           child: LinearProgressIndicator(
                             value: data.progress,
                             backgroundColor: Colors.white,
-                            valueColor: const AlwaysStoppedAnimation(
-                                appcolor),
+                            valueColor: const AlwaysStoppedAnimation(appcolor),
                             minHeight: 6,
                           ),
                         ),
@@ -164,8 +164,7 @@ class _CaseCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             elevation: 0,
-                            padding:
-                                const EdgeInsets.symmetric(vertical: 10),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                           ),
                           child: const Text(
                             'تعديل الحالة',
@@ -181,14 +180,14 @@ class _CaseCard extends StatelessWidget {
                       // Details
                       TextButton.icon(
                         onPressed: () {},
-                        icon: const Icon(Icons.chevron_left,
-                            color: appcolor, size: 18),
+                        icon: const Icon(
+                          Icons.chevron_left,
+                          color: appcolor,
+                          size: 18,
+                        ),
                         label: const Text(
                           'التفاصيل',
-                          style: TextStyle(
-                            color: appcolor,
-                            fontSize: 13,
-                          ),
+                          style: TextStyle(color: appcolor, fontSize: 13),
                         ),
                       ),
                     ],

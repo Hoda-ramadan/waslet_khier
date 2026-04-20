@@ -72,10 +72,7 @@ class _AdminSettingsViewState extends State<AdminSettingsView> {
                     const SizedBox(height: 4),
                     const Text(
                       'ترخيص: 14785/2020',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: kAdminTextGrey,
-                      ),
+                      style: TextStyle(fontSize: 12, color: kAdminTextGrey),
                     ),
                   ],
                 ),
@@ -102,7 +99,9 @@ class _AdminSettingsViewState extends State<AdminSettingsView> {
               // ── Notifications Toggle
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 16, vertical: 14),
+                  horizontal: 16,
+                  vertical: 14,
+                ),
                 decoration: BoxDecoration(
                   color: kAdminCardBg,
                   borderRadius: BorderRadius.circular(14),
@@ -136,16 +135,15 @@ class _AdminSettingsViewState extends State<AdminSettingsView> {
                         ),
                         Text(
                           'تلقي إشعارات للأحداث والتبرعات الجديدة',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: kAdminTextGrey,
-                          ),
+                          style: TextStyle(fontSize: 11, color: kAdminTextGrey),
                         ),
                       ],
                     ),
                     const Spacer(),
-                    const Icon(Icons.notifications_outlined,
-                        color: kAdminTextGrey),
+                    const Icon(
+                      Icons.notifications_outlined,
+                      color: kAdminTextGrey,
+                    ),
                   ],
                 ),
               ),
@@ -163,8 +161,11 @@ class _AdminSettingsViewState extends State<AdminSettingsView> {
                       borderRadius: BorderRadius.circular(14),
                     ),
                   ),
-                  icon: const Icon(Icons.logout_rounded,
-                      color: kAdminRed, size: 20),
+                  icon: const Icon(
+                    Icons.logout_rounded,
+                    color: kAdminRed,
+                    size: 20,
+                  ),
                   label: const Text(
                     'تسجيل خروج',
                     style: TextStyle(
@@ -237,10 +238,7 @@ class _SettingsMenuItem extends StatelessWidget {
                 if (subtitle != null)
                   Text(
                     subtitle!,
-                    style: const TextStyle(
-                      fontSize: 11,
-                      color: kAdminTextGrey,
-                    ),
+                    style: const TextStyle(fontSize: 11, color: kAdminTextGrey),
                   ),
               ],
             ),
@@ -248,16 +246,10 @@ class _SettingsMenuItem extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: isHighlighted
-                    ? appcolor.withOpacity(0.1)
-                    : Colors.white,
+                color: isHighlighted ? appcolor.withOpacity(0.1) : Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(
-                icon,
-                color: appcolor,
-                size: 20,
-              ),
+              child: Icon(icon, color: appcolor, size: 20),
             ),
           ],
         ),

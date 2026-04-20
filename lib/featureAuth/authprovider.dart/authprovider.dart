@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -82,6 +84,7 @@ class AuthProvider_info extends ChangeNotifier {
           phoneNumber: prefs.getString('donorPhone') ?? '',
         );
       }
+      await _loadFavorites();
     }
 
     notifyListeners();
@@ -94,5 +97,75 @@ class AuthProvider_info extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
     notifyListeners();
+  }
+
+  // ====== FAVORITES ======
+
+  List<Map<String, dynamic>> _favoriteCases = [];
+  List<Map<String, dynamic>> _favoriteCharities = [];
+
+  List<Map<String, dynamic>> get favoriteCases => _favoriteCases;
+  List<Map<String, dynamic>> get favoriteCharities => _favoriteCharities;
+
+  // في loadFromStorage() أضيفي قبل notifyListeners():
+  Future<void> _loadFavorites() async {
+    final prefs = await SharedPreferences.getInstance();
+    final casesJson = prefs.getString('fav_cases_${_donor?.id}');
+    final charitiesJson = prefs.getString('fav_charities_${_donor?.id}');
+
+    if (casesJson != null) {
+      _favoriteCases = List<Map<String, dynamic>>.from(jsonDecode(casesJson));
+    }
+    if (charitiesJson != null) {
+      _favoriteCharities = List<Map<String, dynamic>>.from(
+        jsonDecode(charitiesJson),
+      );
+    }
+  }
+
+  Future<void> toggleFavoriteCase({
+    required int id,
+    required String title,
+    required String imageUrl,
+  }) async {
+    final exists = _favoriteCases.any((e) => e['id'] == id);
+    if (exists) {
+      _favoriteCases.removeWhere((e) => e['id'] == id);
+    } else {
+      _favoriteCases.add({'id': id, 'title': title, 'imageUrl': imageUrl});
+    }
+    await _saveFavorites();
+    notifyListeners();
+  }
+
+  Future<void> toggleFavoriteCharity({
+    required int id,
+    required String title,
+    required String imageUrl,
+  }) async {
+    final exists = _favoriteCharities.any((e) => e['id'] == id);
+    if (exists) {
+      _favoriteCharities.removeWhere((e) => e['id'] == id);
+    } else {
+      _favoriteCharities.add({'id': id, 'title': title, 'imageUrl': imageUrl});
+    }
+    await _saveFavorites();
+    notifyListeners();
+  }
+
+  bool isFavoriteCase(int id) => _favoriteCases.any((e) => e['id'] == id);
+  bool isFavoriteCharity(int id) =>
+      _favoriteCharities.any((e) => e['id'] == id);
+
+  Future<void> _saveFavorites() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(
+      'fav_cases_${_donor?.id}',
+      jsonEncode(_favoriteCases),
+    );
+    await prefs.setString(
+      'fav_charities_${_donor?.id}',
+      jsonEncode(_favoriteCharities),
+    );
   }
 }

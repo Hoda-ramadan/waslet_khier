@@ -24,7 +24,11 @@ class CaseItemOfcategory extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               color: Colors.grey,
             ),
-            child: Icon(Icons.favorite, color: Colors.red),
+            child: IconButton(
+              onPressed: () {},
+              color: Colors.red,
+              icon: Icon(Icons.favorite),
+            ),
           ),
           const SizedBox(width: 10),
 

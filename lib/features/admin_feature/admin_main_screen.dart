@@ -20,7 +20,7 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
   final List<Widget> _screens = const [
     AdminHomeView(),
     AdminCasesView(),
-  
+
     AdminSettingsView(),
   ];
 
@@ -50,7 +50,7 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
               icon: Icon(Icons.favorite_rounded),
               label: 'الحالات',
             ),
-           
+
             BottomNavigationBarItem(
               icon: Icon(Icons.settings_rounded),
               label: 'الإعدادات',

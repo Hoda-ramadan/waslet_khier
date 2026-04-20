@@ -13,8 +13,7 @@ class AdminCaseDetailsView extends StatelessWidget {
         backgroundColor: kAdminBackground,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.chevron_right,
-              color: appcolor, size: 28),
+          icon: const Icon(Icons.chevron_right, color: appcolor, size: 28),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
@@ -59,15 +58,14 @@ class AdminCaseDetailsView extends StatelessWidget {
                     const SizedBox(height: 4),
                     const Text(
                       'الصحة / جراحة القلب',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: kAdminTextGrey,
-                      ),
+                      style: TextStyle(fontSize: 13, color: kAdminTextGrey),
                     ),
                     const SizedBox(height: 4),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 4),
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: kAdminGreen.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(20),
@@ -84,10 +82,7 @@ class AdminCaseDetailsView extends StatelessWidget {
                     const SizedBox(height: 4),
                     const Text(
                       'REQ-97543-2022#',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: kAdminTextGrey,
-                      ),
+                      style: TextStyle(fontSize: 11, color: kAdminTextGrey),
                     ),
                   ],
                 ),
@@ -144,15 +139,9 @@ class AdminCaseDetailsView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              _AttachmentItem(
-                label: 'التقرير الطبي',
-                isImage: true,
-              ),
+              _AttachmentItem(label: 'التقرير الطبي', isImage: true),
               const SizedBox(height: 10),
-              _AttachmentItem(
-                label: 'إثبات الدخل (PDF)',
-                isImage: false,
-              ),
+              _AttachmentItem(label: 'إثبات الدخل (PDF)', isImage: false),
               const SizedBox(height: 24),
 
               // ── Action Buttons
@@ -168,8 +157,7 @@ class AdminCaseDetailsView extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
-                      icon: const Icon(Icons.close,
-                          color: kAdminRed, size: 18),
+                      icon: const Icon(Icons.close, color: kAdminRed, size: 18),
                       label: const Text(
                         'رفض الطلب',
                         style: TextStyle(color: kAdminRed, fontSize: 13),
@@ -188,12 +176,14 @@ class AdminCaseDetailsView extends StatelessWidget {
                         elevation: 0,
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
-                      icon: const Icon(Icons.check,
-                          color: Colors.white, size: 18),
+                      icon: const Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 18,
+                      ),
                       label: const Text(
                         'قبول واعتماد',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: 13),
+                        style: TextStyle(color: Colors.white, fontSize: 13),
                       ),
                     ),
                   ),
@@ -206,8 +196,7 @@ class AdminCaseDetailsView extends StatelessWidget {
                 width: double.infinity,
                 child: TextButton.icon(
                   onPressed: () {},
-                  icon: const Icon(Icons.chat_bubble_outline,
-                      color: appcolor),
+                  icon: const Icon(Icons.chat_bubble_outline, color: appcolor),
                   label: const Text(
                     'التواصل مع الحالة',
                     style: TextStyle(color: appcolor, fontSize: 14),
