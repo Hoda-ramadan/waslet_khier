@@ -24,7 +24,7 @@ class CustomAiCard extends StatelessWidget {
       onTap: () {},
       child: Container(
         height: 200,
-        width: 350,
+        width: 450,
         padding: const EdgeInsets.all(4),
         decoration: ShapeDecoration(
           color: const Color(0xFFF9F7FA),
