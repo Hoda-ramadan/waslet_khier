@@ -1,10 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charityicon.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/listofcharitys.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/progress_parth_with_label.dart';
+import 'package:waslet_khier/features/profile_feature/data/favCubit/favCubit.dart';
+import 'package:waslet_khier/features/profile_feature/data/favrepo/FavoriteRepo.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/caseitemofCategory.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/cstomfavRow.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favoriteCharity_body.dart';
@@ -18,7 +23,10 @@ class Favioritcases extends StatelessWidget {
     return Scaffold(
       backgroundColor: backGroundColor,
       appBar: CustomAppBar(),
-      body: Favioritcases_body(),
+      body: BlocProvider(
+        create: (context) => Favcubit(Favoriterepo(ApiService(Dio()))),
+        child: Favioritcases_body(),
+      ),
     );
   }
 }

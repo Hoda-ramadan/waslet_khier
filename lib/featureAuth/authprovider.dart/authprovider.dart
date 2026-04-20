@@ -2,67 +2,55 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-class DonorModel {
-  final int id;
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String phoneNumber;
-  final String? imageUrl;
-
-  DonorModel({
-    required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.phoneNumber,
-    this.imageUrl,
-  });
-
-  factory DonorModel.fromJson(Map<String, dynamic> json) {
-    return DonorModel(
-      id: json['id'] ?? 0,
-      firstName: json['firstName'] ?? '',
-      lastName: json['lastName'] ?? '',
-      email: json['email'] ?? '',
-      phoneNumber: json['phoneNumber'] ?? '',
-      imageUrl: json['imageUrl'],
-    );
-  }
-
-  String get fullName => '$firstName $lastName';
-}
+import 'package:waslet_khier/featureAuth/auth/data/models/login_response_model.dart';
 
 class AuthProvider_info extends ChangeNotifier {
   String? _token;
   DonorModel? _donor;
+  AdminModel? _admin;
 
   String? get token => _token;
   DonorModel? get donor => _donor;
+  AdminModel? get admin => _admin;
 
-  // ✅ fix 1: check token is not empty string
   bool get isLoggedIn => _token != null && _token!.isNotEmpty;
 
-  // ✅ fix 2: renamed and returns Future
-  Future<void> setAuthData({String? token, dynamic donor}) async {
-    // ✅ fix 3: don't save if token is null or empty
+  Future<void> setAuthData({
+    String? token,
+    DonorModel? donor,
+    AdminModel? admin,
+  }) async {
     if (token == null || token.isEmpty) return;
 
     _token = token;
-
-    if (donor != null && donor is Map<String, dynamic>) {
-      _donor = DonorModel.fromJson(donor);
-    } else if (donor is DonorModel) {
-      _donor = donor;
-    }
+    _donor = donor;
+    _admin = admin;
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
-    await prefs.setString('donorFirstName', _donor?.firstName ?? '');
-    await prefs.setString('donorLastName', _donor?.lastName ?? '');
-    await prefs.setString('donorEmail', _donor?.email ?? '');
-    await prefs.setString('donorPhone', _donor?.phoneNumber ?? '');
+
+    // save donor
+    if (donor != null) {
+      await prefs.setInt('donorId', donor.id);
+      await prefs.setString('donorFirstName', donor.firstName);
+      await prefs.setString('donorLastName', donor.lastName);
+      await prefs.setString('donorEmail', donor.email);
+      await prefs.setString('donorPhone', donor.phoneNumber);
+      await prefs.setString('donorImageUrl', donor.imageUrl ?? '');
+    }
+
+    // save admin
+    if (admin != null) {
+      await prefs.setInt('adminId', admin.id);
+      await prefs.setString('adminUserId', admin.userId);
+      await prefs.setInt('adminCharityId', admin.charityId);
+      await prefs.setString('adminCharityName', admin.charityName);
+      await prefs.setString('adminFirstName', admin.firstName);
+      await prefs.setString('adminLastName', admin.lastName);
+      await prefs.setString('adminEmail', admin.email);
+      await prefs.setString('adminPhone', admin.phoneNumber);
+      await prefs.setString('adminImageUrl', admin.imageUrl ?? '');
+    }
 
     notifyListeners();
   }
@@ -71,101 +59,48 @@ class AuthProvider_info extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final savedToken = prefs.getString('token');
 
-    // ✅ fix 4: only restore if token actually has value
     if (savedToken != null && savedToken.isNotEmpty) {
       _token = savedToken;
+
+      // restore donor
       final firstName = prefs.getString('donorFirstName');
       if (firstName != null && firstName.isNotEmpty) {
         _donor = DonorModel(
-          id: 0,
+          id: prefs.getInt('donorId') ?? 0,
           firstName: firstName,
           lastName: prefs.getString('donorLastName') ?? '',
           email: prefs.getString('donorEmail') ?? '',
           phoneNumber: prefs.getString('donorPhone') ?? '',
+          imageUrl: prefs.getString('donorImageUrl'),
         );
       }
-      await _loadFavorites();
+
+      // restore admin
+      final adminCharityId = prefs.getInt('adminCharityId');
+      if (adminCharityId != null && adminCharityId != 0) {
+        _admin = AdminModel(
+          id: prefs.getInt('adminId') ?? 0,
+          userId: prefs.getString('adminUserId') ?? '',
+          charityId: adminCharityId,
+          charityName: prefs.getString('adminCharityName') ?? '',
+          firstName: prefs.getString('adminFirstName') ?? '',
+          lastName: prefs.getString('adminLastName') ?? '',
+          email: prefs.getString('adminEmail') ?? '',
+          phoneNumber: prefs.getString('adminPhone') ?? '',
+          imageUrl: prefs.getString('adminImageUrl'),
+        );
+      }
     }
 
     notifyListeners();
   }
 
-  // ✅ fix 5: returns Future<void> not void
   Future<void> logout() async {
     _token = null;
     _donor = null;
+    _admin = null;
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
     notifyListeners();
-  }
-
-  // ====== FAVORITES ======
-
-  List<Map<String, dynamic>> _favoriteCases = [];
-  List<Map<String, dynamic>> _favoriteCharities = [];
-
-  List<Map<String, dynamic>> get favoriteCases => _favoriteCases;
-  List<Map<String, dynamic>> get favoriteCharities => _favoriteCharities;
-
-  // في loadFromStorage() أضيفي قبل notifyListeners():
-  Future<void> _loadFavorites() async {
-    final prefs = await SharedPreferences.getInstance();
-    final casesJson = prefs.getString('fav_cases_${_donor?.id}');
-    final charitiesJson = prefs.getString('fav_charities_${_donor?.id}');
-
-    if (casesJson != null) {
-      _favoriteCases = List<Map<String, dynamic>>.from(jsonDecode(casesJson));
-    }
-    if (charitiesJson != null) {
-      _favoriteCharities = List<Map<String, dynamic>>.from(
-        jsonDecode(charitiesJson),
-      );
-    }
-  }
-
-  Future<void> toggleFavoriteCase({
-    required int id,
-    required String title,
-    required String imageUrl,
-  }) async {
-    final exists = _favoriteCases.any((e) => e['id'] == id);
-    if (exists) {
-      _favoriteCases.removeWhere((e) => e['id'] == id);
-    } else {
-      _favoriteCases.add({'id': id, 'title': title, 'imageUrl': imageUrl});
-    }
-    await _saveFavorites();
-    notifyListeners();
-  }
-
-  Future<void> toggleFavoriteCharity({
-    required int id,
-    required String title,
-    required String imageUrl,
-  }) async {
-    final exists = _favoriteCharities.any((e) => e['id'] == id);
-    if (exists) {
-      _favoriteCharities.removeWhere((e) => e['id'] == id);
-    } else {
-      _favoriteCharities.add({'id': id, 'title': title, 'imageUrl': imageUrl});
-    }
-    await _saveFavorites();
-    notifyListeners();
-  }
-
-  bool isFavoriteCase(int id) => _favoriteCases.any((e) => e['id'] == id);
-  bool isFavoriteCharity(int id) =>
-      _favoriteCharities.any((e) => e['id'] == id);
-
-  Future<void> _saveFavorites() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(
-      'fav_cases_${_donor?.id}',
-      jsonEncode(_favoriteCases),
-    );
-    await prefs.setString(
-      'fav_charities_${_donor?.id}',
-      jsonEncode(_favoriteCharities),
-    );
   }
 }
