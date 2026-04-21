@@ -82,16 +82,13 @@ final GoRouter appRouter = GoRouter(
       },
       routes: [
         GoRoute(
-          path: 'case_details',
-          parentNavigatorKey: _rootNavigatorKey,
-          builder: (context, state) {
-            final charityId =
-                int.tryParse(state.pathParameters['charityId'] ?? '0') ?? 0;
-            return AdminCaseDetailsView(
-              charityId: charityId,
-            ); // ✅ pass charityId
-          },
-        ),
+  path: 'case_details',
+  parentNavigatorKey: _rootNavigatorKey,
+  builder: (context, state) {
+    final caseId = state.extra as int;
+    return AdminCaseDetailsView(caseId: caseId);
+  },
+),
       ],
     ),
 

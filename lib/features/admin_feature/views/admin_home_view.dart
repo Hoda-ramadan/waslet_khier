@@ -2,18 +2,19 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waslet_khier/const.dart';
-import 'package:waslet_khier/core/Api/api_service.dart';
+import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/features/admin_feature/data/cubit/admin_sates_cubit.dart';
 import 'package:waslet_khier/features/admin_feature/data/cubit/admin_states.dart';
 import 'package:waslet_khier/features/admin_feature/data/repo/admin_repo.dart';
+import 'package:waslet_khier/features/admin_feature/views/add_case_screnn.dart';
 import '../admin_constants.dart';
 import '../widgets/admin_header.dart';
 import '../widgets/admin_stat_card.dart';
-
+ 
 class AdminHomeView extends StatelessWidget {
   final int charityId;
   const AdminHomeView({super.key, required this.charityId});
-
+ 
   @override
   Widget build(BuildContext context) {
     print('>>> AdminHomeView charityId: $charityId');
@@ -25,10 +26,10 @@ class AdminHomeView extends StatelessWidget {
     );
   }
 }
-
+ 
 class _AdminHomeContent extends StatelessWidget {
   const _AdminHomeContent();
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,33 +38,62 @@ class _AdminHomeContent extends StatelessWidget {
       body: BlocBuilder<AdminCubit, AdminState>(
         builder: (context, state) {
           print('>>> AdminCubit state: $state');
-
-          if (state is AdminLoading || state is AdminInitial) {
+ 
+          // ✅ Show loading for both initial load AND create case loading
+          if (state is AdminLoading ||
+              state is AdminInitial ||
+              state is CreateCaseLoading) {
             return const Center(
               child: CircularProgressIndicator(color: appcolor),
             );
           }
-
+ 
           if (state is AdminFailure) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(state.error, style: const TextStyle(color: Colors.red)),
+                  Text(state.error,
+                      style: const TextStyle(color: Colors.red)),
                   const SizedBox(height: 12),
                   ElevatedButton(
-                    onPressed: () => context.read<AdminCubit>().loadDashboard(),
+                    onPressed: () =>
+                        context.read<AdminCubit>().loadDashboard(),
                     child: const Text('إعادة المحاولة'),
                   ),
                 ],
               ),
             );
           }
-
-          final stats = (state as AdminSuccess).stats;
-
+ 
+          // ✅ Show error snackbar for CreateCaseFailure but keep dashboard visible
+          if (state is CreateCaseFailure) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text(state.error),
+                    backgroundColor: Colors.red),
+              );
+              // Reload dashboard to get back to AdminSuccess state
+              context.read<AdminCubit>().loadDashboard();
+            });
+            return const Center(
+              child: CircularProgressIndicator(color: appcolor),
+            );
+          }
+ 
+          // ✅ Safe cast — only access stats when state is AdminSuccess
+          if (state is! AdminSuccess) {
+            return const Center(
+              child: CircularProgressIndicator(color: appcolor),
+            );
+          }
+ 
+          final stats = state.stats;
+ 
           return SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Directionality(
               textDirection: TextDirection.rtl,
               child: Column(
@@ -75,9 +105,11 @@ class _AdminHomeContent extends StatelessWidget {
                       if (stats.charityLogo != null)
                         CircleAvatar(
                           radius: 22,
-                          backgroundImage: NetworkImage(stats.charityLogo!),
+                          backgroundImage:
+                              NetworkImage(stats.charityLogo!),
                         ),
-                      if (stats.charityLogo != null) const SizedBox(width: 10),
+                      if (stats.charityLogo != null)
+                        const SizedBox(width: 10),
                       Expanded(
                         child: Text(
                           stats.charityName,
@@ -93,10 +125,11 @@ class _AdminHomeContent extends StatelessWidget {
                   const SizedBox(height: 4),
                   const Text(
                     'ملخص أداء الجمعية',
-                    style: TextStyle(fontSize: 13, color: kAdminTextGrey),
+                    style:
+                        TextStyle(fontSize: 13, color: kAdminTextGrey),
                   ),
                   const SizedBox(height: 16),
-
+ 
                   // ── Stats Grid
                   Wrap(
                     spacing: 12,
@@ -133,37 +166,47 @@ class _AdminHomeContent extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-
+ 
                   // ── Add Case Button
                   SizedBox(
                     width: double.infinity,
                     height: 52,
                     child: ElevatedButton.icon(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: appcolor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        elevation: 0,
-                      ),
-                      icon: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 22,
-                      ),
+                      onPressed: () async {
+                        final created =
+                            await Navigator.of(context).push<bool>(
+                          MaterialPageRoute(
+                            builder: (_) => BlocProvider.value(
+                              value: context.read<AdminCubit>(),
+                              child: const AddCaseScreen(),
+                            ),
+                          ),
+                        );
+                        if (created == true && context.mounted) {
+                          context.read<AdminCubit>().loadDashboard();
+                        }
+                      },
+                      icon: const Icon(Icons.add, color: Colors.white),
                       label: const Text(
                         'إضافة حالة جديدة',
                         style: TextStyle(
-                          color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF1B5E20),
+                        minimumSize:
+                            const Size(double.infinity, 52),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
                         ),
                       ),
                     ),
                   ),
                   const SizedBox(height: 10),
-
+ 
                   // ── Export Button
                   TextButton.icon(
                     onPressed: () {},
@@ -181,8 +224,8 @@ class _AdminHomeContent extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-
-                  // ── Charity Info Card (replaces fake chart)
+ 
+                  // ── Charity Info Card
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
@@ -209,36 +252,25 @@ class _AdminHomeContent extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 12),
-
-                        // ── Address
                         if (stats.charityAddress != null)
                           _InfoRow(
                             icon: Icons.location_on_outlined,
                             text: stats.charityAddress!,
                           ),
-
-                        // ── Phone
                         if (stats.charityPhone != null)
                           _InfoRow(
                             icon: Icons.phone_outlined,
                             text: stats.charityPhone!,
                           ),
-
-                        // ── Email
                         if (stats.charityEmail != null)
                           _InfoRow(
                             icon: Icons.email_outlined,
                             text: stats.charityEmail!,
                           ),
-
                         const SizedBox(height: 8),
-
-                        // ── Active status badge
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 4,
-                          ),
+                              horizontal: 10, vertical: 4),
                           decoration: BoxDecoration(
                             color: stats.isActive
                                 ? const Color(0xFFE6F9F0)
@@ -286,14 +318,12 @@ class _AdminHomeContent extends StatelessWidget {
     );
   }
 }
-
-// ── Info Row Widget
+ 
 class _InfoRow extends StatelessWidget {
   final IconData icon;
   final String text;
-
   const _InfoRow({required this.icon, required this.text});
-
+ 
   @override
   Widget build(BuildContext context) {
     return Padding(

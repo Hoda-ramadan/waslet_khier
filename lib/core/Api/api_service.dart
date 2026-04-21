@@ -89,6 +89,7 @@ class ApiService {
         return Exception('Network error occurred');
     }
   }
+  
 
   Future<Response> postLogin({
     required String endPoint,
@@ -125,4 +126,10 @@ class ApiService {
       throw _handleDioError(e);
     }
   }
+  Future<void> softDeleteCase(int caseId) async {
+  try {
+    await dio.patch('$baseurl/Case/$caseId/soft-delete');
+  } on DioException catch (e) {
+    throw _handleDioError(e);
+  }}
 }
