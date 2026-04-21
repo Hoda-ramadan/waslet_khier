@@ -1,11 +1,12 @@
 import 'dart:typed_data';
  
 import 'package:dio/dio.dart';
-import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_states_model.dart';
-import 'package:waslet_khier/features/admin_feature/data/create_case_model.dart' hide AdminCaseModel;
+import 'package:waslet_khier/features/admin_feature/data/create_case_model.dart'
+    hide AdminCaseModel;
 import 'package:waslet_khier/features/admin_feature/data/create_case_request_model.dart';
+import '../../../../core/Api/api_service.dart';
  
 class AdminRepo {
   final ApiService apiService;
@@ -111,7 +112,7 @@ class AdminRepo {
   }
  
   // ── Edit case — PUT /Case/{id} ─────────────────────────────────────────────
-  Future<String> editCase({
+  Future<String> editCase({                          // ← fixed: was "apiService.editCase"
     required int caseId,
     required String title,
     required String description,
