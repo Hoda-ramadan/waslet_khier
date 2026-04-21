@@ -31,12 +31,10 @@ import 'package:waslet_khier/features/profile_feature/views/profile_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/aboutApp_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favioritCases.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_view.dart';
-import 'package:waslet_khier/features/profile_feature/views/widgets/paymentview.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/paymentway_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-
 CharityModel _toCharity(Object? extra) {
   if (extra is CharityModel) return extra;
   return CharityModel.fromJson(Map<String, dynamic>.from(extra as Map));
@@ -220,13 +218,7 @@ GoRoute(
                   path: 'PaymentwayView',
                   parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const PaymentwayView(),
-                  routes: [
-                    GoRoute(
-                      path: 'Payment_Bank',
-                      parentNavigatorKey: _rootNavigatorKey,
-                      builder: (context, state) => Payment_Bank(),
-                    ),
-                  ],
+                  routes: [],
                 ),
                 GoRoute(
                   path: 'Faviorite',

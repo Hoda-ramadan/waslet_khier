@@ -19,6 +19,8 @@ import 'package:waslet_khier/features/charity_feature/data/repo/charity_repo.dar
 import 'package:waslet_khier/features/home_feature/data/cubit/Aicases_cubit/AicasesCubit.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/featch_casess_cubit_cubit.dart';
 import 'package:waslet_khier/features/home_feature/data/repo/aicasesrepo.dart';
+import 'package:waslet_khier/features/profile_feature/data/favCubit/favCubit.dart';
+import 'package:waslet_khier/features/profile_feature/data/favrepo/FavoriteRepo.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(

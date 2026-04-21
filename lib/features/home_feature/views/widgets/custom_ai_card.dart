@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/features/home_feature/data/models/ai_cases_model/ai_cases_model.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/ai_card_donation_image.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/donate_now_buttom.dart';
@@ -21,7 +22,9 @@ class CustomAiCard extends StatelessWidget {
     final int percentage = (progress * 100).round();
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        // context.push('/cases/case_detals_view', extra: aiCasesModel);
+      },
       child: Container(
         height: 200,
         width: 450,
