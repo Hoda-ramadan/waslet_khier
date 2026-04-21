@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+ 
 import 'package:dio/dio.dart';
 import 'package:waslet_khier/core/Api/api_service.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
@@ -36,61 +38,97 @@ class AdminRepo {
         .toList();
   }
  
-  /// POST /Case  – multipart/form-data to match the Postman request.
+  /// POST /Case — multipart/form-data, works on web + mobile.
   Future<String> createCase({
     required CreateCaseRequestModel request,
-    String? coverImagePath,           // local file path (from image_picker)
+    // Mobile
+    String? coverImagePath,
     List<String> attachmentPaths = const [],
+    // Web
+    Uint8List? coverImageBytes,
+    String? coverImageName,
+    List<Uint8List> attachmentBytes = const [],
+    List<String> attachmentNames = const [],
   }) async {
     final formData = FormData();
  
-    // ── Text fields ──────────────────────────────────────────────
+    // ── Text fields ──────────────────────────────────────────────────────────
     request.toFormFields().forEach((key, value) {
       formData.fields.add(MapEntry(key, value));
     });
  
-    // ── Cover image ──────────────────────────────────────────────
-    if (coverImagePath != null) {
-      formData.files.add(
-        MapEntry(
-          'CoverImageFile',
-          await MultipartFile.fromFile(
-            coverImagePath,
-            filename: coverImagePath.split('/').last,
-          ),
+    // ── Cover image ──────────────────────────────────────────────────────────
+    if (coverImageBytes != null && coverImageName != null) {
+      formData.files.add(MapEntry(
+        'CoverImageFile',
+        MultipartFile.fromBytes(coverImageBytes, filename: coverImageName),
+      ));
+    } else if (coverImagePath != null) {
+      formData.files.add(MapEntry(
+        'CoverImageFile',
+        await MultipartFile.fromFile(
+          coverImagePath,
+          filename: coverImagePath.split('/').last,
         ),
-      );
+      ));
     }
  
-    // ── Attachment files ─────────────────────────────────────────
-    for (final path in attachmentPaths) {
-      formData.files.add(
-        MapEntry(
+    // ── Attachment files ─────────────────────────────────────────────────────
+    if (attachmentBytes.isNotEmpty) {
+      for (int i = 0; i < attachmentBytes.length; i++) {
+        formData.files.add(MapEntry(
+          'AttachmentFiles',
+          MultipartFile.fromBytes(
+            attachmentBytes[i],
+            filename: i < attachmentNames.length
+                ? attachmentNames[i]
+                : 'file_$i',
+          ),
+        ));
+      }
+    } else {
+      for (final path in attachmentPaths) {
+        formData.files.add(MapEntry(
           'AttachmentFiles',
           await MultipartFile.fromFile(
             path,
             filename: path.split('/').last,
           ),
-        ),
-      );
+        ));
+      }
     }
  
-    // Use Dio directly for multipart — bypass ApiService.post() if it
-    // doesn't support FormData. Replace the baseUrl with your actual URL.
-    final dio = Dio(BaseOptions(
-      baseUrl: apiService.dio.options.baseUrl, // reuse existing base URL
-      headers: {
-        ...?apiService.dio.options.headers,    // reuse auth headers etc.
-        'Content-Type': 'multipart/form-data',
-      },
-    ));
+    // ── DEBUG — remove after fixing ──────────────────────────────────────────
+    print('🟡 POST to: ${apiService.baseurl}/Case');
+    print('🟡 FIELDS:');
+    for (final f in formData.fields) {
+      print('   ${f.key} = ${f.value}');
+    }
+    print('🟡 FILES:');
+    for (final f in formData.files) {
+      print('   ${f.key} = ${f.value.filename}');
+    }
+    // ────────────────────────────────────────────────────────────────────────
  
-    final response = await dio.post<Map<String, dynamic>>(
-      '/Case',
-      data: formData,
-    );
+    try {
+      final response = await apiService.dio.post<dynamic>(
+        '${apiService.baseurl}/Case',
+        data: formData,
+      );
  
-    final body = response.data;
-    return body?['message'] as String? ?? 'تم إنشاء الحالة بنجاح';
+      print('🟢 RESPONSE STATUS: ${response.statusCode}');
+      print('🟢 RESPONSE BODY: ${response.data}');
+ 
+      final body = response.data;
+      if (body is Map<String, dynamic>) {
+        return body['message'] as String? ?? 'تم إنشاء الحالة بنجاح';
+      }
+      return 'تم إنشاء الحالة بنجاح';
+ 
+    } on DioException catch (e) {
+      print('🔴 ERROR STATUS: ${e.response?.statusCode}');
+      print('🔴 ERROR BODY: ${e.response?.data}');
+      rethrow;
+    }
   }
 }
