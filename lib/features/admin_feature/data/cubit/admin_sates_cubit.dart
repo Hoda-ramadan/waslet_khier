@@ -20,12 +20,20 @@ class AdminCubit extends Cubit<AdminState> {
       emit(AdminFailure(e.toString()));
     }
   }
- 
+ void removeCaseById(int caseId) {
+  final current = state;
+  if (current is AdminCasesSuccess) {
+    final updated = current.cases
+        .where((c) => c.id != caseId)
+        .toList();
+    emit(AdminCasesSuccess(cases: updated));
+  }
+}
   Future<void> loadCases(int charityId) async {
     emit(AdminCasesLoading());
     try {
       final cases = await repo.getCharityCases(charityId);
-      emit(AdminCasesSuccess(cases));
+      emit(AdminCasesSuccess(cases: cases));
     } catch (e) {
       emit(AdminCasesFailure(e.toString()));
     }

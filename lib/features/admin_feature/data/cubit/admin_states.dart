@@ -30,12 +30,16 @@ class AdminCasesLoading extends AdminState {}
  
 class AdminCasesSuccess extends AdminState {
   final List<AdminCaseModel> cases;
-  AdminCasesSuccess(this.cases);
+  const AdminCasesSuccess({required this.cases});
+  @override
+  List<Object?> get props => [cases];
 }
  
 class AdminCasesFailure extends AdminState {
   final String error;
-  AdminCasesFailure(this.error);
+  const AdminCasesFailure(this.error);
+  @override
+  List<Object?> get props => [error];
 }
  
 // ─── Create Case States ────────────────────────────────────────────────────────

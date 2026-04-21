@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:waslet_khier/core/Api/api_service.dart';
+import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/features/charity_feature/data/cubit/CategoryCubit/categorycubit.dart';
 import 'package:waslet_khier/features/charity_feature/data/repo/categoryrepo.dart';
 

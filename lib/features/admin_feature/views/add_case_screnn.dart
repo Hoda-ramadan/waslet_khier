@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
  
 import 'package:waslet_khier/const.dart';
-import 'package:waslet_khier/core/Api/api_service.dart';
+import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 import 'package:waslet_khier/features/admin_feature/data/create_case_model.dart';
 import 'package:waslet_khier/features/admin_feature/data/cubit/admin_sates_cubit.dart';

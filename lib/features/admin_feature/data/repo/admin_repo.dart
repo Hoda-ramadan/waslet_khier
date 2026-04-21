@@ -1,7 +1,7 @@
 import 'dart:typed_data';
  
 import 'package:dio/dio.dart';
-import 'package:waslet_khier/core/Api/api_service.dart';
+import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_states_model.dart';
 import 'package:waslet_khier/features/admin_feature/data/create_case_model.dart';
