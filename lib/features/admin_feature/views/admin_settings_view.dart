@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 import '../admin_constants.dart';
 import '../widgets/admin_header.dart';
 
@@ -154,7 +157,13 @@ class _AdminSettingsViewState extends State<AdminSettingsView> {
                 width: double.infinity,
                 height: 50,
                 child: OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: () async {
+              await Provider.of<AuthProvider_info>(
+                context,
+                listen: false,
+              ).logout();
+              context.go('/profile/logout');
+            },
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: kAdminRed, width: 1.5),
                     shape: RoundedRectangleBorder(
