@@ -14,9 +14,6 @@ class FavoriteView_body extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            SizedBox(height: 10),
-            customappbar(text: "المفضلة"),
-            SizedBox(height: 20),
             Image.asset(
               "assets/images/no-data/pana.png",
               width: double.infinity,

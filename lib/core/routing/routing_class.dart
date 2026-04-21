@@ -10,6 +10,7 @@ import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/verif
 import 'package:waslet_khier/featureAuth/auth/presintation/login_view.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
+import 'package:waslet_khier/features/Donation_feature/views/donation_view%20(1).dart';
 import 'package:waslet_khier/features/admin_feature/admin_main_screen.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
 import 'package:waslet_khier/features/admin_feature/views/admin_case_details_view.dart';
@@ -84,29 +85,29 @@ final GoRouter appRouter = GoRouter(
       },
       routes: [
         GoRoute(
-  path: 'case_details',
-  parentNavigatorKey: _rootNavigatorKey,
-  builder: (context, state) {
-    final caseId = state.extra as int;
-    return AdminCaseDetailsView(caseId: caseId);
-  },
-),
-GoRoute(
-  path: 'edit_case',
-  parentNavigatorKey: _rootNavigatorKey,
-  builder: (context, state) {
-    final charityId =
-        int.tryParse(state.pathParameters['charityId'] ?? '0') ?? 0;
-    final extra = state.extra as Map<String, dynamic>;
-    final caseData = extra['caseData'] as AdminCaseModel;
-    final adminId = extra['adminId'] as int;
-    return AdminEditCaseView(
-      caseData: caseData,
-      charityId: charityId,
-      adminId: adminId,
-    );
-  },
-),
+          path: 'case_details',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) {
+            final caseId = state.extra as int;
+            return AdminCaseDetailsView(caseId: caseId);
+          },
+        ),
+        GoRoute(
+          path: 'edit_case',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) {
+            final charityId =
+                int.tryParse(state.pathParameters['charityId'] ?? '0') ?? 0;
+            final extra = state.extra as Map<String, dynamic>;
+            final caseData = extra['caseData'] as AdminCaseModel;
+            final adminId = extra['adminId'] as int;
+            return AdminEditCaseView(
+              caseData: caseData,
+              charityId: charityId,
+              adminId: adminId,
+            );
+          },
+        ),
       ],
     ),
 
@@ -196,6 +197,12 @@ GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) =>
                       _caseDetailsWithCubit(_toCase(state.extra)),
+                ),
+                GoRoute(
+                  path: 'donation',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) =>
+                      DonationView(casee: _toCase(state.extra)),
                 ),
               ],
             ),

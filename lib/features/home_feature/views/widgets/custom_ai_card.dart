@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/home_feature/data/models/ai_cases_model/ai_cases_model.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/ai_card_donation_image.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/donate_now_buttom.dart';
@@ -184,7 +185,12 @@ class CustomAiCard extends StatelessWidget {
 
                 const SizedBox(height: 8),
 
-                DonateNowButtom(width: 118, height: 36, fontSize: 16),
+                DonateNowButtom(
+                  width: 118,
+                  height: 36,
+                  fontSize: 16,
+                  caseModel: CaseModel(),
+                ),
               ],
             ),
           ],

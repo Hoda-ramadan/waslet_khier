@@ -125,7 +125,11 @@ class Customstatecard extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: DonateNowButtom(height: 30, fontSize: 10),
+                          child: DonateNowButtom(
+                            height: 30,
+                            fontSize: 10,
+                            caseModel: casee,
+                          ),
                         ),
                       ],
                     ),

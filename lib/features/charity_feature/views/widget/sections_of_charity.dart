@@ -21,7 +21,7 @@ class SectionsOfCharity extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go(
+        context.push(
           "/charities/chaaritedetelies/Category/${categoryModel.id}",
           extra: categoryModel,
         );

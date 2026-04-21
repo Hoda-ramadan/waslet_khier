@@ -4,29 +4,29 @@ import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import '../../../core/api/api_service.dart';
 import '../admin_constants.dart';
- 
+
 class AdminCaseDetailsView extends StatefulWidget {
   final int caseId;
   const AdminCaseDetailsView({super.key, required this.caseId});
- 
+
   @override
   State<AdminCaseDetailsView> createState() => _AdminCaseDetailsViewState();
 }
- 
+
 class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
   CaseModel? _caseModel;
   bool _isLoading = true;
   bool _isDeleting = false;
   String? _errorMessage;
- 
+
   final ApiService _api = ApiService(Dio());
- 
+
   @override
   void initState() {
     super.initState();
     _fetchCaseDetails();
   }
- 
+
   Future<void> _fetchCaseDetails() async {
     try {
       final data = await _api.get(endPoint: '/Case/${widget.caseId}');
@@ -41,17 +41,23 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
       });
     }
   }
- 
+
   Future<void> _softDelete() async {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (_) => Directionality(
         textDirection: TextDirection.rtl,
         child: AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          title: const Text('حذف الحالة',
-              style: TextStyle(
-                  color: kAdminTextDark, fontWeight: FontWeight.bold)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: const Text(
+            'حذف الحالة',
+            style: TextStyle(
+              color: kAdminTextDark,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           content: const Text(
             'هل أنت متأكد من حذف هذه الحالة؟\nلا يمكن التراجع عن هذا الإجراء.',
             style: TextStyle(color: kAdminTextGrey, height: 1.5),
@@ -59,28 +65,30 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('إلغاء',
-                  style: TextStyle(color: kAdminTextGrey)),
+              child: const Text(
+                'إلغاء',
+                style: TextStyle(color: kAdminTextGrey),
+              ),
             ),
             ElevatedButton(
               onPressed: () => Navigator.pop(context, true),
               style: ElevatedButton.styleFrom(
                 backgroundColor: kAdminRed,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 elevation: 0,
               ),
-              child: const Text('حذف',
-                  style: TextStyle(color: Colors.white)),
+              child: const Text('حذف', style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
       ),
     );
- 
+
     if (confirm != true) return;
     setState(() => _isDeleting = true);
- 
+
     try {
       await _api.softDeleteCase(widget.caseId);
       if (mounted) {
@@ -90,7 +98,8 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
             backgroundColor: kAdminGreen,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10)),
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
         );
         // Return the deleted caseId so the list can remove it
@@ -105,13 +114,14 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
             backgroundColor: kAdminRed,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10)),
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
         );
       }
     }
   }
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,9 +137,10 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
         title: const Text(
           'تفاصيل الحالة',
           style: TextStyle(
-              color: kAdminTextDark,
-              fontWeight: FontWeight.bold,
-              fontSize: 18),
+            color: kAdminTextDark,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
         ),
         actions: [
           if (!_isLoading && _caseModel != null)
@@ -140,7 +151,9 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
                       width: 20,
                       height: 20,
                       child: CircularProgressIndicator(
-                          color: kAdminRed, strokeWidth: 2),
+                        color: kAdminRed,
+                        strokeWidth: 2,
+                      ),
                     ),
                   )
                 : IconButton(
@@ -153,12 +166,12 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
       body: _buildBody(),
     );
   }
- 
+
   Widget _buildBody() {
     if (_isLoading) {
       return const Center(child: CircularProgressIndicator(color: appcolor));
     }
- 
+
     if (_errorMessage != null) {
       return Center(
         child: Directionality(
@@ -168,9 +181,11 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
             children: [
               const Icon(Icons.error_outline, color: kAdminRed, size: 48),
               const SizedBox(height: 12),
-              Text(_errorMessage!,
-                  style: const TextStyle(color: kAdminRed),
-                  textAlign: TextAlign.center),
+              Text(
+                _errorMessage!,
+                style: const TextStyle(color: kAdminRed),
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
@@ -181,17 +196,19 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
                   _fetchCaseDetails();
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: appcolor),
-                child: const Text('إعادة المحاولة',
-                    style: TextStyle(color: Colors.white)),
+                child: const Text(
+                  'إعادة المحاولة',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),
         ),
       );
     }
- 
+
     final c = _caseModel!;
- 
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Directionality(
@@ -202,8 +219,7 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
             // ── Header card ───────────────────────────────────────────────
             Container(
               width: double.infinity,
-              padding:
-                  const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
               decoration: BoxDecoration(
                 color: kAdminCardBg,
                 borderRadius: BorderRadius.circular(20),
@@ -225,8 +241,7 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
                         ? NetworkImage(c.coverImageUrl!)
                         : null,
                     child: c.coverImageUrl == null
-                        ? const Icon(Icons.person,
-                            size: 50, color: appcolor)
+                        ? const Icon(Icons.person, size: 50, color: appcolor)
                         : null,
                   ),
                   const SizedBox(height: 12),
@@ -234,15 +249,17 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
                   Text(
                     c.beneficiaryName ?? '—',
                     style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: kAdminTextDark),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: kAdminTextDark,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   // Category name
-                  Text(c.categoryName ?? '—',
-                      style: const TextStyle(
-                          fontSize: 13, color: kAdminTextGrey)),
+                  Text(
+                    c.categoryName ?? '—',
+                    style: const TextStyle(fontSize: 13, color: kAdminTextGrey),
+                  ),
                   const SizedBox(height: 10),
                   // Status + Priority + Featured badges
                   Wrap(
@@ -251,22 +268,22 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
                     runSpacing: 6,
                     children: [
                       _Badge(
-                          label: _statusLabel(c.status),
-                          color: _statusColor(c.status)),
+                        label: _statusLabel(c.status),
+                        color: _statusColor(c.status),
+                      ),
                       _Badge(
-                          label: _priorityLabel(c.priority),
-                          color: _priorityColor(c.priority)),
+                        label: _priorityLabel(c.priority),
+                        color: _priorityColor(c.priority),
+                      ),
                       if (c.isFeatured == true)
-                        const _Badge(
-                            label: '⭐ مميزة', color: Colors.amber),
+                        const _Badge(label: '⭐ مميزة', color: Colors.amber),
                     ],
                   ),
                   const SizedBox(height: 8),
                   // Charity name (visible label, no ID)
                   Text(
                     c.charityName ?? '—',
-                    style: const TextStyle(
-                        fontSize: 12, color: kAdminTextGrey),
+                    style: const TextStyle(fontSize: 12, color: kAdminTextGrey),
                   ),
                   const SizedBox(height: 4),
                   // Creation date
@@ -274,78 +291,86 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
                     Text(
                       'تاريخ التسجيل: ${c.createdAt!.day}/${c.createdAt!.month}/${c.createdAt!.year}',
                       style: const TextStyle(
-                          fontSize: 11, color: kAdminTextGrey),
+                        fontSize: 11,
+                        color: kAdminTextGrey,
+                      ),
                     ),
                 ],
               ),
             ),
             const SizedBox(height: 20),
- 
+
             // ── Funding progress ──────────────────────────────────────────
             if (c.targetAmount != null && c.targetAmount! > 0) ...[
               const _SectionLabel(label: 'نسبة التمويل'),
               const SizedBox(height: 8),
               _FundingProgress(
-                  collected: c.collectedAmount ?? 0,
-                  target: c.targetAmount!),
+                collected: c.collectedAmount ?? 0,
+                target: c.targetAmount!,
+              ),
               const SizedBox(height: 20),
             ],
- 
+
             // ── Case info ─────────────────────────────────────────────────
             const _SectionLabel(label: 'معلومات الحالة'),
             const SizedBox(height: 10),
- 
+
             // Age
             if (c.age != null)
               _InfoRow(
-                  icon: Icons.cake_outlined,
-                  label: 'العمر',
-                  value: '${c.age} سنة'),
+                icon: Icons.cake_outlined,
+                label: 'العمر',
+                value: '${c.age} سنة',
+              ),
             if (c.age != null) const SizedBox(height: 10),
- 
+
             // Charity
             _InfoRow(
-                icon: Icons.business_outlined,
-                label: 'الجمعية',
-                value: c.charityName ?? '—'),
+              icon: Icons.business_outlined,
+              label: 'الجمعية',
+              value: c.charityName ?? '—',
+            ),
             const SizedBox(height: 10),
- 
+
             // Category
             _InfoRow(
-                icon: Icons.category_outlined,
-                label: 'التصنيف',
-                value: c.categoryName ?? '—'),
+              icon: Icons.category_outlined,
+              label: 'التصنيف',
+              value: c.categoryName ?? '—',
+            ),
             const SizedBox(height: 10),
- 
+
             // Location
-           
- 
+
             // End date
             if (c.endDate != null) ...[
               _InfoRow(
-                  icon: Icons.calendar_today_outlined,
-                  label: 'تاريخ الانتهاء',
-                  value:
-                      '${c.endDate!.day}/${c.endDate!.month}/${c.endDate!.year}'),
+                icon: Icons.calendar_today_outlined,
+                label: 'تاريخ الانتهاء',
+                value:
+                    '${c.endDate!.day}/${c.endDate!.month}/${c.endDate!.year}',
+              ),
               const SizedBox(height: 10),
             ],
- 
+
             // Donors count
             if (c.donorsCount != null) ...[
               _InfoRow(
-                  icon: Icons.people_outline,
-                  label: 'عدد المتبرعين',
-                  value: '${c.donorsCount}'),
+                icon: Icons.people_outline,
+                label: 'عدد المتبرعين',
+                value: '${c.donorsCount}',
+              ),
               const SizedBox(height: 10),
             ],
- 
+
             // Title
             _InfoRow(
-                icon: Icons.title_outlined,
-                label: 'عنوان الحالة',
-                value: c.title ?? '—'),
+              icon: Icons.title_outlined,
+              label: 'عنوان الحالة',
+              value: c.title ?? '—',
+            ),
             const SizedBox(height: 20),
- 
+
             // ── Description ───────────────────────────────────────────────
             const _SectionLabel(label: 'وصف الحالة'),
             const SizedBox(height: 8),
@@ -357,26 +382,31 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
-                      blurRadius: 8,
-                      offset: const Offset(0, 3))
+                    color: Colors.black.withOpacity(0.04),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  ),
                 ],
               ),
               child: Text(
                 c.description ?? '—',
                 style: const TextStyle(
-                    fontSize: 13, color: kAdminTextGrey, height: 1.7),
+                  fontSize: 13,
+                  color: kAdminTextGrey,
+                  height: 1.7,
+                ),
               ),
             ),
             const SizedBox(height: 20),
- 
+
             // ── Attachments ───────────────────────────────────────────────
             if (c.attachments != null && c.attachments!.isNotEmpty) ...[
               const _SectionLabel(label: 'المستندات المرفقة'),
               const SizedBox(height: 12),
               ...c.attachments!.map((att) {
                 final url = att.fileUrl ?? '';
-                final isImage = url.endsWith('.jpg') ||
+                final isImage =
+                    url.endsWith('.jpg') ||
                     url.endsWith('.jpeg') ||
                     url.endsWith('.png');
                 return Padding(
@@ -390,11 +420,10 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
               }),
               const SizedBox(height: 14),
             ],
- 
+
             // ── Accept / Reject ───────────────────────────────────────────
-            
             const SizedBox(height: 12),
- 
+
             // ── Delete button ─────────────────────────────────────────────
             SizedBox(
               width: double.infinity,
@@ -403,7 +432,8 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(color: kAdminRed),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   padding: const EdgeInsets.symmetric(vertical: 13),
                   backgroundColor: kAdminRed.withOpacity(0.05),
                 ),
@@ -412,74 +442,93 @@ class _AdminCaseDetailsViewState extends State<AdminCaseDetailsView> {
                         width: 16,
                         height: 16,
                         child: CircularProgressIndicator(
-                            color: kAdminRed, strokeWidth: 2),
+                          color: kAdminRed,
+                          strokeWidth: 2,
+                        ),
                       )
-                    : const Icon(Icons.delete_outline,
-                        color: kAdminRed, size: 18),
+                    : const Icon(
+                        Icons.delete_outline,
+                        color: kAdminRed,
+                        size: 18,
+                      ),
                 label: Text(
                   _isDeleting ? 'جاري الحذف...' : 'حذف الحالة',
-                  style:
-                      const TextStyle(color: kAdminRed, fontSize: 13),
+                  style: const TextStyle(color: kAdminRed, fontSize: 13),
                 ),
               ),
             ),
             const SizedBox(height: 12),
- 
+
             // ── Contact ───────────────────────────────────────────────────
-         
             const SizedBox(height: 20),
           ],
         ),
       ),
     );
   }
- 
+
   // ── Helpers ───────────────────────────────────────────────────────────────
- 
+
   Color _statusColor(String? s) {
     switch (s) {
-      case 'Active': return kAdminGreen;
-      case 'Pending': return Colors.orange;
-      case 'Closed': return kAdminRed;
-      default: return kAdminTextGrey;
+      case 'Active':
+        return kAdminGreen;
+      case 'Pending':
+        return Colors.orange;
+      case 'Closed':
+        return kAdminRed;
+      default:
+        return kAdminTextGrey;
     }
   }
- 
+
   String _statusLabel(String? s) {
     switch (s) {
-      case 'Active': return 'نشط';
-      case 'Pending': return 'قيد المراجعة';
-      case 'Closed': return 'مغلق';
-      default: return s ?? '—';
+      case 'Active':
+        return 'نشط';
+      case 'Pending':
+        return 'قيد المراجعة';
+      case 'Closed':
+        return 'مغلق';
+      default:
+        return s ?? '—';
     }
   }
- 
+
   String _priorityLabel(String? p) {
     switch (p) {
-      case 'High': return 'أولوية عالية';
-      case 'Normal': return 'أولوية عادية';
-      case 'Low': return 'أولوية منخفضة';
-      default: return p ?? '—';
+      case 'High':
+        return 'أولوية عالية';
+      case 'Normal':
+        return 'أولوية عادية';
+      case 'Low':
+        return 'أولوية منخفضة';
+      default:
+        return p ?? '—';
     }
   }
- 
+
   Color _priorityColor(String? p) {
     switch (p) {
-      case 'High': return kAdminRed;
-      case 'Normal': return appcolor;
-      case 'Low': return kAdminTextGrey;
-      default: return kAdminTextGrey;
+      case 'High':
+        return kAdminRed;
+      case 'Normal':
+        return appcolor;
+      case 'Low':
+        return kAdminTextGrey;
+      default:
+        return kAdminTextGrey;
     }
   }
 }
- 
+
 // ── Shared widgets ────────────────────────────────────────────────────────────
- 
+
 class _Badge extends StatelessWidget {
   final String label;
   final Color color;
   const _Badge({required this.label, required this.color});
- 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -488,33 +537,40 @@ class _Badge extends StatelessWidget {
         color: color.withOpacity(0.12),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Text(label,
-          style: TextStyle(
-              fontSize: 12, color: color, fontWeight: FontWeight.w600)),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 12,
+          color: color,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     );
   }
 }
- 
+
 class _SectionLabel extends StatelessWidget {
   final String label;
   const _SectionLabel({required this.label});
- 
+
   @override
   Widget build(BuildContext context) {
-    return Text(label,
-        style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: kAdminTextDark));
+    return Text(
+      label,
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: kAdminTextDark,
+      ),
+    );
   }
 }
- 
+
 class _FundingProgress extends StatelessWidget {
   final double collected;
   final double target;
-  const _FundingProgress(
-      {required this.collected, required this.target});
- 
+  const _FundingProgress({required this.collected, required this.target});
+
   @override
   Widget build(BuildContext context) {
     final percent = (collected / target).clamp(0.0, 1.0);
@@ -525,9 +581,10 @@ class _FundingProgress extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-              color: Colors.black.withOpacity(0.04),
-              blurRadius: 8,
-              offset: const Offset(0, 3))
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
+          ),
         ],
       ),
       child: Column(
@@ -535,13 +592,17 @@ class _FundingProgress extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('${(percent * 100).toStringAsFixed(0)}%',
-                  style: const TextStyle(
-                      color: appcolor, fontWeight: FontWeight.bold)),
               Text(
-                  '${collected.toStringAsFixed(0)} / ${target.toStringAsFixed(0)} ج.م',
-                  style: const TextStyle(
-                      fontSize: 13, color: kAdminTextGrey)),
+                '${(percent * 100).toStringAsFixed(0)}%',
+                style: const TextStyle(
+                  color: appcolor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                '${collected.toStringAsFixed(0)} / ${target.toStringAsFixed(0)} ج.م',
+                style: const TextStyle(fontSize: 13, color: kAdminTextGrey),
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -559,42 +620,47 @@ class _FundingProgress extends StatelessWidget {
     );
   }
 }
- 
+
 class _InfoRow extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
-  const _InfoRow(
-      {required this.icon,
-      required this.label,
-      required this.value});
- 
+  const _InfoRow({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
         color: kAdminCardBg,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-              color: Colors.black.withOpacity(0.04),
-              blurRadius: 8,
-              offset: const Offset(0, 3))
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
+          ),
         ],
       ),
       child: Row(
         children: [
-          Text(value,
-              style: const TextStyle(
-                  fontSize: 14,
-                  color: kAdminTextDark,
-                  fontWeight: FontWeight.w500)),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 14,
+              color: kAdminTextDark,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           const Spacer(),
-          Text(label,
-              style: const TextStyle(
-                  fontSize: 14, color: kAdminTextGrey)),
+          Text(
+            label,
+            style: const TextStyle(fontSize: 14, color: kAdminTextGrey),
+          ),
           const SizedBox(width: 10),
           Icon(icon, color: appcolor, size: 20),
         ],
@@ -602,16 +668,17 @@ class _InfoRow extends StatelessWidget {
     );
   }
 }
- 
+
 class _AttachmentItem extends StatelessWidget {
   final String label;
   final bool isImage;
   final String? fileUrl;
-  const _AttachmentItem(
-      {required this.label,
-      required this.isImage,
-      this.fileUrl});
- 
+  const _AttachmentItem({
+    required this.label,
+    required this.isImage,
+    this.fileUrl,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -621,9 +688,10 @@ class _AttachmentItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-              color: Colors.black.withOpacity(0.04),
-              blurRadius: 8,
-              offset: const Offset(0, 3))
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
+          ),
         ],
       ),
       child: Row(
@@ -633,29 +701,31 @@ class _AttachmentItem extends StatelessWidget {
               // TODO: open fileUrl in viewer / browser
             },
             icon: Icon(
-                isImage
-                    ? Icons.visibility_outlined
-                    : Icons.download_outlined,
-                color: appcolor),
+              isImage ? Icons.visibility_outlined : Icons.download_outlined,
+              color: appcolor,
+            ),
           ),
           const Spacer(),
-          Text(label,
-              style: const TextStyle(
-                  fontSize: 13,
-                  color: kAdminTextDark,
-                  fontWeight: FontWeight.w500)),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 13,
+              color: kAdminTextDark,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           const SizedBox(width: 10),
           Container(
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-                color: kAdminPrimaryLight,
-                borderRadius: BorderRadius.circular(8)),
+              color: kAdminPrimaryLight,
+              borderRadius: BorderRadius.circular(8),
+            ),
             child: isImage && fileUrl != null
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child:
-                        Image.network(fileUrl!, fit: BoxFit.cover),
+                    child: Image.network(fileUrl!, fit: BoxFit.cover),
                   )
                 : Icon(
                     isImage
