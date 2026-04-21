@@ -118,7 +118,7 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
             SizedBox(
               width: 280,
               height: 50,
-              child: DonateNowButtom(fontSize: 22),
+              child: DonateNowButtom(fontSize: 22, caseModel: CaseModel()),
             ),
           ],
         ),

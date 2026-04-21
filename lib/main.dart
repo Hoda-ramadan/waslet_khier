@@ -11,6 +11,8 @@ import 'package:waslet_khier/core/service_location.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/cubit/resetpasswordcubit.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/repo/forgetpasswordRepo.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
+import 'package:waslet_khier/features/Donation_feature/data/cubit/donation_cubit%20(1).dart';
+import 'package:waslet_khier/features/Donation_feature/data/repo/donation_repo%20(1).dart';
 import 'package:waslet_khier/features/charity_feature/data/cubit/CategoryCubit/categorycubit.dart';
 import 'package:waslet_khier/features/charity_feature/data/cubit/charity_cubit.dart';
 import 'package:waslet_khier/features/charity_feature/data/cubit/charity_deteals_cubit.dart';
@@ -62,6 +64,9 @@ class WasletKhier extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => Favcubit(Favoriterepo(ApiService(Dio()))),
+        ),
+        BlocProvider(
+          create: (context) => DonationCubit(DonationRepo(ApiService(Dio()))),
         ),
       ],
       child: MaterialApp.router(

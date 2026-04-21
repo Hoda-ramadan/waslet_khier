@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/build_place_holder.dart';
@@ -145,7 +146,11 @@ class StatesCard extends StatelessWidget {
                       Expanded(child: DetalsButtom(height: 30, fontSize: 10)),
                       const SizedBox(width: 6),
                       Expanded(
-                        child: DonateNowButtom(height: 30, fontSize: 10),
+                        child: DonateNowButtom(
+                          height: 30,
+                          fontSize: 10,
+                          caseModel: casee,
+                        ),
                       ),
                     ],
                   ),
