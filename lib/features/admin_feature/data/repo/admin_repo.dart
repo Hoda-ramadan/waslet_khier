@@ -4,16 +4,17 @@ import 'package:dio/dio.dart';
 import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_states_model.dart';
-import 'package:waslet_khier/features/admin_feature/data/create_case_model.dart';
+import 'package:waslet_khier/features/admin_feature/data/create_case_model.dart' hide AdminCaseModel;
+import 'package:waslet_khier/features/admin_feature/data/create_case_request_model.dart';
  
 class AdminRepo {
   final ApiService apiService;
   AdminRepo(this.apiService);
  
+  // ── Dashboard ──────────────────────────────────────────────────────────────
   Future<AdminStatsModel> getDashboardStats(int charityId) async {
-    final charity =
-        await apiService.get(endPoint: '/Charity/$charityId')
-            as Map<String, dynamic>;
+    final charity = await apiService.get(endPoint: '/Charity/$charityId')
+        as Map<String, dynamic>;
     return AdminStatsModel(
       id: charity['id'] ?? 0,
       charityName: charity['name'] ?? '',
@@ -29,22 +30,22 @@ class AdminRepo {
     );
   }
  
+  // ── Cases list ─────────────────────────────────────────────────────────────
   Future<List<AdminCaseModel>> getCharityCases(int charityId) async {
-    final response =
-        await apiService.get(endPoint: '/Case/charity/$charityId')
-            as List<dynamic>;
+    final response = await apiService.get(endPoint: '/Case/charity/$charityId')
+        as List<dynamic>;
     return response
         .map((e) => AdminCaseModel.fromJson(e as Map<String, dynamic>))
         .toList();
   }
  
-  /// POST /Case — multipart/form-data, works on web + mobile.
+  // ── Create case — POST /Case ───────────────────────────────────────────────
   Future<String> createCase({
     required CreateCaseRequestModel request,
-    // Mobile
+    // Mobile paths
     String? coverImagePath,
     List<String> attachmentPaths = const [],
-    // Web
+    // Web bytes
     Uint8List? coverImageBytes,
     String? coverImageName,
     List<Uint8List> attachmentBytes = const [],
@@ -52,12 +53,10 @@ class AdminRepo {
   }) async {
     final formData = FormData();
  
-    // ── Text fields ──────────────────────────────────────────────────────────
     request.toFormFields().forEach((key, value) {
       formData.fields.add(MapEntry(key, value));
     });
  
-    // ── Cover image ──────────────────────────────────────────────────────────
     if (coverImageBytes != null && coverImageName != null) {
       formData.files.add(MapEntry(
         'CoverImageFile',
@@ -73,16 +72,14 @@ class AdminRepo {
       ));
     }
  
-    // ── Attachment files ─────────────────────────────────────────────────────
     if (attachmentBytes.isNotEmpty) {
       for (int i = 0; i < attachmentBytes.length; i++) {
         formData.files.add(MapEntry(
           'AttachmentFiles',
           MultipartFile.fromBytes(
             attachmentBytes[i],
-            filename: i < attachmentNames.length
-                ? attachmentNames[i]
-                : 'file_$i',
+            filename:
+                i < attachmentNames.length ? attachmentNames[i] : 'file_$i',
           ),
         ));
       }
@@ -98,37 +95,67 @@ class AdminRepo {
       }
     }
  
-    // ── DEBUG — remove after fixing ──────────────────────────────────────────
-    print('🟡 POST to: ${apiService.baseurl}/Case');
-    print('🟡 FIELDS:');
-    for (final f in formData.fields) {
-      print('   ${f.key} = ${f.value}');
-    }
-    print('🟡 FILES:');
-    for (final f in formData.files) {
-      print('   ${f.key} = ${f.value.filename}');
-    }
-    // ────────────────────────────────────────────────────────────────────────
- 
     try {
       final response = await apiService.dio.post<dynamic>(
         '${apiService.baseurl}/Case',
         data: formData,
       );
- 
-      print('🟢 RESPONSE STATUS: ${response.statusCode}');
-      print('🟢 RESPONSE BODY: ${response.data}');
- 
       final body = response.data;
       if (body is Map<String, dynamic>) {
         return body['message'] as String? ?? 'تم إنشاء الحالة بنجاح';
       }
       return 'تم إنشاء الحالة بنجاح';
- 
     } on DioException catch (e) {
-      print('🔴 ERROR STATUS: ${e.response?.statusCode}');
-      print('🔴 ERROR BODY: ${e.response?.data}');
       rethrow;
     }
+  }
+ 
+  // ── Edit case — PUT /Case/{id} ─────────────────────────────────────────────
+  Future<String> editCase({
+    required int caseId,
+    required String title,
+    required String description,
+    required String beneficiaryName,
+    required int age,
+    required double targetAmount,
+    required int categoryId,
+    required String priority,
+    required String status,
+    required int charityId,
+    required int adminId,
+    required bool isFeatured,
+    String? location,
+    String? endDate,
+    // Mobile paths
+    String? coverImagePath,
+    List<String> attachmentPaths = const [],
+    // Web bytes
+    Uint8List? coverImageBytes,
+    String? coverImageName,
+    List<Uint8List> attachmentBytes = const [],
+    List<String> attachmentNames = const [],
+  }) {
+    return apiService.editCase(
+      caseId: caseId,
+      title: title,
+      description: description,
+      beneficiaryName: beneficiaryName,
+      age: age,
+      targetAmount: targetAmount,
+      categoryId: categoryId,
+      priority: priority,
+      status: status,
+      charityId: charityId,
+      adminId: adminId,
+      isFeatured: isFeatured,
+      location: location,
+      endDate: endDate,
+      coverImagePath: coverImagePath,
+      attachmentPaths: attachmentPaths,
+      coverImageBytes: coverImageBytes,
+      coverImageName: coverImageName,
+      attachmentBytes: attachmentBytes,
+      attachmentNames: attachmentNames,
+    );
   }
 }

@@ -2,6 +2,7 @@ import 'dart:typed_data';
  
 import 'package:bloc/bloc.dart';
 import 'package:waslet_khier/features/admin_feature/data/create_case_model.dart';
+import 'package:waslet_khier/features/admin_feature/data/create_case_request_model.dart';
 import '../repo/admin_repo.dart';
 import 'admin_states.dart';
  

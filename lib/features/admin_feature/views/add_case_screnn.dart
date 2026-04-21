@@ -13,6 +13,7 @@ import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 import 'package:waslet_khier/features/admin_feature/data/create_case_model.dart';
+import 'package:waslet_khier/features/admin_feature/data/create_case_request_model.dart';
 import 'package:waslet_khier/features/admin_feature/data/cubit/admin_sates_cubit.dart';
 import 'package:waslet_khier/features/admin_feature/data/cubit/admin_states.dart';
 import '../admin_constants.dart';

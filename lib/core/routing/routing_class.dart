@@ -11,7 +11,9 @@ import 'package:waslet_khier/featureAuth/auth/presintation/login_view.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
 import 'package:waslet_khier/features/admin_feature/admin_main_screen.dart';
+import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
 import 'package:waslet_khier/features/admin_feature/views/admin_case_details_view.dart';
+import 'package:waslet_khier/features/admin_feature/views/admin_edit_case.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/cases_feature/views/case_detatls_veiw.dart';
 import 'package:waslet_khier/features/cases_feature/views/cases_view.dart';
@@ -89,6 +91,22 @@ final GoRouter appRouter = GoRouter(
   builder: (context, state) {
     final caseId = state.extra as int;
     return AdminCaseDetailsView(caseId: caseId);
+  },
+),
+GoRoute(
+  path: 'edit_case',
+  parentNavigatorKey: _rootNavigatorKey,
+  builder: (context, state) {
+    final charityId =
+        int.tryParse(state.pathParameters['charityId'] ?? '0') ?? 0;
+    final extra = state.extra as Map<String, dynamic>;
+    final caseData = extra['caseData'] as AdminCaseModel;
+    final adminId = extra['adminId'] as int;
+    return AdminEditCaseView(
+      caseData: caseData,
+      charityId: charityId,
+      adminId: adminId,
+    );
   },
 ),
       ],

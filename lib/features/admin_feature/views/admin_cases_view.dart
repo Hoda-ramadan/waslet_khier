@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/api/api_service.dart';
+
 import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
 import 'package:waslet_khier/features/admin_feature/data/cubit/admin_sates_cubit.dart';
 import 'package:waslet_khier/features/admin_feature/data/cubit/admin_states.dart';
@@ -260,12 +261,28 @@ class _CaseCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10),
                           ),
-                          child: const Text(
-                            'تعديل الحالة',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold),
+                          child: GestureDetector(
+                            onTap: () async {
+                              final result = await context.push<bool>(
+                                '/admin/$charityId/edit_case',
+                                extra: {
+                                  'caseData': data,
+                                  'adminId':
+                                      7, // TODO: replace with real adminId from your auth provider
+                                },
+                              );
+                              // If edit was saved, refresh the list
+                              if (result == true && context.mounted) {
+                                context.read<AdminCubit>().loadCases(charityId);
+                              }
+                            },
+                            child: const Text(
+                              'تعديل الحالة',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),
