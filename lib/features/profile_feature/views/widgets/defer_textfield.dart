@@ -52,6 +52,5 @@ class customField extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

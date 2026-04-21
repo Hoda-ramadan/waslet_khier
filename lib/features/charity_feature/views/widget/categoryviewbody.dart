@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_madel2/category_madel2.dart';
-import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_model.dart';
+
 import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/customItemCategory.dart';
 

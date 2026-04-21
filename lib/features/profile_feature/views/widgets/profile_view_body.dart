@@ -35,7 +35,7 @@ class ProfileViewBody extends StatelessWidget {
           SizedBox(height: 20),
           profileItem(
             onTap: () {
-              context.push('/profile/Favoritecharity');
+              context.push('/profile/Favioritcases');
             },
             icon: Icons.favorite_border,
             text: "المفضلة",

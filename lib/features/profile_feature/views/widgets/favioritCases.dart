@@ -2,13 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:waslet_khier/const.dart';
-import 'package:waslet_khier/core/api/api_service.dart';
+import 'package:waslet_khier/core/Api/api_service.dart';
+import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
 import 'package:waslet_khier/features/profile_feature/data/favCubit/favCubit.dart';
 import 'package:waslet_khier/features/profile_feature/data/favCubit/favstate.dart';
 import 'package:waslet_khier/features/profile_feature/data/favrepo/FavoriteRepo.dart';
-import 'package:waslet_khier/features/profile_feature/views/widgets/caseitemofCategory.dart';
+import 'package:waslet_khier/features/profile_feature/data/models/favorite_model/favorite_model.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/cstomfavRow.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
@@ -18,11 +20,16 @@ class Favioritcases extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ✅ جيبي الـ donorId من الـ AuthProvider
+    final donorId =
+        Provider.of<AuthProvider_info>(context, listen: false).donor?.id ?? 0;
+
     return Scaffold(
       backgroundColor: backGroundColor,
       appBar: CustomAppBar(),
       body: BlocProvider(
-        create: (context) => Favcubit(Favoriterepo(ApiService(Dio()))),
+        create: (context) =>
+            Favcubit(Favoriterepo(ApiService(Dio())))..getfav(donorId),
         child: Favioritcases_body(),
       ),
     );
@@ -40,9 +47,9 @@ class Favioritcases_body extends StatelessWidget {
         child: Column(
           children: [
             customappbar(text: "المفضلة"),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             cstomfavRow2(location: "/profile/Favoritecharity"),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             SizedBox(height: 600, width: double.infinity, child: CasesTab()),
           ],
         ),
@@ -51,53 +58,30 @@ class Favioritcases_body extends StatelessWidget {
   }
 }
 
-class CasesTab extends StatefulWidget {
+class CasesTab extends StatelessWidget {
   const CasesTab({super.key});
-
-  @override
-  State<CasesTab> createState() => _CasesTabState();
-}
-
-class _CasesTabState extends State<CasesTab> {
-  @override
-  void initState() {
-    super.initState();
-    // هنا بنطلب البيانات لما الويدجت يتبني
-    context.read<Favcubit>().getfav();
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<Favcubit, FavorieState>(
       builder: (context, state) {
-        // حالة اللودينج
         if (state is favoritLodaing) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        // حالة النجاح
         if (state is FavoritSuccess) {
           if (state.favorit.isEmpty) {
-            return FavoriteView();
+            return const FavoriteView();
           }
-
           return ListView.builder(
             itemCount: state.favorit.length,
             itemBuilder: (context, index) {
               final item = state.favorit[index];
-              return Padding(
-                padding: const EdgeInsets.all(12),
-                child: CaseItemOfcategory(
-                  // مررري بيانات الـ item للويدجت
-                  // caseTitle: item.caseTitle,
-                  // coverImageUrl: item.coverImageUrl,
-                ),
-              );
+              return _FavCaseItem(item: item);
             },
           );
         }
 
-        // حالة الفشل
         if (state is FavoritFaild) {
           return Center(
             child: Column(
@@ -108,7 +92,15 @@ class _CasesTabState extends State<CasesTab> {
                 Text(state.errorMessage),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: () => context.read<Favcubit>().getfav(),
+                  onPressed: () {
+                    final donorId =
+                        Provider.of<AuthProvider_info>(
+                          context,
+                          listen: false,
+                        ).donor?.id ??
+                        0;
+                    context.read<Favcubit>().getfav(donorId);
+                  },
                   child: const Text("إعادة المحاولة"),
                 ),
               ],
@@ -118,6 +110,90 @@ class _CasesTabState extends State<CasesTab> {
 
         return const SizedBox();
       },
+    );
+  }
+}
+
+class _FavCaseItem extends StatelessWidget {
+  const _FavCaseItem({required this.item});
+  final FavoriteModel item;
+
+  @override
+  Widget build(BuildContext context) {
+    final donorId =
+        Provider.of<AuthProvider_info>(context, listen: false).donor?.id ?? 0;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: tintAppColor),
+      ),
+      child: Row(
+        children: [
+          // ✅ زرار القلب الحقيقي
+          IconButton(
+            onPressed: () {
+              context.read<Favcubit>().toggleFavorite(
+                donorId: donorId,
+                caseId: item.caseId!,
+              );
+            },
+            icon: const Icon(Icons.favorite, color: Colors.red),
+          ),
+          const SizedBox(width: 10),
+
+          // بيانات الحالة
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  item.caseTitle ?? 'حالة',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'المتبرع: ${item.donorName ?? ''}',
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(width: 10),
+
+          // صورة الحالة
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: item.coverImageUrl != null
+                ? Image.network(
+                    item.coverImageUrl.toString(),
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => _placeholder(),
+                  )
+                : _placeholder(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _placeholder() {
+    return Container(
+      width: 80,
+      height: 80,
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: const Icon(Icons.image, color: Colors.grey),
     );
   }
 }

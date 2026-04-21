@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/pymentoption_item.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
@@ -26,11 +27,26 @@ class Payment_body extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              PymentoptionItem(image: "assets/Frame 390.png"),
+              GestureDetector(
+                onTap: () {
+                  context.push("/profile/PaymentwayView/CardPaymentView");
+                },
+                child: PymentoptionItem(image: "assets/Frame 390.png"),
+              ),
 
-              PymentoptionItem(image: "assets/Frame 390.png"),
+              GestureDetector(
+                onTap: () {
+                  context.push("/profile/PaymentwayView/CardPaymentView");
+                },
+                child: PymentoptionItem(image: "assets/Frame 390.png"),
+              ),
 
-              PymentoptionItem(image: "assets/Frame 390.png"),
+              GestureDetector(
+                onTap: () {
+                  context.push("/profile/PaymentwayView/CardPaymentView");
+                },
+                child: PymentoptionItem(image: "assets/Frame 390.png"),
+              ),
             ],
           ),
         ],

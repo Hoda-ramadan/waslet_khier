@@ -28,7 +28,7 @@ class ApiService {
             .map((e) => AiCasesModel.fromJson(e))
             .toList();
       } else {
-        print('❌ Response is not a List: ${response.data}');
+        print(' Response is not a List: ${response.data}');
         return [];
       }
     } on DioException catch (e) {

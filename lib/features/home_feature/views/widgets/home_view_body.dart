@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/Aicases_cubit/AicasesCubit.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/Aicases_cubit/Aicases_state.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/charities.dart';
@@ -38,7 +39,15 @@ class HomeViewBody extends StatelessWidget {
                         final aiCase = state.cases[index];
                         return Padding(
                           padding: const EdgeInsets.only(right: 10),
-                          child: CustomAiCard(aiCasesModel: aiCase),
+                          child: GestureDetector(
+                            onTap: () {
+                              context.push(
+                                '/cases/case_detals_view',
+                                extra: state.cases[index],
+                              );
+                            },
+                            child: CustomAiCard(aiCasesModel: aiCase),
+                          ),
                         ); // مرر الداتا
                       },
                     ),
