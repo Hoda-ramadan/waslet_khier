@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
@@ -28,9 +27,12 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
   @override
   void initState() {
     super.initState();
-    context.read<CharityDetealsCubit>().getCharityById(widget.casee.charityId!);
+    if (widget.casee.charityId != null) {
+      context.read<CharityDetealsCubit>().getCharityById(
+        widget.casee.charityId!,
+      );
+    }
 
-    // ✅ جيب المفضلة عشان نعرف الحالة دي مفضلة ولا لأ
     final donorId =
         Provider.of<AuthProvider_info>(context, listen: false).donor?.id ?? 0;
     context.read<Favcubit>().getfav(donorId);
@@ -49,83 +51,86 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
         ? widget.casee.endDate!.difference(DateTime.now()).inDays
         : 0;
 
-    return Padding(
+    // ✅ FIX 3: إزالة Center من حوالين ListView - كانت بتسبب infinite width
+    return ListView(
       padding: const EdgeInsets.all(22),
-      child: Center(
-        child: ListView(
+      children: [
+        // ✅ FIX 1: DetalsViewCaseImage دلوقتي بتتعامل مع الـ URL الفاضي
+        DetalsViewCaseImage(image: widget.casee.coverImageUrl ?? ''),
+        const SizedBox(height: 12),
+
+        if (widget.casee.priority != null)
+          StatesTaps(casePority: widget.casee.priority!),
+        const SizedBox(height: 12),
+
+        Center(child: TitleText(caseName: widget.casee.title ?? 'بدون عنوان')),
+        const SizedBox(height: 16),
+
+        StauseRow(
+          remaindMoney: remaining,
+          personCount: widget.casee.donorsCount ?? 0,
+          endDate: remainingDays,
+        ),
+        const SizedBox(height: 4),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            DetalsViewCaseImage(image: widget.casee.coverImageUrl!),
-            const SizedBox(height: 12),
-            StatesTaps(casePority: widget.casee.priority!),
-            const SizedBox(height: 12),
-            Center(child: TitleText(caseName: widget.casee.title!)),
-            const SizedBox(height: 16),
-            StauseRow(
-              remaindMoney: remaining,
-              personCount: widget.casee.donorsCount ?? 0,
-              endDate: remainingDays,
+            Text(
+              "تم جمع $percentage%",
+              style: TextStyle(color: tintAppColor, fontSize: 12),
             ),
-            const SizedBox(height: 4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "تم جمع $percentage%",
-                  style: TextStyle(color: tintAppColor, fontSize: 12),
-                ),
-                Text(
-                  "المطلوب: $target ج.م",
-                  style: TextStyle(color: tintAppColor, fontSize: 12),
-                ),
-              ],
+            Text(
+              "المطلوب: $target ج.م",
+              style: TextStyle(color: tintAppColor, fontSize: 12),
             ),
-            const SizedBox(height: 5),
-            ProgressBarWithLabel(progress: progress),
-            const SizedBox(height: 16),
-
-            // الجمعية
-            BlocBuilder<CharityDetealsCubit, CharityState>(
-              builder: (context, state) {
-                if (state is CharityDetailsLoading) {
-                  return const CircularProgressIndicator();
-                }
-                if (state is CharityDetailsSuccess) {
-                  return CharityItem(
-                    charityModel: state.charity,
-                    icon: Icons.arrow_forward_ios,
-                  );
-                }
-                if (state is CharityDetailsFaild) {
-                  return Text(state.error);
-                }
-                return const SizedBox();
-              },
-            ),
-
-            const SizedBox(height: 20),
-
-            Row(
-              children: [
-                // ✅ FIXED: القلب الحقيقي بدل الـ dummy
-                _HeartButton(caseId: widget.casee.id!),
-                const Spacer(),
-                SizedBox(
-                  width: 280,
-                  height: 50,
-                  child: DonateNowButtom(fontSize: 22),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            _DescriptionText(description: widget.casee.description),
           ],
         ),
-      ),
+        const SizedBox(height: 5),
+
+        ProgressBarWithLabel(progress: progress),
+        const SizedBox(height: 16),
+
+        // الجمعية
+        BlocBuilder<CharityDetealsCubit, CharityState>(
+          builder: (context, state) {
+            if (state is CharityDetailsLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state is CharityDetailsSuccess) {
+              return CharityItem(
+                charityModel: state.charity,
+                icon: Icons.arrow_forward_ios,
+              );
+            }
+            if (state is CharityDetailsFaild) {
+              return Text(state.error);
+            }
+            return const SizedBox();
+          },
+        ),
+        const SizedBox(height: 20),
+
+        Row(
+          children: [
+            _HeartButton(caseId: widget.casee.id ?? 0),
+            const Spacer(),
+            SizedBox(
+              width: 280,
+              height: 50,
+              child: DonateNowButtom(fontSize: 22),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+
+        _DescriptionText(description: widget.casee.description),
+        const SizedBox(height: 24),
+      ],
     );
   }
 }
 
-// ✅ NEW: القلب بيشتغل مع الـ FavCubit
 class _HeartButton extends StatelessWidget {
   const _HeartButton({required this.caseId});
   final int caseId;
