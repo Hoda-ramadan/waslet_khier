@@ -60,6 +60,9 @@ class WasletKhier extends StatelessWidget {
           create: (context) =>
               AiCasesCubit(AiCasesRepo(ApiService(Dio())))..getAiCases(),
         ),
+        BlocProvider(
+          create: (context) => Favcubit(Favoriterepo(ApiService(Dio()))),
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: appRouter,

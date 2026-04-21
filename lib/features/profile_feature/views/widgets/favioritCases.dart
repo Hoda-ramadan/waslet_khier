@@ -4,15 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:waslet_khier/const.dart';
-import 'package:waslet_khier/core/Api/api_service.dart';
+import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
+import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
 import 'package:waslet_khier/features/profile_feature/data/favCubit/favCubit.dart';
 import 'package:waslet_khier/features/profile_feature/data/favCubit/favstate.dart';
 import 'package:waslet_khier/features/profile_feature/data/favrepo/FavoriteRepo.dart';
 import 'package:waslet_khier/features/profile_feature/data/models/favorite_model/favorite_model.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/caseitemtest.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/cstomfavRow.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/favitentest.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_view.dart';
+import 'package:waslet_khier/features/profile_feature/views/widgets/favoriteview_body.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
 class Favioritcases extends StatelessWidget {
@@ -37,8 +41,8 @@ class Favioritcases extends StatelessWidget {
 }
 
 class Favioritcases_body extends StatelessWidget {
-  const Favioritcases_body({super.key});
-
+  const Favioritcases_body({super.key, this.caseModel});
+  final CaseModel? caseModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -47,10 +51,13 @@ class Favioritcases_body extends StatelessWidget {
         child: Column(
           children: [
             customappbar(text: "المفضلة"),
-            const SizedBox(height: 20),
-            cstomfavRow2(location: "/profile/Favoritecharity"),
+
             const SizedBox(height: 30),
-            SizedBox(height: 600, width: double.infinity, child: CasesTab()),
+            SizedBox(
+              height: 600,
+              width: double.infinity,
+              child: CaseItemTest(),
+            ),
           ],
         ),
       ),
@@ -59,25 +66,31 @@ class Favioritcases_body extends StatelessWidget {
 }
 
 class CasesTab extends StatelessWidget {
-  const CasesTab({super.key});
-
+  const CasesTab({super.key, this.caseModel});
+  final CaseModel? caseModel;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<Favcubit, FavorieState>(
       builder: (context, state) {
         if (state is favoritLodaing) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(color: appcolor),
+          );
         }
 
         if (state is FavoritSuccess) {
           if (state.favorit.isEmpty) {
-            return const FavoriteView();
+            return const FavoriteView_body();
           }
           return ListView.builder(
             itemCount: state.favorit.length,
             itemBuilder: (context, index) {
               final item = state.favorit[index];
-              return _FavCaseItem(item: item);
+
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: favitemtext(item: item, caseModel: caseModel),
+              );
             },
           );
         }
