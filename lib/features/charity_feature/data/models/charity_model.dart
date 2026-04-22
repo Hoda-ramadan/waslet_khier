@@ -40,23 +40,23 @@ class CharityModel {
   });
 
   factory CharityModel.fromJson(Map<String, dynamic> json) => CharityModel(
-    id: json['id'] as int?,
+    id: (json['id'] as num?)?.toInt(),
     name: json['name'] as String?,
     description: json['description'] as String?,
-    type: json['type'] as dynamic,
+    type: json['type'],
     logoUrl: json['logoUrl'] as String?,
     address: json['address'] as String?,
     phoneNumber: json['phoneNumber'] as String?,
     email: json['email'] as String?,
     coverImageUrl: json['coverImageUrl'] as String?,
-    mapUrl: json['mapUrl'] as dynamic,
+    mapUrl: json['mapUrl'],
     facebookUrl: json['facebookUrl'] as String?,
     instagramUrl: json['instagramUrl'] as String?,
     websiteUrl: json['websiteUrl'] as String?,
     isActive: json['isActive'] as bool?,
-    totalProjectsCount: json['totalProjectsCount'] as int?,
-    totalRaisedAmount: json['totalRaisedAmount'] as int?,
-    totalDonorsCount: json['totalDonorsCount'] as int?,
+    totalProjectsCount: (json['totalProjectsCount'] as num?)?.toInt(), // ← fix
+    totalRaisedAmount: (json['totalRaisedAmount'] as num?)?.toInt(),   // ← fix
+    totalDonorsCount: (json['totalDonorsCount'] as num?)?.toInt(),     // ← fix
   );
 
   Map<String, dynamic> toJson() => {

@@ -8,10 +8,17 @@ import 'package:waslet_khier/features/home_feature/views/widgets/states_card.dar
 class StatesCardGridView extends StatelessWidget {
   const StatesCardGridView({super.key});
 
+  // card width fixed at 160
+  // image  = 160 * 0.55 = 88
+  // content = title(16) + desc(13) + charity(14) + progress(14) + bar(10) + buttons(26) + spacing(20) + padding(8) = 121
+  // total = 88 + 121 = 209 → use 220 for safe buffer
+  static const double _cardWidth = 160;
+  static const double _cardHeight = 220;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 277,
+      height: _cardHeight,
       child: BlocBuilder<FeatchCasessCubitCubit, FeatchCasessCubitState>(
         builder: (context, state) {
           if (state is FeatchCassCubitLoading) {
@@ -24,11 +31,10 @@ class StatesCardGridView extends StatelessWidget {
               itemCount: state.casee.length,
               itemBuilder: (context, index) {
                 final item = state.casee[index];
-
                 return Padding(
                   padding: const EdgeInsets.only(left: 12),
                   child: SizedBox(
-                    width: 160,
+                    width: _cardWidth,
                     child: GestureDetector(
                       onTap: () {
                         context.push(
@@ -36,7 +42,11 @@ class StatesCardGridView extends StatelessWidget {
                           extra: state.casee[index],
                         );
                       },
-                      child: StatesCard(casee: item),
+                      child: StatesCard(
+                        casee: item,
+                        cardWidth: _cardWidth,
+                        maxDescLines: 1, // ← 1 line only in home horizontal list
+                      ),
                     ),
                   ),
                 );

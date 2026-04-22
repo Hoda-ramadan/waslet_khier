@@ -1,6 +1,7 @@
 import 'dart:typed_data';
  
 import 'package:dio/dio.dart';
+import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_madel2/category_madel2.dart';
 import 'package:waslet_khier/features/home_feature/data/models/ai_cases_model/ai_cases_model.dart';
  
@@ -21,12 +22,12 @@ class ApiService {
     }
   }
  
-  Future<List<AiCasesModel>> getAiCases() async {
+  Future<List<CaseModel>> getAiCases() async {
     try {
       final response = await dio.get('$baseurl/Case/featured');
       if (response.data is List) {
         return (response.data as List)
-            .map((e) => AiCasesModel.fromJson(e))
+            .map((e) => CaseModel.fromJson(e))
             .toList();
       } else {
         print(' Response is not a List: ${response.data}');

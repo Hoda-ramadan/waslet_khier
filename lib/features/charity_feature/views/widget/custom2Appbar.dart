@@ -7,42 +7,33 @@ import 'package:waslet_khier/features/charity_feature/views/widget/custom_favori
 class Custom2AppBar extends StatelessWidget implements PreferredSizeWidget {
   const Custom2AppBar({super.key, required this.function});
   final void Function()? function;
+
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => const Size.fromHeight(70);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: appcolor,
+      backgroundColor: backGroundColor,
       elevation: 0,
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: const Color.fromRGBO(58, 0, 101, 1),
+      automaticallyImplyLeading: false,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: Color.fromRGBO(58, 0, 101, 1),
         statusBarIconBrightness: Brightness.light,
       ),
-      title: Row(
-        children: [
-          SizedBox(),
-          Container(
-            width: double.infinity,
-            child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: AppBar(
-                automaticallyImplyLeading: false,
-                leading: Center(
-                  child: GestureDetector(
-                    onTap: function,
-                    child: Custom_arrow(),
-                  ),
-                ),
-                title: Center(child: Text("تفاصيل الجمعية")),
-                backgroundColor: backGroundColor,
-                actions: [Custom_favorite_border()],
-              ),
-            ),
-          ),
-        ],
+      leading: Center(
+        child: GestureDetector(
+          onTap: function,
+          child: Custom_arrow(),
+        ),
       ),
+      title: const Center(
+        child: Text(
+          "تفاصيل الحالة",
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+      ),
+      actions: const [Custom_favorite_border()],
     );
   }
 }

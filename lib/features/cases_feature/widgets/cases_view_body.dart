@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/featch_casess_cubit_cubit.dart';
-
 import 'package:waslet_khier/features/home_feature/data/models/state_model.dart';
-
 import 'package:waslet_khier/features/home_feature/views/widgets/states_card.dart';
 
 class CasesViewBody extends StatelessWidget {
@@ -13,23 +11,31 @@ class CasesViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // calculate responsive ratio
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double cardWidth = (screenWidth - 12 * 3) / 2;
+    final double imageHeight = cardWidth * 0.55;
+    final double contentHeight = 160; // title+desc+charity+progress+buttons
+    final double totalHeight = imageHeight + contentHeight;
+    final double ratio = cardWidth / totalHeight+0.07;
+
     return Padding(
       padding: const EdgeInsets.all(12),
       child: BlocBuilder<FeatchCasessCubitCubit, FeatchCasessCubitState>(
         builder: (context, state) {
           if (state is FeatchCassCubitLoading) {
             return Center(
-              child: CircularProgressIndicator(value: 24, color: tintAppColor),
+              child: CircularProgressIndicator(color: tintAppColor),
             );
           }
           if (state is FeatchCasesCubitSucesses) {
             return GridView.builder(
               itemCount: state.casee.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
-                childAspectRatio: 0.74,
+                childAspectRatio: ratio, // ← responsive ratio
               ),
               itemBuilder: (context, index) {
                 return GestureDetector(
@@ -48,11 +54,11 @@ class CasesViewBody extends StatelessWidget {
             return Center(
               child: Text(
                 state.errorMessage.toString(),
-                style: TextStyle(fontSize: 24, color: Colors.grey),
+                style: const TextStyle(fontSize: 24, color: Colors.grey),
               ),
             );
           } else {
-            return Center(child: Text('UnExpected error'));
+            return const Center(child: Text('UnExpected error'));
           }
         },
       ),

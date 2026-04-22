@@ -1,10 +1,12 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
 import 'attachment.dart';
 
 class CaseModel {
   int? id;
   String? title;
+
   String? description;
   int? age;
   double? targetAmount;
@@ -47,37 +49,49 @@ class CaseModel {
     this.charityName,
     this.adminId,
     this.attachments,
+   
   });
 
-  factory CaseModel.fromJson(Map<String, dynamic> json) => CaseModel(
-    id: json['id'] as int?,
-    title: json['title'] as String?,
-    description: json['description'] as String?,
-    age: json['age'] as int?,
-    targetAmount: json['targetAmount'] as double?,
-    collectedAmount: json['collectedAmount'] as double?,
-    coverImageUrl: json['coverImageUrl'] as String?,
-    beneficiaryName: json['beneficiaryName'] as String?,
-    endDate: json['endDate'] == null
-        ? null
-        : DateTime.parse(json['endDate'] as String),
-    isFeatured: json['isFeatured'] as bool?,
-    isDeleted: json['isDeleted'] as bool?,
-    donorsCount: json['donorsCount'] as int?,
-    categoryId: json['categoryId'] as int?,
-    categoryName: json['categoryName'] as String?,
-    priority: json['priority'] as String?,
-    status: json['status'] as String?,
-    createdAt: json['createdAt'] == null
-        ? null
-        : DateTime.parse(json['createdAt'] as String),
-    charityId: json['charityId'] as int?,
-    charityName: json['charityName'] as String?,
-    adminId: json['adminId'] as int?,
-    attachments: (json['attachments'] as List<dynamic>?)
-        ?.map((e) => Attachment.fromJson(e as Map<String, dynamic>))
-        .toList(),
-  );
+  factory CaseModel.fromJson(Map<String, dynamic> json) {
+  try {
+    return CaseModel(
+      id: json['id'] as int?,
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      age: (json['age'] as num?)?.toInt(),
+      targetAmount: (json['targetAmount'] as num?)?.toDouble(),
+      collectedAmount: (json['collectedAmount'] as num?)?.toDouble(),
+      coverImageUrl: json['coverImageUrl'] as String?,
+      beneficiaryName: json['beneficiaryName'] as String?,
+      endDate: json['endDate'] == null
+          ? null
+          : DateTime.parse(json['endDate'] as String),
+      isFeatured: json['isFeatured'] as bool?,
+      isDeleted: json['isDeleted'] as bool?,
+      donorsCount: (json['donorsCount'] as num?)?.toInt(),
+      categoryId: (json['categoryId'] as num?)?.toInt(),
+      categoryName: json['categoryName'] as String?,
+      priority: json['priority'] as String?,
+      status: json['status'] as String?,
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
+      charityId: (json['charityId'] as num?)?.toInt(),
+      charityName: json['charityName'] as String?,
+      adminId: (json['adminId'] as num?)?.toInt(),
+      attachments: (json['attachments'] as List<dynamic>?)
+          ?.map((e) => Attachment.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  } catch (e, stack) {
+    // print every field value so we can see which one fails
+    debugPrint('=== CaseModel.fromJson ERROR ===');
+    debugPrint('json: $json');
+    debugPrint('error: $e');
+    debugPrint('stack: $stack');
+    rethrow;
+  }
+}
 
   Map<String, dynamic> toJson() => {
     'id': id,

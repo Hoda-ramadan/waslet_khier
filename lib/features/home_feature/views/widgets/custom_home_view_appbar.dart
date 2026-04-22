@@ -51,15 +51,14 @@ class CustomHomeViewAppbar extends StatelessWidget
                 ),
               ),
               SizedBox(width: 8),
-              CircleAvatar(
-                radius: 18,
-                child: Image.network(
-                  '${donor?.imageUrl ?? "assets/images/radix-icons_avatar (1).png"}',
-                  width: 38,
-                  height: 38,
-                  fit: BoxFit.cover,
-                ),
-              ),
+             CircleAvatar(
+  radius: 18,
+  backgroundImage: NetworkImage(
+    donor?.imageUrl ?? 'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3396.jpg?semt=ais_hybrid&w=740&q=80',
+  ),
+  onBackgroundImageError: (_, __) {},
+  backgroundColor: Colors.grey.shade200,
+),
             ],
           ),
         ],

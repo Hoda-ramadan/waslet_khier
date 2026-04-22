@@ -20,7 +20,7 @@ class HomeViewBody extends StatelessWidget {
           const SliverToBoxAdapter(child: HomeViewFirstPart()),
           const SliverToBoxAdapter(child: SizedBox(height: 8)),
 
-          // ✅ AI Cases هنا
+          // ✅ AI Cases
           SliverToBoxAdapter(
             child: BlocBuilder<AiCasesCubit, AiCasesState>(
               builder: (context, state) {
@@ -28,12 +28,12 @@ class HomeViewBody extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 } else if (state is AiCasesSuccess) {
                   return SizedBox(
-                    height: 200,
+                    ////// card height(180) + blurRadius(6) + offsetY(2) + padding(8) = 196 → 200
+                    height: 180, // best 
                     width: double.infinity,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      //shrinkWrap: true,
-                      // physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.only(bottom: 8, top: 4),
                       itemCount: state.cases.length,
                       itemBuilder: (context, index) {
                         final aiCase = state.cases[index];
@@ -48,7 +48,7 @@ class HomeViewBody extends StatelessWidget {
                             },
                             child: CustomAiCard(aiCasesModel: aiCase),
                           ),
-                        ); // مرر الداتا
+                        );
                       },
                     ),
                   );

@@ -15,6 +15,7 @@ import 'package:waslet_khier/features/Donation_feature/views/visa_dialog%20(2).d
 import 'package:waslet_khier/features/Donation_feature/views/vodafone_cash_dialog%20(1).dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
+import 'package:waslet_khier/features/home_feature/data/cubit/featch_casess_cubit_cubit.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 
 class DonationView extends StatelessWidget {
@@ -50,6 +51,8 @@ class _DonationBodyState extends State<_DonationBody> {
       listener: (context, state) {
         if (state is DonationSuccess) {
           _showSuccessDialog(context);
+          context.read<FeatchCasessCubitCubit>().featchCasess();
+          
         } else if (state is DonationFailed) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

@@ -12,29 +12,30 @@ class HomeViewFirstPart extends StatelessWidget {
       width: double.infinity,
       child: Row(
         children: [
-          Column(
-            children: [
-              SizedBox(
-                width: 24,
-                height: 24,
-                child: IconButton(
-                  onPressed: () {
-                    (context).go('/home/zakatView');
-                  },
-                  icon: Icon(FontAwesomeIcons.calculator, color: tintAppColor),
+          GestureDetector(
+          onTap:(){  (context).push('/home/zakatView');},
+            child: Column(
+              children: [
+                SizedBox(
+                  width: 24,
+                  height: 24,
+                  child:Icon(
+  FontAwesomeIcons.calculator,
+  color: tintAppColor,
+),
                 ),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'حساب الذكاه',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
+                SizedBox(height: 8),
+                Text(
+                  'حساب الذكاه',
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Spacer(),
           Text(
