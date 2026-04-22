@@ -34,8 +34,10 @@ import 'package:waslet_khier/features/profile_feature/views/widgets/favioritCase
 import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/paymentway_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
+import 'package:waslet_khier/features/splash_feature/views/splash_view.dart'; // 👈 add this import
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
+
 CharityModel _toCharity(Object? extra) {
   if (extra is CharityModel) return extra;
   return CharityModel.fromJson(Map<String, dynamic>.from(extra as Map));
@@ -55,16 +57,19 @@ Widget _caseDetailsWithCubit(CaseModel casee) {
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/home',
+  initialLocation: '/splash', // 👈 changed from '/home'
 
   redirect: (context, state) {
     final auth = Provider.of<AuthProvider_info>(context, listen: false);
     final isLoggedIn = auth.isLoggedIn;
     final loc = state.matchedLocation;
 
+    // ✅ Always allow splash through, no auth check
+    if (loc == '/splash') return null;
+
     final isOnAuth =
         loc == '/profile/logout' || loc.startsWith('/profile/logout/');
-    final isOnAdmin = loc.startsWith('/admin'); // ✅ covers /admin/9
+    final isOnAdmin = loc.startsWith('/admin');
 
     if (isOnAdmin && isLoggedIn) return null;
     if (!isLoggedIn && !isOnAuth) return '/profile/logout';
@@ -74,6 +79,12 @@ final GoRouter appRouter = GoRouter(
   },
 
   routes: [
+    // ── SPLASH ──────────────────────────────────────────────────────────────
+    GoRoute(
+      path: '/splash',
+      builder: (context, state) => const SplashView(),
+    ),
+
     // ── ADMIN ─────────────────────────────────────────────────────────────────
     GoRoute(
       path: '/admin/:charityId',
@@ -232,7 +243,6 @@ final GoRouter appRouter = GoRouter(
                   parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const FavoriteView(),
                 ),
-
                 GoRoute(
                   path: 'Favioritcases',
                   parentNavigatorKey: _rootNavigatorKey,
@@ -267,7 +277,8 @@ final GoRouter appRouter = GoRouter(
                           routes: [
                             GoRoute(
                               path: 'ChangepasswordView',
-                              builder: (context, state) => ChangepasswordView(),
+                              builder: (context, state) =>
+                                  ChangepasswordView(),
                             ),
                           ],
                         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/core/class/assets.dart';
-import 'package:waslet_khier/features/home_feature/views/home_page.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -20,13 +20,11 @@ class _SplashViewState extends State<SplashView> {
   void goToHome() {
     Future.delayed(const Duration(seconds: 3), () {
       if (!mounted) return;
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+      context.go('/home');
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backGroundColor,
