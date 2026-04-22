@@ -14,7 +14,7 @@ class CardOfCharity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 104,
+      width: 100,
       height: 91,
       decoration: BoxDecoration(
         border: Border.all(color: tintAppColor),

@@ -22,13 +22,13 @@ class colletionOfcard extends StatelessWidget {
           charitydata: '$totalRaisedAmount',
           charitydataType: 'ج.م',
         ),
-        SizedBox(width: 20),
+        SizedBox(width: 13),
         CardOfCharity(
           icon: Icons.person,
           charitydata: '$totalDonorsCount',
           charitydataType: 'متبرع',
         ),
-        SizedBox(width: 20),
+        SizedBox(width: 13),
         CardOfCharity(
           icon: Icons.business,
           charitydata: '$totalProjectsCount',

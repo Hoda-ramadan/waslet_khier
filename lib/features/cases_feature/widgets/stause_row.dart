@@ -22,13 +22,13 @@ class StauseRow extends StatelessWidget {
           charitydata: '$personCount',
           charitydataType: "متبرع",
         ),
-        SizedBox(width: 20),
+        SizedBox(width: 13),
         CardOfCharity(
           icon: Icons.timelapse_outlined,
           charitydata: "$endDate",
           charitydataType: "يوم متبقي",
         ),
-        SizedBox(width: 20),
+        SizedBox(width: 13),
         CardOfCharity(
           icon: Icons.attach_money_outlined,
           charitydata: "$remaindMoney",
