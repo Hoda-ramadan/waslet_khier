@@ -1,0 +1,32 @@
+import 'package:flutter/material.dart';
+import 'package:waslet_khier/features/charity_feature/views/widget/customtextfeild.dart';
+import 'package:waslet_khier/features/charity_feature/views/widget/listofcharitys.dart';
+
+class CharityPageBody extends StatelessWidget {
+  const CharityPageBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Center(
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(child: SizedBox(height: 40)),
+            SliverToBoxAdapter(child: Customtextfeild()),
+            SliverToBoxAdapter(child: SizedBox(height: 30)),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 600,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 100),
+                  child: Listofcharitys(icon: Icons.arrow_forward_ios_outlined),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

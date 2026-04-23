@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "784997307458",
+    "project_id": "waslet-kheir",
+    "storage_bucket": "waslet-kheir.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784997307458:android:579df3cd1f8d79956f49db",
+        "android_client_info": {
+          "package_name": "com.example.waslet_khier"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXd-a2HE_SeGrbNMUgIz2Pcj1g43X3h2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
