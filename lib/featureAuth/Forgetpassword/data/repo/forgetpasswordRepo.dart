@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/models/change_pass_model.dart';
 
@@ -10,19 +9,32 @@ class ResetpasswordRepo {
   Future<String> sendEmail({required String email}) async {
     final response = await apiService.post(
       endPoint: '/User/ForgetPassword',
-      data: {'email': email},
+      data: '"$email"', // ✅ بعتي الـ email كـ JSON string بـ quotes
+      headers: {'Content-Type': 'application/json'},
     );
 
-    return response['message'] ?? 'تم الإرسال';
+    final data = response.data;
+    if (data is Map<String, dynamic>) {
+      return data['message'] ?? 'تم الإرسال';
+    }
+    return 'تم الإرسال';
   }
 
-  Future<String> verifyCode({required String code}) async {
+  Future<String> verifyCode({
+    required String code,
+    required String email, // ✅ ضيفي email
+  }) async {
     final response = await apiService.post(
       endPoint: '/User/CheckCode',
-      data: {'code': code},
+      data: {'code': code, 'email': email}, // ✅ بعتي الاتنين
+      headers: {'Content-Type': 'application/json'},
     );
 
-    return response['token'] ?? '';
+    final data = response.data;
+    if (data is Map<String, dynamic>) {
+      return data['token'] ?? '';
+    }
+    return '';
   }
 
   Future<ChangePassModel> changePassword({
@@ -39,10 +51,6 @@ class ResetpasswordRepo {
       },
     );
 
-    return ChangePassModel.fromJson(response as Map<String, dynamic>);
+    return ChangePassModel.fromJson(response.data as Map<String, dynamic>);
   }
-}
-
-extension on Response<dynamic> {
-  Future<String>? operator [](String other) {}
 }

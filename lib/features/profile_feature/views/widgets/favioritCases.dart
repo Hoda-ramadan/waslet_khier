@@ -89,7 +89,15 @@ class CasesTab extends StatelessWidget {
 
               return Padding(
                 padding: const EdgeInsets.only(bottom: 20),
-                child: favitemtext(item: item),
+                child: GestureDetector(
+                  onTap: () {
+                    context.push(
+                      '/cases/case_detals_view',
+                      extra: state.favorit[index],
+                    );
+                  },
+                  child: favitemtext(item: item),
+                ),
               );
             },
           );

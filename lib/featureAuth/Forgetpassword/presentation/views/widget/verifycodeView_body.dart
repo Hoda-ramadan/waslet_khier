@@ -44,10 +44,14 @@ class _VerifyCodeBodyState extends State<VerifyCodeBody> {
   Widget build(BuildContext context) {
     return BlocConsumer<ResetpasswordCubit, ForgetPasswordState>(
       listener: (context, state) {
+        // في verifycodeView_body.dart - لما ينجح
         if (state is VerifyCodeSuccess) {
           context.push(
             '/profile/logout/forgetpassword/VerifycodeView/ChangepasswordView',
-            extra: context.read<ResetpasswordCubit>(),
+            extra: context
+                .read<
+                  ResetpasswordCubit
+                >(), // ✅ نفس الـ cubit فيه الـ verifyToken
           );
         } else if (state is VerifyCodeFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -75,7 +79,7 @@ class _VerifyCodeBodyState extends State<VerifyCodeBody> {
                 style: TextStyle(fontSize: 12, color: Color(0xFF696B6A)),
               ),
               const SizedBox(height: 20),
-              Getcodefield(controllers: [], focusNodes: []),
+              Getcodefield(controllers: controllers, focusNodes: focusNodes),
               const SizedBox(height: 20),
               state is VerifyCodeLoading
                   ? const CircularProgressIndicator()

@@ -15,31 +15,36 @@ class AuthProvider_info extends ChangeNotifier {
 
   bool get isLoggedIn => _token != null && _token!.isNotEmpty;
 
+  // في authprovider.dart - عدّل setAuthData
   Future<void> setAuthData({
     String? token,
     DonorModel? donor,
     AdminModel? admin,
   }) async {
-    if (token == null || token.isEmpty) return;
-
-    _token = token;
-    _donor = donor;
-    _admin = admin;
-
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', token);
-
-    // save donor
-    if (donor != null) {
-      await prefs.setInt('donorId', donor.id);
-      await prefs.setString('donorFirstName', donor.firstName);
-      await prefs.setString('donorLastName', donor.lastName);
-      await prefs.setString('donorEmail', donor.email);
-      await prefs.setString('donorPhone', donor.phoneNumber);
-      await prefs.setString('donorImageUrl', donor.imageUrl ?? '');
+    // ✅ لو في token خده، لو مفيش خد اللي موجود
+    if (token != null && token.isNotEmpty) {
+      _token = token;
+      _admin = admin;
     }
 
-    // save admin
+    if (donor != null) _donor = donor;
+    if (admin != null) _admin = admin;
+
+    final prefs = await SharedPreferences.getInstance();
+
+    if (_token != null && _token!.isNotEmpty) {
+      await prefs.setString('token', _token!);
+    }
+
+    // save donor
+    if (_donor != null) {
+      await prefs.setInt('donorId', _donor!.id);
+      await prefs.setString('donorFirstName', _donor!.firstName);
+      await prefs.setString('donorLastName', _donor!.lastName);
+      await prefs.setString('donorEmail', _donor!.email);
+      await prefs.setString('donorPhone', _donor!.phoneNumber);
+      await prefs.setString('donorImageUrl', _donor!.imageUrl ?? '');
+    }
     if (admin != null) {
       await prefs.setInt('adminId', admin.id);
       await prefs.setString('adminUserId', admin.userId);

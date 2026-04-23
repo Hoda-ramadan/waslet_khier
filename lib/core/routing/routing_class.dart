@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:waslet_khier/core/api/api_service.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/data/cubit/resetpasswordcubit.dart';
+import 'package:waslet_khier/featureAuth/Forgetpassword/data/repo/forgetpasswordRepo.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/changepassword_view.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/forget_password_view.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/verifycode_view.dart';
@@ -42,7 +44,8 @@ CharityModel _toCharity(Object? extra) {
   print('>>> extra type: ${extra?.runtimeType}');
   print('>>> extra value: $extra');
   if (extra is CharityModel) return extra;
-  if (extra is Map) return CharityModel.fromJson(Map<String, dynamic>.from(extra));
+  if (extra is Map)
+    return CharityModel.fromJson(Map<String, dynamic>.from(extra));
   return CharityModel(); // ← this is the silent failure
 }
 
@@ -70,6 +73,7 @@ final GoRouter appRouter = GoRouter(
 
     // ✅ Always allow splash through, no auth check
     if (loc == '/splash') return null;
+    if (loc == 'forgetpassword') return null;
 
     final isOnAuth =
         loc == '/profile/logout' || loc.startsWith('/profile/logout/');
@@ -233,7 +237,6 @@ final GoRouter appRouter = GoRouter(
                   path: 'PaymentwayView',
                   parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const PaymentwayView(),
-                  routes: [],
                 ),
                 GoRoute(
                   path: 'Faviorite',
@@ -257,24 +260,45 @@ final GoRouter appRouter = GoRouter(
                 ),
                 GoRoute(
                   path: 'logout',
-                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => LoginView(),
                   routes: [
                     GoRoute(
                       path: 'createacc',
                       builder: (context, state) => const CreateAccView(),
                     ),
+                    // ✅ بعد - الـ cubit بيتشارك بين الـ 3 شاشات
                     GoRoute(
                       path: 'forgetpassword',
-                      builder: (context, state) => const ForgetPassword(),
+                      builder: (context, state) {
+                        return BlocProvider(
+                          create: (_) => ResetpasswordCubit(
+                            ResetpasswordRepo(ApiService(Dio())),
+                          ),
+                          child: const ForgetPassword(),
+                        );
+                      },
                       routes: [
                         GoRoute(
                           path: 'VerifycodeView',
-                          builder: (context, state) => VerifycodeView(),
+                          builder: (context, state) {
+                            // الـ cubit جاي من الـ extra اللي بعتاه شاشة forgetpassword
+                            final cubit = state.extra as ResetpasswordCubit;
+                            return BlocProvider.value(
+                              value: cubit,
+                              child: const VerifycodeView(),
+                            );
+                          },
                           routes: [
                             GoRoute(
                               path: 'ChangepasswordView',
-                              builder: (context, state) => ChangepasswordView(),
+                              builder: (context, state) {
+                                // نفس الـ cubit بيتنقل للشاشة التالتة
+                                final cubit = state.extra as ResetpasswordCubit;
+                                return BlocProvider.value(
+                                  value: cubit,
+                                  child: const ChangepasswordView(),
+                                );
+                              },
                             ),
                           ],
                         ),

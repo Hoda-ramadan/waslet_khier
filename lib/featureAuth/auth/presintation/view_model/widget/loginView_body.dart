@@ -120,6 +120,7 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                       TextButton(
                         onPressed: () =>
                             context.push('/profile/logout/forgetpassword'),
+
                         child: Text(
                           'نسيت كلمة المرور؟',
                           style: TextStyle(color: appcolor, fontSize: 13),
