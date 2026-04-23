@@ -27,25 +27,19 @@ class Payment_body extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              GestureDetector(
-                onTap: () {
-                  context.push("/profile/PaymentwayView/CardPaymentView");
-                },
-                child: PymentoptionItem(image: "assets/Frame 390.png"),
+              PymentoptionItem(
+                image: "assets/Frame 390.png",
+                text: 'فودافون كاش',
               ),
 
-              GestureDetector(
-                onTap: () {
-                  context.push("/profile/PaymentwayView/CardPaymentView");
-                },
-                child: PymentoptionItem(image: "assets/Frame 390.png"),
+              PymentoptionItem(
+                image: "assets/images/Frame 390 (3).png",
+                text: 'انستا باي',
               ),
 
-              GestureDetector(
-                onTap: () {
-                  context.push("/profile/PaymentwayView/CardPaymentView");
-                },
-                child: PymentoptionItem(image: "assets/Frame 390.png"),
+              PymentoptionItem(
+                image: "assets/images/Frame 390 (2).png",
+                text: 'فيزا',
               ),
             ],
           ),

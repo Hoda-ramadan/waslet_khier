@@ -43,3 +43,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+<<<<<<< HEAD
+=======
+
+build/
+.dart_tool/
+android/app/build/
+*.apk
+*.aab
+*.ipa
+.flutter-plugins
+.flutter-plugins-dependencies
+>>>>>>> e4a9ed1f62c560072b9b94f257834dd2d23bcbd4

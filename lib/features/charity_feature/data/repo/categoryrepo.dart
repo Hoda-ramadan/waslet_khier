@@ -20,9 +20,9 @@ class Categoryrepo {
   }
 
   Future<List<CategoryMadel>> getCategoriesByCharity(int charityId) async {
-    var data = await apiService.get(endPoint: "/Category");
-    print("data type: ${data.runtimeType}");
-    print("data: $data");
+    var data = await apiService.get(
+      endPoint: "/Category/charity/$charityId",
+    ); // ← صلحي الـ endpoint
     List category = data as List;
     return category.map((e) => CategoryMadel.fromJson(e)).toList();
   }

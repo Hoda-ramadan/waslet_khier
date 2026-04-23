@@ -89,7 +89,7 @@ class CasesTab extends StatelessWidget {
 
               return Padding(
                 padding: const EdgeInsets.only(bottom: 20),
-                child: favitemtext(item: item, caseModel: caseModel),
+                child: favitemtext(item: item),
               );
             },
           );

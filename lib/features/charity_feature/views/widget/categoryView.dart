@@ -26,7 +26,7 @@ class Categoryview extends StatelessWidget {
       body: BlocProvider(
         create: (context) {
           return Categorycubit(Categoryrepo(ApiService(Dio())))
-            ..getCategoriesByCharity(categoryId);
+            ..getCategoriesByCharity(categoryMadel.charityId ?? 0);
         },
         child: CategoryView_body(
           categoryId: categoryId,

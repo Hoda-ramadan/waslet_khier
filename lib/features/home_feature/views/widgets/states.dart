@@ -15,7 +15,9 @@ class States extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                context.push("/cases");
+              },
               child: Text(
                 'عرض الكل',
                 textAlign: TextAlign.start,

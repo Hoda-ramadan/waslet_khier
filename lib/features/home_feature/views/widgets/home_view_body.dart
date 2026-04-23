@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/Aicases_cubit/AicasesCubit.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/Aicases_cubit/Aicases_state.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/charities.dart';
@@ -25,7 +26,9 @@ class HomeViewBody extends StatelessWidget {
             child: BlocBuilder<AiCasesCubit, AiCasesState>(
               builder: (context, state) {
                 if (state is AiCasesLoading) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(
+                    child: CircularProgressIndicator(color: appcolor),
+                  );
                 } else if (state is AiCasesSuccess) {
                   return SizedBox(
                     ////// card height(180) + blurRadius(6) + offsetY(2) + padding(8) = 196 → 200

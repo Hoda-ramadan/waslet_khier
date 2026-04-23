@@ -28,7 +28,7 @@ class CharityDetailsView_body extends StatelessWidget {
           children: [
             customappbar(text: "تفاصيل الجمعية"),
 
-            Charity_image(image: charity.logoUrl!),
+            Charity_image(image: charity.logoUrl ?? ""),
             Text(
               charity.name ?? 'null',
               style: TextStyle(
@@ -54,9 +54,9 @@ class CharityDetailsView_body extends StatelessWidget {
 
             SizedBox(height: 20),
             colletionOfcard(
-              totalDonorsCount: charity.totalDonorsCount!,
-              totalProjectsCount: charity.totalProjectsCount!,
-              totalRaisedAmount: charity.totalRaisedAmount!,
+              totalDonorsCount: charity.totalDonorsCount ?? 0,
+              totalProjectsCount: charity.totalProjectsCount ?? 0,
+              totalRaisedAmount: charity.totalRaisedAmount ?? 0,
             ),
             SizedBox(height: 20),
             Padding(
@@ -135,22 +135,18 @@ class CharityDetailsView_body extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            Row(
-              children: [
-                ConnectingInfo(
-                  icon: Icons.email,
-                  text: "البريد الالكتروني",
-                  subtext: "${charity.email}",
-                  fontsize1: 10,
-                ),
-                Spacer(),
-                ConnectingInfo(
-                  icon: Icons.phone_android,
-                  text: 'رقم التواصل',
-                  subtext: '${charity.phoneNumber}',
-                  fontsize2: 14,
-                ),
-              ],
+            ConnectingInfo(
+              icon: Icons.email,
+              text: "البريد الالكتروني",
+              subtext: "${charity.email}",
+              fontsize1: 10,
+            ),
+            SizedBox(height: 20),
+            ConnectingInfo(
+              icon: Icons.phone_android,
+              text: 'رقم التواصل',
+              subtext: '${charity.phoneNumber}',
+              fontsize2: 14,
             ),
             SizedBox(height: 20),
             Directionality(
@@ -170,11 +166,20 @@ class CharityDetailsView_body extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PymentoptionItem(image: "assets/Frame 390.png"),
+                PymentoptionItem(
+                  image: "assets/Frame 390.png",
+                  text: 'فودافون كاش',
+                ),
 
-                PymentoptionItem(image: "assets/Frame 390.png"),
+                PymentoptionItem(
+                  image: "assets/images/Frame 390 (3).png",
+                  text: 'انستا باي',
+                ),
 
-                PymentoptionItem(image: "assets/Frame 390.png"),
+                PymentoptionItem(
+                  image: "assets/images/Frame 390 (2).png",
+                  text: 'فيزا',
+                ),
               ],
             ),
             SizedBox(height: 20),

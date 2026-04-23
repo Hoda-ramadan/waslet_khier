@@ -28,53 +28,50 @@ class CasesViewBody_Charity extends StatelessWidget {
   final CharityModel charityModel;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: BlocBuilder<FeatchCasessCubitCubit, FeatchCasessCubitState>(
-        builder: (context, state) {
-          if (state is FeatchCassCubitLoading) {
-            return Center(
-              child: CircularProgressIndicator(value: 24, color: tintAppColor),
-            );
-          }
-          if (state is FeatchCasesCubitSucesses) {
-            final filteredCases = state.casee
-                .where((c) => c.charityId == charityModel.id)
-                .toList();
-            return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: filteredCases.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: SizedBox(
-                    width: 160,
-                    child: GestureDetector(
-                      onTap: () {
-                        context.go(
-                          '/cases/case_detals_view',
-                          extra: state.casee[index],
-                        );
-                      },
-                      child: Customstatecard(casee: state.casee[index]),
-                    ),
+    return BlocBuilder<FeatchCasessCubitCubit, FeatchCasessCubitState>(
+      builder: (context, state) {
+        if (state is FeatchCassCubitLoading) {
+          return Center(
+            child: CircularProgressIndicator(value: 24, color: tintAppColor),
+          );
+        }
+        if (state is FeatchCasesCubitSucesses) {
+          final filteredCases = state.casee
+              .where((c) => c.charityId == charityModel.id)
+              .toList();
+          return ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: filteredCases.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: SizedBox(
+                  width: 160,
+                  child: GestureDetector(
+                    onTap: () {
+                      context.go(
+                        '/cases/case_detals_view',
+                        extra: state.casee[index],
+                      );
+                    },
+                    child: Customstatecard(casee: state.casee[index]),
                   ),
-                );
-              },
-            );
-          }
-          if (state is FeatchCasesCubitFaild) {
-            return Center(
-              child: Text(
-                state.errorMessage.toString(),
-                style: TextStyle(fontSize: 24, color: Colors.grey),
-              ),
-            );
-          } else {
-            return Center(child: Text('UnExpected error'));
-          }
-        },
-      ),
+                ),
+              );
+            },
+          );
+        }
+        if (state is FeatchCasesCubitFaild) {
+          return Center(
+            child: Text(
+              state.errorMessage.toString(),
+              style: TextStyle(fontSize: 24, color: Colors.grey),
+            ),
+          );
+        } else {
+          return Center(child: Text('UnExpected error'));
+        }
+      },
     );
   }
 }

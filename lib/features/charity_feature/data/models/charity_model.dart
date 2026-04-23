@@ -55,8 +55,8 @@ class CharityModel {
     websiteUrl: json['websiteUrl'] as String?,
     isActive: json['isActive'] as bool?,
     totalProjectsCount: (json['totalProjectsCount'] as num?)?.toInt(), // ← fix
-    totalRaisedAmount: (json['totalRaisedAmount'] as num?)?.toInt(),   // ← fix
-    totalDonorsCount: (json['totalDonorsCount'] as num?)?.toInt(),     // ← fix
+    totalRaisedAmount: (json['totalRaisedAmount'] as num?)?.toInt(), // ← fix
+    totalDonorsCount: (json['totalDonorsCount'] as num?)?.toInt(), // ← fix
   );
 
   Map<String, dynamic> toJson() => {

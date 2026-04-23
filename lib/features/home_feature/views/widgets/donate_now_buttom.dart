@@ -10,7 +10,7 @@ class DonateNowButtom extends StatelessWidget {
   final CaseModel caseModel;
   const DonateNowButtom({
     super.key,
-    this.width = 118,
+    this.width = 100,
     this.height = 36,
     required this.fontSize,
     required this.caseModel,

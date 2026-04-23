@@ -18,7 +18,10 @@ class CharityPageBody extends StatelessWidget {
             SliverToBoxAdapter(
               child: SizedBox(
                 height: 600,
-                child: Listofcharitys(icon: Icons.arrow_forward_ios_outlined),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 100),
+                  child: Listofcharitys(icon: Icons.arrow_forward_ios_outlined),
+                ),
               ),
             ),
           ],

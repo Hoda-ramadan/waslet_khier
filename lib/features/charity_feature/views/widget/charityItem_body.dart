@@ -23,10 +23,17 @@ class charityitem_body extends StatelessWidget {
         padding: const EdgeInsets.only(right: 10),
         child: Row(
           children: [
-            // ✅ شيل الـ !
             CharityIcon(charityimage: charityModel.logoUrl ?? ''),
             const SizedBox(width: 15),
-            Text(charityModel.name ?? '', style: const TextStyle(fontSize: 18)),
+            Expanded(
+              child: Text(
+                charityModel.name ?? '',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+
+                style: const TextStyle(fontSize: 18),
+              ),
+            ),
             const SizedBox(width: 25),
             const Spacer(),
             IconButton(

@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/charity_feature/data/models/category_model/category_madel2/category_madel2.dart';
 
@@ -10,15 +12,43 @@ import 'package:waslet_khier/features/charity_feature/views/widget/customItemCat
 import 'package:waslet_khier/features/home_feature/views/widgets/build_place_holder.dart';
 import 'package:waslet_khier/features/home_feature/views/widgets/donate_now_buttom.dart';
 
-class CategoryView_body extends StatelessWidget {
+class CategoryView_body extends StatefulWidget {
   const CategoryView_body({
     super.key,
     required this.categoryId,
-
     required this.categoryMadel,
   });
   final int categoryId;
   final CategoryMadel categoryMadel;
+
+  @override
+  State<CategoryView_body> createState() => _CategoryView_bodyState();
+}
+
+class _CategoryView_bodyState extends State<CategoryView_body> {
+  List<CaseModel> _cases = [];
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchCases();
+  }
+
+  Future<void> _fetchCases() async {
+    try {
+      final data = await ApiService(
+        Dio(),
+      ).get(endPoint: '/Case/category/${widget.categoryId}');
+      final list = data as List;
+      setState(() {
+        _cases = list.map((e) => CaseModel.fromJson(e)).toList();
+        _loading = false;
+      });
+    } catch (_) {
+      setState(() => _loading = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +66,11 @@ class CategoryView_body extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          cstomItem(category: categoryMadel),
+          cstomItem(category: widget.categoryMadel),
           const SizedBox(height: 20),
-          Expanded(child: CustomGridView(cases: const [])),
+          _loading
+              ? const Center(child: CircularProgressIndicator(color: appcolor))
+              : Expanded(child: CustomGridView(cases: _cases)),
         ],
       ),
     );

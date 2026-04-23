@@ -72,10 +72,7 @@ class CustomAiCard extends StatelessWidget {
                     const SizedBox(width: 4),
                     const Text(
                       ':الجمعية',
-                      style: TextStyle(
-                        color: Color(0xFF686B6A),
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: Color(0xFF686B6A), fontSize: 12),
                     ),
                   ],
                 ),

@@ -16,16 +16,12 @@ class Custom2AppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: backGroundColor,
       elevation: 0,
-      automaticallyImplyLeading: false,
-      systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: Color.fromRGBO(58, 0, 101, 1),
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: appcolor,
         statusBarIconBrightness: Brightness.light,
       ),
       leading: Center(
-        child: GestureDetector(
-          onTap: function,
-          child: Custom_arrow(),
-        ),
+        child: GestureDetector(onTap: function, child: Custom_arrow()),
       ),
       title: const Center(
         child: Text(

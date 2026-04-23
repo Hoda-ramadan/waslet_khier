@@ -39,13 +39,17 @@ import 'package:waslet_khier/features/splash_feature/views/splash_view.dart'; //
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 CharityModel _toCharity(Object? extra) {
+  print('>>> extra type: ${extra?.runtimeType}');
+  print('>>> extra value: $extra');
   if (extra is CharityModel) return extra;
-  return CharityModel.fromJson(Map<String, dynamic>.from(extra as Map));
+  if (extra is Map) return CharityModel.fromJson(Map<String, dynamic>.from(extra));
+  return CharityModel(); // ← this is the silent failure
 }
 
 CaseModel _toCase(Object? extra) {
   if (extra is CaseModel) return extra;
-  return CaseModel.fromJson(Map<String, dynamic>.from(extra as Map));
+  if (extra is Map) return CaseModel.fromJson(Map<String, dynamic>.from(extra));
+  return CaseModel();
 }
 
 Widget _caseDetailsWithCubit(CaseModel casee) {
@@ -80,10 +84,7 @@ final GoRouter appRouter = GoRouter(
 
   routes: [
     // ── SPLASH ──────────────────────────────────────────────────────────────
-    GoRoute(
-      path: '/splash',
-      builder: (context, state) => const SplashView(),
-    ),
+    GoRoute(path: '/splash', builder: (context, state) => const SplashView()),
 
     // ── ADMIN ─────────────────────────────────────────────────────────────────
     GoRoute(
@@ -176,16 +177,12 @@ final GoRouter appRouter = GoRouter(
                   routes: [
                     GoRoute(
                       path: 'Category/:categoryId',
+                      parentNavigatorKey: _rootNavigatorKey, // ← أضيفي ده
                       builder: (context, state) {
-                        final categoryId = int.parse(
-                          state.pathParameters['categoryId']!,
-                        );
-                        final categoryMadel = state.extra != null
-                            ? state.extra as CategoryMadel
-                            : CategoryMadel();
+                        final categoryModel = state.extra as CategoryMadel;
                         return Categoryview(
-                          categoryId: categoryId,
-                          categoryMadel: categoryMadel,
+                          categoryId: categoryModel.id ?? 0,
+                          categoryMadel: categoryModel,
                         );
                       },
                     ),
@@ -277,8 +274,7 @@ final GoRouter appRouter = GoRouter(
                           routes: [
                             GoRoute(
                               path: 'ChangepasswordView',
-                              builder: (context, state) =>
-                                  ChangepasswordView(),
+                              builder: (context, state) => ChangepasswordView(),
                             ),
                           ],
                         ),

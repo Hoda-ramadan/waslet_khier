@@ -38,14 +38,6 @@ class customappbar extends StatelessWidget {
                 fontFamily: "Roboto",
               ),
             ),
-
-            if (text == "تفاصيل الجمعية") ...[
-              Spacer(),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.favorite, color: Colors.red, size: 30),
-              ),
-            ],
           ],
         ),
       ),

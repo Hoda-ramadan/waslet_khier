@@ -13,24 +13,26 @@ class CardOfCharity extends StatelessWidget {
   final String charitydata;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 91,
-      decoration: BoxDecoration(
-        border: Border.all(color: tintAppColor),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: tintAppColor),
-            Text(charitydata, style: TextStyle(fontWeight: FontWeight.w600)),
-            Text(
-              charitydataType,
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ),
-          ],
+    return Expanded(
+      child: Container(
+        width: 104,
+        height: 91,
+        decoration: BoxDecoration(
+          border: Border.all(color: tintAppColor),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: tintAppColor),
+              Text(charitydata, style: TextStyle(fontWeight: FontWeight.w600)),
+              Text(
+                charitydataType,
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
         ),
       ),
     );
