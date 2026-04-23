@@ -5,14 +5,15 @@ import 'package:waslet_khier/featureAuth/Forgetpassword/data/repo/forgetpassword
 class ResetpasswordCubit extends Cubit<ForgetPasswordState> {
   final ResetpasswordRepo repo;
   String verifyToken = '';
-  String savedEmail = ''; // ✅ احفظي الإيميل هنا
+  String savedEmail = ''; // ✅ ضيفي
+  String savedCode = ''; // ✅ ضيفي
 
   ResetpasswordCubit(this.repo) : super(ForgetPasswordInitial());
 
   Future<void> sendEmail(String email) async {
     emit(ForgetPasswordLoading());
     try {
-      savedEmail = email; // ✅ احفظي الإيميل
+      savedEmail = email; // ✅ احفظي
       final result = await repo.sendEmail(email: email);
       emit(ForgetPasswordSuccess(result));
     } catch (e) {
@@ -23,10 +24,8 @@ class ResetpasswordCubit extends Cubit<ForgetPasswordState> {
   Future<void> verifyCode(String code) async {
     emit(VerifyCodeLoading());
     try {
-      final token = await repo.verifyCode(
-        code: code,
-        email: savedEmail,
-      ); // ✅ بعتي الإيميل
+      savedCode = code; // ✅ احفظي
+      final token = await repo.verifyCode(code: code, email: savedEmail);
       verifyToken = token;
       emit(VerifyCodeSuccess(token));
     } catch (e) {
@@ -40,12 +39,15 @@ class ResetpasswordCubit extends Cubit<ForgetPasswordState> {
   }) async {
     emit(ChangePasswordLoading());
     try {
-      final model = await repo.changePassword(
+      final message = await repo.changePassword(
+        // ✅ String مش Model
         newPassword: newPassword,
         confirmPassword: confirmPassword,
         token: verifyToken,
+        email: savedEmail,
+        code: savedCode,
       );
-      emit(ChangePasswordSuccess(model.message));
+      emit(ChangePasswordSuccess(message));
     } catch (e) {
       emit(ChangePasswordFailure(e.toString().replaceAll('Exception: ', '')));
     }

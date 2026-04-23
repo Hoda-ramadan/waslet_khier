@@ -37,20 +37,29 @@ class ResetpasswordRepo {
     return '';
   }
 
-  Future<ChangePassModel> changePassword({
+  Future<String> changePassword({
     required String newPassword,
     required String confirmPassword,
     required String token,
+    required String email,
+    required String code,
   }) async {
     final response = await apiService.post(
       endPoint: '/User/ResetPassword',
       data: {
-        'newPassword': newPassword,
-        'confirmPassword': confirmPassword,
-        'token': token,
+        'NewPassword': newPassword,
+        'ConfirmPassword': confirmPassword,
+        'Token': token,
+        'Email': email,
+        'Code': code,
       },
+      headers: {'Content-Type': 'application/json'},
     );
 
-    return ChangePassModel.fromJson(response.data as Map<String, dynamic>);
+    // ✅ الـ API بيرجع String مباشرةً
+    final data = response.data;
+    if (data is String) return data;
+    if (data is Map<String, dynamic>) return data['message'] ?? 'تم التغيير';
+    return 'تم التغيير';
   }
 }

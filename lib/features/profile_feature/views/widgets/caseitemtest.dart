@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
@@ -30,7 +31,15 @@ class CaseItemTest extends StatelessWidget {
             itemCount: state.favorit.length,
             itemBuilder: (context, i) {
               final item = state.favorit[i];
-              return favitemtext(item: item);
+              return GestureDetector(
+                onTap: () {
+                  context.push(
+                    '/cases/case_detals_view',
+                    extra: state.favorit[i],
+                  );
+                },
+                child: favitemtext(item: item),
+              );
             },
           );
         }

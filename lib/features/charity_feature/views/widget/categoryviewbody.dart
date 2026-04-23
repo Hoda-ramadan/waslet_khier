@@ -89,10 +89,15 @@ class CustomGridView extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        childAspectRatio: 0.7,
+        childAspectRatio: 0.60,
       ),
       itemBuilder: (context, index) {
-        return StatesCard(casee: cases[index]);
+        return GestureDetector(
+          onTap: () {
+            context.push('/cases/case_detals_view', extra: cases[index]);
+          },
+          child: StatesCard(casee: cases[index]),
+        );
       },
     );
   }
@@ -135,12 +140,12 @@ class StatesCard extends StatelessWidget {
             child: casee.coverImageUrl != null
                 ? Image.network(
                     casee.coverImageUrl!,
-                    height: 70,
+                    height: 130,
                     width: double.infinity,
                     fit: BoxFit.cover,
                     errorBuilder: (_, __, ___) => buildPlaceholder(
                       isLoading: false,
-                      hight: 70,
+                      hight: 110,
                       border: 0,
                     ),
                     loadingBuilder: (context, child, loadingProgress) {

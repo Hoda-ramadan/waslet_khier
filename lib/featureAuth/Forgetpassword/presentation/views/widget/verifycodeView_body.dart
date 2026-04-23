@@ -94,7 +94,16 @@ class _VerifyCodeBodyState extends State<VerifyCodeBody> {
               const SizedBox(height: 10),
               GestureDetector(
                 onTap: () {
-                  // TODO: اعد الارسال
+                  // ✅ امسحي الـ controllers وابعتي الإيميل تاني
+                  for (var c in controllers) {
+                    c.clear();
+                  }
+                  context.read<ResetpasswordCubit>().sendEmail(
+                    context.read<ResetpasswordCubit>().savedEmail,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('تم إعادة إرسال الكود')),
+                  );
                 },
                 child: const Text(
                   "لم يصلك الرمز ؟ اعد الارسال",
