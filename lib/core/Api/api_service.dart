@@ -217,6 +217,21 @@ class ApiService {
     }
   }
 
+  Future<dynamic> getWithToken({
+    required String endPoint,
+    required String token,
+  }) async {
+    try {
+      var response = await dio.get(
+        baseurl + endPoint,
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    }
+  }
+
   Exception _handleDioError(DioException e) {
     switch (e.type) {
       case DioExceptionType.connectionTimeout:

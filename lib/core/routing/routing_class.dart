@@ -30,6 +30,7 @@ import 'package:waslet_khier/features/charity_feature/views/widget/categoryView.
 import 'package:waslet_khier/features/home_feature/views/home_page.dart';
 import 'package:waslet_khier/features/home_feature/views/zakat_view.dart';
 import 'package:waslet_khier/features/main_feature/views/main_view.dart';
+import 'package:waslet_khier/features/notification_featur/view/notifi_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/profile_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/aboutApp_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/favioritCases.dart';
@@ -139,6 +140,10 @@ final GoRouter appRouter = GoRouter(
               path: '/home',
               builder: (context, state) => HomePage(),
               routes: [
+                GoRoute(
+                  path: 'notification',
+                  builder: (context, state) => NotificationView(),
+                ),
                 GoRoute(
                   path: 'case_detals_view',
                   parentNavigatorKey: _rootNavigatorKey,

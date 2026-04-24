@@ -41,6 +41,7 @@ class AuthProvider_info extends ChangeNotifier {
 
     if (_donor != null) {
       await prefs.setInt('donorId', _donor!.id);
+      await prefs.setString('donorUserId', donor?.userId ?? '');
       await prefs.setString('donorFirstName', _donor!.firstName);
       await prefs.setString('donorLastName', _donor!.lastName);
       await prefs.setString('donorEmail', _donor!.email);
@@ -89,6 +90,7 @@ class AuthProvider_info extends ChangeNotifier {
       if (firstName != null && firstName.isNotEmpty) {
         _donor = DonorModel(
           id: prefs.getInt('donorId') ?? 0,
+          userId: prefs.getString('donorUserId'),
           firstName: firstName,
           lastName: prefs.getString('donorLastName') ?? '',
           email: prefs.getString('donorEmail') ?? '',

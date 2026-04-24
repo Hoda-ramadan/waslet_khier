@@ -47,6 +47,7 @@ class LoginResponse extends Equatable {
 
 class DonorModel {
   final int id;
+  final String? userId; // ✅ ضيفي userId
   final String firstName;
   final String lastName;
   final String email;
@@ -55,6 +56,7 @@ class DonorModel {
 
   DonorModel({
     required this.id,
+    this.userId, // ✅
     required this.firstName,
     required this.lastName,
     required this.email,
@@ -64,6 +66,7 @@ class DonorModel {
 
   factory DonorModel.fromJson(Map<String, dynamic> json) => DonorModel(
     id: json['id'] ?? 0,
+    userId: json['userId']?.toString(), // ✅
     firstName: json['firstName'] ?? '',
     lastName: json['lastName'] ?? '',
     email: json['email'] ?? '',
