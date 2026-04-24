@@ -119,19 +119,19 @@ class _PersoninfoView_bodyState extends State<PersoninfoView_body> {
 
             // 💾 Save Button
             Custombuttom(
-              onPressed: () {
+              onPressed: () async {
                 final updatedDonor = DonorModel(
                   id: donor.id,
                   firstName: firstNameController.text.trim(),
                   lastName: lastNameController.text.trim(),
                   email: emailController.text.trim(),
                   phoneNumber: phoneController.text.trim(),
-                  imageUrl: donor.imageUrl, // ✅ keep original
+                  imageUrl: donor.imageUrl,
                 );
 
-                context.read<AuthProvider_info>().setAuthData(
-                  token: provider.token,
-                  donor: updatedDonor,
+                // ✅ استخدمي الفانكشن الجديدة
+                await context.read<AuthProvider_info>().updateDonorLocally(
+                  updatedDonor,
                 );
 
                 ScaffoldMessenger.of(context).showSnackBar(

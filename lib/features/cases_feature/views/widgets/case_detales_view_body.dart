@@ -26,7 +26,6 @@ class CaseDetalesViewBody extends StatefulWidget {
 }
 
 class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
-  // local copy so we can update UI after donation
   late CaseModel _currentCase;
 
   @override
@@ -44,16 +43,8 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
     context.read<Favcubit>().getfav(donorId);
   }
 
-  // called after successful donation to re-fetch updated case data
   Future<void> _refreshCase() async {
-    try {
-      await context
-          .read<FeatchCasessCubitCubit>()
-          .featchCasess(); // re-fetch all cases
-      // if your cubit has a fetch-by-id method use it instead:
-      // final updated = await repo.getCaseById(_currentCase.id!);
-      // setState(() => _currentCase = updated);
-    } catch (_) {}
+    await context.read<FeatchCasessCubitCubit>().featchCasess();
   }
 
   @override
@@ -71,167 +62,182 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
         ? c.endDate!.difference(DateTime.now()).inDays
         : 0;
 
-    return RefreshIndicator(
-      color: tintAppColor,
-      onRefresh: _refreshCase, // pull to refresh
-      child: ListView(
-        padding: const EdgeInsets.all(22),
-        children: [
-          DetalsViewCaseImage(image: c.coverImageUrl ?? ''),
-          const SizedBox(height: 12),
+    // ✅ الإضافة الوحيدة: BlocListener يسمع لما الـ cases تتحدث
+    return BlocListener<FeatchCasessCubitCubit, FeatchCasessCubitState>(
+      listener: (context, state) {
+        if (state is FeatchCasesCubitSucesses) {
+          final updated = state.casee.firstWhere(
+            (c) => c.id == _currentCase.id,
+            orElse: () => _currentCase,
+          );
+          if (mounted) setState(() => _currentCase = updated);
+        }
+      },
+      child: RefreshIndicator(
+        color: tintAppColor,
+        onRefresh: _refreshCase,
+        child: ListView(
+          padding: const EdgeInsets.all(22),
+          children: [
+            DetalsViewCaseImage(image: c.coverImageUrl ?? ''),
+            const SizedBox(height: 12),
 
-          if (c.priority != null || c.status != null)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (c.priority != null) StatesTaps(casePority: c.priority!),
-                if (c.status != null) ...[
-                  const SizedBox(width: 8),
-                  Chip(
-                    label: Text(
-                      c.status!,
-                      style: const TextStyle(fontSize: 11, color: Colors.white),
+            if (c.priority != null || c.status != null)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (c.priority != null) StatesTaps(casePority: c.priority!),
+                  if (c.status != null) ...[
+                    const SizedBox(width: 8),
+                    Chip(
+                      label: Text(
+                        c.status!,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: Colors.white,
+                        ),
+                      ),
+                      backgroundColor: tintAppColor,
+                      padding: EdgeInsets.zero,
                     ),
-                    backgroundColor: tintAppColor,
-                    padding: EdgeInsets.zero,
-                  ),
+                  ],
                 ],
+              ),
+            const SizedBox(height: 12),
+
+            Center(child: TitleText(caseName: c.title ?? 'بدون عنوان')),
+            const SizedBox(height: 4),
+
+            if (c.beneficiaryName != null)
+              Center(
+                child: Text(
+                  'المستفيد: ${c.beneficiaryName}',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey.shade600,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+
+            if (c.age != null)
+              Center(
+                child: Text(
+                  'العمر: ${c.age} سنة',
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
+                ),
+              ),
+
+            if (c.categoryName != null)
+              Center(
+                child: Text(
+                  'التصنيف: ${c.categoryName}',
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
+                ),
+              ),
+
+            const SizedBox(height: 16),
+
+            StauseRow(
+              remaindMoney: remaining,
+              personCount: c.donorsCount ?? 0,
+              endDate: remainingDays,
+            ),
+            const SizedBox(height: 8),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'تم جمع $percentage%',
+                  style: TextStyle(color: tintAppColor, fontSize: 12),
+                ),
+                Text(
+                  'المطلوب: $target ج.م',
+                  style: TextStyle(color: tintAppColor, fontSize: 12),
+                ),
               ],
             ),
-          const SizedBox(height: 12),
+            const SizedBox(height: 4),
 
-          Center(child: TitleText(caseName: c.title ?? 'بدون عنوان')),
-          const SizedBox(height: 4),
-
-          if (c.beneficiaryName != null)
-            Center(
-              child: Text(
-                'المستفيد: ${c.beneficiaryName}',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.grey.shade600,
-                  fontWeight: FontWeight.w500,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'تم جمع: $collected ج.م',
+                  style: TextStyle(
+                    color: Colors.green.shade600,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-            ),
-
-          if (c.age != null)
-            Center(
-              child: Text(
-                'العمر: ${c.age} سنة',
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
-              ),
-            ),
-
-          if (c.categoryName != null)
-            Center(
-              child: Text(
-                'التصنيف: ${c.categoryName}',
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
-              ),
-            ),
-
-          const SizedBox(height: 16),
-
-          StauseRow(
-            remaindMoney: remaining,
-            personCount: c.donorsCount ?? 0,
-            endDate: remainingDays,
-          ),
-          const SizedBox(height: 8),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'تم جمع $percentage%',
-                style: TextStyle(color: tintAppColor, fontSize: 12),
-              ),
-              Text(
-                'المطلوب: $target ج.م',
-                style: TextStyle(color: tintAppColor, fontSize: 12),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'تم جمع: $collected ج.م',
-                style: TextStyle(
-                  color: Colors.green.shade600,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
+                Text(
+                  'المتبقي: ${remaining.toStringAsFixed(0)} ج.م',
+                  style: const TextStyle(color: Colors.redAccent, fontSize: 12),
                 ),
+              ],
+            ),
+            const SizedBox(height: 6),
+
+            ProgressBarWithLabel(progress: progress),
+            const SizedBox(height: 16),
+
+            if (c.endDate != null)
+              _InfoRow(
+                icon: Icons.calendar_today_outlined,
+                label: 'تاريخ الانتهاء',
+                value:
+                    '${c.endDate!.day}/${c.endDate!.month}/${c.endDate!.year}',
               ),
-              Text(
-                'المتبقي: ${remaining.toStringAsFixed(0)} ج.م',
-                style: const TextStyle(color: Colors.redAccent, fontSize: 12),
+
+            if (c.createdAt != null)
+              _InfoRow(
+                icon: Icons.access_time,
+                label: 'تاريخ الإنشاء',
+                value:
+                    '${c.createdAt!.day}/${c.createdAt!.month}/${c.createdAt!.year}',
               ),
-            ],
-          ),
-          const SizedBox(height: 6),
 
-          ProgressBarWithLabel(progress: progress),
-          const SizedBox(height: 16),
+            const SizedBox(height: 8),
 
-          if (c.endDate != null)
-            _InfoRow(
-              icon: Icons.calendar_today_outlined,
-              label: 'تاريخ الانتهاء',
-              value: '${c.endDate!.day}/${c.endDate!.month}/${c.endDate!.year}',
+            const Center(
+              child: Text(
+                'وصف الحالة',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
-
-          if (c.createdAt != null)
-            _InfoRow(
-              icon: Icons.access_time,
-              label: 'تاريخ الإنشاء',
-              value:
-                  '${c.createdAt!.day}/${c.createdAt!.month}/${c.createdAt!.year}',
+            const SizedBox(height: 6),
+            _DescriptionText(description: c.description),
+            const SizedBox(height: 15),
+            BlocBuilder<CharityDetealsCubit, CharityState>(
+              builder: (context, state) {
+                if (state is CharityDetailsLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (state is CharityDetailsSuccess) {
+                  return CharityItem(
+                    charityModel: state.charity,
+                    icon: Icons.arrow_forward_ios,
+                  );
+                }
+                if (state is CharityDetailsFaild) {
+                  return Text(state.error);
+                }
+                return const SizedBox();
+              },
             ),
+            const SizedBox(height: 20),
 
-          const SizedBox(height: 8),
-
-          const Center(
-            child: Text(
-              'وصف الحالة',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                _HeartButton(caseId: c.id ?? 0),
+                const SizedBox(width: 30),
+                Expanded(child: DonateNowButtom(fontSize: 22, caseModel: c)),
+              ],
             ),
-          ),
-          const SizedBox(height: 6),
-          _DescriptionText(description: c.description),
-          const SizedBox(height: 15),
-
-          BlocBuilder<CharityDetealsCubit, CharityState>(
-            builder: (context, state) {
-              if (state is CharityDetailsLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (state is CharityDetailsSuccess) {
-                return CharityItem(
-                  charityModel: state.charity,
-                  icon: Icons.arrow_forward_ios,
-                );
-              }
-              if (state is CharityDetailsFaild) {
-                return Text(state.error);
-              }
-              return const SizedBox();
-            },
-          ),
-          const SizedBox(height: 20),
-
-          Row(
-            children: [
-              _HeartButton(caseId: c.id ?? 0),
-              const SizedBox(width: 30),
-              Expanded(child: DonateNowButtom(fontSize: 22, caseModel: c)),
-            ],
-          ),
-          const SizedBox(height: 24),
-        ],
+            const SizedBox(height: 24),
+          ],
+        ),
       ),
     );
   }

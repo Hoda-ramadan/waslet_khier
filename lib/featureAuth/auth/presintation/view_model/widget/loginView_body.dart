@@ -11,6 +11,7 @@ import 'package:waslet_khier/featureAuth/auth/data/login_response_repo.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/check_haveing_acc.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/rememberme.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 
 class LoginviewBody extends StatelessWidget {
@@ -126,17 +127,9 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                           style: TextStyle(color: appcolor, fontSize: 13),
                         ),
                       ),
-                      Row(
-                        children: [
-                          const Text('تذكرني', style: TextStyle(fontSize: 13)),
-                          Checkbox(
-                            value: _rememberMe,
-                            activeColor: appcolor,
-                            onChanged: (val) {
-                              setState(() => _rememberMe = val ?? false);
-                            },
-                          ),
-                        ],
+                      RememberMe(
+                        emailController: emailController,
+                        passwordController: passwordController,
                       ),
                     ],
                   ),
