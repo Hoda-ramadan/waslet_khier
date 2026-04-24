@@ -7,10 +7,10 @@ class NotificationCubit extends Cubit<NotificationState> {
 
   NotificationCubit(this.repo) : super(NotificationInitial());
 
-  Future<void> getNotifications(String userId) async {
+  Future<void> getNotifications(int donorId) async {
     emit(NotificationLoading());
     try {
-      final result = await repo.getNotifications(userId);
+      final result = await repo.getNotifications(donorId);
       emit(NotificationSuccess(notifications: result));
     } catch (e) {
       emit(
@@ -23,11 +23,11 @@ class NotificationCubit extends Cubit<NotificationState> {
 
   Future<void> deleteNotification({
     required int notificationId,
-    required String userId,
+    required int donorId,
   }) async {
     try {
       await repo.deleteNotification(notificationId);
-      await getNotifications(userId);
+      await getNotifications(donorId);
     } catch (e) {
       emit(
         NotificationFailure(

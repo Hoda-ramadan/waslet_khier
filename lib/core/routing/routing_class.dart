@@ -9,6 +9,7 @@ import 'package:waslet_khier/featureAuth/Forgetpassword/data/repo/forgetpassword
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/changepassword_view.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/forget_password_view.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/verifycode_view.dart';
+import 'package:waslet_khier/featureAuth/auth/data/models/login_response_model.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/login_view.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
@@ -27,6 +28,7 @@ import 'package:waslet_khier/features/charity_feature/data/repo/charity_repo.dar
 import 'package:waslet_khier/features/charity_feature/views/charity_detels_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/charity_view.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/categoryView.dart';
+import 'package:waslet_khier/features/donation_feature/data/models/donation_model.dart';
 import 'package:waslet_khier/features/home_feature/views/home_page.dart';
 import 'package:waslet_khier/features/home_feature/views/zakat_view.dart';
 import 'package:waslet_khier/features/main_feature/views/main_view.dart';
@@ -142,7 +144,11 @@ final GoRouter appRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: 'notification',
-                  builder: (context, state) => NotificationView(),
+                  builder: (context, state) {
+                    final donor =
+                        state.extra as DonorModel; // ✅ DonorModel كامل
+                    return NotificationView(donor: donor);
+                  },
                 ),
                 GoRoute(
                   path: 'case_detals_view',

@@ -61,8 +61,9 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
 
     final double target = (c.targetAmount ?? 1).toDouble();
     final double collected = (c.collectedAmount ?? 0).toDouble();
-    final double progress =
-        target == 0 ? 0 : (collected / target).clamp(0.0, 1.0);
+    final double progress = target == 0
+        ? 0
+        : (collected / target).clamp(0.0, 1.0);
     final double remaining = (target - collected).clamp(0, double.infinity);
     final int percentage = (progress * 100).toInt();
     final int remainingDays = c.endDate != null
@@ -88,8 +89,7 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
                   Chip(
                     label: Text(
                       c.status!,
-                      style: const TextStyle(
-                          fontSize: 11, color: Colors.white),
+                      style: const TextStyle(fontSize: 11, color: Colors.white),
                     ),
                     backgroundColor: tintAppColor,
                     padding: EdgeInsets.zero,
@@ -118,8 +118,7 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
             Center(
               child: Text(
                 'العمر: ${c.age} سنة',
-                style:
-                    TextStyle(fontSize: 12, color: Colors.grey.shade500),
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
               ),
             ),
 
@@ -127,8 +126,7 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
             Center(
               child: Text(
                 'التصنيف: ${c.categoryName}',
-                style:
-                    TextStyle(fontSize: 12, color: Colors.grey.shade500),
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
               ),
             ),
 
@@ -169,8 +167,7 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
               ),
               Text(
                 'المتبقي: ${remaining.toStringAsFixed(0)} ج.م',
-                style:
-                    const TextStyle(color: Colors.redAccent, fontSize: 12),
+                style: const TextStyle(color: Colors.redAccent, fontSize: 12),
               ),
             ],
           ),
@@ -183,8 +180,7 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
             _InfoRow(
               icon: Icons.calendar_today_outlined,
               label: 'تاريخ الانتهاء',
-              value:
-                  '${c.endDate!.day}/${c.endDate!.month}/${c.endDate!.year}',
+              value: '${c.endDate!.day}/${c.endDate!.month}/${c.endDate!.year}',
             ),
 
           if (c.createdAt != null)
@@ -200,8 +196,7 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
           const Center(
             child: Text(
               'وصف الحالة',
-              style:
-                  TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(height: 6),
@@ -235,11 +230,7 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
                 width: 280,
                 height: 50,
                 // ← pass onDonationSuccess callback
-                child: DonateNowButtom(
-                  fontSize: 22,
-                  caseModel: c,
-                 
-                ),
+                child: DonateNowButtom(fontSize: 22, caseModel: c),
               ),
             ],
           ),
@@ -274,10 +265,7 @@ class _InfoRow extends StatelessWidget {
           ),
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
           ),
         ],
       ),

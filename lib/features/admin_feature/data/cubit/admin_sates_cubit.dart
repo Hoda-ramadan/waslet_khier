@@ -1,17 +1,17 @@
 import 'dart:typed_data';
- 
+
 import 'package:bloc/bloc.dart';
 import 'package:waslet_khier/features/admin_feature/data/create_case_model.dart';
 import 'package:waslet_khier/features/admin_feature/data/create_case_request_model.dart';
 import '../repo/admin_repo.dart';
 import 'admin_states.dart';
- 
+
 class AdminCubit extends Cubit<AdminState> {
   final AdminRepo repo;
   final int charityId;
- 
+
   AdminCubit(this.repo, {required this.charityId}) : super(AdminInitial());
- 
+
   Future<void> loadDashboard() async {
     emit(AdminLoading());
     try {
@@ -21,15 +21,15 @@ class AdminCubit extends Cubit<AdminState> {
       emit(AdminFailure(e.toString()));
     }
   }
- void removeCaseById(int caseId) {
-  final current = state;
-  if (current is AdminCasesSuccess) {
-    final updated = current.cases
-        .where((c) => c.id != caseId)
-        .toList();
-    emit(AdminCasesSuccess(cases: updated));
+
+  void removeCaseById(int caseId) {
+    final current = state;
+    if (current is AdminCasesSuccess) {
+      final updated = current.cases.where((c) => c.id != caseId).toList();
+      emit(AdminCasesSuccess(cases: updated));
+    }
   }
-}
+
   Future<void> loadCases(int charityId) async {
     emit(AdminCasesLoading());
     try {
@@ -39,7 +39,7 @@ class AdminCubit extends Cubit<AdminState> {
       emit(AdminCasesFailure(e.toString()));
     }
   }
- 
+
   Future<void> createCase({
     required CreateCaseRequestModel request,
     // Mobile
@@ -54,13 +54,13 @@ class AdminCubit extends Cubit<AdminState> {
     emit(CreateCaseLoading());
     try {
       final message = await repo.createCase(
-        request:          request,
-        coverImagePath:   coverImagePath,
-        attachmentPaths:  attachmentPaths,
-        coverImageBytes:  coverImageBytes,
-        coverImageName:   coverImageName,
-        attachmentBytes:  attachmentBytes,
-        attachmentNames:  attachmentNames,
+        request: request,
+        coverImagePath: coverImagePath,
+        attachmentPaths: attachmentPaths,
+        coverImageBytes: coverImageBytes,
+        coverImageName: coverImageName,
+        attachmentBytes: attachmentBytes,
+        attachmentNames: attachmentNames,
       );
       emit(CreateCaseSuccess(message));
       await loadDashboard();

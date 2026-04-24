@@ -49,20 +49,23 @@ class _VisaDialogState extends State<VisaDialog> {
                 children: [
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child:
-                        const Icon(Icons.close, color: Colors.red, size: 22),
+                    child: const Icon(Icons.close, color: Colors.red, size: 22),
                   ),
                   Row(
                     children: [
                       const Text(
                         "الدفع بالبطاقة",
                         style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 6),
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.blue.shade50,
                           borderRadius: BorderRadius.circular(8),
@@ -104,8 +107,11 @@ class _VisaDialogState extends State<VisaDialog> {
               // رقم البطاقة
               _buildLabel("رقم البطاقة"),
               const SizedBox(height: 6),
-              _buildTextField(_cardController, "4356 XXXX XXXX 1342",
-                  keyboardType: TextInputType.number),
+              _buildTextField(
+                _cardController,
+                "4356 XXXX XXXX 1342",
+                keyboardType: TextInputType.number,
+              ),
 
               const SizedBox(height: 12),
 
@@ -118,9 +124,12 @@ class _VisaDialogState extends State<VisaDialog> {
                       children: [
                         _buildLabel("CVV"),
                         const SizedBox(height: 6),
-                        _buildTextField(_cvvController, "***",
-                            obscure: true,
-                            keyboardType: TextInputType.number),
+                        _buildTextField(
+                          _cvvController,
+                          "***",
+                          obscure: true,
+                          keyboardType: TextInputType.number,
+                        ),
                       ],
                     ),
                   ),
@@ -153,8 +162,10 @@ class _VisaDialogState extends State<VisaDialog> {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
-                      child: const Text("إغلاق",
-                          style: TextStyle(color: Colors.black87)),
+                      child: const Text(
+                        "إغلاق",
+                        style: TextStyle(color: Colors.black87),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -172,8 +183,11 @@ class _VisaDialogState extends State<VisaDialog> {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
-                      icon: const Icon(Icons.credit_card,
-                          color: Colors.white, size: 18),
+                      icon: const Icon(
+                        Icons.credit_card,
+                        color: Colors.white,
+                        size: 18,
+                      ),
                       label: const Text(
                         "ادفع الآن",
                         style: TextStyle(color: Colors.white),
@@ -278,8 +292,10 @@ class _VisaDialogState extends State<VisaDialog> {
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: TextStyle(fontSize: 13, color: Colors.grey.shade400),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: Colors.grey.shade300),

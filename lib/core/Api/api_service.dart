@@ -47,6 +47,15 @@ class ApiService {
     }
   }
 
+  // ✅ تمت الإضافة: delete method مطلوبة لحذف الإشعارات
+  Future<void> delete({required String endPoint}) async {
+    try {
+      await dio.delete(baseurl + endPoint);
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    }
+  }
+
   Future<Response> postRegister({
     required String endPoint,
     dynamic data,

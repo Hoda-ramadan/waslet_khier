@@ -10,7 +10,7 @@ import 'package:waslet_khier/features/charity_feature/data/repo/categoryrepo.dar
 import 'package:waslet_khier/features/charity_feature/data/repo/charity_repo.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/charity_details_body.dart';
 import 'package:waslet_khier/features/charity_feature/views/widget/custom_app_Bar.dart';
- 
+
 class CharityDetelsView extends StatefulWidget {
   const CharityDetelsView({super.key, required this.charity});
   final CharityModel charity;
@@ -41,8 +41,9 @@ class _CharityDetelsViewState extends State<CharityDetelsView> {
       providers: [
         BlocProvider.value(value: _detealsCubit),
         BlocProvider(
-          create: (_) => Categorycubit(Categoryrepo(ApiService(Dio())))
-            ..getCategoriesByCharity(widget.charity.id ?? 0),
+          create: (_) =>
+              Categorycubit(Categoryrepo(ApiService(Dio())))
+                ..getCategoriesByCharity(widget.charity.id ?? 0),
         ),
       ],
       child: Scaffold(

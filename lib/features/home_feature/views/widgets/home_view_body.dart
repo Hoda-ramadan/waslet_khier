@@ -32,7 +32,7 @@ class HomeViewBody extends StatelessWidget {
                 } else if (state is AiCasesSuccess) {
                   return SizedBox(
                     ////// card height(180) + blurRadius(6) + offsetY(2) + padding(8) = 196 → 200
-                    height: 180, // best 
+                    height: 180, // best
                     width: double.infinity,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,

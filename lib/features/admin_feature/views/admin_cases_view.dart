@@ -11,11 +11,11 @@ import 'package:waslet_khier/features/admin_feature/data/cubit/admin_states.dart
 import 'package:waslet_khier/features/admin_feature/data/repo/admin_repo.dart';
 import '../admin_constants.dart';
 import '../widgets/admin_header.dart';
- 
+
 class AdminCasesView extends StatelessWidget {
   final int charityId;
   const AdminCasesView({super.key, required this.charityId});
- 
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -29,16 +29,19 @@ class AdminCasesView extends StatelessWidget {
           builder: (context, state) {
             if (state is AdminCasesLoading) {
               return const Center(
-                  child: CircularProgressIndicator(color: appcolor));
+                child: CircularProgressIndicator(color: appcolor),
+              );
             }
- 
+
             if (state is AdminCasesFailure) {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(state.error,
-                        style: const TextStyle(color: Colors.red)),
+                    Text(
+                      state.error,
+                      style: const TextStyle(color: Colors.red),
+                    ),
                     const SizedBox(height: 12),
                     ElevatedButton(
                       onPressed: () =>
@@ -49,38 +52,34 @@ class AdminCasesView extends StatelessWidget {
                 ),
               );
             }
- 
+
             if (state is AdminCasesSuccess) {
               final cases = state.cases;
- 
+
               if (cases.isEmpty) {
                 return const Center(
                   child: Text(
                     'لا توجد حالات مسجلة',
-                    style:
-                        TextStyle(color: kAdminTextGrey, fontSize: 15),
+                    style: TextStyle(color: kAdminTextGrey, fontSize: 15),
                   ),
                 );
               }
- 
+
               return ListView.separated(
                 padding: const EdgeInsets.all(16),
                 itemCount: cases.length,
-                separatorBuilder: (_, __) =>
-                    const SizedBox(height: 14),
+                separatorBuilder: (_, __) => const SizedBox(height: 14),
                 itemBuilder: (context, index) => _CaseCard(
                   data: cases[index],
                   charityId: charityId,
                   // Called when details screen returns a deleted caseId
                   onDeleted: (deletedId) {
-                    context
-                        .read<AdminCubit>()
-                        .removeCaseById(deletedId);
+                    context.read<AdminCubit>().removeCaseById(deletedId);
                   },
                 ),
               );
             }
- 
+
             return const SizedBox();
           },
         ),
@@ -88,35 +87,41 @@ class AdminCasesView extends StatelessWidget {
     );
   }
 }
- 
+
 class _CaseCard extends StatelessWidget {
   final AdminCaseModel data;
   final int charityId;
   final void Function(int deletedId) onDeleted;
- 
+
   const _CaseCard({
     super.key,
     required this.data,
     required this.charityId,
     required this.onDeleted,
   });
- 
+
   Color get _priorityColor {
     switch (data.priority) {
-      case 'Urgent': return Colors.orange;
-      case 'Critical': return Colors.red;
-      default: return kAdminGreen;
+      case 'Urgent':
+        return Colors.orange;
+      case 'Critical':
+        return Colors.red;
+      default:
+        return kAdminGreen;
     }
   }
- 
+
   String get _priorityLabel {
     switch (data.priority) {
-      case 'Urgent': return 'عاجل';
-      case 'Critical': return 'حرج';
-      default: return data.priority;
+      case 'Urgent':
+        return 'عاجل';
+      case 'Critical':
+        return 'حرج';
+      default:
+        return data.priority;
     }
   }
- 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -136,8 +141,7 @@ class _CaseCard extends StatelessWidget {
         children: [
           // ── Cover Image
           ClipRRect(
-            borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(16)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             child: data.coverImageUrl != null
                 ? Image.network(
                     data.coverImageUrl!,
@@ -148,7 +152,7 @@ class _CaseCard extends StatelessWidget {
                   )
                 : _imageFallback(),
           ),
- 
+
           Padding(
             padding: const EdgeInsets.all(14),
             child: Directionality(
@@ -159,73 +163,71 @@ class _CaseCard extends StatelessWidget {
                   // ── Badges
                   Row(
                     children: [
-                      _Badge(
-                          label: data.categoryName, color: appcolor),
+                      _Badge(label: data.categoryName, color: appcolor),
                       const SizedBox(width: 6),
-                      _Badge(
-                          label: _priorityLabel,
-                          color: _priorityColor),
+                      _Badge(label: _priorityLabel, color: _priorityColor),
                       const Spacer(),
                       _Badge(
                         label: data.isActive ? 'نشط' : 'منتهي',
-                        color: data.isActive
-                            ? kAdminGreen
-                            : kAdminTextGrey,
+                        color: data.isActive ? kAdminGreen : kAdminTextGrey,
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
- 
+
                   // ── Title
                   Text(
                     data.title,
                     style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: kAdminTextDark),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: kAdminTextDark,
+                    ),
                   ),
                   const SizedBox(height: 4),
- 
+
                   // ── Description
                   Text(
                     data.description,
-                    style: const TextStyle(
-                        fontSize: 12, color: kAdminTextGrey),
+                    style: const TextStyle(fontSize: 12, color: kAdminTextGrey),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 10),
- 
+
                   // ── Amounts
                   Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'المبلغ المطلوب: ${data.targetAmount.toInt()} ج.م',
                         style: const TextStyle(
-                            fontSize: 11, color: kAdminTextGrey),
+                          fontSize: 11,
+                          color: kAdminTextGrey,
+                        ),
                       ),
                       Text(
                         'تم جمع: ${data.collectedAmount.toInt()} ج.م',
                         style: const TextStyle(
-                            fontSize: 11,
-                            color: appcolor,
-                            fontWeight: FontWeight.bold),
+                          fontSize: 11,
+                          color: appcolor,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 6),
- 
+
                   // ── Progress bar
                   Row(
                     children: [
                       Text(
                         '${(data.progress * 100).toInt()}%',
                         style: const TextStyle(
-                            fontSize: 12,
-                            color: appcolor,
-                            fontWeight: FontWeight.bold),
+                          fontSize: 12,
+                          color: appcolor,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
@@ -233,11 +235,8 @@ class _CaseCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(4),
                           child: LinearProgressIndicator(
                             value: data.progress,
-                            backgroundColor:
-                                Colors.grey.shade200,
-                            valueColor:
-                                const AlwaysStoppedAnimation(
-                                    appcolor),
+                            backgroundColor: Colors.grey.shade200,
+                            valueColor: const AlwaysStoppedAnimation(appcolor),
                             minHeight: 6,
                           ),
                         ),
@@ -245,7 +244,7 @@ class _CaseCard extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 12),
- 
+
                   // ── Buttons
                   Row(
                     children: [
@@ -255,11 +254,10 @@ class _CaseCard extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: appcolor,
                             shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             elevation: 0,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                           ),
                           child: GestureDetector(
                             onTap: () async {
@@ -279,9 +277,10 @@ class _CaseCard extends StatelessWidget {
                             child: const Text(
                               'تعديل الحالة',
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
@@ -300,12 +299,14 @@ class _CaseCard extends StatelessWidget {
                             onDeleted(result);
                           }
                         },
-                        icon: const Icon(Icons.chevron_left,
-                            color: appcolor, size: 18),
+                        icon: const Icon(
+                          Icons.chevron_left,
+                          color: appcolor,
+                          size: 18,
+                        ),
                         label: const Text(
                           'التفاصيل',
-                          style: TextStyle(
-                              color: appcolor, fontSize: 13),
+                          style: TextStyle(color: appcolor, fontSize: 13),
                         ),
                       ),
                     ],
@@ -318,25 +319,27 @@ class _CaseCard extends StatelessWidget {
       ),
     );
   }
- 
+
   Widget _imageFallback() => Container(
-        height: 160,
-        color: Colors.grey.shade200,
-        child: const Icon(Icons.image_not_supported,
-            color: kAdminTextGrey, size: 40),
-      );
+    height: 160,
+    color: Colors.grey.shade200,
+    child: const Icon(
+      Icons.image_not_supported,
+      color: kAdminTextGrey,
+      size: 40,
+    ),
+  );
 }
- 
+
 class _Badge extends StatelessWidget {
   final String label;
   final Color color;
   const _Badge({required this.label, required this.color});
- 
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
         color: color.withOpacity(0.12),
         borderRadius: BorderRadius.circular(20),
@@ -344,9 +347,10 @@ class _Badge extends StatelessWidget {
       child: Text(
         label,
         style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: color),
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          color: color,
+        ),
       ),
     );
   }

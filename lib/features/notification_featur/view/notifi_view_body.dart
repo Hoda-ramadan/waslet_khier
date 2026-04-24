@@ -2,36 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:waslet_khier/const.dart';
-import 'package:waslet_khier/featureAuth/auth/data/models/login_response_model.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 import 'package:waslet_khier/features/notification_featur/data/cubit/notifi_cubit.dart';
 import 'package:waslet_khier/features/notification_featur/data/cubit/notifi_state.dart';
 
-class NotificationViewBody extends StatefulWidget {
+class NotificationViewBody extends StatelessWidget {
   const NotificationViewBody({super.key});
 
   @override
-  State<NotificationViewBody> createState() => _NotificationViewBodyState();
-}
-
-class _NotificationViewBodyState extends State<NotificationViewBody> {
-  @override
-  @override
-  @override
-  void initState() {
-    super.initState();
-    final donor = Provider.of<AuthProvider_info>(context, listen: false).donor;
-
-    // ✅ استخدمي الـ id العادي مؤقتاً لحد ما userId يتحفظ
-    final userId =
-        donor?.userId ?? 'usr-donor-${donor?.id.toString().padLeft(3, '0')}';
-    print('>>> userId: $userId');
-    context.read<NotificationCubit>().getNotifications(userId);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final userId =
+    final donorId =
         Provider.of<AuthProvider_info>(context, listen: false).donor?.id ?? 0;
 
     return BlocBuilder<NotificationCubit, NotificationState>(
@@ -59,7 +39,7 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
                   style: ElevatedButton.styleFrom(backgroundColor: appcolor),
                   onPressed: () => context
                       .read<NotificationCubit>()
-                      .getNotifications(userId as String),
+                      .getNotifications(donorId), // ✅ int
                   child: const Text(
                     'إعادة المحاولة',
                     style: TextStyle(color: Colors.white),
@@ -98,8 +78,8 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
           return RefreshIndicator(
             color: appcolor,
             onRefresh: () => context.read<NotificationCubit>().getNotifications(
-              userId as String,
-            ),
+              donorId,
+            ), // ✅ int
             child: ListView.separated(
               padding: const EdgeInsets.all(16),
               itemCount: state.notifications.length,
@@ -121,7 +101,7 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
                   onDismissed: (_) {
                     context.read<NotificationCubit>().deleteNotification(
                       notificationId: notification.id ?? 0,
-                      userId: userId as String,
+                      donorId: donorId, // ✅ int
                     );
                   },
                   child: Container(
@@ -183,7 +163,7 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
                               if (notification.createdAt != null) ...[
                                 const SizedBox(height: 6),
                                 Text(
-                                  _formatDate(notification.createdAt!),
+                                  '${notification.createdAt!.day}/${notification.createdAt!.month}/${notification.createdAt!.year}',
                                   style: TextStyle(
                                     fontSize: 11,
                                     color: Colors.grey.shade400,
@@ -205,14 +185,5 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
         return const SizedBox();
       },
     );
-  }
-
-  String _formatDate(String dateStr) {
-    try {
-      final date = DateTime.parse(dateStr);
-      return '${date.day}/${date.month}/${date.year}';
-    } catch (_) {
-      return dateStr;
-    }
   }
 }

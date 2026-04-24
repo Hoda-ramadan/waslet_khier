@@ -22,8 +22,9 @@ class StatesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final double target = (casee.targetAmount ?? 1).toDouble();
     final double collected = (casee.collectedAmount ?? 0).toDouble();
-    final double progress =
-        target == 0 ? 0 : (collected / target).clamp(0.0, 1.0);
+    final double progress = target == 0
+        ? 0
+        : (collected / target).clamp(0.0, 1.0);
     final double remaining = (target - collected).clamp(0, double.infinity);
     final int percentage = (progress * 100).toInt();
 
@@ -70,7 +71,10 @@ class StatesCard extends StatelessWidget {
                     },
                   )
                 : buildPlaceholder(
-                    isLoading: false, hight: imageHeight, border: 0),
+                    isLoading: false,
+                    hight: imageHeight,
+                    border: 0,
+                  ),
           ),
 
           // 🔹 Content
@@ -99,10 +103,7 @@ class StatesCard extends StatelessWidget {
                     casee.description ?? "",
                     maxLines: maxDescLines, // ← controlled by parameter
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 9,
-                      color: Colors.grey,
-                    ),
+                    style: const TextStyle(fontSize: 9, color: Colors.grey),
                   ),
 
                   const SizedBox(height: 2),
@@ -133,10 +134,7 @@ class StatesCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "$percentage%",
-                        style: const TextStyle(fontSize: 9),
-                      ),
+                      Text("$percentage%", style: const TextStyle(fontSize: 9)),
                       Text(
                         "${remaining.toStringAsFixed(0)} ج.م",
                         style: TextStyle(color: appcolor, fontSize: 9),

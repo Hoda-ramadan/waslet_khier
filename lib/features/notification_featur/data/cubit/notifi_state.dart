@@ -1,4 +1,4 @@
-import 'package:waslet_khier/features/notification_featur/data/model/notifi_model.dart';
+import 'package:waslet_khier/features/notification_featur/data/model/notification_modell.dart';
 
 abstract class NotificationState {}
 

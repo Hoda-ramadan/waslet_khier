@@ -116,7 +116,10 @@ class CharityDetailsView_body extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Image.asset('assets/images/image.png'),
+                    child: Image.asset(
+                      'assets/images/no-data/mobile-payments/Frame 513.png',
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),

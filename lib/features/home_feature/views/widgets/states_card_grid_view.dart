@@ -45,7 +45,8 @@ class StatesCardGridView extends StatelessWidget {
                       child: StatesCard(
                         casee: item,
                         cardWidth: _cardWidth,
-                        maxDescLines: 1, // ← 1 line only in home horizontal list
+                        maxDescLines:
+                            1, // ← 1 line only in home horizontal list
                       ),
                     ),
                   ),

@@ -12,7 +12,7 @@ class CreateCaseRequestModel {
   final bool isFeatured;
   final String? location;
   final String? endDate;
- 
+
   CreateCaseRequestModel({
     required this.title,
     required this.description,
@@ -28,7 +28,7 @@ class CreateCaseRequestModel {
     this.location,
     this.endDate,
   });
- 
+
   /// Converts the model to form fields for multipart/form-data submission.
   Map<String, String> toFormFields() {
     final fields = <String, String>{
@@ -44,17 +44,17 @@ class CreateCaseRequestModel {
       'AdminId': adminId.toString(),
       'IsFeatured': isFeatured.toString(),
     };
- 
+
     if (location != null && location!.isNotEmpty) {
       fields['Location'] = location!;
     }
     if (endDate != null && endDate!.isNotEmpty) {
       fields['EndDate'] = endDate!;
     }
- 
+
     return fields;
   }
- 
+
   factory CreateCaseRequestModel.fromJson(Map<String, dynamic> json) {
     return CreateCaseRequestModel(
       title: json['title'] as String? ?? '',
@@ -72,7 +72,7 @@ class CreateCaseRequestModel {
       endDate: json['endDate'] as String?,
     );
   }
- 
+
   Map<String, dynamic> toJson() {
     return {
       'title': title,
@@ -91,4 +91,3 @@ class CreateCaseRequestModel {
     };
   }
 }
- 

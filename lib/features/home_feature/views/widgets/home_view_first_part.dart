@@ -13,16 +13,15 @@ class HomeViewFirstPart extends StatelessWidget {
       child: Row(
         children: [
           GestureDetector(
-          onTap:(){  (context).push('/home/zakatView');},
+            onTap: () {
+              (context).push('/home/zakatView');
+            },
             child: Column(
               children: [
                 SizedBox(
                   width: 24,
                   height: 24,
-                  child:Icon(
-  FontAwesomeIcons.calculator,
-  color: tintAppColor,
-),
+                  child: Icon(FontAwesomeIcons.calculator, color: tintAppColor),
                 ),
                 SizedBox(height: 8),
                 Text(

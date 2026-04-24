@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
+import 'package:waslet_khier/features/donation_feature/data/models/donation_model.dart';
 
 class CustomHomeViewAppbar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -13,6 +14,7 @@ class CustomHomeViewAppbar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     final donor = context.watch<AuthProvider_info>().donor;
+
     return AppBar(
       automaticallyImplyLeading: false,
       backgroundColor: appcolor,
@@ -29,7 +31,11 @@ class CustomHomeViewAppbar extends StatelessWidget
 
               IconButton(
                 onPressed: () {
-                  context.go("/home/notification");
+                  if (donor == null) return;
+                  context.go(
+                    "/home/notification",
+                    extra: donor!,
+                  ); // ✅ ابعت DonorModel كامل
                 },
                 icon: const Icon(
                   Icons.notifications_none_outlined,

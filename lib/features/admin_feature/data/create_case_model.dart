@@ -1,7 +1,7 @@
 // ─── 1. Updated AdminCaseModel ────────────────────────────────────────────────
 // Replace your existing AdminCaseModel with this one.
 // Added: age, location, isFeatured, endDate — needed by the edit screen.
- 
+
 class AdminCaseModel {
   final int id;
   final String title;
@@ -11,14 +11,14 @@ class AdminCaseModel {
   final String? coverImageUrl;
   final String beneficiaryName;
   final String categoryName;
-  final int? categoryId;       // needed to pre-select dropdown
+  final int? categoryId; // needed to pre-select dropdown
   final String priority;
   final String status;
   final int? age;
   final String? location;
   final bool? isFeatured;
   final DateTime? endDate;
- 
+
   AdminCaseModel({
     required this.id,
     required this.title,
@@ -36,7 +36,7 @@ class AdminCaseModel {
     this.isFeatured,
     this.endDate,
   });
- 
+
   factory AdminCaseModel.fromJson(Map<String, dynamic> json) {
     return AdminCaseModel(
       id: json['id'],
@@ -58,20 +58,17 @@ class AdminCaseModel {
           : DateTime.tryParse(json['endDate'] as String),
     );
   }
- 
+
   double get progress =>
-      targetAmount > 0
-          ? (collectedAmount / targetAmount).clamp(0.0, 1.0)
-          : 0.0;
- 
+      targetAmount > 0 ? (collectedAmount / targetAmount).clamp(0.0, 1.0) : 0.0;
+
   bool get isActive => status == 'Active';
 }
- 
- 
+
 // ─── 2. Router snippet — add inside /admin/:charityId routes list ─────────────
 // In your app_router.dart, inside the existing GoRoute for /admin/:charityId,
 // add this new child route alongside the existing case_details route:
- 
+
 /*
 GoRoute(
   path: 'edit_case',
@@ -90,11 +87,10 @@ GoRoute(
   },
 ),
 */
- 
- 
+
 // ─── 3. Navigation call — in _CaseCard "تعديل الحالة" button onPressed ────────
 // Replace the empty onPressed: () {} with:
- 
+
 /*
 onPressed: () async {
   final result = await context.push<bool>(

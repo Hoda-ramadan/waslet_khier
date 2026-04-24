@@ -6,7 +6,7 @@ class Assets {
       "assets/images/two-factor-authentication/rafiki.svg";
 
   static const splashLogo = "assets/images/شعار لجمعية خيرية بسيط (7) 1.png";
-  static const loginimage = "assets/images/login/amico.svg";
+  static const loginimage = "assets/images/no-data/image.png";
   static const personimage = "assets/images/radix-icons_avatar (1).png";
   static const done_acc = "assets/images/pepicons-pencil_checkmark-filled.png";
 }
