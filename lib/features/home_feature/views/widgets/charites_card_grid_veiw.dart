@@ -43,7 +43,7 @@ class CharitesCardGridVeiw extends StatelessWidget {
         }
         if (state is CharitySuccess) {
           return GridView.builder(
-            itemCount: state.charites.length,
+          itemCount: state.charites.length < 8 ? state.charites.length : 8,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

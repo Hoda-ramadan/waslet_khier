@@ -28,7 +28,7 @@ class StatesCardGridView extends StatelessWidget {
           } else if (state is FeatchCasesCubitSucesses) {
             return ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: state.casee.length,
+             itemCount: state.casee.length < 10 ? state.casee.length : 10,
               itemBuilder: (context, index) {
                 final item = state.casee[index];
                 return Padding(
