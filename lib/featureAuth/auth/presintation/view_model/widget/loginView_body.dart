@@ -11,6 +11,7 @@ import 'package:waslet_khier/featureAuth/auth/data/login_response_repo.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/check_haveing_acc.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
+import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/rememberme.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 
 class LoginviewBody extends StatelessWidget {
@@ -85,9 +86,10 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                 children: [
                   const SizedBox(height: 30),
                   Image.asset(
-                    'assets/images/Group 80.png',
-                    width: 151,
-                    height: 151,
+                    'assets/images/image.png',
+                    //  width: 151,
+                    //height: 151,
+                    fit: BoxFit.fill,
                   ),
                   const SizedBox(height: 30),
 
@@ -120,22 +122,15 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                       TextButton(
                         onPressed: () =>
                             context.push('/profile/logout/forgetpassword'),
+
                         child: Text(
                           'نسيت كلمة المرور؟',
                           style: TextStyle(color: appcolor, fontSize: 13),
                         ),
                       ),
-                      Row(
-                        children: [
-                          const Text('تذكرني', style: TextStyle(fontSize: 13)),
-                          Checkbox(
-                            value: _rememberMe,
-                            activeColor: appcolor,
-                            onChanged: (val) {
-                              setState(() => _rememberMe = val ?? false);
-                            },
-                          ),
-                        ],
+                      RememberMe(
+                        emailController: emailController,
+                        passwordController: passwordController,
                       ),
                     ],
                   ),
@@ -168,7 +163,7 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                     text2: 'تسجيل حساب',
                     textcolor1: Colors.black,
                     textcolor2: Colors.deepOrange,
-                    path: '/profile/logout/createacc',
+                    path: '/createacc',
                   ),
                   const SizedBox(height: 20),
 

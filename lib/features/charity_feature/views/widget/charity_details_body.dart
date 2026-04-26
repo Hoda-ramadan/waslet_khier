@@ -109,14 +109,32 @@ class CharityDetailsView_body extends StatelessWidget {
                           builder: (context) => InAppWebView(
                             initialUrlRequest: URLRequest(
                               url: WebUri(
-                                charity.mapUrl ?? 'https://maps.google.com',
+                                charity.mapUrl ?? 'https://www.google.com/maps',
                               ),
                             ),
                           ),
                         ),
                       );
                     },
-                    child: Image.asset('assets/images/image.png'),
+                    child: Container(
+                      width: 343,
+                      height: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Color(0xFF4A3780), Color(0xFF7B5EA7)],
+                        ),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          Icons.location_pin,
+                          size: 100,
+                          color: Colors.white,
+                        ),
+                      ), // content هنا
+                    ),
                   ),
                 ),
               ),
@@ -167,7 +185,7 @@ class CharityDetailsView_body extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 PymentoptionItem(
-                  image: "assets/Frame 390.png",
+                  image: "assets/images/Frame 390 (4).png",
                   text: 'فودافون كاش',
                 ),
 

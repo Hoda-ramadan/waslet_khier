@@ -39,9 +39,7 @@ class CharitesCardGridVeiw extends StatelessWidget {
     return BlocBuilder<CharityCubit, CharityState>(
       builder: (context, state) {
         if (state is CharityLodaing) {
-          return Center(
-            child: CircularProgressIndicator(color: tintAppColor),
-          );
+          return Center(child: CircularProgressIndicator(color: tintAppColor));
         }
         if (state is CharitySuccess) {
           return GridView.builder(

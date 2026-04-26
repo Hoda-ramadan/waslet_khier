@@ -9,6 +9,7 @@ import 'package:waslet_khier/featureAuth/Forgetpassword/data/cubit/resetpassword
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/widget/CustomAppbar.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
+import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 
 class ChangePasswordBody extends StatefulWidget {
   const ChangePasswordBody({super.key});
@@ -31,8 +32,15 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ResetpasswordCubit, ForgetPasswordState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is ChangePasswordSuccess) {
+          // ✅ حفظ الباسورد الجديد
+          final cubit = context.read<ResetpasswordCubit>();
+          await context.read<AuthProvider_info>().savePassword(
+            cubit.savedEmail,
+            _passController.text.trim(),
+          );
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
@@ -47,53 +55,55 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
         }
       },
       builder: (context, state) {
-        return Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                const Custom_Appbar(),
-                SvgPicture.asset(
-                  Assets.loginimage,
-                  width: 247,
-                  height: 254,
-                  fit: BoxFit.fill,
-                ),
-                const Text(
-                  "انشئ كلمة مرور جديدة",
-                  style: TextStyle(fontSize: 18),
-                ),
-                const SizedBox(height: 17),
-                CustomTextField(
-                  controller: _passController,
-                  labelText: "كلمة المرور",
-                  hintTtxt: '',
-                  prefxIcon: Icons.lock_outline,
-                  isSuffixIcon: true,
-                ),
-                const SizedBox(height: 17),
-                CustomTextField(
-                  controller: _confirmController,
-                  labelText: "تاكيد كلمة المرور",
-                  hintTtxt: '',
-                  prefxIcon: Icons.lock_outline,
-                  isSuffixIcon: true,
-                ),
-                const SizedBox(height: 17),
-                state is ChangePasswordLoading
-                    ? const CircularProgressIndicator()
-                    : Custombuttom(
-                        text: "تغيير",
-                        color: appcolor,
-                        textcolor: Colors.white,
-                        onPressed: () {
-                          context.read<ResetpasswordCubit>().changePassword(
-                            newPassword: _passController.text.trim(),
-                            confirmPassword: _confirmController.text.trim(),
-                          );
-                        },
-                      ),
-              ],
+        return SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  const Custom_Appbar(),
+                  SvgPicture.asset(
+                    "assets/images/login/amico.svg",
+                    width: 247,
+                    height: 254,
+                    fit: BoxFit.fill,
+                  ),
+                  const Text(
+                    "انشئ كلمة مرور جديدة",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 17),
+                  CustomTextField(
+                    controller: _passController,
+                    labelText: "كلمة المرور",
+                    hintTtxt: '',
+                    prefxIcon: Icons.lock_outline,
+                    isSuffixIcon: true,
+                  ),
+                  const SizedBox(height: 17),
+                  CustomTextField(
+                    controller: _confirmController,
+                    labelText: "تاكيد كلمة المرور",
+                    hintTtxt: '',
+                    prefxIcon: Icons.lock_outline,
+                    isSuffixIcon: true,
+                  ),
+                  const SizedBox(height: 17),
+                  state is ChangePasswordLoading
+                      ? const CircularProgressIndicator()
+                      : Custombuttom(
+                          text: "تغيير",
+                          color: appcolor,
+                          textcolor: Colors.white,
+                          onPressed: () {
+                            context.read<ResetpasswordCubit>().changePassword(
+                              newPassword: _passController.text.trim(),
+                              confirmPassword: _confirmController.text.trim(),
+                            );
+                          },
+                        ),
+                ],
+              ),
             ),
           ),
         );

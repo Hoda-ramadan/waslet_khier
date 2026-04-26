@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:waslet_khier/core/api/api_service.dart';
 import 'package:waslet_khier/featureAuth/Forgetpassword/data/models/change_pass_model.dart';
 
@@ -10,39 +9,57 @@ class ResetpasswordRepo {
   Future<String> sendEmail({required String email}) async {
     final response = await apiService.post(
       endPoint: '/User/ForgetPassword',
-      data: {'email': email},
+      data: '"$email"', // ✅ بعتي الـ email كـ JSON string بـ quotes
+      headers: {'Content-Type': 'application/json'},
     );
 
-    return response['message'] ?? 'تم الإرسال';
+    final data = response.data;
+    if (data is Map<String, dynamic>) {
+      return data['message'] ?? 'تم الإرسال';
+    }
+    return 'تم الإرسال';
   }
 
-  Future<String> verifyCode({required String code}) async {
+  Future<String> verifyCode({
+    required String code,
+    required String email, // ✅ ضيفي email
+  }) async {
     final response = await apiService.post(
       endPoint: '/User/CheckCode',
-      data: {'code': code},
+      data: {'code': code, 'email': email}, // ✅ بعتي الاتنين
+      headers: {'Content-Type': 'application/json'},
     );
 
-    return response['token'] ?? '';
+    final data = response.data;
+    if (data is Map<String, dynamic>) {
+      return data['token'] ?? '';
+    }
+    return '';
   }
 
-  Future<ChangePassModel> changePassword({
+  Future<String> changePassword({
     required String newPassword,
     required String confirmPassword,
     required String token,
+    required String email,
+    required String code,
   }) async {
     final response = await apiService.post(
       endPoint: '/User/ResetPassword',
       data: {
-        'newPassword': newPassword,
-        'confirmPassword': confirmPassword,
-        'token': token,
+        'NewPassword': newPassword,
+        'ConfirmPassword': confirmPassword,
+        'Token': token,
+        'Email': email,
+        'Code': code,
       },
+      headers: {'Content-Type': 'application/json'},
     );
 
-    return ChangePassModel.fromJson(response as Map<String, dynamic>);
+    // ✅ الـ API بيرجع String مباشرةً
+    final data = response.data;
+    if (data is String) return data;
+    if (data is Map<String, dynamic>) return data['message'] ?? 'تم التغيير';
+    return 'تم التغيير';
   }
-}
-
-extension on Response<dynamic> {
-  Future<String>? operator [](String other) {}
 }

@@ -18,21 +18,21 @@ class DonationModel {
   });
 
   factory DonationModel.fromJson(Map<String, dynamic> json) => DonationModel(
-        id: json['id'] as int?,
-        donorId: json['donorId'] as int?,
-        caseId: json['caseId'] as int?,
-        amount: (json['amount'] as num?)?.toDouble(),
-        caseTitle: json['caseTitle'] as String?,
-        paymentMethod: json['paymentMethod'] as String?,
-        createdAt: json['createdAt'] == null
-            ? null
-            : DateTime.parse(json['createdAt'] as String),
-      );
+    id: json['id'] as int?,
+    donorId: json['donorId'] as int?,
+    caseId: json['caseId'] as int?,
+    amount: (json['amount'] as num?)?.toDouble(),
+    caseTitle: json['caseTitle'] as String?,
+    paymentMethod: json['paymentMethod'] as String?,
+    createdAt: json['createdAt'] == null
+        ? null
+        : DateTime.parse(json['createdAt'] as String),
+  );
 
   Map<String, dynamic> toJson() => {
-        'donorId': donorId,
-        'caseId': caseId,
-        'amount': amount,
-        'paymentMethod': paymentMethod,
-      };
+    'donorId': donorId,
+    'caseId': caseId,
+    'amount': amount,
+    'paymentMethod': paymentMethod,
+  };
 }

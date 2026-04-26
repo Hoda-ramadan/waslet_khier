@@ -52,7 +52,6 @@ class _DonationBodyState extends State<_DonationBody> {
         if (state is DonationSuccess) {
           _showSuccessDialog(context);
           context.read<FeatchCasessCubitCubit>().featchCasess();
-          
         } else if (state is DonationFailed) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -206,6 +205,7 @@ class _DonationBodyState extends State<_DonationBody> {
   void _callDonateApi(BuildContext context) {
     final donorId =
         Provider.of<AuthProvider_info>(context, listen: false).donor?.id ?? 0;
+
     context.read<DonationCubit>().donate(
       donorId: donorId,
       caseId: widget.casee.id ?? 0,

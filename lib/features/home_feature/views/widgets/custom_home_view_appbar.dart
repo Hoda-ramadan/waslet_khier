@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
+import 'package:waslet_khier/features/donation_feature/data/models/donation_model.dart';
 
 class CustomHomeViewAppbar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -13,6 +14,7 @@ class CustomHomeViewAppbar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     final donor = context.watch<AuthProvider_info>().donor;
+
     return AppBar(
       automaticallyImplyLeading: false,
       backgroundColor: appcolor,
@@ -29,7 +31,12 @@ class CustomHomeViewAppbar extends StatelessWidget
 
               IconButton(
                 onPressed: () {
-                  context.go("/home/Notification");
+                  if (donor == null) return;
+                  final token = context.read<AuthProvider_info>().token ?? '';
+                  context.go(
+                    "/home/notification",
+                    extra: {'donor': donor!, 'token': token},
+                  );
                 },
                 icon: const Icon(
                   Icons.notifications_none_outlined,
@@ -51,14 +58,15 @@ class CustomHomeViewAppbar extends StatelessWidget
                 ),
               ),
               SizedBox(width: 8),
-             CircleAvatar(
-  radius: 18,
-  backgroundImage: NetworkImage(
-    donor?.imageUrl ?? 'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3396.jpg?semt=ais_hybrid&w=740&q=80',
-  ),
-  onBackgroundImageError: (_, __) {},
-  backgroundColor: Colors.grey.shade200,
-),
+              CircleAvatar(
+                radius: 18,
+                backgroundImage: NetworkImage(
+                  donor?.imageUrl ??
+                      'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3396.jpg?semt=ais_hybrid&w=740&q=80',
+                ),
+                onBackgroundImageError: (_, __) {},
+                backgroundColor: Colors.grey.shade200,
+              ),
             ],
           ),
         ],

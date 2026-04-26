@@ -44,10 +44,14 @@ class _VerifyCodeBodyState extends State<VerifyCodeBody> {
   Widget build(BuildContext context) {
     return BlocConsumer<ResetpasswordCubit, ForgetPasswordState>(
       listener: (context, state) {
+        // في verifycodeView_body.dart - لما ينجح
         if (state is VerifyCodeSuccess) {
           context.push(
             '/profile/logout/forgetpassword/VerifycodeView/ChangepasswordView',
-            extra: context.read<ResetpasswordCubit>(),
+            extra: context
+                .read<
+                  ResetpasswordCubit
+                >(), // ✅ نفس الـ cubit فيه الـ verifyToken
           );
         } else if (state is VerifyCodeFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -56,48 +60,59 @@ class _VerifyCodeBodyState extends State<VerifyCodeBody> {
         }
       },
       builder: (context, state) {
-        return Center(
-          child: Column(
-            children: [
-              const Custom_Appbar(),
-              SvgPicture.asset(
-                Assets.verifycodeimage,
-                height: 277,
-                width: 302,
-                fit: BoxFit.fill,
-              ),
-              const Text(
-                "ادخل رمز التحقق",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-              ),
-              const Text(
-                "تم ارسال رمز مكون من 6 ارقام الى بريدك الالكتروني",
-                style: TextStyle(fontSize: 12, color: Color(0xFF696B6A)),
-              ),
-              const SizedBox(height: 20),
-              Getcodefield(controllers: [], focusNodes: []),
-              const SizedBox(height: 20),
-              state is VerifyCodeLoading
-                  ? const CircularProgressIndicator()
-                  : Custombuttom(
-                      text: "تحقق",
-                      color: appcolor,
-                      textcolor: Colors.white,
-                      onPressed: () {
-                        context.read<ResetpasswordCubit>().verifyCode(code);
-                      },
-                    ),
-              const SizedBox(height: 10),
-              GestureDetector(
-                onTap: () {
-                  // TODO: اعد الارسال
-                },
-                child: const Text(
-                  "لم يصلك الرمز ؟ اعد الارسال",
-                  style: TextStyle(color: Color(0xFFFF8A3D), fontSize: 12),
+        return SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                const Custom_Appbar(),
+                SvgPicture.asset(
+                  Assets.verifycodeimage,
+                  height: 277,
+                  width: 302,
+                  fit: BoxFit.fill,
                 ),
-              ),
-            ],
+                const Text(
+                  "ادخل رمز التحقق",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
+                const Text(
+                  "تم ارسال رمز مكون من 6 ارقام الى بريدك الالكتروني",
+                  style: TextStyle(fontSize: 12, color: Color(0xFF696B6A)),
+                ),
+                const SizedBox(height: 20),
+                Getcodefield(controllers: controllers, focusNodes: focusNodes),
+                const SizedBox(height: 20),
+                state is VerifyCodeLoading
+                    ? const CircularProgressIndicator()
+                    : Custombuttom(
+                        text: "تحقق",
+                        color: appcolor,
+                        textcolor: Colors.white,
+                        onPressed: () {
+                          context.read<ResetpasswordCubit>().verifyCode(code);
+                        },
+                      ),
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () {
+                    // ✅ امسحي الـ controllers وابعتي الإيميل تاني
+                    for (var c in controllers) {
+                      c.clear();
+                    }
+                    context.read<ResetpasswordCubit>().sendEmail(
+                      context.read<ResetpasswordCubit>().savedEmail,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('تم إعادة إرسال الكود')),
+                    );
+                  },
+                  child: const Text(
+                    "لم يصلك الرمز ؟ اعد الارسال",
+                    style: TextStyle(color: Color(0xFFFF8A3D), fontSize: 12),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

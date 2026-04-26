@@ -63,8 +63,11 @@ class _VodafoneCashDialogState extends State<VodafoneCashDialog> {
                           color: Colors.red.shade50,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Icon(Icons.phone_android,
-                            color: Colors.red, size: 20),
+                        child: const Icon(
+                          Icons.phone_android,
+                          color: Colors.red,
+                          size: 20,
+                        ),
                       ),
                     ],
                   ),
@@ -81,8 +84,11 @@ class _VodafoneCashDialogState extends State<VodafoneCashDialog> {
               // الحالة والمبلغ
               _infoRow("الحالة", widget.caseTitle),
               const SizedBox(height: 8),
-              _infoRow("المبلغ", "${widget.amount.toStringAsFixed(0)} ج.م",
-                  valueColor: appcolor),
+              _infoRow(
+                "المبلغ",
+                "${widget.amount.toStringAsFixed(0)} ج.م",
+                valueColor: appcolor,
+              ),
               const SizedBox(height: 12),
 
               // رقم المحفظة
@@ -95,7 +101,10 @@ class _VodafoneCashDialogState extends State<VodafoneCashDialog> {
               ),
               const SizedBox(height: 6),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(10),
@@ -107,7 +116,8 @@ class _VodafoneCashDialogState extends State<VodafoneCashDialog> {
                     GestureDetector(
                       onTap: () {
                         Clipboard.setData(
-                            const ClipboardData(text: _walletNumber));
+                          const ClipboardData(text: _walletNumber),
+                        );
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text("تم النسخ")),
                         );
@@ -116,8 +126,10 @@ class _VodafoneCashDialogState extends State<VodafoneCashDialog> {
                         children: const [
                           Icon(Icons.copy, size: 16, color: Colors.grey),
                           SizedBox(width: 4),
-                          Text("نسخ",
-                              style: TextStyle(fontSize: 12, color: Colors.grey)),
+                          Text(
+                            "نسخ",
+                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                          ),
                         ],
                       ),
                     ),
@@ -148,8 +160,10 @@ class _VodafoneCashDialogState extends State<VodafoneCashDialog> {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
-                      child: const Text("إغلاق",
-                          style: TextStyle(color: Colors.black87)),
+                      child: const Text(
+                        "إغلاق",
+                        style: TextStyle(color: Colors.black87),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -167,8 +181,11 @@ class _VodafoneCashDialogState extends State<VodafoneCashDialog> {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
-                      icon: const Icon(Icons.check_circle_outline,
-                          color: Colors.white, size: 18),
+                      icon: const Icon(
+                        Icons.check_circle_outline,
+                        color: Colors.white,
+                        size: 18,
+                      ),
                       label: const Text(
                         "تأكيد التحويل",
                         style: TextStyle(color: Colors.white),

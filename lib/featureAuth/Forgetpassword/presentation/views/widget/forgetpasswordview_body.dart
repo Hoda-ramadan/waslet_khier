@@ -31,10 +31,11 @@ class _ForgetPasswordBodyState extends State<ForgetPasswordBody> {
   Widget build(BuildContext context) {
     return BlocConsumer<ResetpasswordCubit, ForgetPasswordState>(
       listener: (context, state) {
+        // في forgetpasswordview_body.dart - لما ينجح
         if (state is ForgetPasswordSuccess) {
           context.push(
             '/profile/logout/forgetpassword/VerifycodeView',
-            extra: context.read<ResetpasswordCubit>(),
+            extra: context.read<ResetpasswordCubit>(), // ✅ بتبعت نفس الـ cubit
           );
         } else if (state is ForgetPasswordFailure) {
           ScaffoldMessenger.of(context).showSnackBar(

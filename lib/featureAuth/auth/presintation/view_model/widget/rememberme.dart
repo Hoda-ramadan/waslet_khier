@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waslet_khier/const.dart';
-import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/forget_password_view.dart';
+import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 
 class RememberMe extends StatefulWidget {
-  const RememberMe({super.key});
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+
+  const RememberMe({
+    super.key,
+    required this.emailController,
+    required this.passwordController,
+  });
 
   @override
   State<RememberMe> createState() => _RememberMeState();
@@ -21,30 +30,27 @@ class _RememberMeState extends State<RememberMe> {
         children: [
           Checkbox(
             fillColor: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.selected)) {
-                return appcolor;
-              }
+              if (states.contains(MaterialState.selected)) return appcolor;
               return const Color(0xFFC3C7C5);
             }),
-            side: BorderSide(color: Color(0xFFC3C7C5)),
+            side: const BorderSide(color: Color(0xFFC3C7C5)),
             value: isChecked,
-            onChanged: (value) {
-              setState(() {
-                isChecked = value!;
-              });
+            onChanged: (value) async {
+              setState(() => isChecked = value!);
+              final provider = context.read<AuthProvider_info>();
+              if (value == true) {
+                // ✅ حفظ الإيميل والباسورد
+                await provider.savePassword(
+                  widget.emailController.text.trim(),
+                  widget.passwordController.text.trim(),
+                );
+              } else {
+                // ✅ مسح لو شيل التيك
+                await provider.clearSavedCredentials();
+              }
             },
           ),
-
           const Text("تذكرني"),
-          const Spacer(),
-          GestureDetector(
-            onTap: () {
-              Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (context) => ForgetPassword()));
-            },
-            child: const Text("نسيت كلمة المرور"),
-          ),
         ],
       ),
     );

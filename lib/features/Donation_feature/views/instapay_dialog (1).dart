@@ -204,7 +204,8 @@ class InstapayDialog extends StatelessWidget {
                     child: ElevatedButton.icon(
                       onPressed: () {
                         context.pop();
-                        // widget.onConfirm();
+
+                        onConfirm();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFE8A870),

@@ -158,12 +158,12 @@ class _AdminSettingsViewState extends State<AdminSettingsView> {
                 height: 50,
                 child: OutlinedButton.icon(
                   onPressed: () async {
-              await Provider.of<AuthProvider_info>(
-                context,
-                listen: false,
-              ).logout();
-              context.go('/profile/logout');
-            },
+                    await Provider.of<AuthProvider_info>(
+                      context,
+                      listen: false,
+                    ).logout();
+                    context.go('/profile/logout');
+                  },
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: kAdminRed, width: 1.5),
                     shape: RoundedRectangleBorder(

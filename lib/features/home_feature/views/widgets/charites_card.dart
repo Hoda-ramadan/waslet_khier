@@ -50,11 +50,11 @@ class CharitesCard extends StatelessWidget {
               child: Text(
                 charityModel.name ?? '',
                 textAlign: TextAlign.center,
-                maxLines: 1,                          // ← منع التفاف السطر
-                overflow: TextOverflow.ellipsis,      // ← نقاط إذا كان طويلاً
+                maxLines: 1, // ← منع التفاف السطر
+                overflow: TextOverflow.ellipsis, // ← نقاط إذا كان طويلاً
                 style: const TextStyle(
                   color: Color(0xFF040504),
-                  fontSize: 9,                        // ← أصغر قليلاً للأمان
+                  fontSize: 9, // ← أصغر قليلاً للأمان
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w700,
                 ),

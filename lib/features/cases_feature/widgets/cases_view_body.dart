@@ -17,7 +17,7 @@ class CasesViewBody extends StatelessWidget {
     final double imageHeight = cardWidth * 0.55;
     final double contentHeight = 160; // title+desc+charity+progress+buttons
     final double totalHeight = imageHeight + contentHeight;
-    final double ratio = cardWidth / totalHeight+0.07;
+    final double ratio = cardWidth / totalHeight + 0.07;
 
     return Padding(
       padding: const EdgeInsets.all(12),

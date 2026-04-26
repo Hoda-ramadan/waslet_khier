@@ -15,43 +15,67 @@ class AuthProvider_info extends ChangeNotifier {
 
   bool get isLoggedIn => _token != null && _token!.isNotEmpty;
 
+  // في authprovider.dart - عدّل setAuthData
   Future<void> setAuthData({
     String? token,
     DonorModel? donor,
     AdminModel? admin,
   }) async {
-    if (token == null || token.isEmpty) return;
-
-    _token = token;
-    _donor = donor;
-    _admin = admin;
+    if (token != null && token.isNotEmpty) {
+      _token = token;
+    }
 
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', token);
+    final hasLocalChanges = prefs.getBool('hasLocalChanges') ?? false;
 
-    // save donor
-    if (donor != null) {
-      await prefs.setInt('donorId', donor.id);
-      await prefs.setString('donorFirstName', donor.firstName);
-      await prefs.setString('donorLastName', donor.lastName);
-      await prefs.setString('donorEmail', donor.email);
-      await prefs.setString('donorPhone', donor.phoneNumber);
-      await prefs.setString('donorImageUrl', donor.imageUrl ?? '');
+    // ✅ لو في تعديلات محلية، مش بنكتب فوقيها بالـ API data
+    if (donor != null && !hasLocalChanges) {
+      _donor = donor;
     }
 
-    // save admin
-    if (admin != null) {
-      await prefs.setInt('adminId', admin.id);
-      await prefs.setString('adminUserId', admin.userId);
-      await prefs.setInt('adminCharityId', admin.charityId);
-      await prefs.setString('adminCharityName', admin.charityName);
-      await prefs.setString('adminFirstName', admin.firstName);
-      await prefs.setString('adminLastName', admin.lastName);
-      await prefs.setString('adminEmail', admin.email);
-      await prefs.setString('adminPhone', admin.phoneNumber);
-      await prefs.setString('adminImageUrl', admin.imageUrl ?? '');
+    if (admin != null) _admin = admin;
+
+    if (_token != null && _token!.isNotEmpty) {
+      await prefs.setString('token', _token!);
     }
 
+    if (_donor != null) {
+      await prefs.setInt('donorId', _donor!.id);
+      await prefs.setString('donorUserId', donor?.userId ?? '');
+      await prefs.setString('donorFirstName', _donor!.firstName);
+      await prefs.setString('donorLastName', _donor!.lastName);
+      await prefs.setString('donorEmail', _donor!.email);
+      await prefs.setString('donorPhone', _donor!.phoneNumber);
+      await prefs.setString('donorImageUrl', _donor!.imageUrl ?? '');
+    }
+
+    if (admin != null && _admin != null) {
+      await prefs.setInt('adminId', _admin!.id);
+      await prefs.setString('adminUserId', _admin!.userId);
+      await prefs.setInt('adminCharityId', _admin!.charityId);
+      await prefs.setString('adminCharityName', _admin!.charityName);
+      await prefs.setString('adminFirstName', _admin!.firstName);
+      await prefs.setString('adminLastName', _admin!.lastName);
+      await prefs.setString('adminEmail', _admin!.email);
+      await prefs.setString('adminPhone', _admin!.phoneNumber);
+      await prefs.setString('adminImageUrl', _admin!.imageUrl ?? '');
+    }
+
+    notifyListeners();
+  }
+
+  // ✅ فانكشن بتحدث البيانات محلياً بس من غير ما تتأثر بالـ login
+  Future<void> updateDonorLocally(DonorModel updatedDonor) async {
+    _donor = updatedDonor;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('donorUserId', updatedDonor.userId ?? '');
+    await prefs.setInt('donorId', updatedDonor.id);
+    await prefs.setString('donorFirstName', updatedDonor.firstName);
+    await prefs.setString('donorLastName', updatedDonor.lastName);
+    await prefs.setString('donorEmail', updatedDonor.email);
+    await prefs.setString('donorPhone', updatedDonor.phoneNumber);
+    await prefs.setString('donorImageUrl', updatedDonor.imageUrl ?? '');
+    await prefs.setBool('hasLocalChanges', true); // ✅ علامة إن في تعديلات محلية
     notifyListeners();
   }
 
@@ -67,6 +91,7 @@ class AuthProvider_info extends ChangeNotifier {
       if (firstName != null && firstName.isNotEmpty) {
         _donor = DonorModel(
           id: prefs.getInt('donorId') ?? 0,
+          userId: prefs.getString('donorUserId') ?? "",
           firstName: firstName,
           lastName: prefs.getString('donorLastName') ?? '',
           email: prefs.getString('donorEmail') ?? '',
@@ -100,7 +125,43 @@ class AuthProvider_info extends ChangeNotifier {
     _donor = null;
     _admin = null;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+
+    // ✅ بدل clear() امسحي الـ token بس وسيبي البيانات
+    await prefs.remove('token');
+    await prefs.remove('adminId');
+    await prefs.remove('adminUserId');
+    await prefs.remove('adminCharityId');
+    await prefs.remove('adminCharityName');
+    await prefs.remove('adminFirstName');
+    await prefs.remove('adminLastName');
+    await prefs.remove('adminEmail');
+    await prefs.remove('adminPhone');
+    await prefs.remove('adminImageUrl');
+
+    // ✅ البيانات الشخصية للـ donor بتفضل محفوظة
+    // donorFirstName, donorLastName, donorEmail, donorPhone, donorImageUrl
+
     notifyListeners();
+  }
+
+  // ✅ حفظ الباسورد للـ remember me
+  Future<void> savePassword(String email, String password) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('savedEmail', email);
+    await prefs.setString('savedPassword', password);
+  }
+
+  Future<Map<String, String?>> getSavedCredentials() async {
+    final prefs = await SharedPreferences.getInstance();
+    return {
+      'email': prefs.getString('savedEmail'),
+      'password': prefs.getString('savedPassword'),
+    };
+  }
+
+  Future<void> clearSavedCredentials() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('savedEmail');
+    await prefs.remove('savedPassword');
   }
 }

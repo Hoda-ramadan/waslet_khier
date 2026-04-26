@@ -9,7 +9,7 @@ class AdminCaseModel {
   final String categoryName;
   final String priority;
   final String status;
-  final int age ;
+  final int age;
 
   AdminCaseModel({
     required this.id,
@@ -21,7 +21,8 @@ class AdminCaseModel {
     required this.beneficiaryName,
     required this.categoryName,
     required this.priority,
-    required this.status, required this.age,
+    required this.status,
+    required this.age,
   });
 
   factory AdminCaseModel.fromJson(Map<String, dynamic> json) {

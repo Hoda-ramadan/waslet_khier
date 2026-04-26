@@ -211,7 +211,7 @@ class _RegisterViewState extends State<RegisterView> {
                 text2: 'سجل الدخول الان',
                 textcolor1: Colors.deepOrange,
                 textcolor2: Colors.black,
-                path: '/profile/logout',
+                path: '',
               ),
 
               const SizedBox(height: 30),

@@ -1,5 +1,5 @@
 import 'dart:typed_data';
- 
+
 import 'package:dio/dio.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_states_model.dart';
@@ -7,15 +7,16 @@ import 'package:waslet_khier/features/admin_feature/data/create_case_model.dart'
     hide AdminCaseModel;
 import 'package:waslet_khier/features/admin_feature/data/create_case_request_model.dart';
 import '../../../../core/Api/api_service.dart';
- 
+
 class AdminRepo {
   final ApiService apiService;
   AdminRepo(this.apiService);
- 
+
   // ── Dashboard ──────────────────────────────────────────────────────────────
   Future<AdminStatsModel> getDashboardStats(int charityId) async {
-    final charity = await apiService.get(endPoint: '/Charity/$charityId')
-        as Map<String, dynamic>;
+    final charity =
+        await apiService.get(endPoint: '/Charity/$charityId')
+            as Map<String, dynamic>;
     return AdminStatsModel(
       id: charity['id'] ?? 0,
       charityName: charity['name'] ?? '',
@@ -30,16 +31,17 @@ class AdminRepo {
       isActive: charity['isActive'] ?? false,
     );
   }
- 
+
   // ── Cases list ─────────────────────────────────────────────────────────────
   Future<List<AdminCaseModel>> getCharityCases(int charityId) async {
-    final response = await apiService.get(endPoint: '/Case/charity/$charityId')
-        as List<dynamic>;
+    final response =
+        await apiService.get(endPoint: '/Case/charity/$charityId')
+            as List<dynamic>;
     return response
         .map((e) => AdminCaseModel.fromJson(e as Map<String, dynamic>))
         .toList();
   }
- 
+
   // ── Create case — POST /Case ───────────────────────────────────────────────
   Future<String> createCase({
     required CreateCaseRequestModel request,
@@ -53,49 +55,55 @@ class AdminRepo {
     List<String> attachmentNames = const [],
   }) async {
     final formData = FormData();
- 
+
     request.toFormFields().forEach((key, value) {
       formData.fields.add(MapEntry(key, value));
     });
- 
+
     if (coverImageBytes != null && coverImageName != null) {
-      formData.files.add(MapEntry(
-        'CoverImageFile',
-        MultipartFile.fromBytes(coverImageBytes, filename: coverImageName),
-      ));
-    } else if (coverImagePath != null) {
-      formData.files.add(MapEntry(
-        'CoverImageFile',
-        await MultipartFile.fromFile(
-          coverImagePath,
-          filename: coverImagePath.split('/').last,
+      formData.files.add(
+        MapEntry(
+          'CoverImageFile',
+          MultipartFile.fromBytes(coverImageBytes, filename: coverImageName),
         ),
-      ));
+      );
+    } else if (coverImagePath != null) {
+      formData.files.add(
+        MapEntry(
+          'CoverImageFile',
+          await MultipartFile.fromFile(
+            coverImagePath,
+            filename: coverImagePath.split('/').last,
+          ),
+        ),
+      );
     }
- 
+
     if (attachmentBytes.isNotEmpty) {
       for (int i = 0; i < attachmentBytes.length; i++) {
-        formData.files.add(MapEntry(
-          'AttachmentFiles',
-          MultipartFile.fromBytes(
-            attachmentBytes[i],
-            filename:
-                i < attachmentNames.length ? attachmentNames[i] : 'file_$i',
+        formData.files.add(
+          MapEntry(
+            'AttachmentFiles',
+            MultipartFile.fromBytes(
+              attachmentBytes[i],
+              filename: i < attachmentNames.length
+                  ? attachmentNames[i]
+                  : 'file_$i',
+            ),
           ),
-        ));
+        );
       }
     } else {
       for (final path in attachmentPaths) {
-        formData.files.add(MapEntry(
-          'AttachmentFiles',
-          await MultipartFile.fromFile(
-            path,
-            filename: path.split('/').last,
+        formData.files.add(
+          MapEntry(
+            'AttachmentFiles',
+            await MultipartFile.fromFile(path, filename: path.split('/').last),
           ),
-        ));
+        );
       }
     }
- 
+
     try {
       final response = await apiService.dio.post<dynamic>(
         '${apiService.baseurl}/Case',
@@ -110,9 +118,10 @@ class AdminRepo {
       rethrow;
     }
   }
- 
+
   // ── Edit case — PUT /Case/{id} ─────────────────────────────────────────────
-  Future<String> editCase({                          // ← fixed: was "apiService.editCase"
+  Future<String> editCase({
+    // ← fixed: was "apiService.editCase"
     required int caseId,
     required String title,
     required String description,
