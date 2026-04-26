@@ -9,17 +9,16 @@ class CharityPageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Center(
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(child: SizedBox(height: 40)),
-            SliverToBoxAdapter(child: Customtextfeild()),
-            SliverToBoxAdapter(child: SizedBox(height: 30)),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 600,
-                child: Listofcharitys(icon: Icons.arrow_forward_ios_outlined),
-              ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 40),
+            Customtextfeild(),
+            SizedBox(height: 30),
+
+            SizedBox(
+              height: 500,
+              child: Listofcharitys(icon: Icons.arrow_forward_ios_outlined),
             ),
           ],
         ),

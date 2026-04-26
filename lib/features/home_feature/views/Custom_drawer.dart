@@ -11,7 +11,7 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: const Color.fromARGB(255, 241, 249, 247), // لون الخلفية
+        color: Colors.white, // لون الخلفية
         child: Column(
           children: [
             const SizedBox(height: 40),
@@ -28,7 +28,7 @@ class CustomDrawer extends StatelessWidget {
             ),
 
             // اللوجو
-            Column(children: [Image.asset(Assets.logoimage)]),
+            Column(children: [Image.asset("assets/images/image.png")]),
 
             const SizedBox(height: 40),
 

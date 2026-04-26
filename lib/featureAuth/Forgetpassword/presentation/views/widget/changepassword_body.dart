@@ -55,53 +55,55 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
         }
       },
       builder: (context, state) {
-        return Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                const Custom_Appbar(),
-                SvgPicture.asset(
-                  Assets.loginimage,
-                  width: 247,
-                  height: 254,
-                  fit: BoxFit.fill,
-                ),
-                const Text(
-                  "انشئ كلمة مرور جديدة",
-                  style: TextStyle(fontSize: 18),
-                ),
-                const SizedBox(height: 17),
-                CustomTextField(
-                  controller: _passController,
-                  labelText: "كلمة المرور",
-                  hintTtxt: '',
-                  prefxIcon: Icons.lock_outline,
-                  isSuffixIcon: true,
-                ),
-                const SizedBox(height: 17),
-                CustomTextField(
-                  controller: _confirmController,
-                  labelText: "تاكيد كلمة المرور",
-                  hintTtxt: '',
-                  prefxIcon: Icons.lock_outline,
-                  isSuffixIcon: true,
-                ),
-                const SizedBox(height: 17),
-                state is ChangePasswordLoading
-                    ? const CircularProgressIndicator()
-                    : Custombuttom(
-                        text: "تغيير",
-                        color: appcolor,
-                        textcolor: Colors.white,
-                        onPressed: () {
-                          context.read<ResetpasswordCubit>().changePassword(
-                            newPassword: _passController.text.trim(),
-                            confirmPassword: _confirmController.text.trim(),
-                          );
-                        },
-                      ),
-              ],
+        return SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  const Custom_Appbar(),
+                  SvgPicture.asset(
+                    "assets/images/login/amico.svg",
+                    width: 247,
+                    height: 254,
+                    fit: BoxFit.fill,
+                  ),
+                  const Text(
+                    "انشئ كلمة مرور جديدة",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 17),
+                  CustomTextField(
+                    controller: _passController,
+                    labelText: "كلمة المرور",
+                    hintTtxt: '',
+                    prefxIcon: Icons.lock_outline,
+                    isSuffixIcon: true,
+                  ),
+                  const SizedBox(height: 17),
+                  CustomTextField(
+                    controller: _confirmController,
+                    labelText: "تاكيد كلمة المرور",
+                    hintTtxt: '',
+                    prefxIcon: Icons.lock_outline,
+                    isSuffixIcon: true,
+                  ),
+                  const SizedBox(height: 17),
+                  state is ChangePasswordLoading
+                      ? const CircularProgressIndicator()
+                      : Custombuttom(
+                          text: "تغيير",
+                          color: appcolor,
+                          textcolor: Colors.white,
+                          onPressed: () {
+                            context.read<ResetpasswordCubit>().changePassword(
+                              newPassword: _passController.text.trim(),
+                              confirmPassword: _confirmController.text.trim(),
+                            );
+                          },
+                        ),
+                ],
+              ),
             ),
           ),
         );

@@ -86,9 +86,10 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                 children: [
                   const SizedBox(height: 30),
                   Image.asset(
-                    'assets/images/Group 80.png',
-                    width: 151,
-                    height: 151,
+                    'assets/images/image.png',
+                    //  width: 151,
+                    //height: 151,
+                    fit: BoxFit.fill,
                   ),
                   const SizedBox(height: 30),
 
@@ -162,7 +163,7 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
                     text2: 'تسجيل حساب',
                     textcolor1: Colors.black,
                     textcolor2: Colors.deepOrange,
-                    path: '/profile/logout/createacc',
+                    path: '/createacc',
                   ),
                   const SizedBox(height: 20),
 

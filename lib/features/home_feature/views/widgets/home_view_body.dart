@@ -27,7 +27,7 @@ class HomeViewBody extends StatelessWidget {
               builder: (context, state) {
                 if (state is AiCasesLoading) {
                   return const Center(
-                    child: CircularProgressIndicator(color: appcolor),
+                    child: CircularProgressIndicator(color: tintAppColor),
                   );
                 } else if (state is AiCasesSuccess) {
                   return SizedBox(

@@ -82,18 +82,17 @@ flutter:
     - assets/images/login/amico.svg
     - assets/images/radix-icons_avatar (1).png
     - assets/images/pepicons-pencil_checkmark-filled.png
-    - assets/images/no-data/pana.png
     - assets/images/Frame 12.png
     - assets/images/Frame 13.png
     - assets/images/Frame 18.png
     - assets/images/Frame 393.png
-    - assets/Frame 390.png
     - assets/images/image.png
     - assets/images/no-data/mobile-payments/pana.png
     - assets/images/no-data/Group 69.png
     - assets/images/Frame 390 (2).png
     - assets/images/Frame 390 (3).png
-    - assets/images/no-data/image.png
+    - assets/images/amico.png
+    - assets/images/Frame 390 (4).png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see
