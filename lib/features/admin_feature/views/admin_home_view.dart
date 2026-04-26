@@ -190,7 +190,7 @@ class _AdminHomeContent extends StatelessWidget {
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1B5E20),
+                        backgroundColor: appcolor,
                         minimumSize: const Size(double.infinity, 52),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
@@ -281,7 +281,7 @@ class _AdminHomeContent extends StatelessWidget {
                                     : Icons.cancel_rounded,
                                 size: 14,
                                 color: stats.isActive
-                                    ? kAdminGreen
+                                    ? tintAppColor
                                     : Colors.red,
                               ),
                               const SizedBox(width: 4),
@@ -293,7 +293,7 @@ class _AdminHomeContent extends StatelessWidget {
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600,
                                   color: stats.isActive
-                                      ? kAdminGreen
+                                      ? tintAppColor
                                       : Colors.red,
                                 ),
                               ),

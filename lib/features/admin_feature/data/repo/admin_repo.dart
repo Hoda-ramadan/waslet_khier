@@ -115,6 +115,8 @@ class AdminRepo {
       }
       return 'تم إنشاء الحالة بنجاح';
     } on DioException catch (e) {
+      print('❌ Status: ${e.response?.statusCode}');
+  print('❌ Response body: ${e.response?.data}');
       rethrow;
     }
   }
