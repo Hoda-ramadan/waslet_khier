@@ -128,6 +128,7 @@ class _PersoninfoView_bodyState extends State<PersoninfoView_body> {
                   phoneNumber: phoneController.text.trim(),
                   imageUrl: donor.imageUrl,
                 );
+                await context.read<AuthProvider_info>().updateDonorOnServer(updatedDonor);
 
                 // ✅ استخدمي الفانكشن الجديدة
                 await context.read<AuthProvider_info>().updateDonorLocally(

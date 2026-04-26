@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waslet_khier/featureAuth/auth/data/models/login_response_model.dart';
@@ -164,4 +165,32 @@ class AuthProvider_info extends ChangeNotifier {
     await prefs.remove('savedEmail');
     await prefs.remove('savedPassword');
   }
+  Future<void> updateDonorOnServer(DonorModel updatedDonor) async {
+  try {
+    final dio = Dio();
+    final response = await dio.put(
+      'https://your-api.com/api/donor/update', // ← replace with your real endpoint
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $_token',
+          'Content-Type': 'application/json',
+        },
+      ),
+      data: {
+        'firstName': updatedDonor.firstName,
+        'lastName': updatedDonor.lastName,
+        'email': updatedDonor.email,
+        'phoneNumber': updatedDonor.phoneNumber,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      await updateDonorLocally(updatedDonor);
+    } else {
+      throw Exception('فشل التحديث: ${response.statusCode}');
+    }
+  } catch (e) {
+    rethrow;
+  }
+}
 }
