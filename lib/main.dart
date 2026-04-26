@@ -14,10 +14,7 @@ import 'package:waslet_khier/featureAuth/Forgetpassword/data/repo/forgetpassword
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 import 'package:waslet_khier/features/Donation_feature/data/cubit/donation_cubit%20(1).dart';
 import 'package:waslet_khier/features/Donation_feature/data/repo/donation_repo%20(1).dart';
-import 'package:waslet_khier/features/charity_feature/data/cubit/CategoryCubit/categorycubit.dart';
 import 'package:waslet_khier/features/charity_feature/data/cubit/charity_cubit.dart';
-import 'package:waslet_khier/features/charity_feature/data/cubit/charity_deteals_cubit.dart';
-import 'package:waslet_khier/features/charity_feature/data/repo/categoryrepo.dart';
 import 'package:waslet_khier/features/charity_feature/data/repo/charity_repo.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/Aicases_cubit/AicasesCubit.dart';
 import 'package:waslet_khier/features/home_feature/data/cubit/featch_casess_cubit_cubit.dart';
@@ -26,16 +23,20 @@ import 'package:waslet_khier/features/profile_feature/data/favCubit/favCubit.dar
 import 'package:waslet_khier/features/profile_feature/data/favrepo/FavoriteRepo.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: appcolor,
       statusBarBrightness: Brightness.light,
     ),
   );
+
   setupGetIt();
-  WidgetsFlutterBinding.ensureInitialized();
+
   final authProvider = AuthProvider_info();
-  await authProvider.loadFromStorage(); // ✅
+  await authProvider.loadFromStorage();
+
   runApp(
     ChangeNotifierProvider.value(value: authProvider, child: WasletKhier()),
   );

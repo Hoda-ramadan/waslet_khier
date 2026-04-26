@@ -32,10 +32,11 @@ class CustomHomeViewAppbar extends StatelessWidget
               IconButton(
                 onPressed: () {
                   if (donor == null) return;
+                  final token = context.read<AuthProvider_info>().token ?? '';
                   context.go(
                     "/home/notification",
-                    extra: donor!,
-                  ); // ✅ ابعت DonorModel كامل
+                    extra: {'donor': donor!, 'token': token},
+                  );
                 },
                 icon: const Icon(
                   Icons.notifications_none_outlined,

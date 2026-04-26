@@ -145,9 +145,11 @@ final GoRouter appRouter = GoRouter(
                 GoRoute(
                   path: 'notification',
                   builder: (context, state) {
-                    final donor =
-                        state.extra as DonorModel; // ✅ DonorModel كامل
-                    return NotificationView(donor: donor);
+                    final extra = state.extra as Map<String, dynamic>;
+                    return NotificationView(
+                      donor: extra['donor'] as DonorModel,
+                      token: extra['token'] as String,
+                    );
                   },
                 ),
                 GoRoute(

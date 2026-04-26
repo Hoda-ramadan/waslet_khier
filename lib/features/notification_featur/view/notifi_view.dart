@@ -10,15 +10,16 @@ import 'package:waslet_khier/features/notification_featur/data/repo/notifi_repo.
 import 'package:waslet_khier/features/notification_featur/view/notifi_view_body.dart';
 
 class NotificationView extends StatelessWidget {
-  const NotificationView({super.key, required this.donor});
+  const NotificationView({super.key, required this.donor, required this.token});
   final DonorModel donor;
+  final String token;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) =>
-          NotificationCubit(NotificationRepo(ApiService(Dio())))
-            ..getNotifications(donor.id), // ✅ بنبعت int مش String
+          NotificationCubit(NotificationRepo(ApiService(Dio()), token: token))
+            ..getNotifications(),
       child: Scaffold(
         backgroundColor: backGroundColor,
         appBar: CustomAppBar(),

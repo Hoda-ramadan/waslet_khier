@@ -9,6 +9,7 @@ import 'package:waslet_khier/featureAuth/Forgetpassword/data/cubit/resetpassword
 import 'package:waslet_khier/featureAuth/Forgetpassword/presentation/views/widget/CustomAppbar.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/custom_textfild.dart';
 import 'package:waslet_khier/featureAuth/auth/presintation/view_model/widget/custombuttom.dart';
+import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
 
 class ChangePasswordBody extends StatefulWidget {
   const ChangePasswordBody({super.key});
@@ -31,8 +32,15 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ResetpasswordCubit, ForgetPasswordState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is ChangePasswordSuccess) {
+          // ✅ حفظ الباسورد الجديد
+          final cubit = context.read<ResetpasswordCubit>();
+          await context.read<AuthProvider_info>().savePassword(
+            cubit.savedEmail,
+            _passController.text.trim(),
+          );
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),

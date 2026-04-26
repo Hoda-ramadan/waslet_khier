@@ -39,7 +39,7 @@ class NotificationViewBody extends StatelessWidget {
                   style: ElevatedButton.styleFrom(backgroundColor: appcolor),
                   onPressed: () => context
                       .read<NotificationCubit>()
-                      .getNotifications(donorId), // ✅ int
+                      .getNotifications(), // ✅ int
                   child: const Text(
                     'إعادة المحاولة',
                     style: TextStyle(color: Colors.white),
@@ -77,9 +77,8 @@ class NotificationViewBody extends StatelessWidget {
 
           return RefreshIndicator(
             color: appcolor,
-            onRefresh: () => context.read<NotificationCubit>().getNotifications(
-              donorId,
-            ), // ✅ int
+            onRefresh: () =>
+                context.read<NotificationCubit>().getNotifications(), // ✅ int
             child: ListView.separated(
               padding: const EdgeInsets.all(16),
               itemCount: state.notifications.length,
@@ -101,7 +100,7 @@ class NotificationViewBody extends StatelessWidget {
                   onDismissed: (_) {
                     context.read<NotificationCubit>().deleteNotification(
                       notificationId: notification.id ?? 0,
-                      donorId: donorId, // ✅ int
+                      // ✅ int
                     );
                   },
                   child: Container(

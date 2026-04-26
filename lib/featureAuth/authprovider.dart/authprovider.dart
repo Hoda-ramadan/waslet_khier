@@ -68,6 +68,7 @@ class AuthProvider_info extends ChangeNotifier {
   Future<void> updateDonorLocally(DonorModel updatedDonor) async {
     _donor = updatedDonor;
     final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('donorUserId', updatedDonor.userId ?? '');
     await prefs.setInt('donorId', updatedDonor.id);
     await prefs.setString('donorFirstName', updatedDonor.firstName);
     await prefs.setString('donorLastName', updatedDonor.lastName);
