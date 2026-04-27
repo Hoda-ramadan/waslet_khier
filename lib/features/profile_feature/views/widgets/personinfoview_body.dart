@@ -118,31 +118,42 @@ class _PersoninfoView_bodyState extends State<PersoninfoView_body> {
             const SizedBox(height: 30),
 
             // 💾 Save Button
-            Custombuttom(
-              onPressed: () async {
-                final updatedDonor = DonorModel(
-                  id: donor.id,
-                  firstName: firstNameController.text.trim(),
-                  lastName: lastNameController.text.trim(),
-                  email: emailController.text.trim(),
-                  phoneNumber: phoneController.text.trim(),
-                  imageUrl: donor.imageUrl,
-                );
-                await context.read<AuthProvider_info>().updateDonorOnServer(updatedDonor);
+           Custombuttom(
+  onPressed: () async {
+    final updatedDonor = DonorModel(
+      id: donor.id,
+      firstName: firstNameController.text.trim(),
+      lastName: lastNameController.text.trim(),
+      email: emailController.text.trim(),
+      phoneNumber: phoneController.text.trim(),
+      imageUrl: donor.imageUrl,
+    );
 
-                // ✅ استخدمي الفانكشن الجديدة
-                await context.read<AuthProvider_info>().updateDonorLocally(
-                  updatedDonor,
-                );
-
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('تم حفظ التعديلات بنجاح')),
-                );
-              },
-              text: 'حفظ التعديلات',
-              color: tintAppColor,
-              textcolor: Colors.white,
-            ),
+    try {
+      await context.read<AuthProvider_info>().updateDonorOnServer(updatedDonor);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('تم حفظ التعديلات بنجاح'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('فشل الحفظ: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  },
+  text: 'حفظ التعديلات',
+  color: tintAppColor,
+  textcolor: Colors.white,
+),
             const SizedBox(height: 20),
           ],
         ),

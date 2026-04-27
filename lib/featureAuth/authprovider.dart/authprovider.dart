@@ -165,23 +165,26 @@ class AuthProvider_info extends ChangeNotifier {
     await prefs.remove('savedEmail');
     await prefs.remove('savedPassword');
   }
-  Future<void> updateDonorOnServer(DonorModel updatedDonor) async {
+ 
+Future<void> updateDonorOnServer(DonorModel updatedDonor) async {
   try {
     final dio = Dio();
+
+    final formData = FormData.fromMap({
+      'FirstName': updatedDonor.firstName,
+      'LastName': updatedDonor.lastName,
+      'Email': updatedDonor.email,
+      'PhoneNumber': updatedDonor.phoneNumber,
+    });
+
     final response = await dio.put(
-      'https://your-api.com/api/donor/update', // ← replace with your real endpoint
+      'https://erfan333555-001-site1.stempurl.com/api/Donor/${updatedDonor.id}',
       options: Options(
         headers: {
           'Authorization': 'Bearer $_token',
-          'Content-Type': 'application/json',
         },
       ),
-      data: {
-        'firstName': updatedDonor.firstName,
-        'lastName': updatedDonor.lastName,
-        'email': updatedDonor.email,
-        'phoneNumber': updatedDonor.phoneNumber,
-      },
+      data: formData,
     );
 
     if (response.statusCode == 200) {
