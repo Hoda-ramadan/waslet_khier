@@ -165,35 +165,31 @@ class AuthProvider_info extends ChangeNotifier {
     await prefs.remove('savedEmail');
     await prefs.remove('savedPassword');
   }
- 
-Future<void> updateDonorOnServer(DonorModel updatedDonor) async {
-  try {
-    final dio = Dio();
 
-    final formData = FormData.fromMap({
-      'FirstName': updatedDonor.firstName,
-      'LastName': updatedDonor.lastName,
-      'Email': updatedDonor.email,
-      'PhoneNumber': updatedDonor.phoneNumber,
-    });
+  Future<void> updateDonorOnServer(DonorModel updatedDonor) async {
+    try {
+      final dio = Dio();
 
-    final response = await dio.put(
-      'https://erfan333555-001-site1.stempurl.com/api/Donor/${updatedDonor.id}',
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $_token',
-        },
-      ),
-      data: formData,
-    );
+      final formData = FormData.fromMap({
+        'FirstName': updatedDonor.firstName,
+        'LastName': updatedDonor.lastName,
+        'Email': updatedDonor.email,
+        'PhoneNumber': updatedDonor.phoneNumber,
+      });
 
-    if (response.statusCode == 200) {
-      await updateDonorLocally(updatedDonor);
-    } else {
-      throw Exception('فشل التحديث: ${response.statusCode}');
+      final response = await dio.put(
+        'https://erfan333555-001-site1.stempurl.com/api/Donor/${updatedDonor.id}',
+        options: Options(headers: {'Authorization': 'Bearer $_token'}),
+        data: formData,
+      );
+
+      if (response.statusCode == 200) {
+        await updateDonorLocally(updatedDonor);
+      } else {
+        throw Exception('فشل التحديث: ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
     }
-  } catch (e) {
-    rethrow;
   }
-}
 }

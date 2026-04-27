@@ -18,6 +18,7 @@ import 'package:waslet_khier/features/admin_feature/admin_main_screen.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
 import 'package:waslet_khier/features/admin_feature/views/admin_case_details_view.dart';
 import 'package:waslet_khier/features/admin_feature/views/admin_edit_case.dart';
+import 'package:waslet_khier/features/admin_feature/widgets/notificationviewadmain.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/cases_feature/views/case_detatls_veiw.dart';
 import 'package:waslet_khier/features/cases_feature/views/cases_view.dart';
@@ -130,11 +131,8 @@ final GoRouter appRouter = GoRouter(
           path: 'notification',
           parentNavigatorKey: _rootNavigatorKey,
           builder: (context, state) {
-            final extra = state.extra as Map<String, dynamic>;
-            return NotificationView(
-              donor: extra['donor'] as DonorModel,
-              token: extra['token'] as String,
-            );
+            final token = state.extra as String; // ✅ String مش Map
+            return NotificationViewAdmin(token: token);
           },
         ),
       ],

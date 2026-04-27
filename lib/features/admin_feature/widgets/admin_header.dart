@@ -14,8 +14,8 @@ class AdminHeader extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final admin = context.watch<AuthProvider_info>().admin;
-    final token = context.read<AuthProvider_info>().token ?? '';
+    final admin = context.read<AuthProvider_info>().admin;
+    final token = context.read<AuthProvider_info>().token.toString();
 
     return Container(
       color: appcolor,
@@ -57,14 +57,13 @@ class AdminHeader extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
 
-            // ✅ Bell بيروح للـ notification
             GestureDetector(
               onTap: () {
                 context.push(
                   '/admin/$charityId/notification',
                   extra: {
-                    'donor': context.read<AuthProvider_info>().donor,
-                    'token': token,
+                    // 'donor': context.read<AuthProvider_info>().admin,
+                    token,
                   },
                 );
               },

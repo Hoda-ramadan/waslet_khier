@@ -11,9 +11,6 @@ class NotificationViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final donorId =
-        Provider.of<AuthProvider_info>(context, listen: false).donor?.id ?? 0;
-
     return BlocBuilder<NotificationCubit, NotificationState>(
       builder: (context, state) {
         if (state is NotificationLoading) {
