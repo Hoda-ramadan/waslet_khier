@@ -17,7 +17,7 @@ class AboutAppBody extends StatelessWidget {
           Container(
             width: 218,
             //  height: 218,
-            child: Image.asset(Assets.logoimage, fit: BoxFit.fill),
+            child: Image.asset('assets/images/fullLogo2.png', fit: BoxFit.fill),
           ),
           Text(
             "وصلة خير هو تطبيق يهدف إلى تسهيل عملية التبرع وربط المتبرعين بالحالات الإنسانية والجمعيات الخيرية الموثوقة. نساعدك في الوصول للحالات الأكثر احتياجًا والتبرع بسهولة وأمان، لتكون سببًا في إحداث فرق حقيقي في حياة الآخرين.",

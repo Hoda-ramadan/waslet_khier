@@ -32,7 +32,7 @@ class _SplashViewState extends State<SplashView> {
         child: SizedBox(
           width: 343,
           height: 343,
-          child: Image.asset(Assets.splashLogo),
+          child:Image.asset('assets/images/fullLogo2.png'),
         ),
       ),
     );

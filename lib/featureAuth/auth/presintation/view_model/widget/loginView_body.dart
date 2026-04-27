@@ -85,12 +85,16 @@ class _LoginviewBodyContentState extends State<_LoginviewBodyContent> {
               child: Column(
                 children: [
                   const SizedBox(height: 30),
-                  Image.asset(
-                    'assets/images/image.png',
-                    //  width: 151,
-                    //height: 151,
-                    fit: BoxFit.fill,
-                  ),
+                 ColorFiltered(
+  colorFilter: const ColorFilter.mode(
+    Colors.transparent,
+    BlendMode.multiply,
+  ),
+  child: Image.asset(
+    'assets/images/fullLogo2.png',
+    fit: BoxFit.contain,
+  ),
+),
                   const SizedBox(height: 30),
 
                   CustomTextField(
