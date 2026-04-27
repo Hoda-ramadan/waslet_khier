@@ -10,7 +10,7 @@ import '../widgets/admin_header.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdminSettingsView extends StatefulWidget {
-  final int charityId; // ✅ receive charityId from AdminMainScreen
+  final int charityId; 
   const AdminSettingsView({super.key, required this.charityId});
 
   @override
@@ -31,7 +31,7 @@ class _AdminSettingsViewState extends State<AdminSettingsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kAdminBackground,
-      appBar: const AdminHeader(),
+      appBar: AdminHeader(charityId: widget.charityId),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Directionality(

@@ -330,8 +330,7 @@ final GoRouter appRouter = GoRouter(
                               path: 'ChangepasswordView',
                               parentNavigatorKey: _rootNavigatorKey,
                               builder: (context, state) {
-                                final cubit =
-                                    state.extra as ResetpasswordCubit;
+                                final cubit = state.extra as ResetpasswordCubit;
                                 return BlocProvider.value(
                                   value: cubit,
                                   child: const ChangepasswordView(),

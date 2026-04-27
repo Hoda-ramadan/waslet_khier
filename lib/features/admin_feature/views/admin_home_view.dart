@@ -22,19 +22,19 @@ class AdminHomeView extends StatelessWidget {
       create: (_) =>
           AdminCubit(AdminRepo(ApiService(Dio())), charityId: charityId)
             ..loadDashboard(),
-      child: const _AdminHomeContent(),
+      child: _AdminHomeContent(charityId: charityId),
     );
   }
 }
 
 class _AdminHomeContent extends StatelessWidget {
-  const _AdminHomeContent();
-
+  const _AdminHomeContent({required this.charityId});
+  final int charityId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kAdminBackground,
-      appBar: const AdminHeader(),
+      appBar: AdminHeader(charityId: charityId),
       body: BlocBuilder<AdminCubit, AdminState>(
         builder: (context, state) {
           print('>>> AdminCubit state: $state');
