@@ -14,7 +14,7 @@ class buildPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ; // غيرها حسب مشروعك
+    ;
 
     return Container(
       height: hight, // 110,

@@ -20,7 +20,7 @@ class DonateNowButtom extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push("/cases/donation", extra: caseModel);
+        context.push("/donation", extra: caseModel); // ✅ مسار مستقل
       },
       child: Container(
         width: width,

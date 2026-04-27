@@ -325,5 +325,12 @@ final GoRouter appRouter = GoRouter(
         ),
       ],
     ),
+
+    // أضف ده بره الـ StatefulShellRoute تماماً — في آخر الـ GoRouter routes list
+    GoRoute(
+      path: '/donation',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => DonationView(casee: _toCase(state.extra)),
+    ),
   ],
 );

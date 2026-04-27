@@ -232,7 +232,7 @@ class StatesCard extends StatelessWidget {
                         child: DonateNowButtom(
                           height: 30,
                           fontSize: 10,
-                          caseModel: CaseModel(),
+                          caseModel: casee,
                         ),
                       ),
                     ],
