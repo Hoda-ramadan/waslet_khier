@@ -105,6 +105,22 @@ final GoRouter appRouter = GoRouter(
         return AdminMainScreen(charityId: charityId);
       },
       routes: [
+GoRoute(
+  path: 'notification',
+  parentNavigatorKey: _rootNavigatorKey,
+  builder: (context, state) {
+    // ✅ Handle both String and Map
+    final extra = state.extra;
+    String token = '';
+    if (extra is String) {
+      token = extra;
+    } else if (extra is Map) {
+      token = extra['token']?.toString() ?? '';
+    }
+    return NotificationViewAdmin(token: token);
+  },
+),
+
         GoRoute(
           path: 'case_details',
           parentNavigatorKey: _rootNavigatorKey,

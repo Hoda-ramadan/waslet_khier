@@ -17,18 +17,25 @@ class NotificationModel extends Equatable {
     this.createdAt,
   });
 
-  factory NotificationModel.fromJson(Map<String, dynamic> json) {
-    return NotificationModel(
-      id: json['id'] as int?,
-      userId: json['userId'] as String?,
-      title: json['title'] as String?,
-      message: json['message'] as String?,
-      isRead: json['isRead'] as bool?,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-    );
-  }
+factory NotificationModel.fromJson(Map<String, dynamic> json) {
+  print('🔍 id: ${json['id']} (${json['id'].runtimeType})');
+  print('🔍 userId: ${json['userId']} (${json['userId'].runtimeType})');
+  print('🔍 title: ${json['title']} (${json['title'].runtimeType})');
+  print('🔍 message: ${json['message']} (${json['message'].runtimeType})');
+  print('🔍 isRead: ${json['isRead']} (${json['isRead'].runtimeType})');
+  print('🔍 createdAt: ${json['createdAt']} (${json['createdAt'].runtimeType})');
+
+  return NotificationModel(
+    id: json['id'] as int?,
+    userId: json['userId']?.toString(),
+    title: json['title']?.toString(),
+    message: json['message']?.toString(),
+    isRead: json['isRead'] as bool?,
+    createdAt: json['createdAt'] == null
+        ? null
+        : DateTime.parse(json['createdAt'].toString()),
+  );
+}
 
   Map<String, dynamic> toJson() => {
     'id': id,

@@ -116,14 +116,21 @@ class AdminRepo {
       return 'تم إنشاء الحالة بنجاح';
     } on DioException catch (e) {
       print('❌ Status: ${e.response?.statusCode}');
-  print('❌ Response body: ${e.response?.data}');
+      print('❌ Response body: ${e.response?.data}');
+      print('❌ Form fields sent:');
+      for (var field in formData.fields) {
+        print('   ${field.key}: ${field.value}');
+      }
+      print('❌ Form files sent:');
+      for (var file in formData.files) {
+        print('   ${file.key}: ${file.value.filename}');
+      }
       rethrow;
     }
-  }
+  } // ← ده القوس اللي كان ناقص
 
   // ── Edit case — PUT /Case/{id} ─────────────────────────────────────────────
   Future<String> editCase({
-    // ← fixed: was "apiService.editCase"
     required int caseId,
     required String title,
     required String description,

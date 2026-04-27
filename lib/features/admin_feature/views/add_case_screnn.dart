@@ -100,26 +100,26 @@ class _AddCaseScreenState extends State<AddCaseScreen> {
       _coverBytes = bytes;
     });
   }
- 
-  Future<void> _pickAttachments() async {
-    final result = await FilePicker.platform.pickFiles(
-      allowMultiple: true,
-      type: FileType.any,
-      withData: kIsWeb,
-    );
-    if (result == null) return;
-    setState(() {
-      _attachments = result.files
-          .map(
-            (f) => _PickedFile(
-              name: f.name,
-              path: kIsWeb ? null : f.path,
-              bytes: kIsWeb ? f.bytes : null,
-            ),
-          )
-          .toList();
-    });
-  }
+Future<void> _pickAttachments() async {
+  final result = await FilePicker.platform.pickFiles(
+    allowMultiple: true,
+    type: FileType.custom,        // ← back to custom
+    allowedExtensions: ['pdf'],   // ← only pdf
+    withData: kIsWeb,
+  );
+  if (result == null) return;
+  setState(() {
+    _attachments = result.files
+        .map(
+          (f) => _PickedFile(
+            name: f.name,
+            path: kIsWeb ? null : f.path,
+            bytes: kIsWeb ? f.bytes : null,
+          ),
+        )
+        .toList();
+  });
+}
  
   Future<void> _pickEndDate() async {
     final now = DateTime.now();

@@ -59,14 +59,11 @@ class AdminHeader extends StatelessWidget implements PreferredSizeWidget {
 
             GestureDetector(
               onTap: () {
-                context.push(
-                  '/admin/$charityId/notification',
-                  extra: {
-                    // 'donor': context.read<AuthProvider_info>().admin,
-                    token,
-                  },
-                );
-              },
+  context.push(
+    '/admin/$charityId/notification',
+    extra: token, // ← remove the curly braces
+  );
+},
               child: Stack(
                 children: [
                   const Icon(
