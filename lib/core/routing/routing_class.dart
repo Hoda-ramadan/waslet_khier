@@ -16,8 +16,10 @@ import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
 import 'package:waslet_khier/features/Donation_feature/views/donation_view%20(1).dart';
 import 'package:waslet_khier/features/admin_feature/admin_main_screen.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
+import 'package:waslet_khier/features/admin_feature/data/cubit/update_charity_details_cubit.dart';
 import 'package:waslet_khier/features/admin_feature/views/admin_case_details_view.dart';
 import 'package:waslet_khier/features/admin_feature/views/admin_edit_case.dart';
+import 'package:waslet_khier/features/admin_feature/views/edit_charity_veiw.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/cases_feature/views/case_detatls_veiw.dart';
 import 'package:waslet_khier/features/cases_feature/views/cases_view.dart';
@@ -40,9 +42,9 @@ import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_vie
 import 'package:waslet_khier/features/profile_feature/views/widgets/paymentway_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 import 'package:waslet_khier/features/splash_feature/views/splash_view.dart';
- 
+
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
- 
+
 CharityModel _toCharity(Object? extra) {
   print('>>> extra type: ${extra?.runtimeType}');
   print('>>> extra value: $extra');
@@ -51,50 +53,50 @@ CharityModel _toCharity(Object? extra) {
     return CharityModel.fromJson(Map<String, dynamic>.from(extra));
   return CharityModel();
 }
- 
+
 CaseModel _toCase(Object? extra) {
   if (extra is CaseModel) return extra;
   if (extra is Map) return CaseModel.fromJson(Map<String, dynamic>.from(extra));
   return CaseModel();
 }
- 
+
 Widget _caseDetailsWithCubit(CaseModel casee) {
   return BlocProvider(
     create: (ctx) => CharityDetealsCubit(CharityRepo(ApiService(Dio()))),
     child: CaseDetatlsVeiw(casee: casee),
   );
 }
- 
+
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/splash',
- 
+
   redirect: (context, state) {
     final auth = Provider.of<AuthProvider_info>(context, listen: false);
     final isLoggedIn = auth.isLoggedIn;
     final loc = state.matchedLocation;
- 
+
     // ✅ Always allow splash through
     if (loc == '/splash') return null;
- 
+
     final isOnAuth =
         loc == '/profile/logout' || loc.startsWith('/profile/logout/');
     final isOnAdmin = loc.startsWith('/admin');
- 
+
     if (isOnAdmin && isLoggedIn) return null;
     if (!isLoggedIn && !isOnAuth) return '/profile/logout';
     if (isLoggedIn && isOnAuth) return '/home';
- 
+
     return null;
   },
- 
+
   routes: [
     // ── SPLASH ──────────────────────────────────────────────────────────────
     GoRoute(
       path: '/splash',
       builder: (context, state) => const SplashView(),
     ),
- 
+
     // ── ADMIN ────────────────────────────────────────────────────────────────
     GoRoute(
       path: '/admin/:charityId',
@@ -129,9 +131,24 @@ final GoRouter appRouter = GoRouter(
             );
           },
         ),
+
+        // ✅ NEW — Edit Charity route
+        GoRoute(
+          path: 'edit_charity',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) {
+            final charity = state.extra as CharityModel;
+            return BlocProvider(
+              create: (_) => EditCharityCubit(
+                CharityRepo(ApiService(Dio())),
+              ),
+              child: EditCharityPage(charity: charity),
+            );
+          },
+        ),
       ],
     ),
- 
+
     // ── DONOR APP ────────────────────────────────────────────────────────────
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
@@ -181,7 +198,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
- 
+
         // ── CHARITIES ─────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
@@ -212,7 +229,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
- 
+
         // ── CASES ─────────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
@@ -236,7 +253,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
- 
+
         // ── PROFILE ───────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
@@ -274,9 +291,8 @@ final GoRouter appRouter = GoRouter(
                   parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const FavoriteView(),
                 ),
- 
+
                 // ✅ Login + all auth sub-pages use _rootNavigatorKey
-                // so the bottom nav bar is hidden on all of them
                 GoRoute(
                   path: 'logout',
                   parentNavigatorKey: _rootNavigatorKey,
@@ -335,7 +351,7 @@ final GoRouter appRouter = GoRouter(
       ],
     ),
 
-    // أضف ده بره الـ StatefulShellRoute تماماً — في آخر الـ GoRouter routes list
+    // ── STANDALONE DONATION ──────────────────────────────────────────────────
     GoRoute(
       path: '/donation',
       parentNavigatorKey: _rootNavigatorKey,

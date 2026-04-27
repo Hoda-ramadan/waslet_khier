@@ -1,5 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waslet_khier/const.dart';
+import 'package:waslet_khier/core/api/api_service.dart';
+import 'package:waslet_khier/features/charity_feature/data/cubit/charity_deteals_cubit.dart';
+import 'package:waslet_khier/features/charity_feature/data/repo/charity_repo.dart';
 import 'admin_constants.dart';
 import 'views/admin_home_view.dart';
 import 'views/admin_cases_view.dart';
@@ -15,18 +20,18 @@ class AdminMainScreen extends StatefulWidget {
 
 class _AdminMainScreenState extends State<AdminMainScreen> {
   int _currentIndex = 0;
-  late final List<Widget> _screens;
 
-  @override
-  void initState() {
-    super.initState();
-    print('>>> AdminMainScreen charityId: ${widget.charityId}');
-    _screens = [
-      AdminHomeView(charityId: widget.charityId),
-      AdminCasesView(charityId: widget.charityId), // ✅ pass charityId
-      const AdminSettingsView(),
-    ];
-  }
+
+  List<Widget> get _screens => [
+    AdminHomeView(charityId: widget.charityId),
+    AdminCasesView(charityId: widget.charityId),
+    BlocProvider(
+      create: (_) => CharityDetealsCubit(
+        CharityRepo(ApiService(Dio())),
+      ),
+      child: AdminSettingsView(charityId: widget.charityId),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
