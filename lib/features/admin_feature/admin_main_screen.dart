@@ -23,8 +23,8 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
     print('>>> AdminMainScreen charityId: ${widget.charityId}');
     _screens = [
       AdminHomeView(charityId: widget.charityId),
-      AdminCasesView(charityId: widget.charityId), // ✅ pass charityId
-      const AdminSettingsView(),
+      AdminCasesView(charityId: widget.charityId),
+      AdminSettingsView(charityId: widget.charityId),
     ];
   }
 

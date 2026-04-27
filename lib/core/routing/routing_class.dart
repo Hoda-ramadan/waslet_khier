@@ -40,9 +40,9 @@ import 'package:waslet_khier/features/profile_feature/views/widgets/favorite_vie
 import 'package:waslet_khier/features/profile_feature/views/widgets/paymentway_view.dart';
 import 'package:waslet_khier/features/profile_feature/views/widgets/persoinalinfo_view.dart';
 import 'package:waslet_khier/features/splash_feature/views/splash_view.dart';
- 
+
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
- 
+
 CharityModel _toCharity(Object? extra) {
   print('>>> extra type: ${extra?.runtimeType}');
   print('>>> extra value: $extra');
@@ -51,50 +51,47 @@ CharityModel _toCharity(Object? extra) {
     return CharityModel.fromJson(Map<String, dynamic>.from(extra));
   return CharityModel();
 }
- 
+
 CaseModel _toCase(Object? extra) {
   if (extra is CaseModel) return extra;
   if (extra is Map) return CaseModel.fromJson(Map<String, dynamic>.from(extra));
   return CaseModel();
 }
- 
+
 Widget _caseDetailsWithCubit(CaseModel casee) {
   return BlocProvider(
     create: (ctx) => CharityDetealsCubit(CharityRepo(ApiService(Dio()))),
     child: CaseDetatlsVeiw(casee: casee),
   );
 }
- 
+
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/splash',
- 
+
   redirect: (context, state) {
     final auth = Provider.of<AuthProvider_info>(context, listen: false);
     final isLoggedIn = auth.isLoggedIn;
     final loc = state.matchedLocation;
- 
+
     // ✅ Always allow splash through
     if (loc == '/splash') return null;
- 
+
     final isOnAuth =
         loc == '/profile/logout' || loc.startsWith('/profile/logout/');
     final isOnAdmin = loc.startsWith('/admin');
- 
+
     if (isOnAdmin && isLoggedIn) return null;
     if (!isLoggedIn && !isOnAuth) return '/profile/logout';
     if (isLoggedIn && isOnAuth) return '/home';
- 
+
     return null;
   },
- 
+
   routes: [
     // ── SPLASH ──────────────────────────────────────────────────────────────
-    GoRoute(
-      path: '/splash',
-      builder: (context, state) => const SplashView(),
-    ),
- 
+    GoRoute(path: '/splash', builder: (context, state) => const SplashView()),
+
     // ── ADMIN ────────────────────────────────────────────────────────────────
     GoRoute(
       path: '/admin/:charityId',
@@ -129,9 +126,20 @@ final GoRouter appRouter = GoRouter(
             );
           },
         ),
+        GoRoute(
+          path: 'notification',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) {
+            final extra = state.extra as Map<String, dynamic>;
+            return NotificationView(
+              donor: extra['donor'] as DonorModel,
+              token: extra['token'] as String,
+            );
+          },
+        ),
       ],
     ),
- 
+
     // ── DONOR APP ────────────────────────────────────────────────────────────
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
@@ -181,7 +189,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
- 
+
         // ── CHARITIES ─────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
@@ -212,7 +220,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
- 
+
         // ── CASES ─────────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
@@ -236,7 +244,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
- 
+
         // ── PROFILE ───────────────────────────────────────────────────────────
         StatefulShellBranch(
           routes: [
@@ -274,7 +282,7 @@ final GoRouter appRouter = GoRouter(
                   parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => const FavoriteView(),
                 ),
- 
+
                 // ✅ Login + all auth sub-pages use _rootNavigatorKey
                 // so the bottom nav bar is hidden on all of them
                 GoRoute(
@@ -314,8 +322,7 @@ final GoRouter appRouter = GoRouter(
                               path: 'ChangepasswordView',
                               parentNavigatorKey: _rootNavigatorKey,
                               builder: (context, state) {
-                                final cubit =
-                                    state.extra as ResetpasswordCubit;
+                                final cubit = state.extra as ResetpasswordCubit;
                                 return BlocProvider.value(
                                   value: cubit,
                                   child: const ChangepasswordView(),

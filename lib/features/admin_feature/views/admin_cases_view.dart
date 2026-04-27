@@ -24,7 +24,7 @@ class AdminCasesView extends StatelessWidget {
             ..loadCases(charityId),
       child: Scaffold(
         backgroundColor: kAdminBackground,
-        appBar: const AdminHeader(),
+        appBar: AdminHeader(charityId: charityId),
         body: BlocBuilder<AdminCubit, AdminState>(
           builder: (context, state) {
             if (state is AdminCasesLoading) {

@@ -7,7 +7,8 @@ import '../admin_constants.dart';
 import '../widgets/admin_header.dart';
 
 class AdminSettingsView extends StatefulWidget {
-  const AdminSettingsView({super.key});
+  final int charityId;
+  const AdminSettingsView({super.key, required this.charityId});
 
   @override
   State<AdminSettingsView> createState() => _AdminSettingsViewState();
@@ -20,7 +21,7 @@ class _AdminSettingsViewState extends State<AdminSettingsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kAdminBackground,
-      appBar: const AdminHeader(),
+      appBar: AdminHeader(charityId: widget.charityId),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Directionality(
