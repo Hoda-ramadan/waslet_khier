@@ -62,7 +62,7 @@ class _CaseDetalesViewBodyState extends State<CaseDetalesViewBody> {
         ? c.endDate!.difference(DateTime.now()).inDays
         : 0;
 
-    // ✅ الإضافة الوحيدة: BlocListener يسمع لما الـ cases تتحدث
+   
     return BlocListener<FeatchCasessCubitCubit, FeatchCasessCubitState>(
       listener: (context, state) {
         if (state is FeatchCasesCubitSucesses) {

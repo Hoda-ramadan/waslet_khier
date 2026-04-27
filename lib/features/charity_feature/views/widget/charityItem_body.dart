@@ -38,7 +38,7 @@ class charityitem_body extends StatelessWidget {
             const Spacer(),
             IconButton(
               onPressed: () {
-                // ✅ ابعت الـ charity كـ extra
+                
                 context.go("/charities/chaaritedetelies", extra: charityModel);
               },
               icon: Icon(icon, color: color ?? tintAppColor),
