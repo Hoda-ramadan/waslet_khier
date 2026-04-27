@@ -61,7 +61,7 @@ class DonateNowButtom extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
-            fontSize: fontSize-2,
+            fontSize: fontSize,
             fontWeight: FontWeight.w700,
           ),
         ),
