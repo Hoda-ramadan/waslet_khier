@@ -18,6 +18,7 @@ class DonateNowButtom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   if ((caseModel.collectedAmount ?? 0) < (caseModel.targetAmount ?? 0)) {
     return GestureDetector(
       onTap: () {
         context.push("/cases/donation", extra: caseModel);
@@ -41,5 +42,31 @@ class DonateNowButtom extends StatelessWidget {
         ),
       ),
     );
+  }
+  
+  else {
+   return GestureDetector(
+      onTap: () {
+      },
+      child: Container(
+        width: width,
+        height: height,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(217, 50, 159, 79),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(
+      'اكتملت الحاله',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: fontSize-2,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  }
   }
 }
