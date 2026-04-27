@@ -21,7 +21,7 @@ class DonateNowButtom extends StatelessWidget {
    if ((caseModel.collectedAmount ?? 0) < (caseModel.targetAmount ?? 0)) {
     return GestureDetector(
       onTap: () {
-        context.push("/cases/donation", extra: caseModel);
+        context.push("/donation", extra: caseModel); // ✅ مسار مستقل
       },
       child: Container(
         width: width,

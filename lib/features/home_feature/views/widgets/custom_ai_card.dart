@@ -162,7 +162,7 @@ class CustomAiCard extends StatelessWidget {
                 width: 110,
                 height: 34,
                 fontSize: 14,
-                caseModel: CaseModel(),
+                caseModel: aiCasesModel,
               ),
             ],
           ),

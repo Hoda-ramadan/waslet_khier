@@ -93,6 +93,7 @@ flutter:
     - assets/images/Frame 390 (3).png
     - assets/images/amico.png
     - assets/images/Frame 390 (4).png
+    - assets/images/pana.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see
