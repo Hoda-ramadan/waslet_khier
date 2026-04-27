@@ -3,11 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:waslet_khier/const.dart';
 import 'package:waslet_khier/featureAuth/authprovider.dart/authprovider.dart';
+import 'package:waslet_khier/features/charity_feature/data/cubit/charity_deteals_cubit.dart';
+import 'package:waslet_khier/features/charity_feature/data/models/charity_model.dart';
 import '../admin_constants.dart';
 import '../widgets/admin_header.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdminSettingsView extends StatefulWidget {
-  final int charityId;
+  final int charityId; 
   const AdminSettingsView({super.key, required this.charityId});
 
   @override
@@ -16,6 +19,13 @@ class AdminSettingsView extends StatefulWidget {
 
 class _AdminSettingsViewState extends State<AdminSettingsView> {
   bool _notificationsEnabled = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // Load charity data when screen opens
+    context.read<CharityDetealsCubit>().getCharityById(widget.charityId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,66 +41,91 @@ class _AdminSettingsViewState extends State<AdminSettingsView> {
               const SizedBox(height: 10),
 
               // ── Org Logo + Name
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: kAdminCardBg,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: appcolor.withOpacity(0.3),
-                          width: 2,
+              BlocBuilder<CharityDetealsCubit, CharityState>(
+                builder: (context, state) {
+                  final charityName = state is CharityDetailsSuccess
+                      ? (state.charity.name ?? 'مؤسسة حياة كريمة')
+                      : 'مؤسسة حياة كريمة';
+                 
+
+                  return Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: kAdminCardBg,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
                         ),
-                      ),
-                      child: const Icon(
-                        Icons.business_rounded,
-                        color: appcolor,
-                        size: 40,
-                      ),
+                      ],
                     ),
-                    const SizedBox(height: 12),
-                    const Text(
-                      'مؤسسة حياة كريمة',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: kAdminTextDark,
-                      ),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: appcolor.withOpacity(0.3),
+                              width: 2,
+                            ),
+                          ),
+                          child: const Icon(
+                            Icons.business_rounded,
+                            color: appcolor,
+                            size: 40,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          charityName,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: kAdminTextDark,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                       
+                      ],
                     ),
-                    const SizedBox(height: 4),
-                    const Text(
-                      'ترخيص: 14785/2020',
-                      style: TextStyle(fontSize: 12, color: kAdminTextGrey),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
               const SizedBox(height: 16),
 
-              // ── Menu Items
-              _SettingsMenuItem(
-                icon: Icons.description_outlined,
-                label: 'بيانات الجمعية',
-                subtitle: 'السجلات والرخص والمعلومات',
-                onTap: () {},
+              // ── بيانات الجمعية — navigates to EditCharityPage
+              BlocBuilder<CharityDetealsCubit, CharityState>(
+                builder: (context, state) {
+                  return _SettingsMenuItem(
+                    icon: Icons.description_outlined,
+                    label: 'بيانات الجمعية',
+                    subtitle: 'السجلات والرخص والمعلومات',
+                    onTap: () {
+                      if (state is CharityDetailsSuccess) {
+                        // ✅ Navigate using GoRouter with charity as extra
+                        context.go(
+                          '/admin/${widget.charityId}/edit_charity',
+                          extra: state.charity,
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('جاري تحميل بيانات الجمعية...'),
+                          ),
+                        );
+                      }
+                    },
+                  );
+                },
               ),
               const SizedBox(height: 10),
+
               _SettingsMenuItem(
                 icon: Icons.credit_card_rounded,
                 label: 'طرق التبرع',
@@ -153,7 +188,7 @@ class _AdminSettingsViewState extends State<AdminSettingsView> {
               ),
               const SizedBox(height: 16),
 
-              // ── Logout Button
+              // ── Logout
               SizedBox(
                 width: double.infinity,
                 height: 50,
@@ -171,11 +206,8 @@ class _AdminSettingsViewState extends State<AdminSettingsView> {
                       borderRadius: BorderRadius.circular(14),
                     ),
                   ),
-                  icon: const Icon(
-                    Icons.logout_rounded,
-                    color: kAdminRed,
-                    size: 20,
-                  ),
+                  icon: const Icon(Icons.logout_rounded,
+                      color: kAdminRed, size: 20),
                   label: const Text(
                     'تسجيل خروج',
                     style: TextStyle(
@@ -195,6 +227,7 @@ class _AdminSettingsViewState extends State<AdminSettingsView> {
   }
 }
 
+// _SettingsMenuItem stays exactly the same — no changes needed
 class _SettingsMenuItem extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -219,9 +252,7 @@ class _SettingsMenuItem extends StatelessWidget {
         decoration: BoxDecoration(
           color: kAdminCardBg,
           borderRadius: BorderRadius.circular(14),
-          border: isHighlighted
-              ? Border.all(color: appcolor, width: 1.5)
-              : null,
+          border: isHighlighted ? Border.all(color: appcolor, width: 1.5) : null,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.05),
@@ -246,17 +277,18 @@ class _SettingsMenuItem extends StatelessWidget {
                   ),
                 ),
                 if (subtitle != null)
-                  Text(
-                    subtitle!,
-                    style: const TextStyle(fontSize: 11, color: kAdminTextGrey),
-                  ),
+                  Text(subtitle!,
+                      style: const TextStyle(
+                          fontSize: 11, color: kAdminTextGrey)),
               ],
             ),
             const SizedBox(width: 12),
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: isHighlighted ? appcolor.withOpacity(0.1) : Colors.white,
+                color: isHighlighted
+                    ? appcolor.withOpacity(0.1)
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(icon, color: appcolor, size: 20),

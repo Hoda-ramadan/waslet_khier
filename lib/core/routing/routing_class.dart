@@ -16,9 +16,11 @@ import 'package:waslet_khier/featureAuth/create_acc/create_acc_view.dart';
 import 'package:waslet_khier/features/Donation_feature/views/donation_view%20(1).dart';
 import 'package:waslet_khier/features/admin_feature/admin_main_screen.dart';
 import 'package:waslet_khier/features/admin_feature/data/admin_case_model.dart';
+import 'package:waslet_khier/features/admin_feature/data/cubit/update_charity_details_cubit.dart';
 import 'package:waslet_khier/features/admin_feature/views/admin_case_details_view.dart';
 import 'package:waslet_khier/features/admin_feature/views/admin_edit_case.dart';
 import 'package:waslet_khier/features/admin_feature/widgets/notificationviewadmain.dart';
+import 'package:waslet_khier/features/admin_feature/views/edit_charity_veiw.dart';
 import 'package:waslet_khier/features/cases_feature/data/models/caseModeljson/case_model/case_model.dart';
 import 'package:waslet_khier/features/cases_feature/views/case_detatls_veiw.dart';
 import 'package:waslet_khier/features/cases_feature/views/cases_view.dart';
@@ -127,12 +129,17 @@ final GoRouter appRouter = GoRouter(
             );
           },
         ),
+
+        // ✅ NEW — Edit Charity route
         GoRoute(
-          path: 'notification',
+          path: 'edit_charity',
           parentNavigatorKey: _rootNavigatorKey,
           builder: (context, state) {
-            final token = state.extra as String; // ✅ String مش Map
-            return NotificationViewAdmin(token: token);
+            final charity = state.extra as CharityModel;
+            return BlocProvider(
+              create: (_) => EditCharityCubit(CharityRepo(ApiService(Dio()))),
+              child: EditCharityPage(charity: charity),
+            );
           },
         ),
       ],
@@ -282,7 +289,6 @@ final GoRouter appRouter = GoRouter(
                 ),
 
                 // ✅ Login + all auth sub-pages use _rootNavigatorKey
-                // so the bottom nav bar is hidden on all of them
                 GoRoute(
                   path: 'logout',
                   parentNavigatorKey: _rootNavigatorKey,
@@ -340,7 +346,7 @@ final GoRouter appRouter = GoRouter(
       ],
     ),
 
-    // أضف ده بره الـ StatefulShellRoute تماماً — في آخر الـ GoRouter routes list
+    // ── STANDALONE DONATION ──────────────────────────────────────────────────
     GoRoute(
       path: '/donation',
       parentNavigatorKey: _rootNavigatorKey,
